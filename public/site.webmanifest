@@ -1,0 +1,8 @@
+{
+  "name": "Rental location",
+  "short_name": "Rental",
+  "icons": [],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

@@ -5,5 +5,6 @@
 export const Colors = {
   primary: "#03ba99",
   secondary: "#e67300",
+  grayScale: "#64748B",
   transparent: "transparent",
 };

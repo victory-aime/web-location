@@ -25,17 +25,7 @@ import { useRouter } from "next/navigation";
 const LoginComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      setLoading(true);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeOut);
-    };
-  }, []);
+  const [loading, setLoading] = useState<boolean>(true);
 
   return (
     <>

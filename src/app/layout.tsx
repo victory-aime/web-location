@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import { Provider } from "_/components/ui/provider";
 import "./globals.css";
 import { ColorModeProvider } from "_components/ui/color-mode";
+import Layout from "./layout/Layout";
+import ProtectedRoute from "./layout/protected/ProtectedRoute";
 
 const poppins = Poppins({
   weight: ["400", "900"],
@@ -25,7 +27,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable}`}>
         <Provider>
-          <ColorModeProvider>{children}</ColorModeProvider>
+          <ColorModeProvider>
+            <ProtectedRoute>{children}</ProtectedRoute>
+          </ColorModeProvider>
         </Provider>
       </body>
     </html>

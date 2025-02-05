@@ -7,6 +7,8 @@ export const APP_ROUTES = {
     SIGN_IN: "/auth/login",
   },
   PRIVATE: {
-    DASH: "/private",
+    HOME: "/",
+    DASH: "/private/dashboard",
+    TEST: "/private/test",
   },
 };
