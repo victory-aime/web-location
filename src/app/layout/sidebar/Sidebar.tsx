@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { APP_ROUTES } from "_app/config/routes";
 import { HomeIcon, LogOutIcon } from "_assets/svg";
-import { Colors } from "_/theme/variables";
+import { VariablesColors } from "_/theme/variables";
 
 const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle, toggledTextStyles } = useSideBarStyle({
@@ -60,7 +60,11 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
           height="100%"
           ps={{ base: "0", md: "20px" }}
         >
-          <LogOutIcon width="18px" height="18px" fill={Colors.grayScale} />
+          <LogOutIcon
+            width="18px"
+            height="18px"
+            fill={VariablesColors.grayScale}
+          />
           <Text
             display={
               sideToggled ? { base: "none", lg: "block" } : { lg: "none" }

@@ -5,6 +5,8 @@ type ColorShades = {
 export type Colors = {
   primary: ColorShades;
   secondary: ColorShades;
+  blue: ColorShades;
+  red: ColorShades;
   overlay: ColorShades;
 };
 
@@ -33,6 +35,10 @@ const colors: Colors = {
     800: { value: "#4f2500" },
     900: { value: "#200b00" },
   },
+  red: {
+    500: { value: "#ec2f4e" },
+  },
+  blue: { 500: { value: "#3b82f6" } },
   overlay: {
     500: { value: "#000000" },
   },

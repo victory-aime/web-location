@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 import { hexToRGB } from "_theme/colors";
 import { subItems } from "../types";
 import useIsActive from "./useIsActive";
-import { Colors } from "_theme/variables";
+import { VariablesColors } from "_theme/variables";
 
 interface UseSideBarStyleProps {
   sideToggled: boolean;
@@ -79,7 +79,8 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
   );
   // Utilisation de useCallback pour définir le style
   const setMenuItemPointStyle = useCallback(
-    (link: string) => (isActiveLink(link) ? Colors.primary : Colors.grayScale),
+    (link: string) =>
+      isActiveLink(link) ? VariablesColors.primary : VariablesColors.grayScale,
     [pathname]
   );
   const toggledTextStyles = useMemo(

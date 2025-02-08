@@ -2,7 +2,7 @@ import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { ILink } from "../types";
 import { FC, useCallback } from "react";
 import useSideBarStyle from "../hooks/useSideBarStyle";
-import { Colors } from "_theme/variables";
+import { VariablesColors } from "_theme/variables";
 import { hexToRGB } from "_theme/colors";
 
 interface SubMenuProps {
@@ -86,8 +86,8 @@ const SubMenu: FC<SubMenuProps> = ({
               height="18px"
               fill={
                 isActiveLink(link.path ?? "")
-                  ? Colors.primary
-                  : Colors.grayScale
+                  ? VariablesColors.primary
+                  : VariablesColors.grayScale
               }
             />
           )}

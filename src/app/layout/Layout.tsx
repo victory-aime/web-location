@@ -68,7 +68,7 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
       />
       <Box {...toggledLayoutStyle}>
         <Header showSidebarButton onShowSidebar={toggleSidebar} />
-        <Container sideToggled={isSidebarOpen}>{children}</Container>
+        <Container>{children}</Container>
       </Box>
       <Footer />
     </Box>

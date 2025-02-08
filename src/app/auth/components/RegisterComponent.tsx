@@ -14,7 +14,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { Checkbox } from "_/components/ui/checkbox";
 import { Field } from "_/components/ui/field";
-import { Colors } from "_/theme/variables";
+import { VariablesColors } from "_/theme/variables";
 import Link from "next/link";
 
 const RegisterComponent = () => {
@@ -55,7 +55,9 @@ const RegisterComponent = () => {
         <Text>
           Already registered yet?{" "}
           <Link href={APP_ROUTES.PUBLIC.SIGN_IN}>
-            <span style={{ color: Colors.primary, fontWeight: "bold" }}>
+            <span
+              style={{ color: VariablesColors.primary, fontWeight: "bold" }}
+            >
               Log in
             </span>
           </Link>

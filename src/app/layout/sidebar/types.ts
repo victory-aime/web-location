@@ -17,11 +17,6 @@ export interface SideBarProps {
   sideToggled: boolean;
 }
 
-export interface RightMenuProps {
-  sideToggled: boolean;
-  children?: React.ReactNode;
-}
-
 export interface SimpleSubItem {
   label: string;
   path: string;

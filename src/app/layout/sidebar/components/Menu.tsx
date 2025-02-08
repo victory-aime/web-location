@@ -3,7 +3,7 @@ import { FC, memo } from "react";
 import useIsActive from "../hooks/useIsActive";
 import useSideBarStyle from "../hooks/useSideBarStyle";
 import { ILink } from "../types";
-import { Colors } from "_theme/variables";
+import { VariablesColors } from "_theme/variables";
 import { hexToRGB } from "_theme/colors";
 import { ArrowDown } from "_assets/svg";
 interface MenuProps {
@@ -79,8 +79,8 @@ const Menu: FC<MenuProps> = ({
             fill={
               itHasActiveChildLink(link.subItems) ||
               isActiveLink(link.path ?? "")
-                ? Colors.primary
-                : Colors.grayScale
+                ? VariablesColors.primary
+                : VariablesColors.grayScale
             }
           />
         </Box>
@@ -105,7 +105,11 @@ const Menu: FC<MenuProps> = ({
                 : ""
             }
           >
-            <ArrowDown width="18px" height="18px" fill={Colors.grayScale} />
+            <ArrowDown
+              width="18px"
+              height="18px"
+              fill={VariablesColors.grayScale}
+            />
           </Box>
         ) : null}
       </Flex>

@@ -15,7 +15,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { Checkbox } from "_/components/ui/checkbox";
 import { Field } from "_/components/ui/field";
-import { Colors } from "_/theme/variables";
+import { VariablesColors } from "_/theme/variables";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { GrGoogle } from "react-icons/gr";
@@ -100,7 +100,9 @@ const LoginComponent = () => {
           <Text>
             Not registered yet?{" "}
             <Link href={APP_ROUTES.PUBLIC.SIGN_UP}>
-              <span style={{ color: Colors.primary, fontWeight: "bold" }}>
+              <span
+                style={{ color: VariablesColors.primary, fontWeight: "bold" }}
+              >
                 Create an account
               </span>
             </Link>

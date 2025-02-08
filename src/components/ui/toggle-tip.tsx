@@ -47,7 +47,7 @@ export const ToggleTip = React.forwardRef<HTMLDivElement, ToggleTipProps>(
         </Portal>
       </ChakraPopover.Root>
     );
-  },
+  }
 );
 
 export const InfoTip = React.forwardRef<
@@ -60,7 +60,7 @@ export const InfoTip = React.forwardRef<
       <IconButton
         variant="ghost"
         aria-label="info"
-        size="2xs"
+        size={rest.size}
         colorPalette="gray"
       >
         <HiOutlineInformationCircle />

@@ -1,10 +1,8 @@
 import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { Suspense, useEffect, useRef } from "react";
-import { RightMenuProps } from "../sidebar/types";
 import { usePathname } from "next/navigation";
-import { APP_ROUTES } from "_app/config/routes";
 
-const Container = ({ sideToggled = true, children }: RightMenuProps) => {
+const Container = ({ children }: { children: React.ReactNode }) => {
   const containerRef = useRef<any>(null);
   const pathname = usePathname();
   /**
@@ -41,13 +39,6 @@ const Container = ({ sideToggled = true, children }: RightMenuProps) => {
             pe={{ base: 5, md: "33px" }}
             pb={{ base: "1rem", xl: "4rem" }}
             flex={1}
-            me={{
-              base: 0,
-              lg:
-                sideToggled && pathname === APP_ROUTES.PRIVATE.DASH
-                  ? "280px"
-                  : "0",
-            }}
           >
             <Suspense fallback={<Spinner />}>{children}</Suspense>
           </Box>
