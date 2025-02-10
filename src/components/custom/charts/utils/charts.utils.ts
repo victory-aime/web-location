@@ -1,18 +1,18 @@
 type ObjectItem = {
-  date: string;
+  labels: string;
   values: {
     [key: string]: number;
   };
 };
 export const extractArrays = (
   data: ObjectItem[]
-): { date: string[]; values: { [key: string]: number[] } } => {
+): { labels: string[]; values: { [key: string]: number[] } } => {
   const result: {
-    date: string[];
+    labels: string[];
     values: { [key: string]: number[] };
     maxValues: { [key: string]: number };
   } = {
-    date: [],
+    labels: [],
     values: {},
     maxValues: {},
   };
@@ -26,7 +26,7 @@ export const extractArrays = (
   // Extract all unique keys in values
   const allKeys = new Set<string>();
   data?.forEach((item) => {
-    result.date.push(item.date);
+    result.labels.push(item.labels);
     Object?.keys(item.values).forEach((key) => allKeys.add(key));
   });
 

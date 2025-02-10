@@ -5,10 +5,7 @@ import { IoIosPaper } from "react-icons/io";
 import React, { useState } from "react";
 import { BoxIcon } from "./BoxIcon";
 import { CustomTable } from "_components/custom/data-table/CommonDataTable";
-
-const handleEdit = (id: number) => console.log("Modifier :", id);
-const handleDelete = (id: number) => console.log("Supprimer :", id);
-const handleDetails = (id: number) => console.log("Détails :", id);
+import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 
 const items = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -23,10 +20,40 @@ const items = Array.from({ length: 20 }, (_, i) => ({
   price: (Math.random() * 1000).toFixed(2),
 }));
 
+const columns: ColumnsDataTable[] = [
+  { header: "", accessor: "select" },
+  { header: "Nom", accessor: "name" },
+  { header: "Catégorie", accessor: "category" },
+  {
+    header: "Prix",
+    accessor: "price",
+  },
+  {
+    header: "Actions",
+    accessor: "actions",
+    actions: [
+      {
+        name: "edit",
+        title: "edit les value",
+        handleClick: (value) => console.log("value clicked", value),
+      },
+      {
+        name: "view",
+        handleClick: (value) => console.log("value clicked", value),
+      },
+      {
+        name: "delete",
+        handleClick: (value) => console.log("value clicked", value),
+      },
+    ],
+  },
+];
+
 export const CommandTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
   const totalPages = Math.ceil(items.length / pageSize);
+  const [selectedRows, setSelectedRows] = useState<any>([]);
 
   return (
     <BoxContainer>
@@ -39,14 +66,12 @@ export const CommandTable = () => {
       <Box p={2} w={"full"} mt={8}>
         <CustomTable
           data={items}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onDetails={handleDetails}
+          columns={columns}
           initialPage={currentPage}
           totalItems={totalPages}
           pageSize={pageSize}
+          handleRowSelection={setSelectedRows}
           lazy
-          isShow={{ edit: true, delete: true, details: true }}
         />
       </Box>
     </BoxContainer>

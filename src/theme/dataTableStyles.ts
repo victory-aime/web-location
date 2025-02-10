@@ -3,7 +3,7 @@ const scrollbarStyle = {
     width: "5px",
     height: "5px",
   },
-  "::-webkit-scrollbar-thumb": {
+  "::-WebkitScrollbarThumb": {
     background: "#1A3C8A",
     backgroundClip: "padding-box",
     borderRadius: "9999px",

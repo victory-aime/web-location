@@ -42,27 +42,27 @@ const statData = [
   },
 ];
 
-  const formated = () => {
-    return Weeklys().map((month) => ({
-      month,
-      values: {
-        EXPECTED_AMOUNT: Math.floor(Math.random() * 10000) + 500,
-        RECEIVED_AMOUNT: Math.floor(Math.random() * 8000) + 200,
-      },
-    }));
-  };
+const formated = () => {
+  return Weeklys().map((month) => ({
+    month,
+    values: {
+      EXPECTED_AMOUNT: Math.floor(Math.random() * 10000) + 500,
+      RECEIVED_AMOUNT: Math.floor(Math.random() * 8000) + 200,
+    },
+  }));
+};
 
-  const barChartData = formated()?.map(
-    (item: {
-      month: string;
-      values: { EXPECTED_AMOUNT: number; RECEIVED_AMOUNT: number };
-    }) => ({
-      date: item?.month,
-      values: {
-        EXPECTED_AMOUNT: item.values.EXPECTED_AMOUNT,
-        RECEIVED_AMOUNT: item.values.RECEIVED_AMOUNT,
-      },
-    })
-  );
+const barChartData = formated()?.map(
+  (item: {
+    month: string;
+    values: { EXPECTED_AMOUNT: number; RECEIVED_AMOUNT: number };
+  }) => ({
+    labels: item?.month,
+    values: {
+      EXPECTED_AMOUNT: item.values.EXPECTED_AMOUNT,
+      RECEIVED_AMOUNT: item.values.RECEIVED_AMOUNT,
+    },
+  })
+);
 
 export { statData, barChartData };

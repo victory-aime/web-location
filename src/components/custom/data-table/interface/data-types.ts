@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 interface ActionProps<T = any> {
   name: string | ((data: T) => string); // Nom ou fonction retournant un nom dynamique
   title?: string; // Titre de l'action pour affichage (ex. Tooltip)
@@ -5,6 +7,19 @@ interface ActionProps<T = any> {
   isDisabled?: (data: T) => boolean; // Désactive l'action selon certaines conditions
   isShown?: boolean | ((data: T) => boolean); // Détermine si l'action doit être affichée
   isChecked?: (data: T) => boolean; // Indique si l'action a un état de sélection
+}
+
+interface ActionButtonsProps<T> {
+  actions: ActionProps<T>[];
+  item: T;
+}
+
+interface ColumnsDataTable {
+  header: string;
+  accessor: string | "fullObject";
+  cell?: (x?: any) => JSX.Element | string | Date | undefined;
+  actions?: ActionProps[]; // For multiple actions
+  disabled?: (data?: any) => boolean;
 }
 
 interface PaginationProps {
@@ -16,4 +31,37 @@ interface PaginationProps {
   onLazyLoad?: (index: number) => void;
 }
 
-export type { ActionProps, PaginationProps };
+interface ColumnsDataTable {
+  header: string;
+  accessor: string | "fullObject";
+  cell?: (x?: any) => JSX.Element | string | Date | undefined;
+  disabled?: (data?: any) => boolean;
+}
+
+interface TableProps {
+  data: any[];
+  columns: ColumnsDataTable[];
+  totalItems?: number;
+  initialPage?: number;
+  minH?: number | string;
+  page?: number;
+  pageSize?: number;
+  lazy?: boolean;
+  handleRowSelection?: (item: any) => void;
+  enabledSort?: boolean;
+  hidePagination?: boolean;
+  isLoading?: boolean;
+  isShow?: {
+    edit?: boolean;
+    delete?: boolean;
+    details?: boolean;
+  };
+}
+
+export type {
+  ActionProps,
+  PaginationProps,
+  ColumnsDataTable,
+  TableProps,
+  ActionButtonsProps,
+};

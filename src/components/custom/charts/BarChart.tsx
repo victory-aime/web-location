@@ -34,7 +34,7 @@ ChartJS.register(
 );
 
 type FormatData = {
-  date: string[];
+  labels: string[];
   values: Record<string, number[]>;
   maxValues?: Record<string, number>;
 };
@@ -43,7 +43,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
 
   const [formatData, setFormatData] = useState<FormatData>({
-    date: [],
+    labels: [],
     values: {},
   });
 
@@ -58,7 +58,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
   };
 
   const data: ChartData<"bar"> = {
-    labels: getTranslatedLabel(formatData.date),
+    labels: getTranslatedLabel(formatData.labels),
     datasets: Object.keys(formatData.values).map((key, index) => ({
       label: "BAR_CHART." + key.toUpperCase(),
       data: formatData.values[key],

@@ -1,7 +1,6 @@
-import { Button, Center, HStack, Spinner, Table } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Button, Center, Spinner, Table } from "@chakra-ui/react";
+import React, { useEffect, useState, FC } from "react";
 import { Checkbox } from "_components/ui/checkbox";
-import { BaseButton } from "_components/custom/button";
 import {
   ActionBarRoot,
   ActionBarContent,
@@ -10,40 +9,16 @@ import {
 } from "_components/ui/action-bar";
 import NoDataFound from "../no-data-found/NoDataFound";
 import PaginationDataTable from "./components/PaginationDataTable";
+import { TableProps } from "./interface/data-types";
+import { ActionButtons } from "./ActionButtons";
 
-interface TableProps {
-  data: any[];
-  actions?: boolean;
-  onEdit?: (id: number) => void;
-  onDelete?: (id: number) => void;
-  onDetails?: (id: number) => void;
-  totalItems?: number;
-  initialPage?: number;
-  minH?: number | string;
-  page?: number;
-  pageSize?: number;
-  lazy?: boolean;
-  handleRowSelection?: (item: any) => void;
-  enabledSort?: boolean;
-  hidePagination?: boolean;
-  isLoading?: boolean;
-  isShow?: {
-    edit?: boolean;
-    delete?: boolean;
-    details?: boolean;
-  };
-}
-
-export const CustomTable: React.FC<TableProps> = ({
+export const CustomTable: FC<TableProps> = ({
   data,
-  actions = true,
-  onEdit,
-  onDelete,
-  onDetails,
+  columns,
   handleRowSelection,
+  minH = "10rem",
   hidePagination = false,
   isLoading,
-  isShow = { edit: true, delete: true, details: true },
   totalItems,
   initialPage = 1,
   pageSize = 5,
@@ -52,7 +27,7 @@ export const CustomTable: React.FC<TableProps> = ({
   const [selection, setSelection] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [sortConfig, setSortConfig] = useState<{
-    key: keyof any;
+    key: string;
     direction: "asc" | "desc";
   } | null>(null);
 
@@ -81,126 +56,85 @@ export const CustomTable: React.FC<TableProps> = ({
   };
 
   useEffect(() => {
-    handleRowSelection?.(Object.values(selection));
+    handleRowSelection?.(data.filter((item) => selection.includes(item.id)));
   }, [selection]);
 
   if (isLoading) {
     return (
-      <Center minH="30rem">
+      <Center minH="15rem">
         <Spinner />
       </Center>
     );
   }
 
-  if (data?.length === 0) {
+  if (data.length === 0) {
     return <NoDataFound />;
   }
 
   return (
     <>
-      <Table.Root>
+      <Table.Root minH={minH}>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader>
-              <Checkbox
-                aria-label="Select all rows"
-                checked={indeterminate ? "indeterminate" : selection.length > 0}
-                onCheckedChange={(changes) =>
-                  handleSelectAll(!!changes.checked)
+            {columns.map((col) => (
+              <Table.ColumnHeader
+                key={col.accessor.toString()}
+                p={2}
+                onClick={() =>
+                  col.accessor !== "select" &&
+                  setSortConfig({
+                    key: col.accessor.toString(),
+                    direction: sortConfig?.direction === "asc" ? "desc" : "asc",
+                  })
                 }
-              />
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              onClick={() =>
-                setSortConfig({
-                  key: "name",
-                  direction: sortConfig?.direction === "asc" ? "desc" : "asc",
-                })
-              }
-            >
-              Product{" "}
-              {sortConfig?.key === "name" &&
-                (sortConfig.direction === "asc" ? "⬆" : "⬇")}
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              onClick={() =>
-                setSortConfig({
-                  key: "category",
-                  direction: sortConfig?.direction === "asc" ? "desc" : "asc",
-                })
-              }
-            >
-              Category{" "}
-              {sortConfig?.key === "category" &&
-                (sortConfig.direction === "asc" ? "⬆" : "⬇")}
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              onClick={() =>
-                setSortConfig({
-                  key: "price",
-                  direction: sortConfig?.direction === "asc" ? "desc" : "asc",
-                })
-              }
-            >
-              Price{" "}
-              {sortConfig?.key === "price" &&
-                (sortConfig.direction === "asc" ? "⬆" : "⬇")}
-            </Table.ColumnHeader>
-            {actions && <Table.ColumnHeader>Actions</Table.ColumnHeader>}
+              >
+                {col.accessor === "select" ? (
+                  <Checkbox
+                    aria-label="Select all rows"
+                    checked={
+                      indeterminate ? "indeterminate" : selection.length > 0
+                    }
+                    onCheckedChange={(changes) =>
+                      handleSelectAll(!!changes.checked)
+                    }
+                  />
+                ) : (
+                  <>
+                    {col.header}{" "}
+                    {sortConfig?.key === col.accessor &&
+                      (sortConfig.direction === "asc" ? "⬆" : "⬇")}
+                  </>
+                )}
+              </Table.ColumnHeader>
+            ))}
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {paginatedItems.map((item) => (
             <Table.Row key={item.id}>
-              <Table.Cell>
-                <Checkbox
-                  aria-label="Select item"
-                  checked={selection.includes(item.id)}
-                  onCheckedChange={(changes) => {
-                    setSelection((prev) =>
-                      changes.checked
-                        ? [...prev, item.id]
-                        : prev.filter((id) => id !== item.id)
-                    );
-                  }}
-                />
-              </Table.Cell>
-              <Table.Cell>{item.name}</Table.Cell>
-              <Table.Cell>{item.category}</Table.Cell>
-              <Table.Cell>${item.price}</Table.Cell>
-              {actions && (
-                <Table.Cell>
-                  <HStack gap={2}>
-                    {isShow.details && (
-                      <BaseButton
-                        colorType="primary"
-                        size="sm"
-                        onClick={() => onDetails?.(item.id)}
-                      >
-                        Details
-                      </BaseButton>
-                    )}
-                    {isShow.edit && (
-                      <BaseButton
-                        colorType="warning"
-                        size="sm"
-                        onClick={() => onEdit?.(item.id)}
-                      >
-                        Modifier
-                      </BaseButton>
-                    )}
-                    {isShow.delete && (
-                      <BaseButton
-                        colorType="danger"
-                        size="sm"
-                        onClick={() => onDelete?.(item.id)}
-                      >
-                        Supprimer
-                      </BaseButton>
-                    )}
-                  </HStack>
+              {columns.map((col) => (
+                <Table.Cell p={2} key={col.accessor.toString()}>
+                  {col.accessor === "select" ? (
+                    <Checkbox
+                      aria-label="Select item"
+                      checked={selection.includes(item.id)}
+                      onCheckedChange={(changes) => {
+                        setSelection((prev) =>
+                          changes.checked
+                            ? [...prev, item.id]
+                            : prev.filter((id) => id !== item.id)
+                        );
+                      }}
+                    />
+                  ) : col.accessor === "actions" && col.actions ? (
+                    <ActionButtons actions={col?.actions} item={item} />
+                  ) : col.cell ? (
+                    col.cell(item[col.accessor])
+                  ) : (
+                    item[col.accessor]
+                  )}
                 </Table.Cell>
-              )}
+              ))}
             </Table.Row>
           ))}
         </Table.Body>
@@ -209,7 +143,7 @@ export const CustomTable: React.FC<TableProps> = ({
       <ActionBarRoot open={hasSelection}>
         <ActionBarContent>
           <ActionBarSelectionTrigger>
-            {selection.length} selected
+            {selection.length} sélectionné(s)
           </ActionBarSelectionTrigger>
           <ActionBarSeparator />
           <Button variant="outline" size="sm">
@@ -220,6 +154,7 @@ export const CustomTable: React.FC<TableProps> = ({
           </Button>
         </ActionBarContent>
       </ActionBarRoot>
+
       {!hidePagination && (
         <PaginationDataTable
           table={{ setPageIndex: (index: number) => setCurrentPage(index + 1) }}
