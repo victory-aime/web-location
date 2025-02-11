@@ -15,8 +15,8 @@ const Container = ({ children }: { children: React.ReactNode }) => {
   return (
     <Flex
       ref={containerRef}
-      background={"transparent "}
-      maxHeight={{ base: "calc(100vh - 165px)", md: "calc(100vh - 135px)" }}
+      width={"full"}
+      maxHeight={"100%"}
       position={"relative"}
       overflowX={"hidden"}
       overflowY={"auto"}

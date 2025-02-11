@@ -1,6 +1,17 @@
 import { ReviewStats } from "./ReviewStats";
 import { WeeklyDepenses } from "./WeeklyDepenses";
-import { CommandTable } from "./CommandTable";
-import {BoxIcon} from "./BoxIcon";
+import { ListOrders } from "./ListOrder";
+import { RecentOrders } from "./RecentOrders";
+import { MonthlyIncomes } from "./MonthlyIncomes";
+import { TopProducts } from "./TopProducts";
+import { TopCategory } from "./TopCategory";
 
-export { ReviewStats, BoxIcon, WeeklyDepenses, CommandTable };
+export {
+  ReviewStats,
+  WeeklyDepenses,
+  ListOrders,
+  RecentOrders,
+  MonthlyIncomes,
+  TopProducts,
+  TopCategory,
+};

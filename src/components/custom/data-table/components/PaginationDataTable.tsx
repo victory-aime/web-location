@@ -90,7 +90,7 @@ const PaginationDataTable: FC<PaginationProps> = ({
 
   return (
     <Flex alignItems="center" justifyContent={"space-between"} w="full" mt={8}>
-      <Flex wrap="wrap">
+      <Flex width={"full"}>
         <PaginationRoot
           count={(totalItems && totalItems) || 0}
           pageSize={pageSize}
@@ -111,24 +111,27 @@ const PaginationDataTable: FC<PaginationProps> = ({
           <PaginationNextTrigger onClick={getNextPage} />
         </PaginationRoot>
       </Flex>
-      <Flex alignItems={"center"} justifyContent={"center"} gap={5}>
-        <Flex alignItems={"center"} justifyContent={"center"} gap={2}>
-          <Text>Go to Page</Text>
-          <Input
-            type="number"
-            min={currentPage}
-            max={pageSize}
-            value={inputPageValue}
-            onChange={handleInputChange}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleGoToPage();
-              }
-            }}
-            p={"10px"}
-            width={"50px"}
-          />
-        </Flex>
+      <Flex
+        width={"full"}
+        alignItems={"center"}
+        justifyContent={"flex-end"}
+        gap={4}
+      >
+        <Text>Go to Page</Text>
+        <Input
+          type="number"
+          min={currentPage}
+          max={pageSize}
+          value={inputPageValue}
+          onChange={handleInputChange}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleGoToPage();
+            }
+          }}
+          p={"10px"}
+          width={"50px"}
+        />
       </Flex>
     </Flex>
   );

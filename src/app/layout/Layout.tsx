@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { FunctionComponent, useMemo, useState } from "react";
 
 import Container from "./container";
@@ -33,39 +33,10 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
           },
     [isSidebarOpen]
   );
-  const toggledOverlayStyle: BoxProps = useMemo(
-    () =>
-      isSidebarOpen
-        ? {
-            display: "none",
-            w: "0",
-            h: "0",
-            bg: "rgba(0,0,0,0.5)",
-            position: "fixed",
-            insetStart: 0,
-            top: 0,
-            zIndex: 0,
-          }
-        : {
-            display: { base: "block", md: "none", lg: "none" },
-            w: "100%",
-            h: "100%",
-            bg: "rgba(0,0,0,0.5)",
-            position: "fixed",
-            insetStart: 0,
-            top: 0,
-            zIndex: 9,
-          },
-    [isSidebarOpen]
-  );
 
   return (
     <Box>
       <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} />
-      <Box
-        onClick={() => setSidebarOpen(!isSidebarOpen)}
-        {...toggledOverlayStyle}
-      />
       <Box {...toggledLayoutStyle}>
         <Header showSidebarButton onShowSidebar={toggleSidebar} />
         <Container>{children}</Container>

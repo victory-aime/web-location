@@ -65,4 +65,41 @@ const barChartData = formated()?.map(
   })
 );
 
-export { statData, barChartData };
+const ordersData = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
+  name: `Item ${i + 1}`,
+  category: [
+    "Electronics",
+    "Home Appliances",
+    "Furniture",
+    "Clothing",
+    "Accessories",
+  ][i % 5],
+  price: (Math.random() * 1000).toFixed(2),
+}));
+
+const recentOrdersData = Array.from({ length: 5 }, (_, i) => ({
+  id: i + 1,
+  name: `Command ${i + 1}`,
+  category: [
+    "Electronics",
+    "Home Appliances",
+    "Furniture",
+    "Clothing",
+    "Accessories",
+  ][i % 5],
+  status: ["NEW", "IN_PROGRESS", "DONE", "REJECTED"][i % 5],
+  price: (Math.random() * 1000).toFixed(2),
+}));
+
+const totalRecentOrders = {
+  orders: 5,
+  ordersTable: recentOrdersData,
+};
+
+const totalOrders = {
+  orders: 20,
+  ordersTable: ordersData,
+};
+
+export { statData, barChartData, totalOrders, totalRecentOrders };

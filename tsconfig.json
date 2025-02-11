@@ -20,6 +20,7 @@
     ],
     "paths": {
       "_/*": ["./src/*"],
+      "_lottie/*": ["./public/lottie/*"],
       "_assets/*": ["./public/assets/*"],
       "_app/*": ["./src/app/*"],
       "_theme/*": ["./src/theme/*"],

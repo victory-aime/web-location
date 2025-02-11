@@ -1,4 +1,4 @@
-import { Button, Center, Spinner, Table } from "@chakra-ui/react";
+import { Box, Button, Center, Spinner, Table } from "@chakra-ui/react";
 import React, { useEffect, useState, FC } from "react";
 import { Checkbox } from "_components/ui/checkbox";
 import {
@@ -12,7 +12,7 @@ import PaginationDataTable from "./components/PaginationDataTable";
 import { TableProps } from "./interface/data-types";
 import { ActionButtons } from "./ActionButtons";
 
-export const CustomTable: FC<TableProps> = ({
+export const CommonDataTable: FC<TableProps> = ({
   data,
   columns,
   handleRowSelection,
@@ -72,12 +72,13 @@ export const CustomTable: FC<TableProps> = ({
   }
 
   return (
-    <>
+    <Box overflowX={"auto"} width={"full"}>
       <Table.Root minH={minH}>
         <Table.Header>
           <Table.Row>
             {columns.map((col) => (
               <Table.ColumnHeader
+                minW={col.accessor !== "select" ? "120px" : "0"}
                 key={col.accessor.toString()}
                 p={2}
                 onClick={() =>
@@ -113,7 +114,11 @@ export const CustomTable: FC<TableProps> = ({
           {paginatedItems.map((item) => (
             <Table.Row key={item.id}>
               {columns.map((col) => (
-                <Table.Cell p={2} key={col.accessor.toString()}>
+                <Table.Cell
+                  minW={col.accessor !== "select" ? "120px" : "0"}
+                  p={2}
+                  key={col.accessor.toString()}
+                >
                   {col.accessor === "select" ? (
                     <Checkbox
                       aria-label="Select item"
@@ -157,7 +162,9 @@ export const CustomTable: FC<TableProps> = ({
 
       {!hidePagination && (
         <PaginationDataTable
-          table={{ setPageIndex: (index: number) => setCurrentPage(index + 1) }}
+          table={{
+            setPageIndex: (index: number) => setCurrentPage(index + 1),
+          }}
           totalItems={totalItems!}
           pageSize={pageSize}
           currentPage={currentPage}
@@ -165,6 +172,6 @@ export const CustomTable: FC<TableProps> = ({
           onLazyLoad={(index) => setCurrentPage(index)}
         />
       )}
-    </>
+    </Box>
   );
 };

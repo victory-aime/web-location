@@ -12,17 +12,10 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import {
-  Box,
-  Center,
-  createListCollection,
-  Flex,
-  Spinner,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Center, Flex, Spinner, Text } from "@chakra-ui/react";
 import { extractArrays } from "./utils/charts.utils";
 import { FiBarChart2 } from "react-icons/fi";
-import { BoxIcon } from "_app/private/dashboard/components";
+import { BoxIcon } from "../boxIcon";
 
 ChartJS.register(
   CategoryScale,
