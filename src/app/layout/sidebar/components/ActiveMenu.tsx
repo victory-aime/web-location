@@ -1,12 +1,14 @@
-import { Box, Link, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Link, Text, useBreakpointValue } from "@chakra-ui/react";
 import { FC } from "react";
 import useSideBarStyle from "../hooks/useSideBarStyle";
-import { SimpleSubItem } from "../types";
+import { SimpleSubItem, subItems } from "../types";
 import { useRouter } from "next/navigation";
 import { Dot } from "_assets/svg";
+import { VariablesColors } from "_/theme/variables";
 
 interface ActiveMenuProps {
   subLink: SimpleSubItem;
+  itHasActiveChildLink: (links?: subItems) => boolean;
   sideToggled: boolean;
   onShowSidebar: any;
 }
@@ -14,6 +16,7 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
   subLink,
   sideToggled,
   onShowSidebar,
+  itHasActiveChildLink,
 }) => {
   const navigate = useRouter();
   const {
@@ -28,7 +31,7 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
     <Link
       key={subLink.path}
       {...linkStyle}
-      ps={"15px"}
+      ps={"10px"}
       p={"0"}
       onClick={() => {
         navigate.push(subLink?.path);
@@ -42,16 +45,39 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
-        borderRadius="10px"
         width="100%"
-        p="5px 10px"
       >
-        <Box mt={"-2px"} ms={"4px"} mr={"10px"}>
-          <Dot fill={setMenuItemPointStyle(subLink.path)} width={"9px"} />
-        </Box>
-        <Text {...toggledTextStyles} {...setMenuItemTextStyle(subLink.path)}>
-          {subLink?.label}
-        </Text>
+        <Flex
+          width={"full"}
+          bgColor={"red"}
+          gap={4}
+          alignItems={"center"}
+          borderRadius={"5px"}
+          ms="10px"
+          px={"10px"}
+          py={"5px"}
+        >
+          {subLink.icon ? (
+            <subLink.icon
+              width="18px"
+              height="18px"
+              fill={
+                itHasActiveChildLink(subLink.path ?? "")
+                  ? VariablesColors.primary
+                  : VariablesColors.grayScale
+              }
+            />
+          ) : (
+            <Dot
+              width="9px"
+              height="9px"
+              fill={setMenuItemPointStyle(subLink.path)}
+            />
+          )}
+          <Text {...toggledTextStyles} {...setMenuItemTextStyle(subLink.path)}>
+            {subLink?.label}
+          </Text>
+        </Flex>
       </Box>
     </Link>
   );

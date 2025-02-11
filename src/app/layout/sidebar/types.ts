@@ -20,4 +20,5 @@ export interface SideBarProps {
 export interface SimpleSubItem {
   label: string;
   path: string;
+  icon?: React.ComponentType<any>;
 }

@@ -69,11 +69,12 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
         ? {
             ...textStyle,
             color: "primary.500",
+            bgColor: hexToRGB("primary", 0.2),
             fontWeight: "500",
-          } // active sub menu link
+          }
         : {
             ...textStyle,
-            color: hexToRGB("primary", 0.8),
+            color: "white",
           },
     [pathname]
   );

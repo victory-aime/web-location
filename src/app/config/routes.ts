@@ -10,5 +10,6 @@ export const APP_ROUTES = {
     HOME: "/",
     DASH: "/private/dashboard",
     TEST: "/private/test",
+    TEST2: "/private/5/2",
   },
 };

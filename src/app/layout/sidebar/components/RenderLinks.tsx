@@ -75,6 +75,7 @@ const RenderLinks: FC<IRenderLinks> = ({
                 <ActiveMenu
                   subLink={subLink}
                   key={subLink.path}
+                  itHasActiveChildLink={itHasActiveChildLink}
                   sideToggled={sideToggled}
                   onShowSidebar={onShowSidebar}
                 />

@@ -44,7 +44,12 @@ const Dashoard = () => {
           <MonthlyIncomes />
         </Flex>
       </Flex>
-      <Flex gap={8} width={{ base: "100%", md: "full" }}>
+      <Flex
+        gap={8}
+        width={{ base: "100%", md: "full" }}
+        flexDir={{ base: "column", md: "row" }}
+        overflowX={"auto"}
+      >
         <TopProducts />
         <TopCategory />
       </Flex>
