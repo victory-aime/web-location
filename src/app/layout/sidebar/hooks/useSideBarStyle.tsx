@@ -69,12 +69,12 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
         ? {
             ...textStyle,
             color: "primary.500",
-            bgColor: hexToRGB("primary", 0.2),
+            textTransform: "capitalize",
             fontWeight: "500",
           }
         : {
             ...textStyle,
-            color: "white",
+            color: "whiteAlpha.400",
           },
     [pathname]
   );

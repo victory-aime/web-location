@@ -1,13 +1,14 @@
 import { Box, Flex, LinkBox, Text, VStack } from "@chakra-ui/react";
 import RenderLinks from "./components/RenderLinks";
+import Image from "next/image";
 import useSideBarStyle from "./hooks/useSideBarStyle";
 import { adminMenu } from "./sideBarRoutes";
 import { SideBarProps } from "./types";
 import { useRouter } from "next/navigation";
 
 import { APP_ROUTES } from "_app/config/routes";
-import { HomeIcon, LogOutIcon } from "_assets/svg";
-import { VariablesColors } from "_/theme/variables";
+import { LogOutIcon } from "_assets/svg";
+import { VariablesColors } from "_theme/variables";
 
 const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle, toggledTextStyles } = useSideBarStyle({
@@ -30,9 +31,27 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
         cursor="pointer"
       >
         {sideToggled ? (
-          <HomeIcon width={100} height={150} />
+          <Flex
+            width={"full"}
+            minH={"100px"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Image
+              src={"/assets/images/mouse.png"}
+              draggable={false}
+              alt={"logo-company"}
+              width={120}
+              height={120}
+            />
+          </Flex>
         ) : (
-          <HomeIcon width={120} height={50} />
+          <Image
+            src={"/assets/images/mouse.png"}
+            alt={"logo-company"}
+            width={50}
+            height={50}
+          />
         )}
       </Box>
       <VStack align="stretch" height="65%" overflow="auto">

@@ -1,17 +1,12 @@
-import { Flex, Spinner, useBreakpointValue } from "@chakra-ui/react";
-import { FC, lazy, Suspense, useEffect, useState } from "react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { FC, useState } from "react";
 import useIsActive from "../hooks/useIsActive";
-import { ILink } from "../types";
+import { ILink, IRenderLinks } from "../types";
 import ActiveMenu from "./ActiveMenu";
 import Menu from "./Menu";
 import SubMenu from "./SubMenu";
 import { useRouter } from "next/navigation";
 
-interface IRenderLinks {
-  sideToggled: boolean;
-  links: ILink[];
-  onShowSidebar: () => void;
-}
 const RenderLinks: FC<IRenderLinks> = ({
   sideToggled,
   links,
@@ -24,7 +19,7 @@ const RenderLinks: FC<IRenderLinks> = ({
   const sidebarConditionInverse = useBreakpointValue({ base: false, lg: true });
 
   const conditionsSubMenu = (link: any) => {
-    if (link.subItems && openedMenu === link.menuKey) {
+    if (link?.subItems && openedMenu === link.menuKey) {
       setOpenedMenu("");
     } else {
       setOpenedMenu(link.menuKey);
@@ -75,7 +70,7 @@ const RenderLinks: FC<IRenderLinks> = ({
                 <ActiveMenu
                   subLink={subLink}
                   key={subLink.path}
-                  itHasActiveChildLink={itHasActiveChildLink}
+                  isActiveLink={isActiveLink}
                   sideToggled={sideToggled}
                   onShowSidebar={onShowSidebar}
                 />

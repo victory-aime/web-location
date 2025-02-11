@@ -9,7 +9,9 @@ export const APP_ROUTES = {
   PRIVATE: {
     HOME: "/",
     DASH: "/private/dashboard",
-    TEST: "/private/test",
-    TEST2: "/private/5/2",
+    ECOMMERCE: {
+      ORDER: "/private/ecommerce/order",
+      PRODUCTS: "/private/ecommerce/products",
+    },
   },
 };

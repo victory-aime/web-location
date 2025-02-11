@@ -9,13 +9,17 @@ export const adminMenu: ILink[] = [
     path: APP_ROUTES.PRIVATE.DASH,
   },
   {
-    menuKey: "ecommerme",
+    menuKey: "ecommerce",
     icon: ShoppingCart,
     label: "Ecommerce",
     path: APP_ROUTES.PRIVATE.HOME,
     subItems: [
-      { label: "test", path: APP_ROUTES.PRIVATE.TEST, icon: ShoppingCart },
-      { label: "test2", path: APP_ROUTES.PRIVATE.TEST2 },
+      {
+        label: "Products",
+        path: APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS,
+        icon: ShoppingCart,
+      },
+      { label: "Orders", path: APP_ROUTES.PRIVATE.ECOMMERCE.ORDER },
     ],
   },
 ];

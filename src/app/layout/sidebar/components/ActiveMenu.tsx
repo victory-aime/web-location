@@ -1,22 +1,17 @@
 import { Box, Flex, Link, Text, useBreakpointValue } from "@chakra-ui/react";
 import { FC } from "react";
 import useSideBarStyle from "../hooks/useSideBarStyle";
-import { SimpleSubItem, subItems } from "../types";
+import { ActiveMenuProps } from "../types";
 import { useRouter } from "next/navigation";
 import { Dot } from "_assets/svg";
-import { VariablesColors } from "_/theme/variables";
+import { VariablesColors } from "_theme/variables";
+import { hexToRGB } from "_theme/colors";
 
-interface ActiveMenuProps {
-  subLink: SimpleSubItem;
-  itHasActiveChildLink: (links?: subItems) => boolean;
-  sideToggled: boolean;
-  onShowSidebar: any;
-}
 const ActiveMenu: FC<ActiveMenuProps> = ({
   subLink,
   sideToggled,
   onShowSidebar,
-  itHasActiveChildLink,
+  isActiveLink,
 }) => {
   const navigate = useRouter();
   const {
@@ -49,7 +44,9 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
       >
         <Flex
           width={"full"}
-          bgColor={"red"}
+          bgColor={
+            isActiveLink(subLink?.path) ? hexToRGB("primary", 0.1) : "none"
+          }
           gap={4}
           alignItems={"center"}
           borderRadius={"5px"}
@@ -57,12 +54,12 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
           px={"10px"}
           py={"5px"}
         >
-          {subLink.icon ? (
+          {subLink?.icon ? (
             <subLink.icon
-              width="18px"
-              height="18px"
+              width="22px"
+              height="22px"
               fill={
-                itHasActiveChildLink(subLink.path ?? "")
+                isActiveLink(subLink.path ?? "")
                   ? VariablesColors.primary
                   : VariablesColors.grayScale
               }

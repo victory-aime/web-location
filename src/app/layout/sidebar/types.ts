@@ -22,3 +22,16 @@ export interface SimpleSubItem {
   path: string;
   icon?: React.ComponentType<any>;
 }
+
+export interface IRenderLinks {
+  sideToggled: boolean;
+  links: ILink[];
+  onShowSidebar: () => void;
+}
+
+export interface ActiveMenuProps {
+  subLink: SimpleSubItem;
+  isActiveLink: (link: string) => boolean;
+  sideToggled: boolean;
+  onShowSidebar: any;
+}
