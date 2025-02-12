@@ -9,7 +9,7 @@ import {
   TopCategory,
 } from "./components";
 import { Flex, For, Box } from "@chakra-ui/react";
-import { statData } from "./components/data/data";
+import { statData } from "./data/data";
 
 const Dashoard = () => {
   return (

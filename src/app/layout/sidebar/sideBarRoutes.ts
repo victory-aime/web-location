@@ -16,7 +16,7 @@ export const adminMenu: ILink[] = [
     subItems: [
       {
         label: "Products",
-        path: APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS,
+        path: APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST,
         icon: ShoppingCart,
       },
       { label: "Orders", path: APP_ROUTES.PRIVATE.ECOMMERCE.ORDER },

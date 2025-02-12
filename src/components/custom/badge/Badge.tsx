@@ -1,55 +1,71 @@
 import { Badge, HStack, Text } from "@chakra-ui/react";
 import React, { FC } from "react";
-import { Props } from "./interface/badge";
 import { HiStar } from "react-icons/hi";
 import { GiCancel } from "react-icons/gi";
 import { MdOutlineDoneAll } from "react-icons/md";
 import { TbProgress } from "react-icons/tb";
-import { hexToRGB } from "_/theme/colors";
+import { Props, Status, BadgeType } from "./interface/badge";
 
 export const CustomBadge: FC<Props> = ({
   children,
   status = "NEW",
   variant = "solid",
+  type = "order",
   ...props
 }) => {
+  const getBadgeAttributes = (status: Status, type: BadgeType) => {
+    if (type === "order") {
+      switch (status) {
+        case "DONE":
+          return {
+            color: "primary.500",
+            icon: <MdOutlineDoneAll />,
+            label: "Livré",
+          };
+        case "IN_PROGRESS":
+          return { color: "blue.500", icon: <TbProgress />, label: "En cours" };
+        case "REJECTED":
+          return { color: "red.500", icon: <GiCancel />, label: "Annulée" };
+        default:
+          return { color: "gray.500", icon: <HiStar />, label: "Nouvelle" };
+      }
+    } else {
+      switch (status) {
+        case "PUBLISH":
+          return {
+            color: "primary.500",
+            icon: "",
+            label: "Publié",
+          };
+        case "LOW_SCTOK":
+          return {
+            color: "secondary.500",
+            icon: "",
+            label: "Stock faible",
+          };
+        case "OUT_STOCK":
+          return { color: "red.500", icon: "", label: "Rupture" };
+        default:
+          return { color: "gray.500", icon: "", label: "Brouillon" };
+      }
+    }
+  };
+
+  const { color, icon, label } = getBadgeAttributes(status, type);
+
   return (
     <Badge
       {...props}
       variant={variant}
-      size={"lg"}
-      borderRadius={"7px"}
+      size="lg"
+      borderRadius="7px"
       p={2}
-      color={"white"}
-      bgColor={
-        status === "DONE"
-          ? "primary.500"
-          : status === "IN_PROGRESS"
-            ? "blue.500"
-            : status === "REJECTED"
-              ? "red.500"
-              : "gray.500"
-      }
+      color="white"
+      bgColor={color}
     >
       <HStack gap={1}>
-        {status === "DONE" ? (
-          <MdOutlineDoneAll />
-        ) : status === "IN_PROGRESS" ? (
-          <TbProgress />
-        ) : status === "REJECTED" ? (
-          <GiCancel />
-        ) : (
-          <HiStar />
-        )}
-        <Text textTransform={"capitalize"}>
-          {status === "DONE"
-            ? "Livré"
-            : status === "IN_PROGRESS"
-              ? "en cours"
-              : status === "REJECTED"
-                ? " Annulée"
-                : "Nouvelle"}
-        </Text>
+        {icon}
+        <Text textTransform="capitalize">{label}</Text>
       </HStack>
     </Badge>
   );

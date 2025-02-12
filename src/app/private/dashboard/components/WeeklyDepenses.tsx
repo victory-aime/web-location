@@ -12,7 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import BarChart from "_/components/custom/charts/BarChart";
-import { barChartData } from "./data/data";
+import { barChartData } from "../data/data";
 
 ChartJS.register(
   CategoryScale,

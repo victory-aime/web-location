@@ -7,7 +7,7 @@ import { CommonDataTable } from "_/components/custom/data-table";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import React from "react";
 import { IoIosPaper } from "react-icons/io";
-import { totalRecentOrders } from "./data/data";
+import { totalRecentOrders } from "../data/data";
 import { CustomBadge } from "_/components/custom/badge";
 
 export const RecentOrders = () => {

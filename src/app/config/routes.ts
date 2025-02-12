@@ -11,7 +11,10 @@ export const APP_ROUTES = {
     DASH: "/private/dashboard",
     ECOMMERCE: {
       ORDER: "/private/ecommerce/order",
-      PRODUCTS: "/private/ecommerce/products",
+      PRODUCTS: {
+        LIST: "/private/ecommerce/products",
+        ADD: "/private/ecommerce/products/addproduct",
+      },
     },
   },
 };

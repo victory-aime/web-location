@@ -33,4 +33,5 @@ export interface ButtonBaseProps extends ButtonProps {
   animation?: animationType;
   isLoading?: boolean;
   rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
 }

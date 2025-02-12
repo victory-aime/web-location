@@ -78,7 +78,7 @@ export const CommonDataTable: FC<TableProps> = ({
           <Table.Row>
             {columns.map((col) => (
               <Table.ColumnHeader
-                minW={col.accessor !== "select" ? "120px" : "0"}
+                minW={col.accessor !== "select" ? "150px" : "0"}
                 key={col.accessor.toString()}
                 p={2}
                 onClick={() =>
@@ -115,7 +115,8 @@ export const CommonDataTable: FC<TableProps> = ({
             <Table.Row key={item.id}>
               {columns.map((col) => (
                 <Table.Cell
-                  minW={col.accessor !== "select" ? "120px" : "0"}
+                  minW={col.accessor !== "select" ? "150px" : "0"}
+                  bgColor={selection.includes(item.id) ? "gray.500" : "none"}
                   p={2}
                   key={col.accessor.toString()}
                 >

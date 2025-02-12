@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { CommonDataTable } from "_components/custom/data-table";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import { BoxIcon } from "_/components/custom/boxIcon";
-import { totalOrders } from "./data/data";
+import { totalOrders } from "../data/data";
 
 export const ListOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
