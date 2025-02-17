@@ -3,6 +3,7 @@ import { RenderProductImage } from "./RenderProductImage";
 import { PublishProductList } from "./PublishProductList";
 import { ProductStock } from "./ProductStock";
 import { DraftProducts } from "./DraftProduct";
+import { ProductContainer } from "./ProductContainer";
 
 export {
   ProductList,
@@ -10,4 +11,5 @@ export {
   PublishProductList,
   ProductStock,
   DraftProducts,
+  ProductContainer,
 };

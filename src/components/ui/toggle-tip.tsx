@@ -30,10 +30,11 @@ export const ToggleTip = React.forwardRef<HTMLDivElement, ToggleTipProps>(
           <ChakraPopover.Positioner>
             <ChakraPopover.Content
               width="auto"
-              px="2"
-              py="1"
+              p={3}
+              maxWidth={"250px"}
+              lineHeight={4}
               textStyle="xs"
-              rounded="sm"
+              rounded="lg"
               ref={ref}
             >
               {showArrow && (

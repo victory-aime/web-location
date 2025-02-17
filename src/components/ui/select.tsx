@@ -19,7 +19,7 @@ export const SelectTrigger = React.forwardRef<
       <ChakraSelect.Trigger ref={ref}>{children}</ChakraSelect.Trigger>
       <ChakraSelect.IndicatorGroup>
         {clearable && <SelectClearTrigger />}
-        <ChakraSelect.Indicator />
+        <ChakraSelect.Indicator pr={3} />
       </ChakraSelect.IndicatorGroup>
     </ChakraSelect.Control>
   );

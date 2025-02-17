@@ -1,162 +1,127 @@
-import { useState, useCallback, useEffect } from "react";
+"use client";
+
 import {
+  Alert,
   Box,
+  FileUpload,
+  FileUploadDropzone,
+  FileUploadDropzoneContent,
+  FileUploadItemPreviewImage,
+  Float,
+  HStack,
   Text,
   Icon,
-  VStack,
-  Image,
-  HStack,
-  CloseButton,
-  Alert,
-  Float,
+  useFileUpload,
+  useFileUploadContext,
 } from "@chakra-ui/react";
-import { useDropzone, Accept } from "react-dropzone";
-import { FiUpload } from "react-icons/fi";
-import { BaseButton } from "../button";
+import { useEffect, useState } from "react";
+import { HiX } from "react-icons/hi";
+import { LuUpload } from "react-icons/lu";
+import {
+  ACCEPTED_TYPES,
+  MAX_FILE_SIZE,
+  MAX_FILE_SIZE_MB,
+  MAX_FILES,
+} from "./constant/constants";
 
-interface ExtendedFile extends File {
-  preview: string;
-}
-
-interface DragDropZoneProps {
-  onDrop?: (acceptedFiles: File[]) => void;
-}
-
-export default function DragDropZone({ onDrop }: DragDropZoneProps) {
-  const [files, setFiles] = useState<ExtendedFile[]>([]);
+const FileImageList = ({
+  getFilesUploaded,
+}: {
+  getFilesUploaded: (files: File[]) => void;
+}) => {
+  const fileUpload = useFileUploadContext();
   const [error, setError] = useState<string | null>(null);
-  const [errorType, setErrorType] = useState<"size" | "max_file" | null>(null);
-  const MAX_FILES = 5;
-  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+  const [errorType, setErrorType] = useState<
+    "size" | "max_file" | "type" | null
+  >(null);
 
-  const handleDrop = useCallback(
-    (acceptedFiles: File[], rejectedFiles: any) => {
-      setError(null); // Réinitialiser les erreurs
-
-      if (rejectedFiles.length > 0) {
-        setError("Certains fichiers dépassent la taille maximale de 5MB.");
-        setErrorType("size");
-        return;
-      }
-
-      // Vérifier si le nombre total d'images dépasse la limite
-      if (files.length + acceptedFiles.length > MAX_FILES) {
-        setError(`Vous ne pouvez ajouter que ${MAX_FILES} images maximum.`);
-        setErrorType("max_file");
-        return;
-      }
-
-      const newFiles = acceptedFiles.map((file) =>
-        Object.assign(file, { preview: URL.createObjectURL(file) })
+  useEffect(() => {
+    if (fileUpload.acceptedFiles.length > MAX_FILES) {
+      setErrorType("max_file");
+      setError(`Vous ne pouvez pas télécharger plus de ${MAX_FILES} fichiers.`);
+    } else if (fileUpload.rejectedFiles.length > 0) {
+      const oversizedFiles = fileUpload.rejectedFiles.filter((file) =>
+        file.errors.includes("FILE_TOO_LARGE")
       );
 
-      setFiles((prevFiles) => [...prevFiles, ...newFiles]); // Ajouter les images
-      if (onDrop) onDrop(newFiles);
-    },
-    [onDrop, files.length]
-  );
+      const invalidTypeFiles = fileUpload.rejectedFiles.filter((file) =>
+        file.errors.includes("FILE_INVALID_TYPE")
+      );
 
-  const removeFile = (fileName: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-  };
+      const limitFiles = fileUpload.rejectedFiles.filter((file) =>
+        file.errors.includes("TOO_MANY_FILES")
+      );
 
-  // Efface automatiquement l'erreur après 3 secondes
+      if (oversizedFiles.length > 0) {
+        setErrorType("size");
+        setError(
+          `Certains fichiers dépassent la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`
+        );
+      } else if (invalidTypeFiles.length > 0) {
+        setErrorType("type");
+        setError(
+          "Certains fichiers ont un format non supporté. Formats acceptés : .png, .jpg, .jpeg"
+        );
+      } else if (limitFiles.length > 0) {
+        setErrorType("max_file");
+        setError(
+          `Vous ne pouvez pas télécharger plus de ${MAX_FILES} fichiers.`
+        );
+      } else {
+        setError(null);
+        setErrorType(null);
+      }
+    }
+    // 🔥 Mise à jour des fichiers téléversés pour le parent
+    getFilesUploaded(fileUpload.acceptedFiles);
+  }, [fileUpload]);
+
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
         setError(null);
         setErrorType(null);
-      }, 3000);
+        fileUpload.clearRejectedFiles();
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [error]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: handleDrop,
-    accept: "image/*" as unknown as Accept,
-    maxFiles: MAX_FILES,
-    maxSize: MAX_SIZE,
-    multiple: true,
-  });
-
   return (
-    <Box mt={6}>
-      {/* Zone de Drop */}
-      <Text>Photo</Text>
-      <Box
-        border="2px dashed"
-        borderColor={
-          error ? "red.500" : isDragActive ? "primary.900" : "gray.300"
-        }
-        p={6}
-        mt={2}
-        cursor="pointer"
-        transition="border 0.3s ease-in-out"
-        _hover={{ borderColor: "primary.400" }}
-        borderRadius="md"
-      >
-        {/* Affichage des images sélectionnées */}
-        {files.length > 0 && (
-          <HStack
-            mt={4}
-            mb={4}
-            gap={4}
-            alignItems={"center"}
-            justifyContent={"center"}
-            wrap="wrap"
+    <Box mt={6} w={"full"}>
+      <HStack justifyContent={"center"} wrap="wrap" gap="3">
+        {fileUpload.acceptedFiles.map((file) => (
+          <FileUpload.Item
+            p="2"
+            width="auto"
+            key={file.name}
+            file={file}
+            pos="relative"
           >
-            {files.map((file) => (
-              <Box key={file.name} position="relative">
-                <Float>
-                  <CloseButton
-                    bg="red.500"
-                    color="white"
-                    size="xs"
-                    onClick={() => removeFile(file.name)}
-                  />
-                </Float>
-                <Image
-                  src={file.preview}
-                  alt={file.name}
-                  boxSize="150px"
-                  objectFit="cover"
-                  borderRadius="md"
-                  shadow="md"
-                />
-              </Box>
-            ))}
-          </HStack>
-        )}
-
-        <VStack
-          justifyContent={"center"}
-          gap={4}
-          {...getRootProps()}
-          width={"full"}
-          minH={"150px"}
-        >
-          <input {...getInputProps()} />
-          {files.length === 0 && (
-            <Icon as={FiUpload} boxSize={8} color="gray.500" />
-          )}
-          <Text fontSize="sm" color="gray.600">
-            {isDragActive
-              ? "Déposez les fichiers ici..."
-              : "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner"}
-          </Text>
-          <Box {...getRootProps()}>
-            <BaseButton bgColor={"blue.500"}>Add image</BaseButton>
-          </Box>
-        </VStack>
-      </Box>
-
-      {/* Affichage de l'erreur si trop d'images ou fichiers trop lourds */}
+            <Float>
+              <FileUpload.ItemDeleteTrigger
+                p="0.5"
+                rounded="l1"
+                bg="red.500"
+                borderWidth="1px"
+              >
+                <HiX />
+              </FileUpload.ItemDeleteTrigger>
+            </Float>
+            <FileUploadItemPreviewImage boxSize="100px" objectFit="cover" />
+          </FileUpload.Item>
+        ))}
+      </HStack>
       {error && (
         <Alert.Root status="error" mt={5} p={4} width={"fit-content"}>
           <Alert.Indicator />
           <Alert.Content>
             <Alert.Title>
-              {errorType === "max_file" ? "Nombre Atteints" : "Taille limite"}
+              {errorType === "max_file"
+                ? "Nombre de fichiers atteint"
+                : errorType === "size"
+                  ? "Taille limite dépassée"
+                  : "Format non accepté"}
             </Alert.Title>
             <Alert.Description>{error}</Alert.Description>
           </Alert.Content>
@@ -164,4 +129,37 @@ export default function DragDropZone({ onDrop }: DragDropZoneProps) {
       )}
     </Box>
   );
-}
+};
+
+export const CustomDragDropZone = ({
+  getFilesUploaded,
+}: {
+  getFilesUploaded: (files: File[]) => void;
+}) => {
+  const { getRootProps } = useFileUpload();
+
+  return (
+    <FileUpload.Root
+      {...getRootProps()}
+      maxFiles={MAX_FILES}
+      maxFileSize={MAX_FILE_SIZE}
+      alignItems="stretch"
+      accept={ACCEPTED_TYPES}
+      _dragging={{ borderColor: "primary.500" }}
+    >
+      <FileUpload.HiddenInput />
+      <FileImageList getFilesUploaded={getFilesUploaded} />
+      <FileUploadDropzone>
+        <Icon fontSize="xl" color="fg.muted">
+          <LuUpload />
+        </Icon>
+        <FileUploadDropzoneContent>
+          <div>
+            {"Glissez-déposez des fichiers ici, ou cliquez pour sélectionner"}
+          </div>
+          <Text color="fg.muted">.png, .jpg jusqu'à {MAX_FILE_SIZE_MB}MB</Text>
+        </FileUploadDropzoneContent>
+      </FileUploadDropzone>
+    </FileUpload.Root>
+  );
+};
