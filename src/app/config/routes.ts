@@ -10,7 +10,10 @@ export const APP_ROUTES = {
     HOME: "/",
     DASH: "/private/dashboard",
     ECOMMERCE: {
-      ORDER: "/private/ecommerce/order",
+      ORDER: {
+        LIST: "/private/ecommerce/order",
+        DETAILS: "/private/ecommerce/order/details",
+      },
       CATEGORY: "/private/ecommerce/category",
       PRODUCTS: {
         LIST: "/private/ecommerce/products",

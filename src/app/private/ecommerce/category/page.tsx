@@ -5,7 +5,7 @@ import { BaseButton } from "_/components/custom/button";
 import { CommonDataTable } from "_/components/custom/data-table";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { categoryData } from "./components/data";
+import { categoryData } from "./data/data";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import CategoryModal from "./components/CategoryModal";
 

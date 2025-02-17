@@ -11,6 +11,8 @@ export const CommonTabs = ({
   items,
   redirectLink,
   isMobile,
+  title = "Produits",
+  addTitle = "Ajouter un produit",
   ...rest
 }: TabsProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -36,21 +38,19 @@ export const CommonTabs = ({
           gap={4}
         >
           <VStack alignItems={"flex-start"} gap={4} width={"full"}>
-            <Heading>Product</Heading>
+            <Heading>{title}</Heading>
             <Tabs.List
               bg={"bg.muted"}
               border={"1px solid"}
               borderColor={"whiteAlpha.400"}
               rounded="l3"
               p={"4px"}
-              width={{ base: "full", md: "auto" }}
             >
               {items.map((item, index) => (
                 <Tabs.Trigger
                   color={
                     currentIndex === index ? "primary.500" : "whiteAlpha.400"
                   }
-                  width={"full"}
                   key={index}
                   value={item.label}
                   p={5}
@@ -63,14 +63,17 @@ export const CommonTabs = ({
             </Tabs.List>
           </VStack>
           <VStack width={"full"} p={"4px"} gap={4} alignItems={"flex-end"}>
-            <BaseButton
-              bgColor={"primary.500"}
-              p={"8px"}
-              leftIcon={<FaPlus />}
-              onClick={() => redirectLink && redirectLink()}
-            >
-              Ajouter un produit
-            </BaseButton>
+            {addTitle && (
+              <BaseButton
+                bgColor={"primary.500"}
+                p={"8px"}
+                leftIcon={<FaPlus />}
+                onClick={() => redirectLink && redirectLink()}
+              >
+                {addTitle}
+              </BaseButton>
+            )}
+
             <Flex
               gap={3}
               flexDirection={{ base: "column", md: "row" }}

@@ -20,9 +20,15 @@ export const RenderProductImage = ({ value, isImage }: any) => {
       </Flex>
       <Flex flexDir={"column"} gap={"3px"}>
         <Text truncate>{value?.name}</Text>
-        <Text truncate color={"whiteAlpha.400"}>
-          {value?.variants} variant (s)
-        </Text>
+        {value?.variants ? (
+          <Text truncate color={"whiteAlpha.400"}>
+            {value?.variants} variant (s)
+          </Text>
+        ) : (
+          <Text truncate color={"whiteAlpha.400"}>
+            {value?.numberOfproducts} produit (s)
+          </Text>
+        )}
       </Flex>
     </Flex>
   );

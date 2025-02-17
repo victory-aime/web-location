@@ -53,6 +53,8 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
                 aria-label="Voir"
                 colorPalette="green"
                 size="sm"
+                onClick={() => action.handleClick(item)}
+                disabled={isDisabled}
               >
                 <IoNewspaperOutline />
               </IconButton>

@@ -19,7 +19,7 @@ export const adminMenu: ILink[] = [
         path: APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST,
         icon: ShoppingCart,
       },
-      { label: "Orders", path: APP_ROUTES.PRIVATE.ECOMMERCE.ORDER },
+      { label: "Orders", path: APP_ROUTES.PRIVATE.ECOMMERCE.ORDER.LIST },
       { label: "Categorie", path: APP_ROUTES.PRIVATE.ECOMMERCE.CATEGORY },
     ],
   },
