@@ -20,6 +20,7 @@ export const adminMenu: ILink[] = [
         icon: ShoppingCart,
       },
       { label: "Orders", path: APP_ROUTES.PRIVATE.ECOMMERCE.ORDER },
+      { label: "Categorie", path: APP_ROUTES.PRIVATE.ECOMMERCE.CATEGORY },
     ],
   },
 ];

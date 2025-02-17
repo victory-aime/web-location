@@ -13,7 +13,7 @@ const RenderLinks: FC<IRenderLinks> = ({
   onShowSidebar,
 }) => {
   const navigate = useRouter();
-  const { isActiveLink, itHasActiveChildLink } = useIsActive();
+  const { isActiveLink } = useIsActive();
   const [openedMenu, setOpenedMenu] = useState<any>(false);
   const shouldApplySideToggled = useBreakpointValue({ base: false, md: true });
   const sidebarConditionInverse = useBreakpointValue({ base: false, lg: true });
@@ -28,7 +28,7 @@ const RenderLinks: FC<IRenderLinks> = ({
 
   const redirectToPath = async (link: ILink): Promise<void> => {
     if (link?.path) {
-      navigate.replace(link.path);
+      navigate.push(link.path);
     }
     if (!sidebarConditionInverse) {
       onShowSidebar();

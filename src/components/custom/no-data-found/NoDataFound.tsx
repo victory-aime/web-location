@@ -22,7 +22,7 @@ const NoDataFound: FC<NoDataFoundProps> = ({
       {...containerStyle}
     >
       <Image
-        width={{ base: "100%", md: "40%" }}
+        width={{ base: "100%", md: "20%" }}
         src={"/assets/svg/no-data-found-V2.svg"}
         alt="no-data-found"
         transition={"filter 0.5s ease, opacity 0.5s ease"}

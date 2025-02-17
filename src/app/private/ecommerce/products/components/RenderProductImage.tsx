@@ -2,7 +2,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
-export const RenderProductImage = ({ value }: any) => {
+export const RenderProductImage = ({ value, isImage }: any) => {
   return (
     <Flex width={"full"} alignItems={"center"} gap={4}>
       <Flex

@@ -1,4 +1,4 @@
-import { Button, DialogRootProps } from "@chakra-ui/react";
+import { DialogRootProps } from "@chakra-ui/react";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -22,6 +22,7 @@ interface ModalProps extends DialogRootProps {
   buttonSaveTitle?: string;
   colorSaveButton?: variantColorType;
   isFull?: boolean | undefined;
+  onClick?: () => void;
   children: ReactNode;
 }
 
@@ -32,6 +33,7 @@ const ModalComponent = ({
   title = "Modal Title",
   colorSaveButton = "success",
   buttonSaveTitle = "Save",
+  onClick,
   isFull,
   modalType,
   children,
@@ -56,10 +58,13 @@ const ModalComponent = ({
         {ignoreFooter ? (
           <DialogFooter mt={8}>
             <DialogActionTrigger asChild>
-              <BaseButton variant="outline">Cancel</BaseButton>
+              <BaseButton onClick={onChange} variant="outline">
+                Cancel
+              </BaseButton>
             </DialogActionTrigger>
             <BaseButton
               withGradient
+              onClick={() => onClick && onClick()}
               colorType={
                 modalType === "alertdialog"
                   ? "danger"
