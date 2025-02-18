@@ -1,20 +1,23 @@
 import { Colors } from "_/theme/colors";
 import { VariablesColors } from "_/theme/variables";
 import { Weeklys } from "_/utils/generate";
-import { HomeIcon } from "_assets/svg";
+import { FaBalanceScaleLeft } from "react-icons/fa";
+import { FaMoneyBills } from "react-icons/fa6";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { LuChartNoAxesCombined } from "react-icons/lu";
 
 const statData = [
   {
-    icon: HomeIcon,
+    icon: <FaMoneyBills />,
     title: "Depense",
-    color: "red" as keyof Colors, // <-- TypeScript comprend que "red" appartient à Colors
+    color: "red" as keyof Colors,
     badgeColor: "red",
     percent: 0.9,
     value: 850000,
     iconColor: VariablesColors.red,
   },
   {
-    icon: HomeIcon,
+    icon: <FaBalanceScaleLeft />,
     title: "Balance",
     color: "blue" as keyof Colors,
     badgeColor: "blue",
@@ -23,7 +26,7 @@ const statData = [
     iconColor: VariablesColors.blue,
   },
   {
-    icon: HomeIcon,
+    icon: <LuChartNoAxesCombined />,
     title: "Sales",
     color: "secondary" as keyof Colors,
     badgeColor: "orange",
@@ -32,7 +35,7 @@ const statData = [
     iconColor: VariablesColors.secondary,
   },
   {
-    icon: HomeIcon,
+    icon: <GiTakeMyMoney />,
     title: "Revenu",
     color: "primary" as keyof Colors,
     badgeColor: "green",

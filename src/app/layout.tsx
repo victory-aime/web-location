@@ -24,25 +24,21 @@ export default function RootLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    // Démarre NProgress au début du changement de page
+    if (typeof window === "undefined") return;
     NProgress.start();
-
-    // Utilise requestIdleCallback pour attendre que le navigateur soit prêt
     const handleLoad = () => {
       NProgress.done();
     };
-
-    // Vérifie si le document est prêt
     if (document.readyState === "complete") {
       handleLoad();
     } else {
-      window?.addEventListener("load", handleLoad);
+      window.addEventListener("load", handleLoad);
     }
     return () => {
-      window?.removeEventListener("load", handleLoad);
-      NProgress.done(); // Stoppe NProgress en cas de navigation rapide
+      window.removeEventListener("load", handleLoad);
+      NProgress.done();
     };
-  }, [pathname]); // Se déclenche à chaque changement de route
+  }, [pathname]);
 
   return (
     <html lang="en" suppressHydrationWarning>

@@ -13,7 +13,11 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     return <Spinner />;
   }
 
-  return <>{!isLoggedIn ? <Layout>{children}</Layout> : children}</>;
+  if (!isLoggedIn) {
+    return <Layout>{children}</Layout>;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

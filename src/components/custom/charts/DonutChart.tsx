@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useRef } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Flex, Box, Center, Spinner, Text } from "@chakra-ui/react";
@@ -5,7 +7,6 @@ import { sum } from "lodash";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { BoxIcon } from "../boxIcon";
 import { PiChartDonutFill } from "react-icons/pi";
-import NoDataFound from "../no-data-found/NoDataFound";
 import { NoDataFoundLottieAnimation } from "_lottie/animations/LottieAnimation";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
