@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     return <Spinner />;
   }
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return <Layout>{children}</Layout>;
   }
 

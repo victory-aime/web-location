@@ -1,10 +1,5 @@
-// export const  = (key: string, fallback: string) => {
-//   return getI18n().t(key) || fallback;
-// };
-
 import {
   CustomToast,
-  ToastPosition,
   ToastStatus,
 } from "_/components/custom/toast/CustomToast";
 
@@ -35,13 +30,10 @@ export const handleApiError = (response: {
       break;
   }
 
-  console.log("handleApiError called with:", { description, title }); // Ajoutez ce log
-
   CustomToast({
-    description,
     title,
-    position: ToastPosition.TOP_START,
-    type: ToastPosition,
+    description,
+    type: ToastStatus.SUCCESS,
   });
 };
 
@@ -68,13 +60,9 @@ export const handleApiSuccess = (
       description = response?.message || defaultMessage;
       break;
   }
-
-  console.log("handleApiSuccess called with:", { description, title }); // Ajoutez ce log
-
   CustomToast({
     description,
     title,
-    position: ToastPosition.TOP_START,
-    status: toastType ?? ToastStatus.SUCCESS,
+    type: toastType ?? ToastStatus.SUCCESS,
   });
 };

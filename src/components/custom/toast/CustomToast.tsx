@@ -1,28 +1,32 @@
-import { toaster } from "_components/ui/toaster";
+import { toaster } from "_/components/ui/toaster";
+
+const DEFAULT_TIME = 5000;
 
 export enum ToastStatus {
   SUCCESS = "success",
+  ERROR = "error",
+  LOADING = "loading",
+  WARNING = "warning",
+  INFO = "info",
 }
 
-export enum ToastPosition {
-  TOP = "top",
-  TOP_START = "top-start",
-  TOP_END = "top-end",
-  BOTTOM = "bottom",
-  BOTTOM_END = "bottom-end",
-  BOTTOM_START = "bottom-start",
+interface Props {
+  title?: string;
+  description?: string;
+  type?: ToastStatus | undefined;
+  duration?: number;
 }
 
 export const CustomToast = ({
   title,
-  placement = ToastPosition.TOP,
   type = ToastStatus.SUCCESS,
   description,
-}: any) => {
+  duration,
+}: Props) => {
   return toaster.create({
     title,
     description,
-
-    type: type,
+    type,
+    duration: DEFAULT_TIME ?? duration,
   });
 };

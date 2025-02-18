@@ -7,7 +7,7 @@ import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
 import {
   CustomToast,
-  ToastPosition,
+  ToastStatus,
 } from "_/components/custom/toast/CustomToast";
 
 export const apiCall = async (
@@ -35,8 +35,7 @@ export const apiCall = async (
       CustomToast({
         description: "Session expirée. Veuillez vous reconnecter.",
         title: "Attention",
-        position: ToastPosition.TOP_RIGHT,
-        duration: 2000,
+        type: ToastStatus.WARNING,
       });
       return Promise.reject({ status: 401, message: "Session expired" });
     }
