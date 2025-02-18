@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import {
   ListOrders,
   ReviewStats,
@@ -8,10 +10,28 @@ import {
   TopProducts,
   TopCategory,
 } from "./components";
-import { Flex, For, Box } from "@chakra-ui/react";
+import { Flex, For, Box, Button, HStack } from "@chakra-ui/react";
 import { statData } from "./data/data";
+import { useSelector } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
+import { useDispatch } from "react-redux";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import { toaster } from "_/components/ui/toaster";
+import { CustomToast } from "_/components/custom/toast/CustomToast";
 
 const Dashoard = () => {
+  const dispatch = useDispatch();
+  const {} = useSelector(AuthModule.selectors.authSelector);
+
+  useEffect(() => {
+    dispatch(
+      AuthModule.actions.authLoginRequestAction({
+        email: "test",
+        password: "12564",
+      })
+    );
+  }, []);
+
   return (
     <Box width={"full"}>
       <Flex gap={8} width={"full"} mt={50} overflowX={"auto"}>

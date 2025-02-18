@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import NProgress from "nprogress";
 import "../components/custom/progess-bar/progress.css";
+import { Toaster } from "_components/ui/toaster";
+import AppMainEntry from "./app";
 
 const poppins = Poppins({
   weight: ["400", "900"],
@@ -45,7 +47,8 @@ export default function RootLayout({
       <body className={`${poppins.variable}`}>
         <Provider>
           <ColorModeProvider>
-            <ProtectedRoute>{children}</ProtectedRoute>
+            <Toaster />
+            <AppMainEntry>{children}</AppMainEntry>
           </ColorModeProvider>
         </Provider>
       </body>

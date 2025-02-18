@@ -24,6 +24,8 @@
       "_assets/*": ["./public/assets/*"],
       "_app/*": ["./src/app/*"],
       "_theme/*": ["./src/theme/*"],
+      "_store/*": ["./src/store/*"],
+      "_utils/*": ["./src/utils/*"],
       "_components/*": ["./src/components/*"]
     }
   },
