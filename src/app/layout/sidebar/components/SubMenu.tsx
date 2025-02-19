@@ -18,7 +18,7 @@ const SubMenu: FC<SubMenuProps> = ({
   isActiveLink,
   link,
 }) => {
-  const { toggledTextStyles, textStyle, linkStyle } = useSideBarStyle({
+  const { textStyle, linkStyle } = useSideBarStyle({
     sideToggled,
   });
 
@@ -64,11 +64,12 @@ const SubMenu: FC<SubMenuProps> = ({
       />
       <Flex
         align="center"
-        justifyContent="center"
+        justifyContent={{ base: "flex-start", md: "center" }}
         w="100%"
         h="100%"
         borderRadius="5px"
         px="10px"
+        me={{ base: "15px", md: "10px" }}
         borderBottom={isActiveLink(link.path ?? "") ? "2px solid" : "0"}
         borderColor={
           isActiveLink(link.path ?? "") ? "primary.500" : "transparent"
@@ -79,29 +80,27 @@ const SubMenu: FC<SubMenuProps> = ({
             : "transparent"
         }
       >
-        <Box as="span">
-          {link.icon && (
-            <link.icon
-              width="18px"
-              height="18px"
-              fill={
-                isActiveLink(link.path ?? "")
-                  ? VariablesColors.primary
-                  : VariablesColors.grayScale
-              }
-            />
-          )}
-        </Box>
-        <Text
+        {link.icon && (
+          <link.icon
+            width="20px"
+            height="20px"
+            fill={
+              isActiveLink(link.path ?? "")
+                ? VariablesColors.primary
+                : VariablesColors.grayScale
+            }
+          />
+        )}
+
+        <Box
           display={
-            !sideToggled ? { lg: "none" } : { base: "none", lg: "block" }
+            !sideToggled ? { lg: "none" } : { base: "block", lg: "block" }
           }
+          width={"full"}
           ms="1rem"
-          {...toggledTextStyles}
-          {...setTextStyle(link.path ?? "")}
         >
-          {link.label}
-        </Text>
+          <Text {...setTextStyle(link.path ?? "")}>{link.label}</Text>
+        </Box>
       </Flex>
     </Link>
   );

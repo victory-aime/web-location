@@ -26,7 +26,8 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
     <Link
       key={subLink.path}
       {...linkStyle}
-      ps={"10px"}
+      width={"full"}
+      ps={"35px"}
       p={"0"}
       onClick={() => {
         navigate.push(subLink?.path);
@@ -50,14 +51,16 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
           gap={4}
           alignItems={"center"}
           borderRadius={"5px"}
+          height={"full"}
           ms="10px"
+          me={{ base: "15px", md: "0px" }}
           px={"10px"}
-          py={"5px"}
+          py={"10px"}
         >
           {subLink?.icon ? (
             <subLink.icon
-              width="22px"
-              height="22px"
+              width="14px"
+              height="14px"
               fill={
                 isActiveLink(subLink.path ?? "")
                   ? VariablesColors.primary
@@ -71,9 +74,7 @@ const ActiveMenu: FC<ActiveMenuProps> = ({
               fill={setMenuItemPointStyle(subLink.path)}
             />
           )}
-          <Text {...toggledTextStyles} {...setMenuItemTextStyle(subLink.path)}>
-            {subLink?.label}
-          </Text>
+          <Text {...setMenuItemTextStyle(subLink.path)}>{subLink?.label}</Text>
         </Flex>
       </Box>
     </Link>

@@ -11,6 +11,7 @@ import NProgress from "nprogress";
 import "../components/custom/progess-bar/progress.css";
 import { Toaster } from "_components/ui/toaster";
 import AppMainEntry from "./app";
+import LoaderWrapper from "_/components/custom/loader/LoaderWrapper";
 
 const poppins = Poppins({
   weight: ["400", "900"],
@@ -48,7 +49,9 @@ export default function RootLayout({
         <Provider>
           <ColorModeProvider>
             <Toaster />
-            <AppMainEntry>{children}</AppMainEntry>
+            <AppMainEntry>
+              <LoaderWrapper>{children}</LoaderWrapper>
+            </AppMainEntry>
           </ColorModeProvider>
         </Provider>
       </body>

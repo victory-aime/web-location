@@ -1,5 +1,10 @@
 import React from "react";
 
+export interface IMobileSidebar {
+  isOpen: boolean;
+  onClose: () => void;
+  handleLogout: () => void;
+}
 export interface ILink {
   icon: React.ComponentType<any>;
   label: string;

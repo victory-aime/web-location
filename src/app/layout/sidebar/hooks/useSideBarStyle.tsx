@@ -38,7 +38,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
         : {
             ...sideBarStyle,
             w: { base: "100%", md: "220px", lg: "70px" },
-            h: { base: "80%", md: "85%", lg: "95%" },
+            h: { base: "", md: "85%", lg: "95%" },
           },
     [sideBarStyle, sideToggled]
   );
@@ -122,8 +122,9 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
     color: "gray.500",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     height: "40px",
+    width: "full",
     mt: 5,
     gap: "10px",
     p: "14px",

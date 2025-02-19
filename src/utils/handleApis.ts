@@ -33,7 +33,7 @@ export const handleApiError = (response: {
   CustomToast({
     title,
     description,
-    type: ToastStatus.SUCCESS,
+    type: ToastStatus.ERROR,
   });
 };
 

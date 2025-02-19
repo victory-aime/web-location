@@ -122,7 +122,6 @@ export const CommonDataTable: FC<TableProps> = ({
                 >
                   {col.accessor === "select" ? (
                     <Checkbox
-                      key={item}
                       aria-label="Select item"
                       checked={selection.includes(item.id)}
                       onCheckedChange={(changes) => {
@@ -134,11 +133,7 @@ export const CommonDataTable: FC<TableProps> = ({
                       }}
                     />
                   ) : col.accessor === "actions" && col.actions ? (
-                    <ActionButtons
-                      key={item}
-                      actions={col?.actions}
-                      item={item}
-                    />
+                    <ActionButtons actions={col?.actions} item={item} />
                   ) : col.cell ? (
                     col.cell(item[col.accessor])
                   ) : (

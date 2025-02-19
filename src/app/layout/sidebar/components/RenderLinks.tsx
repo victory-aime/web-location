@@ -40,6 +40,9 @@ const RenderLinks: FC<IRenderLinks> = ({
       {links.map((link: ILink, index: number) => (
         <Flex
           direction="column"
+          width={"full"}
+          alignItems={"flex-start"}
+          justifyContent={"flex-start"}
           key={index}
           pe={!sideToggled ? { lg: "0" } : { lg: "10px" }}
         >

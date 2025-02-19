@@ -29,6 +29,7 @@ const Menu: FC<MenuProps> = ({
       key={link?.menuKey}
       h={"40px"}
       display="flex"
+      width={"full"}
       alignItems="center"
       pe={{ base: "1rem", md: "0" }}
       cursor="pointer"
@@ -56,13 +57,13 @@ const Menu: FC<MenuProps> = ({
       />
       <Flex
         align="center"
-        justifyContent={"center"}
+        justifyContent={{ base: "flex-start", md: "center" }}
         w="100%"
         h="100%"
         borderRadius={"5px"}
         py="0"
         ps="0"
-        ms="10px"
+        ms={{ base: "7px", md: "10px" }}
         me={sideToggled ? "0" : "10px"}
         pe={{ base: "1rem", md: "0.5rem" }}
         bg={
@@ -72,28 +73,26 @@ const Menu: FC<MenuProps> = ({
         }
         px={"10px"}
       >
-        <Box as="span">
-          <link.icon
-            width="18px"
-            height="18px"
-            fill={
-              itHasActiveChildLink(link.subItems) ||
-              isActiveLink(link.path ?? "")
-                ? VariablesColors.primary
-                : VariablesColors.grayScale
-            }
-          />
-        </Box>
-        <Text
-          display={
-            !sideToggled ? { lg: "none" } : { base: "none", lg: "block" }
+        <link.icon
+          width="22px"
+          height="22px"
+          fill={
+            itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? "")
+              ? VariablesColors.primary
+              : VariablesColors.grayScale
           }
+        />
+
+        <Box
+          display={
+            !sideToggled ? { lg: "none" } : { base: "block", lg: "block" }
+          }
+          width={"full"}
           ms="1rem"
-          {...toggledTextStyles}
-          {...setMenuTextStyle(link.subItems)}
         >
-          {link.label}
-        </Text>
+          <Text {...setMenuTextStyle(link.subItems)}>{link.label}</Text>
+        </Box>
+
         {sideToggled ? (
           <Box
             transition="all ease-in-out 200ms"

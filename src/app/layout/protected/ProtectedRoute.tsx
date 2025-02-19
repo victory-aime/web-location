@@ -1,25 +1,22 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Layout from "_app/layout/Layout";
 
-import { Spinner } from "@chakra-ui/react";
 import { AuthModule } from "_/store/src/modules";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "_/app/config/routes";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const { isLoggedIn } = useSelector(AuthModule.selectors.authSelector);
+  const router = useRouter();
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // useEffect(() => {
+  //  router.push(APP_ROUTES.PUBLIC.SIGN_IN);
+  // }, [isLoggedIn, router]);
 
-  if (!isLoggedIn) {
-    return <Layout>{children}</Layout>;
-  }
-
-  return children;
+  return <>{!isLoggedIn && <Layout>{children}</Layout>}</>;
 };
 
 export default ProtectedRoute;

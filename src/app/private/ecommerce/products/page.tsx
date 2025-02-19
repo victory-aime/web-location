@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 import { CommonTabs } from "_/components/custom/tabs/Tabs";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 
 const ProductPage = () => {
   const router = useRouter();
@@ -43,13 +44,15 @@ const ProductPage = () => {
   ];
 
   return (
-    <CommonTabs
-      items={items}
-      redirectLink={() =>
-        router?.replace(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)
-      }
-      isMobile={isMobile}
-    />
+    <ProtectedRoute>
+      <CommonTabs
+        items={items}
+        redirectLink={() =>
+          router?.replace(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)
+        }
+        isMobile={isMobile}
+      />
+    </ProtectedRoute>
   );
 };
 

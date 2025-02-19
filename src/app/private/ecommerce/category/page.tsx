@@ -8,6 +8,7 @@ import { FaPlus } from "react-icons/fa";
 import { categoryData } from "./data/data";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import CategoryModal from "./components/CategoryModal";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 
 const Category = () => {
   const pageSize = 10;
@@ -72,39 +73,41 @@ const Category = () => {
   ];
 
   return (
-    <Box width={"full"} mt={"30px"}>
-      <HStack
-        width={"full"}
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <Heading>Categorie</Heading>
-        <BaseButton
-          bgColor={"primary.500"}
-          p={"8px"}
-          leftIcon={<FaPlus />}
-          onClick={() => setOpen(true)}
+    <ProtectedRoute>
+      <Box width={"full"} mt={"30px"}>
+        <HStack
+          width={"full"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
         >
-          Ajouter une categorie
-        </BaseButton>
-      </HStack>
-      <Box mt={"30px"}>
-        <CommonDataTable
-          data={categoryData}
-          columns={columns}
-          initialPage={1}
-          totalItems={totalPages}
-          pageSize={pageSize}
-          handleRowSelection={() => {}}
-          lazy
+          <Heading>Categorie</Heading>
+          <BaseButton
+            bgColor={"primary.500"}
+            p={"8px"}
+            leftIcon={<FaPlus />}
+            onClick={() => setOpen(true)}
+          >
+            Ajouter une categorie
+          </BaseButton>
+        </HStack>
+        <Box mt={"30px"}>
+          <CommonDataTable
+            data={categoryData}
+            columns={columns}
+            initialPage={1}
+            totalItems={totalPages}
+            pageSize={pageSize}
+            handleRowSelection={() => {}}
+            lazy
+          />
+        </Box>
+        <CategoryModal
+          values={selectedValues}
+          open={open}
+          onChange={() => setOpen(false)}
         />
       </Box>
-      <CategoryModal
-        values={selectedValues}
-        open={open}
-        onChange={() => setOpen(false)}
-      />
-    </Box>
+    </ProtectedRoute>
   );
 };
 

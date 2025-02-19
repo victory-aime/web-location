@@ -15,6 +15,7 @@ import {
   OrdersTable,
 } from "./components";
 import { IoMdDoneAll } from "react-icons/io";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 
 const OrderPage = () => {
   const router = useRouter();
@@ -43,15 +44,17 @@ const OrderPage = () => {
   ];
 
   return (
-    <CommonTabs
-      items={items}
-      title={"Commandes"}
-      addTitle={"Nouvelle commande"}
-      redirectLink={() =>
-        router?.push(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)
-      }
-      isMobile={isMobile}
-    />
+    <ProtectedRoute>
+      <CommonTabs
+        items={items}
+        title={"Commandes"}
+        addTitle={"Nouvelle commande"}
+        redirectLink={() =>
+          router?.push(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)
+        }
+        isMobile={isMobile}
+      />
+    </ProtectedRoute>
   );
 };
 
