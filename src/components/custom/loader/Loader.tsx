@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { BVGCommonModule } from "_store/src/modules";
+import { LoaderModule } from "_store/src/modules";
 import { LoaderLottie } from "_lottie/animations/LottieAnimation";
 import { LoaderProps } from "./interface/loader";
 
@@ -11,7 +11,7 @@ const Loader: FC<LoaderProps> = ({
   show = false,
   ...props
 }) => {
-  const showLoader = useSelector(BVGCommonModule.selectors.getLoaderSelector);
+  const showLoader = useSelector(LoaderModule.selectors.getLoaderSelector);
   return (
     (showLoader || show) && (
       <Box

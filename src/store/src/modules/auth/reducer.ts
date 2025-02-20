@@ -1,4 +1,4 @@
-import { TYPES } from "../../../index";
+import { TYPES } from "../../index";
 import * as Constants from "./constants";
 import { AuthActionTypes } from "./actions.types";
 

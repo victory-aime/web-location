@@ -46,15 +46,8 @@ export const getPeriodInMonths = (
  * @returns The formatted date for the audit table
  */
 export const formatDateFormAuditTable = (date: string): string => {
-  if (!date) {
-    return "";
-  }
-  const dateFormat = new Date(date);
-  return dateFormat.toLocaleDateString("fr-FR", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  if (!date || !dayjs(date).isValid()) return "";
+  return dayjs(date).format("DD MMM YYYY");
 };
 
 /**
@@ -63,14 +56,36 @@ export const formatDateFormAuditTable = (date: string): string => {
  * @returns The time in 'HH:mm' format
  */
 export const getTimeValue = (date: string): string => {
-  if (!date) {
-    return "";
-  }
-  const dateFormat = new Date(date);
-  return dateFormat?.toLocaleTimeString("fr-FR", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+  if (!date || !dayjs(date).isValid()) return "";
+  return dayjs(date).format("HH:mm");
+};
+
+/**
+ * Calculates the difference in days between two dates.
+ * @param now - The current date
+ * @param date - The date to compare
+ * @returns The difference in days
+ */
+function differenceInDays(now: Date, date: Date): number {
+  return dayjs(now).diff(dayjs(date), "day");
+}
+
+/**
+ * Formats the createdAt date to a human-readable string.
+ * @param createdAt - The createdAt date string
+ * @returns The formatted date string
+ */
+export const formatCreatedAt = (createdAt: string): string => {
+  if (!createdAt || !dayjs(createdAt).isValid()) return "";
+
+  const date = dayjs(createdAt);
+  const now = dayjs();
+  const diffDays = now.diff(date, "day");
+
+  if (diffDays === 0) return `Auj. ${date.format("HH:mm")}`;
+  if (diffDays === 1) return `Hier ${date.format("HH:mm")}`;
+  if (diffDays < 7) return `Il y a ${diffDays}j`;
+  return date.format("DD MMM YYYY");
 };
 
 /**
@@ -80,13 +95,10 @@ export const getTimeValue = (date: string): string => {
  * @returns The found object or null if not found
  */
 export const findDynamicIdInList = (id: string | undefined, list: any) => {
-  if (!list?.content?.length || !id) {
+  if (!Array.isArray(list?.content) || !id) {
     return null;
   }
-  const findItem = list?.content?.find(
-    (item: { id: string }) => item.id === id
-  );
-  return findItem || null;
+  return list.content.find((item: { id: string }) => item.id === id) || null;
 };
 
 /**
@@ -98,11 +110,13 @@ export const findDynamicIdInList = (id: string | undefined, list: any) => {
 export const parseDateString = (
   date: Date | string | null | undefined,
   inputFormat: string = APP_DATE_FORMAT
-) => {
+): Date | null => {
   if (!date) return null;
-  const dateString =
-    date instanceof Date ? dayjs(date).format(inputFormat) : date;
-  const parsedDate = dayjs(dateString, inputFormat, true);
+
+  if (date instanceof Date) {
+    return date;
+  }
+  const parsedDate = dayjs(date, inputFormat, true);
   return parsedDate.isValid() ? parsedDate.toDate() : null;
 };
 
@@ -118,19 +132,12 @@ export const getMonthFromDateString = (
   inputFormat: string = APP_DATE_FORMAT,
   locale: string = "fr"
 ): string | null => {
-  try {
-    if (!dateString) {
-      return null;
-    }
-    const parsedDate = dayjs(dateString, inputFormat);
-    if (!parsedDate.isValid()) {
-      return null;
-    }
-    return parsedDate.locale(locale).format("MMMM");
-  } catch (e) {
-    console.error("Error parsing date:", e);
-    return null;
-  }
+  if (!dateString) return null;
+
+  const parsedDate = dayjs(dateString, inputFormat, true);
+  if (!parsedDate.isValid()) return null;
+
+  return parsedDate.locale(locale).format("MMMM");
 };
 
 /**

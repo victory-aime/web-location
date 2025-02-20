@@ -1,27 +1,44 @@
 import { CustomBadge } from "_/components/custom/badge";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
-import React, { useState } from "react";
-import { productsData } from "../data/productData";
+import React, { useEffect, useState } from "react";
 import { RenderProductImage } from "./RenderProductImage";
 import { CommonDataTable } from "_/components/custom/data-table";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { AuthModule, ProductModule } from "_/store/src/modules";
+import { UTILS } from "_/store/src";
+import { FormatNumber } from "@chakra-ui/react";
 
 export const ProductList = () => {
-  const pageSize = 10;
-  const totalPages = Math.ceil(productsData?.length / pageSize);
+  const dispatch = useDispatch();
+  const { products, isLoading } = useSelector(
+    ProductModule.selectors.productSelector
+  );
+  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
+  const pageSize = 5;
+  const totalPages = Math.ceil(products?.content?.length / pageSize);
   const [selectedRows, setSelectedRows] = useState<any>([]);
+
+  useEffect(() => {
+    dispatch(
+      ProductModule.actions.getAllProductsRequestAction({
+        storeId: currentUser?.store?.id ?? "",
+      })
+    );
+  }, []);
 
   const columns: ColumnsDataTable[] = [
     { header: "", accessor: "select" },
     {
       header: "Produits",
-      accessor: "product",
+      accessor: "name",
       cell: (value) => {
         return <RenderProductImage value={value} />;
       },
     },
     {
       header: "Catégorie",
-      accessor: "category",
+      accessor: "categoryName",
     },
     {
       header: "Stock",
@@ -30,6 +47,11 @@ export const ProductList = () => {
     {
       header: "Prix",
       accessor: "price",
+      cell: (price) => {
+        return (
+          <FormatNumber value={price} style={"currency"} currency={"USD"} />
+        );
+      },
     },
     {
       header: "Status",
@@ -40,7 +62,10 @@ export const ProductList = () => {
     },
     {
       header: "Ajout",
-      accessor: "added",
+      accessor: "createdAt",
+      cell: (value) => {
+        return UTILS.formatCreatedAt(value);
+      },
     },
     {
       header: "Actions",
@@ -64,12 +89,14 @@ export const ProductList = () => {
   ];
   return (
     <CommonDataTable
-      data={productsData}
+      data={products?.content}
+      isLoading={isLoading}
       columns={columns}
       initialPage={1}
       totalItems={totalPages}
       pageSize={pageSize}
       handleRowSelection={setSelectedRows}
+      hidePagination={totalPages <= 1}
       lazy
     />
   );

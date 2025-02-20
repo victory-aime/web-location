@@ -1,7 +1,7 @@
-import { IStateModule } from "../../../main/types";
+import { IStateModule } from "../../main/types";
 import { AUTH_KEY_IN_STORE } from "./constants";
 import AuthReducer from "./reducer";
-import { authSagas } from "_store/src/modules/common/auth/saga";
+import { authSagas } from "_/store/src/modules/auth/saga";
 import { TYPES } from "_store/src";
 
 export class AuthModule implements IStateModule {
@@ -19,6 +19,7 @@ export class AuthModule implements IStateModule {
       currentUser: null,
       isLoggedIn: false,
       isLoading: false,
+      isLogout: false,
       schoolInfo: null,
       startOnboarding: false,
       isSuccess: false,

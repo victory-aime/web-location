@@ -11,6 +11,8 @@ import NoDataFound from "../no-data-found/NoDataFound";
 import PaginationDataTable from "./components/PaginationDataTable";
 import { TableProps } from "./interface/data-types";
 import { ActionButtons } from "./ActionButtons";
+import { Skeleton, SkeletonText } from "_/components/ui/skeleton";
+import { NoDataFoundLottieAnimation } from "_lottie/animations/LottieAnimation";
 
 export const CommonDataTable: FC<TableProps> = ({
   data,
@@ -34,17 +36,20 @@ export const CommonDataTable: FC<TableProps> = ({
   const hasSelection = selection.length > 0;
   const indeterminate = hasSelection && selection.length < data.length;
 
-  const sortedData = [...data].sort((a, b) => {
-    if (!sortConfig) return 0;
-    const { key, direction } = sortConfig;
-    return direction === "asc"
-      ? a[key] > b[key]
-        ? 1
-        : -1
-      : a[key] < b[key]
-        ? 1
-        : -1;
-  });
+  const sortedData =
+    Array.isArray(data) && data.length > 0
+      ? [...data].sort((a, b) => {
+          if (!sortConfig) return 0;
+          const { key, direction } = sortConfig;
+          return direction === "asc"
+            ? a[key] > b[key]
+              ? 1
+              : -1
+            : a[key] < b[key]
+              ? 1
+              : -1;
+        })
+      : [];
 
   const paginatedItems = sortedData.slice(
     (currentPage - 1) * pageSize,
@@ -61,14 +66,39 @@ export const CommonDataTable: FC<TableProps> = ({
 
   if (isLoading) {
     return (
-      <Center minH="15rem">
-        <Spinner />
-      </Center>
+      <Box overflowX="auto" width="full">
+        <Table.Root minH={minH}>
+          <Table.Header>
+            <Table.Row>
+              {columns.map((col, index) => (
+                <Table.ColumnHeader key={index} minW="150px" p={2}>
+                  <Skeleton height="20px" width="80%" />
+                </Table.ColumnHeader>
+              ))}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {Array.from({ length: pageSize }).map((_, rowIndex) => (
+              <Table.Row key={rowIndex}>
+                {columns.map((col, colIndex) => (
+                  <Table.Cell key={colIndex} minW="150px" p={2}>
+                    <SkeletonText noOfLines={1} />
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      </Box>
     );
   }
 
-  if (data.length === 0) {
-    return <NoDataFound />;
+  if (data?.length === 0) {
+    return (
+      <Center width={"full"} height={"30%"}>
+        <NoDataFoundLottieAnimation />
+      </Center>
+    );
   }
 
   return (

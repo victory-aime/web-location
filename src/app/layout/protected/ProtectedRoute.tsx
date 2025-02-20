@@ -7,13 +7,17 @@ import { AuthModule } from "_/store/src/modules";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
+import { clearPersistedStorage } from "_/utils/clear.store.utils";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isLoggedIn } = useSelector(AuthModule.selectors.authSelector);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) router.push(APP_ROUTES.PUBLIC.SIGN_IN);
+    if (!isLoggedIn) {
+      router.push(APP_ROUTES.PUBLIC.SIGN_IN);
+      clearPersistedStorage();
+    }
   }, [isLoggedIn, router]);
 
   return <>{isLoggedIn && <Layout>{children}</Layout>}</>;

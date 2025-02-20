@@ -90,6 +90,14 @@ const APIS = (baseUrl?: string) => {
         baseUrl,
       }),
     },
+    PRODUCTS: {
+      GET_PRODUCTS: createApiAction({
+        path: "/products/get-products",
+        pathBase: "SECURED_API",
+        method: "GET",
+        baseUrl,
+      }),
+    },
   };
 };
 

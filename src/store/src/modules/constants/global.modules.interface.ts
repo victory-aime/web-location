@@ -1,5 +1,6 @@
-import { AuthState } from "../../types/models/auth";
+import { TYPES } from "../..";
 
 export default interface GlobalModuleInterface {
-  authState: AuthState;
+  authState: TYPES.MODELS.AUTH.AuthState;
+  productState: TYPES.MODELS.PRODUCTS.IProductState;
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { APIObjectType } from "_store/src/endpoints";
 import { store } from "_store/store";
-import { authLogoutRequestAction } from "_store/src/modules/common/auth/actions";
+import { authLogoutRequestAction } from "_/store/src/modules/auth/actions";
 import { handleApiError } from "_utils/handleApis";
 import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
@@ -13,7 +13,7 @@ import {
 export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,
   data?: any,
-  token?: string,
+  token?: string | null,
   params?: any,
   showLoader = true
 ) => {

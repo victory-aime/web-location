@@ -1,9 +1,11 @@
 /** get all principal modules keys
  * in redux store
  */
-import { AuthState } from "../../types/models/auth";
-import { AUTH_KEY_IN_STORE } from "../common/auth/constants";
-import { BVG_COMMON_KEY_IN_STORE } from "../common/bvg-common/constants";
+
+import { TYPES } from "../..";
+import { AUTH_KEY_IN_STORE } from "../auth/constants";
+import { LOADER_KEY_IN_STORE } from "../loader/constants";
+import { PRODUCT_KEY_IN_STORE } from "../products/constants";
 import GlobalModuleInterface from "./global.modules.interface";
 
 /**
@@ -12,6 +14,7 @@ import GlobalModuleInterface from "./global.modules.interface";
  * we use GlobalModuleInterface only for modules that don't have specific types defined.
  */
 export interface ModuleStateMapping {
-  [AUTH_KEY_IN_STORE]: AuthState;
-  [BVG_COMMON_KEY_IN_STORE]: GlobalModuleInterface;
+  [AUTH_KEY_IN_STORE]: TYPES.MODELS.AUTH.AuthState;
+  [LOADER_KEY_IN_STORE]: GlobalModuleInterface;
+  [PRODUCT_KEY_IN_STORE]: TYPES.MODELS.PRODUCTS.IProductState;
 }

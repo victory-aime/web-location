@@ -1,11 +1,14 @@
-import * as Constants from './constants';
-import { TYPES } from '_store/src';
+import * as Constants from "./constants";
 
-const initialState: TYPES.MODELS.COMMON_TYPES.BvgCommonState = {
+interface Props {
+  showLoader: boolean;
+}
+
+const initialState: Props = {
   showLoader: false,
 };
 
-const BVGCommonReducer = (state = initialState, action: any) => {
+const LoaderReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case Constants.SHOW_LOADER:
       return {
@@ -22,4 +25,4 @@ const BVGCommonReducer = (state = initialState, action: any) => {
   }
 };
 
-export default BVGCommonReducer;
+export default LoaderReducer;

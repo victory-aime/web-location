@@ -3,8 +3,9 @@
  * Each module follows the IStateModule interface.
  */
 
-import { authModuleInstance } from "_store/src/modules/common/auth";
-import { bvgCommonModuleInstance } from "_store/src/modules/common/bvg-common";
+import { authModuleInstance } from "_/store/src/modules/auth";
+import { loaderModuleInstance } from "_/store/src/modules/loader";
+import { productsModuleInstance } from "_store/src/modules/products";
 
 // Global IStateModule interface
 import { IStateModule } from "_store/src/main/types";
@@ -12,7 +13,8 @@ import { IStateModule } from "_store/src/main/types";
 // Group all modules into a single array
 export const globalModules: IStateModule[] = [
   authModuleInstance,
-  bvgCommonModuleInstance,
+  loaderModuleInstance,
+  productsModuleInstance,
 ];
 
 /**

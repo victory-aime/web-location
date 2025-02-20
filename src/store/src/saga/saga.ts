@@ -1,5 +1,6 @@
 import { all, fork } from "redux-saga/effects";
-import { authSagas } from "_store/src/modules/common/auth/saga";
+import { authSagas } from "_/store/src/modules/auth/saga";
+import { productSagas } from "../modules/products/saga";
 
 type SagaFunction = () => Generator;
 
@@ -12,5 +13,8 @@ function* rootSagaWithErrorHandling(saga: SagaFunction): Generator {
 }
 
 export default function* rootSaga() {
-  yield all([fork(rootSagaWithErrorHandling, authSagas)]);
+  yield all([
+    fork(rootSagaWithErrorHandling, authSagas),
+    fork(rootSagaWithErrorHandling, productSagas),
+  ]);
 }

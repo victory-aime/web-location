@@ -14,6 +14,7 @@ import { AuthModule } from "_/store/src/modules";
 import { useSelector } from "react-redux";
 import { Form, Formik, FormikValues } from "formik";
 import { FormTextInput } from "_/components/custom/form";
+import { clearPersistedStorage } from "_/utils/clear.store.utils";
 
 const LoginComponent = () => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const LoginComponent = () => {
 
   useEffect(() => {
     if (isLoggedIn) router.push(APP_ROUTES.PRIVATE.DASH);
+    clearPersistedStorage();
   }, [isLoggedIn]);
 
   return (
