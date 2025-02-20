@@ -19,6 +19,7 @@ const AuthCard = ({
       maxW={"100%"}
       width={{ base: "100%", md: "500px", lg: "650px" }}
       p={{ base: 3, md: 6 }}
+      mt={4}
     >
       {children}
     </Box>

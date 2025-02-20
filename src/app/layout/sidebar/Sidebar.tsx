@@ -1,36 +1,26 @@
-import {
-  Box,
-  Flex,
-  LinkBox,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, VStack } from "@chakra-ui/react";
 import RenderLinks from "./components/RenderLinks";
 import Image from "next/image";
 import useSideBarStyle from "./hooks/useSideBarStyle";
 import { adminMenu } from "./sideBarRoutes";
 import { SideBarProps } from "./types";
-import { useRouter } from "next/navigation";
-import { APP_ROUTES } from "_app/config/routes";
-import { LogOutIcon } from "_assets/svg";
 import { VariablesColors } from "_theme/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
 import MobileSidebar from "./components/MobileSidebar";
+import { BaseButton } from "_/components/custom/button";
+import { LogOutIcon } from "_assets/svg";
 
-const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
-  const { toggledSideBarStyle, toggledTextStyles } = useSideBarStyle({
+const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
+  const { toggledSideBarStyle } = useSideBarStyle({
     sideToggled,
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const navigate = useRouter();
   const dispatch = useDispatch();
   const {} = useSelector(AuthModule.selectors.authSelector);
 
   const handleLogout = () => {
     dispatch(AuthModule.actions.authLogoutRequestAction());
-    navigate.push(APP_ROUTES.PUBLIC.SIGN_IN);
   };
 
   return (
@@ -40,6 +30,7 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
           isOpen={sideToggled}
           onClose={onShowSidebar}
           handleLogout={handleLogout}
+          currentUser={currentUser}
         />
       ) : (
         <Box {...toggledSideBarStyle} className="sidebar">
@@ -82,40 +73,26 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
               onShowSidebar={onShowSidebar}
             />
           </VStack>
-          <LinkBox
-            style={{
-              position: "relative",
-              height: "40px",
-              marginTop: "10px",
-              gap: "10px",
-              padding: "14px",
-            }}
-            cursor="pointer"
-            onClick={handleLogout}
-          >
-            <Flex
-              align="center"
-              justifyContent="center"
-              width="100%"
-              height="100%"
-              ps={{ base: "0", md: "20px" }}
+
+          <Box pe={"10px"} ps={"10px"}>
+            <BaseButton
+              width={"full"}
+              withGradient
+              colorType={"danger"}
+              overflow={"hidden"}
+              justifyContent={"center"}
+              onClick={handleLogout}
+              leftIcon={
+                <LogOutIcon
+                  width="18px"
+                  height="18px"
+                  fill={VariablesColors.white}
+                />
+              }
             >
-              <LogOutIcon
-                width="18px"
-                height="18px"
-                fill={VariablesColors.grayScale}
-              />
-              <Text
-                display={
-                  sideToggled ? { base: "none", lg: "block" } : { lg: "none" }
-                }
-                {...toggledTextStyles}
-                ms="1rem"
-              >
-                Deconnexion
-              </Text>
-            </Flex>
-          </LinkBox>
+              {sideToggled ? "Deconnexion" : null}
+            </BaseButton>
+          </Box>
         </Box>
       )}
     </>

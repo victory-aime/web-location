@@ -1,9 +1,11 @@
+import { TYPES } from "_/store/src";
 import React from "react";
 
 export interface IMobileSidebar {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (value?: any) => void;
   handleLogout: () => void;
+  currentUser?: TYPES.MODELS.AUTH.User;
 }
 export interface ILink {
   icon: React.ComponentType<any>;
@@ -20,6 +22,7 @@ export type subItems = SimpleSubItem[];
 export interface SideBarProps {
   onShowSidebar: () => void;
   sideToggled: boolean;
+  currentUser?: TYPES.MODELS.AUTH.User;
 }
 
 export interface SimpleSubItem {

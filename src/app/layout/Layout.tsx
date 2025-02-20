@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Flex,
-  For,
-  HStack,
-  IconButton,
-  Link,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { FunctionComponent, useMemo, useState } from "react";
 
 import Container from "./container";
@@ -17,10 +8,13 @@ import Header from "./header";
 import { layoutStyle } from "./layout.styles";
 import Sidebar from "./sidebar";
 import { Footer } from "_app/layout/footer";
+import { useSelector } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
 
 const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -45,9 +39,17 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
 
   return (
     <Box>
-      <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} />
+      <Sidebar
+        currentUser={currentUser ?? undefined}
+        sideToggled={isSidebarOpen}
+        onShowSidebar={toggleSidebar}
+      />
       <Box {...toggledLayoutStyle}>
-        <Header showSidebarButton onShowSidebar={toggleSidebar} />
+        <Header
+          currentUser={currentUser ?? undefined}
+          sideToggled={false}
+          onShowSidebar={toggleSidebar}
+        />
         <Container>{children}</Container>
       </Box>
       <Footer />

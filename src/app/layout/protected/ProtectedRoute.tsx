@@ -12,11 +12,11 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isLoggedIn } = useSelector(AuthModule.selectors.authSelector);
   const router = useRouter();
 
-  // useEffect(() => {
-  //  router.push(APP_ROUTES.PUBLIC.SIGN_IN);
-  // }, [isLoggedIn, router]);
+  useEffect(() => {
+    if (!isLoggedIn) router.push(APP_ROUTES.PUBLIC.SIGN_IN);
+  }, [isLoggedIn, router]);
 
-  return <>{!isLoggedIn && <Layout>{children}</Layout>}</>;
+  return <>{isLoggedIn && <Layout>{children}</Layout>}</>;
 };
 
 export default ProtectedRoute;

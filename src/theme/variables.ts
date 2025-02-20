@@ -8,5 +8,6 @@ export const VariablesColors = {
   grayScale: "#64748B",
   red: "#ec2f4e",
   blue: "#3b82f6",
+  white: "#ffffff",
   transparent: "transparent",
 };

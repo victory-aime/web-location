@@ -6,6 +6,7 @@ import { handleApiError, handleApiSuccess } from "_utils/handleApis";
 import * as AUTH_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
 import { ToastStatus } from "_/components/custom/toast/CustomToast";
+import { getTokenOrThrow } from "_/utils/check.token.utils";
 
 export function* loginSaga(
   action: AUTH_ACTION_TYPES.LoginRequestAction
@@ -13,11 +14,11 @@ export function* loginSaga(
   try {
     const apiConfig = APIS().AUTH.SIGN_IN;
     const response = yield call(apiCall, apiConfig, action.payload);
-    const { access_token, currentUser } = response;
-    handleApiSuccess(response);
+    const { message, access_token, user } = response;
+    handleApiSuccess(message);
     yield put({
       type: Constants.AUTH_LOGIN_SUCCESS,
-      payload: { currentUser },
+      payload: { user },
     });
     localStorage.setItem(Constants.STORAGE_CURRENT_USER, access_token);
   } catch (error) {
@@ -31,7 +32,11 @@ export function* loginSaga(
 }
 export function* logoutSaga(): Generator {
   try {
+    const token = getTokenOrThrow();
+    const apiConfig = APIS().AUTH.LOG_OUT;
+    const response = yield call(apiCall, apiConfig, null, token);
     localStorage.removeItem(Constants.STORAGE_CURRENT_USER);
+    handleApiSuccess(response);
     yield put({ type: Constants.AUTH_CLEAR_SESSION });
   } catch (error) {
     if (isApiError(error)) {
@@ -61,28 +66,6 @@ export function* onboardingUser(
     }
     yield put({
       type: Constants.ONBOARDING_PROCESS_ERROR,
-      payload: error,
-    });
-  }
-}
-
-export function* sendOtpChallenge(
-  action: AUTH_ACTION_TYPES.SendOtpChallengeRequestAction
-): Generator {
-  try {
-    const apiConfig = APIS().AUTH.SEND_OTP;
-    const response = yield call(apiCall, apiConfig, action.payload);
-    handleApiSuccess(response);
-    yield put({
-      type: Constants.SEND_OTP_SUCCESS,
-      payload: response,
-    });
-  } catch (error) {
-    if (isApiError(error)) {
-      handleApiError(error);
-    }
-    yield put({
-      type: Constants.SEND_OTP_FAILURE,
       payload: error,
     });
   }
@@ -142,7 +125,6 @@ export function* resetPassword(
 export function* authSagas(): Generator {
   yield takeLatest(Constants.AUTH_LOGIN_REQUEST, loginSaga);
   yield takeLatest(Constants.AUTH_LOGOUT_REQUEST, logoutSaga);
-  yield takeLatest(Constants.SEND_OTP_REQUEST, sendOtpChallenge);
   yield takeLatest(Constants.VALIDATE_OTP_REQUEST, validateOtpChallenge);
   yield takeLatest(Constants.UPDATE_PASSWORD_REQUEST, resetPassword);
   yield takeLatest(Constants.SUBMIT_ONBOARDING_PROCESS, onboardingUser);

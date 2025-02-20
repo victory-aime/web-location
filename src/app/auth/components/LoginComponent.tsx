@@ -1,31 +1,40 @@
 "use client";
 
-import {
-  Center,
-  Box,
-  Heading,
-  VStack,
-  Input,
-  Flex,
-  Text,
-  HStack,
-  Separator,
-} from "@chakra-ui/react";
+import { Center, Box, Heading, VStack, Flex, Text } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { Checkbox } from "_/components/ui/checkbox";
-import { Field } from "_/components/ui/field";
 import { VariablesColors } from "_/theme/variables";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { GrGoogle } from "react-icons/gr";
 import ForgetPassword from "./ForgetPassword";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
+import { useSelector } from "react-redux";
+import { Form, Formik, FormikValues } from "formik";
+import { FormTextInput } from "_/components/custom/form";
 
 const LoginComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const { isLoggedIn, isLoading } = useSelector(
+    AuthModule.selectors.authSelector
+  );
+
+  const submitForm = (values: FormikValues) => {
+    dispatch(
+      AuthModule.actions.authLoginRequestAction({
+        email: values?.email as string,
+        password: values?.password as string,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) router.push(APP_ROUTES.PRIVATE.DASH);
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -34,68 +43,70 @@ const LoginComponent = () => {
         justifyContent={"flex-start"}
         flexDir={"column"}
         width={"100%"}
-        gap={6}
+        gap={4}
       >
         <Heading>Sign In</Heading>
         <Text textAlign="center">
           Enter your email and password to sign in!
         </Text>
-        <Box width={"full"}>
-          <BaseButton
-            borderWidth={2}
-            p={"28px"}
-            borderColor={"primary.500"}
-            width={"full"}
-            gap={8}
-            bg={"none"}
-          >
-            <GrGoogle />
-            <Text>Sign in with google</Text>
-          </BaseButton>
-        </Box>
-        <HStack width={"full"}>
-          <Separator size={"lg"} flex="1" />
-          <Text flexShrink="0">OR</Text>
-          <Separator size={"lg"} flex="1" />
-        </HStack>
-        <VStack alignItems={"flex-start"} gap={6} width={"100%"}>
-          <Field required label={"email"}>
-            <Input />
-          </Field>
-          <Field required label={"password"}>
-            <Input />
-          </Field>
-          <Flex
-            width={"100%"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <Checkbox size={"lg"}>Remember me</Checkbox>
 
-            <Text
-              onClick={() => setOpen(true)}
-              cursor={"pointer"}
-              fontWeight={"bold"}
-              color={"primary.500"}
-            >
-              Forget password ?
-            </Text>
-          </Flex>
-          <BaseButton
-            withGradient
-            animation="fade"
-            colorType="success"
-            padding={"25px"}
-            w={"100%"}
-            onClick={() => {
-              setLoading(true);
-              router?.push(APP_ROUTES.PRIVATE.DASH);
-            }}
-            isLoading={loading}
-          >
-            Sign in
-          </BaseButton>
-        </VStack>
+        <Formik
+          enableReinitialize
+          initialValues={{
+            email: "owner@example.com",
+            password: "password123",
+          }}
+          onSubmit={submitForm}
+        >
+          {({ handleSubmit, values }) => (
+            <VStack alignItems={"flex-start"} gap={6} mt={4} width={"100%"}>
+              <FormTextInput
+                required
+                name={"email"}
+                type={"email"}
+                label={"Email"}
+                placeholder={"email"}
+                value={values.email}
+              />
+              <FormTextInput
+                required
+                name={"password"}
+                type={"password"}
+                label={"password"}
+                placeholder={"password"}
+                value={values.password}
+              />
+              <Flex
+                width={"100%"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
+                <Checkbox size={"lg"}>Remember me</Checkbox>
+                <Text
+                  onClick={() => setOpen(true)}
+                  cursor={"pointer"}
+                  fontWeight={"bold"}
+                  color={"primary.500"}
+                >
+                  Forget password ?
+                </Text>
+              </Flex>
+              <BaseButton
+                withGradient
+                animation="fade"
+                colorType="success"
+                padding={"25px"}
+                w={"100%"}
+                onClick={() => {
+                  handleSubmit();
+                }}
+                isLoading={isLoading}
+              >
+                Sign in
+              </BaseButton>
+            </VStack>
+          )}
+        </Formik>
         <Flex>
           <Text>
             Not registered yet?{" "}

@@ -10,26 +10,15 @@ import {
   TopProducts,
   TopCategory,
 } from "./components";
-import { Flex, For, Box } from "@chakra-ui/react";
+import { Flex, For, Box, Heading } from "@chakra-ui/react";
 import { statData } from "./data/data";
 import { useSelector } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
 import { useDispatch } from "react-redux";
-import Lottie from "lottie-react";
 import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 
 const Dashoard = () => {
   const dispatch = useDispatch();
-  const {} = useSelector(AuthModule.selectors.authSelector);
-
-  useEffect(() => {
-    dispatch(
-      AuthModule.actions.authLoginRequestAction({
-        email: "test",
-        password: "12564",
-      })
-    );
-  }, []);
 
   return (
     <ProtectedRoute>

@@ -1,6 +1,6 @@
 export enum Status {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
 }
 
 export interface ISchool {
@@ -26,10 +26,21 @@ export interface IFeaturePermission {
   featureName: string;
 }
 
+export interface IStore {
+  id?: string | null | undefined;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  image?: null;
+  ownerId?: string | null | undefined;
+  createdAt?: string | null | undefined;
+  updatedAt?: string | null | undefined;
+  deletedAt?: null;
+}
+
 export interface User {
   id?: string;
   firstName?: string;
-  lastName?: string;
+  name?: string;
   email?: string;
   phone?: string;
   createdAt?: string;
@@ -41,6 +52,7 @@ export interface User {
   confirmPassword?: string;
   schools?: ISchool[];
   schoolId?: string;
+  store?: IStore;
   school?: Record<string, any>;
   permissions?: IPermission[];
   permissionsFeatures?: IFeaturePermission[];
@@ -57,6 +69,7 @@ export interface AuthState {
   otpResponse: ISendOtpResponse | null;
   isLoggedIn: boolean;
   isLoading: boolean;
+  isLogout: boolean;
   startOnboarding: boolean;
   isSuccess: boolean;
   sendOtpChallenge: boolean;
@@ -66,7 +79,7 @@ export interface AuthState {
 }
 
 export type AuthPayload = {
-  currentUser: User | null;
+  user: User | null;
 };
 
 export interface ISendOtpResponse {

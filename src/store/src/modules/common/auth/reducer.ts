@@ -1,12 +1,13 @@
-import { TYPES } from '../../../index';
-import * as Constants from './constants';
-import { AuthActionTypes } from './actions.types';
+import { TYPES } from "../../../index";
+import * as Constants from "./constants";
+import { AuthActionTypes } from "./actions.types";
 
 const initialState: TYPES.MODELS.AUTH.AuthState = {
   currentUser: null,
   otpResponse: null,
   isLoggedIn: false,
   isLoading: false,
+  isLogout: false,
   schoolInfo: null,
   startOnboarding: false,
   isSuccess: false,
@@ -18,7 +19,7 @@ const initialState: TYPES.MODELS.AUTH.AuthState = {
 
 const AuthReducer = (
   state: TYPES.MODELS.AUTH.AuthState = initialState,
-  action: AuthActionTypes,
+  action: AuthActionTypes
 ): TYPES.MODELS.AUTH.AuthState => {
   switch (action.type) {
     case Constants.AUTH_LOGIN_REQUEST:
@@ -32,7 +33,7 @@ const AuthReducer = (
         ...state,
         isLoading: false,
         isLoggedIn: true,
-        currentUser: action.payload.currentUser,
+        currentUser: action.payload.user,
       };
     case Constants.AUTH_LOGIN_FAILURE:
       return {
@@ -112,6 +113,17 @@ const AuthReducer = (
         ...state,
         isLoading: true,
       };
+    case Constants.AUTH_CLEAR_SESSION:
+      return { ...initialState, isLogout: true, isLoading: false };
+
+    case Constants.AUTH_CLEAR_SESSION_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isLogout: false,
+        error: action.payload,
+      };
+
     case Constants.START_ONBOARDING_PROCESS:
       return {
         ...state,
@@ -161,8 +173,6 @@ const AuthReducer = (
         isLoading: false,
       };
     case Constants.CLEAR_ONBOARDING_PROCESS:
-      return initialState;
-    case Constants.AUTH_CLEAR_SESSION:
       return initialState;
 
     default:

@@ -1,5 +1,5 @@
-import * as Constants from './constants';
-import { TYPES } from '_store/src';
+import * as Constants from "./constants";
+import { TYPES } from "_store/src";
 
 export interface LoginRequestAction {
   type: typeof Constants.AUTH_LOGIN_REQUEST;
@@ -108,6 +108,11 @@ export interface ClearSessionAction {
   type: typeof Constants.AUTH_CLEAR_SESSION;
 }
 
+export interface ClearSessionActionFaillure {
+  type: typeof Constants.AUTH_CLEAR_SESSION_FAILURE;
+  payload: string;
+}
+
 export interface LogoutRequestAction {
   type: typeof Constants.AUTH_LOGOUT_REQUEST;
 }
@@ -136,4 +141,5 @@ export type AuthActionTypes =
   | SubmitOnboardingProcessAction
   | OnboardingProcessErrorAction
   | ClearOnboardingProcessAction
-  | ClearOtpChallengeAction;
+  | ClearOtpChallengeAction
+  | ClearSessionActionFaillure;

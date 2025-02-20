@@ -16,7 +16,12 @@ import { adminMenu } from "../sideBarRoutes";
 import RenderLinks from "./RenderLinks";
 import { IMobileSidebar } from "../types";
 
-const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
+const MobileSidebar = ({
+  isOpen,
+  onClose,
+  handleLogout,
+  currentUser,
+}: IMobileSidebar) => {
   return (
     <DrawerRoot
       open={isOpen}
@@ -29,7 +34,7 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
       <DrawerContent height={"full"}>
         <DrawerHeader>
           <HStack p={5} justifyContent={"space-between"}>
-            <DrawerTitle>{"appName"}</DrawerTitle>
+            <DrawerTitle>{currentUser?.store?.name}</DrawerTitle>
             <DrawerActionTrigger asChild>
               <IconButton
                 aria-label="close-drawer"
@@ -66,7 +71,10 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
           p={5}
         >
           <BaseButton
-            onClick={handleLogout}
+            onClick={() => {
+              handleLogout();
+              onClose(!isOpen);
+            }}
             withGradient
             colorType={"danger"}
             width={"full"}
