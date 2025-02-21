@@ -20,13 +20,6 @@ export class AuthModule implements IStateModule {
       isLoggedIn: false,
       isLoading: false,
       isLogout: false,
-      schoolInfo: null,
-      startOnboarding: false,
-      isSuccess: false,
-      updatePassword: false,
-      otpResponse: {},
-      sendOtpChallenge: false,
-      validateOtpChallenge: false,
       error: null,
     };
   }

@@ -7,6 +7,7 @@ import * as AUTH_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
 import { ToastStatus } from "_/components/custom/toast/CustomToast";
 import { getTokenOrThrow } from "_/utils/check.token.utils";
+import { persistor, store } from "_/store/store";
 
 export function* loginSaga(
   action: AUTH_ACTION_TYPES.LoginRequestAction
@@ -38,6 +39,7 @@ export function* logoutSaga(): Generator {
     localStorage.removeItem(Constants.STORAGE_CURRENT_USER);
     handleApiSuccess(response);
     yield put({ type: Constants.AUTH_CLEAR_SESSION });
+    yield call([persistor, persistor.purge]);
   } catch (error) {
     if (isApiError(error)) {
       handleApiError(error);
@@ -49,83 +51,7 @@ export function* logoutSaga(): Generator {
   }
 }
 
-export function* onboardingUser(
-  action: AUTH_ACTION_TYPES.SubmitOnboardingProcessAction
-): Generator {
-  try {
-    const apiConfig = APIS().AUTH.SIGN_UP;
-    const response = yield call(apiCall, apiConfig, action.payload);
-    handleApiSuccess(response);
-    yield put({
-      type: Constants.ONBOARDING_PROCESS_SUCCESS,
-      payload: response,
-    });
-  } catch (error) {
-    if (isApiError(error)) {
-      handleApiError(error);
-    }
-    yield put({
-      type: Constants.ONBOARDING_PROCESS_ERROR,
-      payload: error,
-    });
-  }
-}
-
-export function* validateOtpChallenge(
-  action: AUTH_ACTION_TYPES.ValidateOtpChallengeRequestAction
-): Generator {
-  try {
-    const apiConfig = APIS().AUTH.VALIDATE_OTP;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      action.payload,
-      "",
-      {},
-      false
-    );
-    yield put({
-      type: Constants.VALIDATE_OTP_SUCCESS,
-      payload: response,
-    });
-    handleApiSuccess(response, ToastStatus.SUCCESS);
-  } catch (error) {
-    if (isApiError(error)) {
-      handleApiError(error);
-    }
-    yield put({
-      type: Constants.VALIDATE_OTP_FAILURE,
-      payload: error,
-    });
-  }
-}
-
-export function* resetPassword(
-  action: AUTH_ACTION_TYPES.UpdatePasswordRequestAction
-): Generator {
-  try {
-    const apiConfig = APIS().AUTH.FORGOT_PASSWORD;
-    const response = yield call(apiCall, apiConfig, action.payload);
-    yield put({
-      type: Constants.UPDATE_PASSWORD_SUCCESS,
-      payload: response,
-    });
-    handleApiSuccess(response);
-  } catch (error) {
-    if (isApiError(error)) {
-      handleApiError(error);
-    }
-    yield put({
-      type: Constants.UPDATE_PASSWORD_FAILURE,
-      payload: error,
-    });
-  }
-}
-
 export function* authSagas(): Generator {
   yield takeLatest(Constants.AUTH_LOGIN_REQUEST, loginSaga);
   yield takeLatest(Constants.AUTH_LOGOUT_REQUEST, logoutSaga);
-  yield takeLatest(Constants.VALIDATE_OTP_REQUEST, validateOtpChallenge);
-  yield takeLatest(Constants.UPDATE_PASSWORD_REQUEST, resetPassword);
-  yield takeLatest(Constants.SUBMIT_ONBOARDING_PROCESS, onboardingUser);
 }

@@ -7,7 +7,8 @@ import { ModuleStateMapping } from "./src/modules/constants/keys";
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage:
+    typeof window !== "undefined" ? storage : (null as unknown as Storage),
 };
 
 export type RootState = {
@@ -40,4 +41,7 @@ export const rootReducer = combineReducers<RootState>(reducers);
  * Enhance the rootReducer with persistence functionality.
  * This ensures that parts of the Redux state are saved and restored across sessions.
  */
-export const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const persistedReducer =
+  typeof window !== "undefined"
+    ? persistReducer(persistConfig, rootReducer)
+    : rootReducer; // On ne persiste pas côté serveur

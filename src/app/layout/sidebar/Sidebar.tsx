@@ -17,7 +17,7 @@ const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
   const dispatch = useDispatch();
-  const {} = useSelector(AuthModule.selectors.authSelector);
+  const { isLogout } = useSelector(AuthModule.selectors.authSelector);
 
   const handleLogout = () => {
     dispatch(AuthModule.actions.authLogoutRequestAction());
