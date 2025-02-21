@@ -29,7 +29,7 @@ const createApiAction = ({
   method,
   path,
   platformType = PlatformType.WEB,
-  baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL + "/_api/v1",
+  baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL + "_api/v1",
   responseType,
 }: ApiActionProps): APIObjectType => {
   const url = baseUrl?.concat(
