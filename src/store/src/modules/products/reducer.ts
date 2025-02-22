@@ -14,7 +14,7 @@ const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
 const ProductsReducer = (
   state: TYPES.MODELS.PRODUCTS.IProductState = initialState,
   action: ProductActionsTypes
-) => {
+): TYPES.MODELS.PRODUCTS.IProductState => {
   switch (action.type) {
     case Constants.GET_PRODUCTS:
       return {
@@ -30,6 +30,23 @@ const ProductsReducer = (
         },
       };
     case Constants.GET_PRODUCTS_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case Constants.CREATE_PRODUCT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.CREATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        addProduct: true,
+      };
+    case Constants.CREATE_PRODUCT_FAILED:
       return {
         ...state,
         isLoading: false,

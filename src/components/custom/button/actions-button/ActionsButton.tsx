@@ -6,16 +6,21 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { BaseButton } from "../base/baseButton";
+import { IoSave } from "react-icons/io5";
 
 export const ActionsButton = ({
   cancelTitle,
   validateTitle,
   goBackUrl,
+  requestId,
+  isLoading = false,
   onClick,
 }: {
   cancelTitle?: string;
   validateTitle?: string;
   goBackUrl?: string;
+  requestId?: string;
+  isLoading?: boolean;
   onClick?: () => void;
 }) => {
   if (cancelTitle && !goBackUrl) {
@@ -42,7 +47,8 @@ export const ActionsButton = ({
           onClick={onClick}
           px={"15px"}
           colorType={"success"}
-          leftIcon={<FaPlus />}
+          isLoading={isLoading}
+          leftIcon={requestId ? <IoSave /> : <FaPlus />}
         >
           {validateTitle}
         </BaseButton>

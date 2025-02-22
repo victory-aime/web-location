@@ -1,1 +1,1 @@
-export * as LANGUAGES from "./languages.constant";
+export * as PRODUCTS from "./product";

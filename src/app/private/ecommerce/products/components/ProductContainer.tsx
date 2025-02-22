@@ -1,6 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { CustomBadge } from "_/components/custom/badge";
 import { Status } from "_/components/custom/badge/interface/badge";
+import { BaseButton } from "_/components/custom/button";
 import BoxContainer from "_/components/custom/container/BoxContainer";
 import { InfoTip } from "_/components/ui/toggle-tip";
 import React from "react";
@@ -10,16 +11,20 @@ export const ProductContainer = ({
   title,
   tooltip,
   withBadge = false,
-  badgeValue,
+  type = "badge",
+  onClick,
+  badgeValue = "DRAFT",
 }: {
   children: React.ReactNode;
   title: string;
   tooltip?: string;
   withBadge?: boolean;
-  badgeValue?: Status;
+  type?: "button" | "badge";
+  onClick?: () => void;
+  badgeValue?: Status | undefined | string;
 }) => {
   return (
-    <BoxContainer p={"24px"}>
+    <BoxContainer width={"full"} p={"24px"}>
       <Flex
         alignItems={"center"}
         justifyContent={"space-between"}
@@ -29,7 +34,18 @@ export const ProductContainer = ({
           <Heading>{title}</Heading>
           {tooltip && <InfoTip size={"md"} content={tooltip} />}
         </Flex>
-        {withBadge && <CustomBadge status={badgeValue} type={"product"} />}
+        {withBadge && type === "badge" ? (
+          <CustomBadge status={badgeValue} type={"product"} />
+        ) : type === "button" ? (
+          <BaseButton
+            p={2}
+            colorType={"success"}
+            withGradient
+            onClick={onClick}
+          >
+            Ajouter des variants
+          </BaseButton>
+        ) : null}
       </Flex>
       {children}
     </BoxContainer>

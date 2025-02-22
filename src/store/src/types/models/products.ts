@@ -1,14 +1,18 @@
 export type ProductStatus = "PUBLISH" | "DRAFT" | "DISABLED";
 
-export type ProductImage = {
-  url: string;
-  isPrimary: boolean;
-};
+export interface ICreateProduct extends IProduct {
+  discountPrice?: number;
+  articlePrice?: string | number;
+  profit?: string | number;
+  profitMargin?: string | number;
+  storeId?: string;
+}
 
 export interface ProductsVariants {
   id?: string | undefined;
   productId?: string | undefined;
-  attributes?: object;
+  name?: string;
+  value?: string;
   stock?: number;
   price?: number;
 }
@@ -19,9 +23,9 @@ export interface IProduct {
   price?: number;
   stock?: number;
   categoryName?: string;
-  status?: ProductStatus | string;
-  images?: ProductImage[] | string;
-  variants?: ProductsVariants[] | string;
+  status?: ProductStatus | string[] | string;
+  images?: string[] | any[];
+  variants?: ProductsVariants[];
 }
 
 export interface IResponseProductList {

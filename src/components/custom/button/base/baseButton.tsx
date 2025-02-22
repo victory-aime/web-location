@@ -1,4 +1,4 @@
-import { Button } from "_/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import React, { FC } from "react";
 import {
   ButtonBaseProps,
@@ -6,7 +6,6 @@ import {
   variantColorType,
 } from "../interface/button";
 import { keyframes } from "_/theme/animations";
-import { LoadingDots } from "../animation/loadingDots";
 import { HStack } from "@chakra-ui/react";
 import "../animation/animation.css";
 
@@ -107,9 +106,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             borderRadius={"12px"}
             padding={"20px"}
             loading={isLoading}
-            loadingText={"wait..."}
+            loadingText={"patientez..."}
             spinnerPlacement={"end"}
-            spinner={<LoadingDots />}
             animation={animation ? animationMap[animation] : undefined}
             {...rest}
           >
@@ -131,9 +129,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             borderRadius={"12px"}
             padding={"20px"}
             loading={isLoading}
-            loadingText={"wait..."}
+            loadingText={"patientez..."}
             spinnerPlacement={"end"}
-            spinner={<LoadingDots />}
             animation={animation ? animationMap[animation] : undefined}
             {...rest}
           >
@@ -154,9 +151,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
           _disabled={{ background: "gray.300", cursor: "not-allowed" }}
           borderRadius="12px"
           loading={isLoading}
-          loadingText="wait..."
+          loadingText="patientez..."
           spinnerPlacement="end"
-          spinner={<LoadingDots />}
           animation={animation ? animationMap[animation] : undefined}
           {...rest}
         >

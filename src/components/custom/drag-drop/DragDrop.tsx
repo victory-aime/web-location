@@ -23,11 +23,14 @@ import {
   MAX_FILE_SIZE_MB,
   MAX_FILES,
 } from "./constant/constants";
+import { UTILS } from "_/store/src";
 
 const FileImageList = ({
   getFilesUploaded,
+  base64Images,
 }: {
   getFilesUploaded: (files: File[]) => void;
+  base64Images?: string[];
 }) => {
   const fileUpload = useFileUploadContext();
   const [error, setError] = useState<string | null>(null);
@@ -87,6 +90,19 @@ const FileImageList = ({
     }
   }, [error]);
 
+  useEffect(() => {
+    if (
+      base64Images &&
+      base64Images.length > 0 &&
+      fileUpload.acceptedFiles.length === 0
+    ) {
+      const convertedFiles = base64Images?.map((base64, index) =>
+        UTILS.base64ToFile(base64, `image-${index}.jpg`)
+      );
+      fileUpload.setFiles([...convertedFiles, ...fileUpload.acceptedFiles]);
+    }
+  }, [base64Images]);
+
   return (
     <Box mt={6} w={"full"}>
       <HStack justifyContent={"center"} wrap="wrap" gap="3">
@@ -133,8 +149,10 @@ const FileImageList = ({
 
 export const CustomDragDropZone = ({
   getFilesUploaded,
+  base64Images,
 }: {
   getFilesUploaded: (files: File[]) => void;
+  base64Images?: string[];
 }) => {
   const { getRootProps } = useFileUpload();
 
@@ -148,7 +166,10 @@ export const CustomDragDropZone = ({
       _dragging={{ borderColor: "primary.500" }}
     >
       <FileUpload.HiddenInput />
-      <FileImageList getFilesUploaded={getFilesUploaded} />
+      <FileImageList
+        getFilesUploaded={getFilesUploaded}
+        base64Images={base64Images}
+      />
       <FileUploadDropzone>
         <Icon fontSize="xl" color="fg.muted">
           <LuUpload />

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Spinner, Table } from "@chakra-ui/react";
+import { Box, Button, Center, Table } from "@chakra-ui/react";
 import React, { useEffect, useState, FC } from "react";
 import { Checkbox } from "_components/ui/checkbox";
 import {
@@ -7,7 +7,6 @@ import {
   ActionBarSelectionTrigger,
   ActionBarSeparator,
 } from "_components/ui/action-bar";
-import NoDataFound from "../no-data-found/NoDataFound";
 import PaginationDataTable from "./components/PaginationDataTable";
 import { TableProps } from "./interface/data-types";
 import { ActionButtons } from "./ActionButtons";
@@ -71,7 +70,11 @@ export const CommonDataTable: FC<TableProps> = ({
           <Table.Header>
             <Table.Row>
               {columns.map((col, index) => (
-                <Table.ColumnHeader key={index} minW="150px" p={2}>
+                <Table.ColumnHeader
+                  key={col.accessor.toString()}
+                  minW="150px"
+                  p={2}
+                >
                   <Skeleton height="20px" width="80%" />
                 </Table.ColumnHeader>
               ))}
@@ -81,7 +84,7 @@ export const CommonDataTable: FC<TableProps> = ({
             {Array.from({ length: pageSize }).map((_, rowIndex) => (
               <Table.Row key={rowIndex}>
                 {columns.map((col, colIndex) => (
-                  <Table.Cell key={colIndex} minW="150px" p={2}>
+                  <Table.Cell key={col.accessor.toString()} minW="150px" p={2}>
                     <SkeletonText noOfLines={1} />
                   </Table.Cell>
                 ))}
@@ -141,9 +144,9 @@ export const CommonDataTable: FC<TableProps> = ({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {paginatedItems.map((item) => (
+          {paginatedItems?.map((item) => (
             <Table.Row key={item.id}>
-              {columns.map((col) => (
+              {columns?.map((col) => (
                 <Table.Cell
                   minW={col.accessor !== "select" ? "150px" : "0"}
                   bgColor={selection.includes(item.id) ? "gray.500" : "none"}

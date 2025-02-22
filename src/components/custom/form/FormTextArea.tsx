@@ -41,6 +41,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
         _focus={{ borderColor: "primary.500" }}
         _placeholder={{ color: isError ? "red.500" : "whiteAlpha.400" }}
         placeholder={placeholder ?? ""}
+        fontSize={"16px"}
         width={width}
         p={3}
         mt={"5px"}

@@ -2,7 +2,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
-export const RenderProductImage = ({ value, isImage }: any) => {
+export const RenderProductImage = ({ value }: any) => {
   return (
     <Flex width={"full"} alignItems={"center"} gap={4}>
       <Flex
@@ -12,17 +12,22 @@ export const RenderProductImage = ({ value, isImage }: any) => {
         borderRadius={"7px"}
       >
         <Image
-          src={"/assets/images/mouse.png"}
-          alt="image"
+          src={
+            (value?.images && value?.images[0]) ??
+            "https://avatar.iran.liara.run/public"
+          }
+          alt={"image"}
           width={40}
           height={40}
+          unoptimized={true}
+          style={{ borderRadius: "7px" }}
         />
       </Flex>
       <Flex flexDir={"column"} gap={"3px"}>
         <Text truncate>{value?.name ?? value}</Text>
         {value?.variants ? (
           <Text truncate color={"whiteAlpha.400"}>
-            {value?.variants} variant (s)
+            {value?.variants?.length} variant (s)
           </Text>
         ) : (
           <Text truncate color={"whiteAlpha.400"}>

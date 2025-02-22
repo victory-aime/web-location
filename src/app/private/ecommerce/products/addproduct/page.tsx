@@ -3,143 +3,193 @@
 import {
   Box,
   Flex,
-  HStack,
   Heading,
   Separator,
   VStack,
   Text,
-  createListCollection,
+  Stack,
 } from "@chakra-ui/react";
-import { ActionsButton, BaseButton } from "_/components/custom/button";
-import React, { useState } from "react";
-import { GiCancel } from "react-icons/gi";
-import { FaPlus } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { ActionsButton, BaseButton } from "_components/custom/button";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   FormTextInput,
   FormTextArea,
   FormSelect,
-} from "_/components/custom/form";
-import { Formik, Form } from "formik";
-import { CustomDragDropZone } from "_/components/custom/drag-drop/";
+} from "_components/custom/form";
+import { FieldArray, Formik } from "formik";
+import { CustomDragDropZone } from "_components/custom/drag-drop/";
 import { LuBadgeDollarSign } from "react-icons/lu";
-import { Checkbox } from "_/components/ui/checkbox";
 import { ProductContainer } from "../components";
 import { APP_ROUTES } from "_/app/config/routes";
+import { useDispatch } from "react-redux";
+import { AuthModule, ProductModule } from "_store/src/modules";
+import { useSelector } from "react-redux";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import { TYPES, UTILS } from "_store/src";
+import { GiCancel } from "react-icons/gi";
+import { ProfitCalculator } from "_/app/hooks/profit-calculator";
 
 const AddProductPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const requestId = useSearchParams()?.get("requestId");
+  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
+  const { addProduct, products, isLoading } = useSelector(
+    ProductModule.selectors.productSelector
+  );
+  const [images, setImages] = useState<string[]>([]);
+  const [getProductImages, setGetProductImages] = useState<string[]>([]);
   const [filesUploaded, setFilesUploaded] = useState<File[]>([]);
 
-  const frameworks = createListCollection({
-    items: [
-      { label: "React.js", value: "react" },
-      { label: "Vue.js", value: "vue" },
-      { label: "Angular", value: "angular" },
-      { label: "Svelte", value: "svelte" },
-    ],
-  });
+  const fetchBase64Images = async () => {
+    if (filesUploaded?.length > 0) {
+      const base64Images = await Promise.all(
+        filesUploaded?.map((file) => UTILS.fileToBase64(file))
+      );
+      setImages(base64Images);
+    }
+  };
+
+  const submitForm = (values: TYPES.MODELS.PRODUCTS.ICreateProduct) => {
+    const requestData: TYPES.MODELS.PRODUCTS.ICreateProduct = {
+      name: values?.name,
+      description: values?.description,
+      price: values?.price,
+      stock: values?.stock,
+      articlePrice: parseFloat(`${values?.articlePrice}`),
+      profit: parseFloat(`${values?.profit}`),
+      profitMargin: parseFloat(`${values?.profitMargin}`),
+      categoryName: "Électroménager",
+      variants:
+        values?.variants &&
+        values?.variants?.map((variant: any) => ({
+          name: variant.name,
+          variantValue: variant.value,
+        })),
+      status: values?.status && values?.status[0],
+      images,
+      storeId: currentUser?.store?.id ?? "",
+    };
+    dispatch(ProductModule.actions.createProduct(requestData));
+  };
+
+  useEffect(() => {
+    if (addProduct) {
+      dispatch(ProductModule.actions.clearStateKeysAction());
+      router.push(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST);
+    }
+    if (filesUploaded?.length > 0) {
+      fetchBase64Images();
+    }
+    if (requestId) {
+      const findFileIndList = UTILS.findDynamicIdInList(
+        requestId ?? "",
+        products
+      );
+      setGetProductImages(findFileIndList?.product?.images);
+    }
+  }, [addProduct, router, filesUploaded?.length, requestId]);
 
   return (
-    <Box w={"full"} mt={"30px"}>
-      <Flex
-        alignItems={"center"}
-        justifyContent={"space-between"}
-        flexDirection={{ base: "column", md: "row" }}
-        gap={4}
+    <ProtectedRoute>
+      <Formik
+        initialValues={
+          TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
+        }
+        onSubmit={submitForm}
       >
-        <Heading>Ajouter un produit</Heading>
-        <ActionsButton
-          cancelTitle={"annuler"}
-          goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
-          validateTitle={"Ajouter"}
-          onClick={() => {}}
-        />
-      </Flex>
-      <Flex
-        alignItems={"flex-start"}
-        justifyContent={"flex-start"}
-        flexDirection={{ base: "column", md: "row" }}
-        mt={"50px"}
-        gap={4}
-      >
-        <VStack alignItems={"flex-start"} gap={8} width={"full"}>
-          <ProductContainer
-            title={"Informations Generales"}
-            tooltip={"Saisir les informations generales du produit"}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                productName: "",
-                productDesc: "",
-              }}
-              onSubmit={() => {}}
+        {({ values, setFieldValue, handleSubmit }) => (
+          <Box w={"full"} mt={"30px"}>
+            <Flex
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              flexDirection={{ base: "column", md: "row" }}
+              gap={4}
             >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
+              <Heading>
+                {!requestId ? "Ajouter un produit" : "Modifier votre produit"}
+              </Heading>
+              <ActionsButton
+                cancelTitle={"annuler"}
+                goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
+                validateTitle={requestId ? "Valider" : "Ajouter"}
+                requestId={requestId ?? ""}
+                isLoading={isLoading}
+                onClick={handleSubmit}
+              />
+            </Flex>
+            <Flex
+              alignItems={"flex-start"}
+              justifyContent={"flex-start"}
+              flexDirection={{ base: "column", md: "row" }}
+              mt={"50px"}
+              gap={4}
+            >
+              <VStack alignItems={"flex-start"} gap={8} width={"full"}>
+                <ProductContainer
+                  title={"Informations Generales"}
+                  tooltip={"Saisir les informations generales du produit"}
+                >
                   <VStack mt={10} gap={4} align="stretch" width="100%">
                     <FormTextInput
-                      name="productName"
-                      label="Nom"
-                      placeholder="john"
+                      name="name"
+                      value={values?.name}
+                      label="Nom du produit"
+                      placeholder="Nom du produit"
                     />
                     <FormTextArea
-                      name={"productDesc"}
+                      name={"description"}
                       label={"Description"}
+                      value={values?.description}
                       placeholder={"Saisissez la description du produit ici..."}
                       onChangeFunction={(e: any) =>
-                        setFieldValue("productDesc", e.target.value)
+                        setFieldValue("description", e.target.value)
                       }
                     />
                   </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-          <ProductContainer
-            title={"Images"}
-            tooltip={"Ajouter des images du produit"}
-          >
-            <CustomDragDropZone getFilesUploaded={setFilesUploaded} />
-          </ProductContainer>
-          <ProductContainer
-            title={"Tariification"}
-            tooltip={"Saisir les informations de tarification du produit"}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                productPrice: "",
-                productDiscount: "",
-                productDesc: "",
-              }}
-              onSubmit={() => {}}
-              validationSchema={() => {}}
-            >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
+                </ProductContainer>
+                <ProductContainer
+                  title={"Images"}
+                  tooltip={"Ajouter des images du produit"}
+                >
+                  <CustomDragDropZone
+                    getFilesUploaded={setFilesUploaded}
+                    base64Images={getProductImages}
+                  />
+                </ProductContainer>
+                <ProductContainer
+                  title={"Tariification"}
+                  tooltip={"Saisir les informations de tarification du produit"}
+                >
                   <VStack mt={10} gap={4} align="stretch" width="100%">
-                    <HStack width={"full"} gap={4}>
+                    <Stack
+                      width={"full"}
+                      gap={4}
+                      direction={{ base: "column", md: "row" }}
+                    >
                       <FormTextInput
-                        name="productPrice"
+                        name="price"
+                        type={"number"}
+                        value={values?.price}
                         leftAccessory={<LuBadgeDollarSign />}
                         label="Prix initial"
                         placeholder="Type base price here. . ."
                       />
                       <FormTextInput
-                        name="productDiscount"
-                        label="Prix avant reduction"
-                        toolTipInfo={
-                          "Pour afficher un prix barré, entrez une valeur supérieure à votre prix.Souvent afficher avec un prix barre"
-                        }
-                        placeholder="john"
+                        name="stock"
+                        label={"Quantité"}
+                        type={"number"}
+                        value={values?.stock}
+                        placeholder="0"
                       />
-                    </HStack>
+                    </Stack>
                     <Separator />
-                    <HStack gap={4} direction={{ base: "column", md: "row" }}>
+                    <Stack gap={4} direction={{ base: "column", md: "row" }}>
                       <FormTextInput
-                        name="name"
+                        name="articlePrice"
+                        type={"number"}
+                        value={values?.articlePrice}
                         leftAccessory={<LuBadgeDollarSign />}
                         label="Cout par article"
                         placeholder="0,00"
@@ -147,170 +197,128 @@ const AddProductPage = () => {
                       />
 
                       <FormTextInput
-                        name="name"
+                        name="profit"
+                        value={values?.profit}
+                        isDisabled
                         label="Profit par article"
-                        placeholder="john"
+                        toolTipInfo="Le profit genere par article."
+                        placeholder="0,00"
                       />
                       <FormTextInput
-                        name="name"
+                        name="profitMargin"
+                        isDisabled
+                        value={values?.profitMargin}
                         label="Marge de profit"
-                        placeholder="john"
+                        placeholder="0,00%"
+                        toolTipInfo="La marge de profit generale. determinée en pourcentage"
                       />
-                    </HStack>
+                    </Stack>
                   </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-          <ProductContainer
-            title={"Stock"}
-            tooltip={"Saisir les informations de stock du produit"}
-          >
-            <Text mt={10}>Quantite</Text>
-            <Separator mt={5} />
-            <Formik
-              enableReinitialize
-              initialValues={{
-                name: "",
-                productDesc: "",
-              }}
-              onSubmit={() => {}}
-              validationSchema={() => {}}
-            >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
-                  <VStack mt={5} gap={4} width="full">
-                    <HStack
-                      width={"full"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      mb={4}
+                </ProductContainer>
+
+                <FieldArray name="variants">
+                  {({ push, remove }) => (
+                    <ProductContainer
+                      title={"Variation"}
+                      type="button"
+                      tooltip={
+                        "Les variations vous permettent d'ajouter différentes options pour un même produit, comme la couleur ou la taille. Ajoutez celles qui s'appliquent à votre article"
+                      }
+                      onClick={() =>
+                        push({
+                          name: "",
+                          value: "",
+                        })
+                      }
                     >
-                      <Box width={"full"}>
-                        <Text>Shop location</Text>
+                      <Box mt={5} width="full">
+                        <Text color={"whiteAlpha.400"} mb={5}>
+                          Les variations vous permettent d'ajouter différentes
+                          options pour un même produit, comme la couleur ou la
+                          taille. Ajoutez celles qui s'appliquent à votre
+                          article
+                        </Text>
+                        {values?.variants &&
+                          values?.variants?.length > 0 &&
+                          values?.variants?.map(
+                            (_: any, index: React.Key | null | undefined) => (
+                              <Flex
+                                width="100%"
+                                mt="10px"
+                                gap={2}
+                                flexDir={{ base: "column", md: "row" }}
+                                alignItems={"center"}
+                              >
+                                <FormTextInput
+                                  required
+                                  name={`variants[${index}].name`}
+                                  placeholder={"ex: Couleur"}
+                                  toolTipInfo={"Saisissez le type de variant"}
+                                />
+                                <FormTextInput
+                                  required
+                                  name={`variants[${index}].value`}
+                                  placeholder={"ex:Noir"}
+                                  toolTipInfo={"Mettez la valeur de la variant"}
+                                />
+                                {values?.variants &&
+                                  values?.variants.length >= 1 && (
+                                    <BaseButton
+                                      colorType={"danger"}
+                                      withGradient
+                                      p={2}
+                                      leftIcon={<GiCancel />}
+                                      onClick={() => remove(index as number)}
+                                    />
+                                  )}
+                              </Flex>
+                            )
+                          )}
                       </Box>
-                      <Box width={{ base: "100%", md: "1/4" }}>
-                        <FormTextInput
-                          name="ctx"
-                          type={"number"}
-                          min={0}
-                          max={1000}
-                          placeholder="0"
-                        />
-                      </Box>
-                    </HStack>
-                    <HStack alignItems={"flex-start"} gap={4}>
-                      <Checkbox />
-                      <Text color={"whiteAlpha.400"}>
-                        Les clients verront un avertissement, mais pourront
-                        finaliser les ventes meme lorsque le stock disponible
-                        atteindra zéro et en dessous.
-                      </Text>
-                    </HStack>
-                  </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-          <ProductContainer
-            title={"Variation"}
-            tooltip={"Saisir les informations de variation du produit"}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                name: "",
-                productDesc: "",
-              }}
-              onSubmit={() => {}}
-              validationSchema={() => {}}
-            >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
-                  <VStack mt={5} gap={4} width="full">
-                    <HStack
-                      width={"full"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                    >
-                      <FormTextInput
-                        name="ctx"
-                        label="Variation"
-                        placeholder="0"
-                      />
-                      <FormTextInput
-                        name="ctx"
-                        label="Variation"
-                        placeholder="0"
-                      />
-                    </HStack>
-                  </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-        </VStack>
-        <VStack
-          alignItems={"flex-start"}
-          gap={8}
-          width={{ base: "100%", md: "1/3" }}
-        >
-          <ProductContainer
-            title={"Categories"}
-            tooltip={"Saisir les informations de categorie du produit"}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                productCategory: "",
-              }}
-              onSubmit={() => {}}
-              validationSchema={() => {}}
-            >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
+                    </ProductContainer>
+                  )}
+                </FieldArray>
+              </VStack>
+              <VStack
+                alignItems={"flex-start"}
+                gap={8}
+                width={{ base: "100%", md: "1/3" }}
+              >
+                <ProductContainer
+                  title={"Categorie"}
+                  tooltip={"Saisir les informations de categorie du produit"}
+                >
                   <VStack mt={5} width="full">
                     <FormTextInput
-                      name="productCategory"
-                      label="Categorie"
-                      placeholder="0"
+                      name="category"
+                      placeholder="Choisissez une categorie"
                     />
                   </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-          <ProductContainer
-            title={"Status"}
-            tooltip={"Saisir les informations de status du produit"}
-            withBadge
-            badgeValue={"PUBLISH"}
-          >
-            <Formik
-              enableReinitialize
-              initialValues={{
-                name: "",
-                productDesc: "",
-              }}
-              onSubmit={() => {}}
-              validationSchema={() => {}}
-            >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form onSubmit={handleSubmit}>
+                </ProductContainer>
+                <ProductContainer
+                  title={"Status"}
+                  tooltip={
+                    "Choisissez le status du produit en fonction du status votre produit sera visible par les client et pourra etre commande"
+                  }
+                  withBadge
+                  badgeValue={values?.status && values?.status[0]}
+                >
                   <VStack mt={5} width="full">
-                    <FormTextInput
-                      name="ctx"
-                      label="Categorie"
-                      placeholder="0"
+                    <FormSelect
+                      listItems={TYPES.CONSTANTS.PRODUCTS.productListStatus}
+                      setFieldValue={setFieldValue}
+                      name="status"
+                      placeholder="Choisissez un status"
                     />
                   </VStack>
-                </Form>
-              )}
-            </Formik>
-          </ProductContainer>
-        </VStack>
-      </Flex>
-    </Box>
+                </ProductContainer>
+              </VStack>
+            </Flex>
+            <ProfitCalculator />
+          </Box>
+        )}
+      </Formik>
+    </ProtectedRoute>
   );
 };
 

@@ -97,6 +97,12 @@ const APIS = (baseUrl?: string) => {
         method: "GET",
         baseUrl,
       }),
+      CREATE_PRODUCT: createApiAction({
+        path: "/products/add-product",
+        pathBase: "SECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
     },
   };
 };

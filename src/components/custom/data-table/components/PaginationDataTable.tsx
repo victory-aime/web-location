@@ -89,7 +89,13 @@ const PaginationDataTable: FC<PaginationProps> = ({
   };
 
   return (
-    <Flex alignItems="center" justifyContent={"space-between"} w="full" mt={8}>
+    <Flex
+      alignItems="center"
+      justifyContent={"space-between"}
+      w="full"
+      mt={8}
+      mb={8}
+    >
       <Flex width={"full"}>
         <PaginationRoot
           count={(totalItems && totalItems) || 0}

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/fr"; // Import French locale if needed
+import imageCompression from "browser-image-compression";
 dayjs.extend(customParseFormat); // Extend Dayjs with the custom parse format plugin
 dayjs.locale("fr"); // Set the default locale to French
 
@@ -171,4 +172,48 @@ export const convertToCreatedUpdatedInfo = <
       updatedAt: item.updatedAt,
     },
   }));
+};
+
+/**
+ * Function to compress images files
+ */
+
+export const compressImagesFiles = async (file: File) => {
+  const options = {
+    fileType: "image/webp", // Convertir en WebP
+    maxSizeMB: 1, // Limiter à 1MB pour un bon compromis taille/qualité
+    maxWidthOrHeight: 1920, // Limite la résolution à du Full HD
+    initialQuality: 0.8, // Compression légère (1 = qualité max)
+    useWebWorker: true,
+  };
+  return await imageCompression(file, options);
+};
+
+/**
+ * Convert image files into base64
+ */
+
+export const fileToBase64 = async (file: File): Promise<string> => {
+  const compressedFiles = await compressImagesFiles(file);
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(compressedFiles);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+/**
+ * Convert base64 filte to File
+ */
+export const base64ToFile = (base64: string, filename: string): File => {
+  const arr = base64.split(",");
+  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/jpeg";
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
 };

@@ -7,13 +7,16 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AuthModule, ProductModule } from "_/store/src/modules";
 import { UTILS } from "_/store/src";
-import { FormatNumber } from "@chakra-ui/react";
+import { Box, FormatNumber } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "_/app/config/routes";
 
 export const ProductList = () => {
   const dispatch = useDispatch();
   const { products, isLoading } = useSelector(
     ProductModule.selectors.productSelector
   );
+  const router = useRouter();
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const pageSize = 5;
   const totalPages = Math.ceil(products?.content?.length / pageSize);
@@ -31,7 +34,7 @@ export const ProductList = () => {
     { header: "", accessor: "select" },
     {
       header: "Produits",
-      accessor: "name",
+      accessor: "product",
       cell: (value) => {
         return <RenderProductImage value={value} />;
       },
@@ -74,7 +77,11 @@ export const ProductList = () => {
         {
           name: "edit",
           title: "edit les value",
-          handleClick: (value) => console.log("value clicked", value),
+          handleClick: (value) => {
+            router.push(
+              `${APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD}?requestId=${value?.id}`
+            );
+          },
         },
         {
           name: "view",
@@ -88,16 +95,18 @@ export const ProductList = () => {
     },
   ];
   return (
-    <CommonDataTable
-      data={products?.content}
-      isLoading={isLoading}
-      columns={columns}
-      initialPage={1}
-      totalItems={totalPages}
-      pageSize={pageSize}
-      handleRowSelection={setSelectedRows}
-      hidePagination={totalPages <= 1}
-      lazy
-    />
+    <Box>
+      <CommonDataTable
+        data={products?.content}
+        isLoading={isLoading}
+        columns={columns}
+        initialPage={1}
+        totalItems={totalPages}
+        pageSize={pageSize}
+        handleRowSelection={setSelectedRows}
+        hidePagination={totalPages <= 1}
+        lazy
+      />
+    </Box>
   );
 };

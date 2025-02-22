@@ -37,14 +37,9 @@ export const CustomBadge: FC<Props> = ({
             icon: "",
             label: "Publié",
           };
-        case "LOW_SCTOK":
-          return {
-            color: "secondary.500",
-            icon: "",
-            label: "Stock faible",
-          };
-        case "OUT_STOCK":
-          return { color: "red.500", icon: "", label: "Rupture" };
+
+        case "DISABLED":
+          return { color: "red.500", icon: "", label: "Desactive" };
         default:
           return { color: "gray.500", icon: "", label: "Brouillon" };
       }
