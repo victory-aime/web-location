@@ -21,6 +21,8 @@ export class ProductModule implements IStateModule {
         content: [],
       },
       isLoading: false,
+      categories: [],
+      updateProduct: false,
       error: null,
       addProduct: false,
     };

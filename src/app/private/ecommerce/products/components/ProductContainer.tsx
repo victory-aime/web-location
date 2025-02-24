@@ -1,9 +1,9 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import { CustomBadge } from "_/components/custom/badge";
-import { Status } from "_/components/custom/badge/interface/badge";
-import { BaseButton } from "_/components/custom/button";
-import BoxContainer from "_/components/custom/container/BoxContainer";
-import { InfoTip } from "_/components/ui/toggle-tip";
+import { CustomBadge } from "_components/custom/badge";
+import { Status } from "_components/custom/badge/interface/badge";
+import { BaseButton } from "_components/custom/button";
+import BoxContainer from "_components/custom/container/BoxContainer";
+import { InfoTip } from "_components/ui/toggle-tip";
 import React from "react";
 
 export const ProductContainer = ({

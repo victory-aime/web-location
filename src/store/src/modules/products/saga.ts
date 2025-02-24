@@ -20,7 +20,6 @@ function* getAllProducts(action: any): Generator {
       action?.payload,
       false
     );
-    handleApiSuccess(response, ToastStatus.INFO);
     yield put({
       type: Constants.GET_PRODUCTS_SUCCESS,
       payload: response,
@@ -65,7 +64,53 @@ function* createProductSaga(
   }
 }
 
+function* getCategoriesProductSaga(): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.GET_CATEGORIES;
+    const token = getTokenOrThrow();
+    const response = yield call(apiCall, apiConfig, null, token, {}, false);
+    yield put({
+      type: Constants.GET_CATEGORIES_LIST_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    yield put({
+      type: Constants.GET_CATEGORIES_LIST_FAILED,
+      payload: error,
+    });
+  }
+}
+
+function* updateProduct(
+  action: PRODUCTS_ACTION_TYPES.UpdateProducRequestAction
+): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.UPDATE_PRODUCT;
+    const token = getTokenOrThrow();
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      action.payload,
+      token,
+      {},
+      false
+    );
+    handleApiSuccess(response, ToastStatus.INFO);
+    yield put({
+      type: Constants.UPDATE_PRODUCT_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    yield put({
+      type: Constants.UPDATE_PRODUCT_FAILED,
+      payload: error,
+    });
+  }
+}
+
 export function* productSagas(): Generator {
   yield takeLatest(Constants.GET_PRODUCTS, getAllProducts);
   yield takeLatest(Constants.CREATE_PRODUCT, createProductSaga);
+  yield takeLatest(Constants.GET_CATEGORIES_LIST, getCategoriesProductSaga);
+  yield takeLatest(Constants.UPDATE_PRODUCT, updateProduct);
 }

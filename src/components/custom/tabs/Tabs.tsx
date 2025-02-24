@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Tabs, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Tabs, VStack } from "@chakra-ui/react";
 import { TabsProps } from "./interface/table";
 import { hexToRGB } from "_/theme/colors";
 import { useState } from "react";
@@ -32,70 +32,68 @@ export const CommonTabs = ({
         <Flex
           width={"full"}
           alignItems={"center"}
-          justifyContent={"space-between"}
-          flexDirection={{ base: "column", md: "row" }}
+          justifyContent={"center"}
           overflowX={"auto"}
           gap={4}
         >
           <VStack alignItems={"flex-start"} gap={4} width={"full"}>
             <Heading>{title}</Heading>
-            <Tabs.List
-              bg={"bg.muted"}
-              border={"1px solid"}
-              borderColor={"whiteAlpha.400"}
-              rounded="l3"
-              p={"4px"}
-            >
-              {items.map((item, index) => (
-                <Tabs.Trigger
-                  color={
-                    currentIndex === index ? "primary.500" : "whiteAlpha.400"
-                  }
-                  key={index}
-                  value={item.label}
-                  p={5}
-                >
-                  {isMobile ? <></> : <>{item?.icon}</>}
-                  {item.label}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator rounded="l2" bgColor={hexToRGB("primary", 0.2)} />
-            </Tabs.List>
-          </VStack>
-          <VStack width={"full"} p={"4px"} gap={4} alignItems={"flex-end"}>
-            {addTitle && (
-              <BaseButton
-                bgColor={"primary.500"}
-                p={"8px"}
-                leftIcon={<FaPlus />}
-                onClick={() => redirectLink && redirectLink()}
-              >
-                {addTitle}
-              </BaseButton>
-            )}
-
             <Flex
-              gap={3}
-              flexDirection={{ base: "column", md: "row" }}
-              justifyContent={"flex-end"}
               width={"full"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              flexDirection={{ base: "column", md: "row" }}
+              gap={5}
             >
-              <BaseButton
-                p={"5px"}
-                bgColor={"whiteAlpha.500"}
-                leftIcon={<FaRegCalendarDays />}
-                width={{ base: "full", md: "auto" }}
+              <Tabs.List
+                bg={"bg.muted"}
+                border={"1px solid"}
+                borderColor={"whiteAlpha.400"}
+                rounded="l3"
+                p={"4px"}
               >
-                Choisir une date
-              </BaseButton>
-              <BaseButton
-                p={"5px"}
-                bgColor={"whiteAlpha.500"}
-                leftIcon={<TbFilter />}
-                width={{ base: "full", md: "auto" }}
+                {items.map((item, index) => (
+                  <Tabs.Trigger
+                    color={
+                      currentIndex === index ? "primary.500" : "whiteAlpha.400"
+                    }
+                    key={index}
+                    value={item.label}
+                    p={5}
+                  >
+                    {isMobile ? <></> : <>{item?.icon}</>}
+                    {item.label}
+                  </Tabs.Trigger>
+                ))}
+                <Tabs.Indicator
+                  rounded="l2"
+                  bgColor={hexToRGB("primary", 0.2)}
+                />
+              </Tabs.List>
+              <HStack
+                width={"full"}
+                p={"4px"}
+                gap={4}
+                alignItems={{ base: "flex-start", md: "flex-end" }}
+                justifyContent={{ base: "flex-start", md: "flex-end" }}
               >
-                Filtres
-              </BaseButton>
+                <BaseButton
+                  p={"5px"}
+                  colorType={"secondary"}
+                  leftIcon={<TbFilter />}
+                  width={{ base: "full", md: "auto" }}
+                />
+                {addTitle && (
+                  <BaseButton
+                    bgColor={"primary.500"}
+                    p={"8px"}
+                    leftIcon={<FaPlus />}
+                    onClick={() => redirectLink && redirectLink()}
+                  >
+                    {addTitle}
+                  </BaseButton>
+                )}
+              </HStack>
             </Flex>
           </VStack>
         </Flex>

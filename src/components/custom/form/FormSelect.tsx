@@ -72,7 +72,7 @@ const FormSelect: FC<FullSelectProps> = ({
           <SelectValueText pl={3} placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent borderRadius={7} p={3}>
-          {listItems.items.map((item: any) => (
+          {listItems?.items?.map((item: any) => (
             <SelectItem
               _highlighted={{ color: "primary.500" }}
               py={1}

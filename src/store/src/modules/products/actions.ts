@@ -1,3 +1,4 @@
+import { strict } from "assert";
 import { TYPES } from "../..";
 import * as Constants from "./constants";
 
@@ -9,6 +10,15 @@ export const getAllProductsRequestAction = (storeId: { storeId: string }) => ({
 export const createProduct = (payload: TYPES.MODELS.PRODUCTS.IProduct) => ({
   type: Constants.CREATE_PRODUCT,
   payload,
+});
+
+export const updateProduct = (payload: any) => ({
+  type: Constants.UPDATE_PRODUCT,
+  payload,
+});
+
+export const getCategoriesList = () => ({
+  type: Constants.GET_CATEGORIES_LIST,
 });
 
 export const clearStateKeysAction = () => ({

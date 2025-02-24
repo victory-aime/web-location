@@ -23,11 +23,11 @@ export const ProductList = () => {
   const [selectedRows, setSelectedRows] = useState<any>([]);
 
   useEffect(() => {
-    dispatch(
-      ProductModule.actions.getAllProductsRequestAction({
-        storeId: currentUser?.store?.id ?? "",
-      })
-    );
+    // dispatch(
+    //   ProductModule.actions.getAllProductsRequestAction({
+    //     storeId: currentUser?.store?.id ?? "",
+    //   })
+    // );
   }, []);
 
   const columns: ColumnsDataTable[] = [

@@ -10,5 +10,11 @@ export const getProductsLoader = (state: RootState) =>
 export const getAddProducts = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE]?.addProduct;
 
+export const getCategoriesProducts = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE]?.categories;
+
+export const getUpdateProduct = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE]?.updateProduct;
+
 export const productSelector = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE];

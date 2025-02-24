@@ -103,6 +103,18 @@ const APIS = (baseUrl?: string) => {
         method: "POST",
         baseUrl,
       }),
+      UPDATE_PRODUCT: createApiAction({
+        path: "/products/update-product",
+        pathBase: "SECURED_API",
+        method: "PATCH",
+        baseUrl,
+      }),
+      GET_CATEGORIES: createApiAction({
+        path: "/categories",
+        pathBase: "SECURED_API",
+        method: "GET",
+        baseUrl,
+      }),
     },
   };
 };

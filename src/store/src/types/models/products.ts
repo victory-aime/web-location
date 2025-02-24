@@ -1,3 +1,5 @@
+import { AnyAaaaRecord } from "dns";
+
 export type ProductStatus = "PUBLISH" | "DRAFT" | "DISABLED";
 
 export interface ICreateProduct extends IProduct {
@@ -13,8 +15,6 @@ export interface ProductsVariants {
   productId?: string | undefined;
   name?: string;
   value?: string;
-  stock?: number;
-  price?: number;
 }
 
 export interface IProduct {
@@ -22,20 +22,32 @@ export interface IProduct {
   description?: string;
   price?: number;
   stock?: number;
-  categoryName?: string;
-  status?: ProductStatus | string[] | string;
+  categoryName?: string[] | any;
+  status?: any;
   images?: string[] | any[];
   variants?: ProductsVariants[];
 }
 
+export interface IProductId extends IProduct {
+  articlePrice?: string | number;
+  profit?: string | number;
+  profitMargin?: string | number;
+}
 export interface IResponseProductList {
   content: IProduct[];
   totalPage?: number;
 }
 
+export interface IProductsCategories {
+  id?: string;
+  name?: string;
+}
+
 export interface IProductState {
   products: IResponseProductList;
+  categories?: IProductsCategories[];
   isLoading: boolean;
   addProduct: boolean;
+  updateProduct?: boolean;
   error: string | null;
 }

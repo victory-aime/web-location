@@ -22,17 +22,17 @@ const ProductPage = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const items = [
     {
-      label: "Produits",
+      label: "Tous",
       icon: <MdProductionQuantityLimits />,
       content: <ProductList />,
     },
     {
-      label: "Expedie",
+      label: "Publie",
       icon: <BsFillSendCheckFill />,
       content: <PublishProductList />,
     },
     {
-      label: "Stock",
+      label: "Desactive",
       icon: <FaStoreAlt />,
       content: <ProductStock />,
     },

@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { BaseButton } from "../base/baseButton";
 import { IoSave } from "react-icons/io5";
+import { hexToRGB } from "_theme/colors";
 
 export const ActionsButton = ({
   cancelTitle,
@@ -46,7 +47,8 @@ export const ActionsButton = ({
         <BaseButton
           onClick={onClick}
           px={"15px"}
-          colorType={"success"}
+          bg={hexToRGB("primary", 0.5)}
+          withGradient
           isLoading={isLoading}
           leftIcon={requestId ? <IoSave /> : <FaPlus />}
         >

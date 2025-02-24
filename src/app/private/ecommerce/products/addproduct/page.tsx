@@ -8,6 +8,7 @@ import {
   VStack,
   Text,
   Stack,
+  createListCollection,
 } from "@chakra-ui/react";
 import { ActionsButton, BaseButton } from "_components/custom/button";
 import React, { useEffect, useState } from "react";
@@ -34,13 +35,20 @@ const AddProductPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const requestId = useSearchParams()?.get("requestId");
-  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
-  const { addProduct, products, isLoading } = useSelector(
-    ProductModule.selectors.productSelector
+  const [initialValues, setInitialValues] = useState(
+    TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
   );
+  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
+  const { addProduct, products, isLoading, categories, updateProduct } =
+    useSelector(ProductModule.selectors.productSelector);
   const [images, setImages] = useState<string[]>([]);
   const [getProductImages, setGetProductImages] = useState<string[]>([]);
   const [filesUploaded, setFilesUploaded] = useState<File[]>([]);
+
+  const existingProductFiles = UTILS.findDynamicIdInList(
+    requestId ?? "",
+    products
+  );
 
   const fetchBase64Images = async () => {
     if (filesUploaded?.length > 0) {
@@ -60,7 +68,7 @@ const AddProductPage = () => {
       articlePrice: parseFloat(`${values?.articlePrice}`),
       profit: parseFloat(`${values?.profit}`),
       profitMargin: parseFloat(`${values?.profitMargin}`),
-      categoryName: "Électroménager",
+      categoryName: values?.categoryName && values?.categoryName[0],
       variants:
         values?.variants &&
         values?.variants?.map((variant: any) => ({
@@ -71,32 +79,62 @@ const AddProductPage = () => {
       images,
       storeId: currentUser?.store?.id ?? "",
     };
-    dispatch(ProductModule.actions.createProduct(requestData));
+    if (requestData) {
+      dispatch(
+        ProductModule.actions.updateProduct({
+          id: requestId,
+          ...requestData,
+        })
+      );
+    } else {
+      dispatch(ProductModule.actions.createProduct(requestData));
+    }
   };
 
   useEffect(() => {
-    if (addProduct) {
+    if (addProduct || updateProduct) {
       dispatch(ProductModule.actions.clearStateKeysAction());
       router.push(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST);
     }
     if (filesUploaded?.length > 0) {
       fetchBase64Images();
     }
-    if (requestId) {
-      const findFileIndList = UTILS.findDynamicIdInList(
-        requestId ?? "",
-        products
-      );
-      setGetProductImages(findFileIndList?.product?.images);
+  }, [addProduct, router, filesUploaded?.length, updateProduct]);
+
+  useEffect(() => {
+    if (requestId && existingProductFiles) {
+      setGetProductImages(existingProductFiles?.product?.images);
+      setInitialValues({
+        ...existingProductFiles,
+        name: existingProductFiles?.product?.name,
+        variants: existingProductFiles?.product?.variants?.map(
+          (item: { name: string; variantValue: string }) => ({
+            name: item?.name,
+            value: item?.variantValue,
+          })
+        ),
+        categoryName: [existingProductFiles?.categoryName],
+        status: [existingProductFiles.status],
+      });
     }
-  }, [addProduct, router, filesUploaded?.length, requestId]);
+    if (categories?.length === 0) {
+      dispatch(ProductModule.actions.getCategoriesList());
+    }
+  }, [categories?.length, requestId, existingProductFiles]);
+
+  const categoryList = createListCollection({
+    items:
+      categories?.map((item) => ({
+        label: item.name,
+        value: item.name,
+      })) || [],
+  });
 
   return (
     <ProtectedRoute>
       <Formik
-        initialValues={
-          TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
-        }
+        enableReinitialize
+        initialValues={initialValues}
         onSubmit={submitForm}
       >
         {({ values, setFieldValue, handleSubmit }) => (
@@ -240,40 +278,40 @@ const AddProductPage = () => {
                         </Text>
                         {values?.variants &&
                           values?.variants?.length > 0 &&
-                          values?.variants?.map(
-                            (_: any, index: React.Key | null | undefined) => (
-                              <Flex
-                                width="100%"
-                                mt="10px"
-                                gap={2}
-                                flexDir={{ base: "column", md: "row" }}
-                                alignItems={"center"}
-                              >
-                                <FormTextInput
-                                  required
-                                  name={`variants[${index}].name`}
-                                  placeholder={"ex: Couleur"}
-                                  toolTipInfo={"Saisissez le type de variant"}
-                                />
-                                <FormTextInput
-                                  required
-                                  name={`variants[${index}].value`}
-                                  placeholder={"ex:Noir"}
-                                  toolTipInfo={"Mettez la valeur de la variant"}
-                                />
-                                {values?.variants &&
-                                  values?.variants.length >= 1 && (
-                                    <BaseButton
-                                      colorType={"danger"}
-                                      withGradient
-                                      p={2}
-                                      leftIcon={<GiCancel />}
-                                      onClick={() => remove(index as number)}
-                                    />
-                                  )}
-                              </Flex>
-                            )
-                          )}
+                          values?.variants?.map((_: any, index: number) => (
+                            <Flex
+                              width="100%"
+                              mt="10px"
+                              gap={2}
+                              flexDir={{ base: "column", md: "row" }}
+                              alignItems={"center"}
+                            >
+                              <FormTextInput
+                                required
+                                name={`variants[${index}].name`}
+                                value={values?.variants?.[index]?.name}
+                                placeholder={"ex: Couleur"}
+                                toolTipInfo={"Saisissez le type de variant"}
+                              />
+                              <FormTextInput
+                                required
+                                name={`variants[${index}].value`}
+                                placeholder={"ex:Noir"}
+                                value={values?.variants?.[index]?.value}
+                                toolTipInfo={"Mettez la valeur de la variant"}
+                              />
+                              {values?.variants &&
+                                values?.variants.length >= 1 && (
+                                  <BaseButton
+                                    colorType={"danger"}
+                                    withGradient
+                                    p={2}
+                                    leftIcon={<GiCancel />}
+                                    onClick={() => remove(index as number)}
+                                  />
+                                )}
+                            </Flex>
+                          ))}
                       </Box>
                     </ProductContainer>
                   )}
@@ -289,8 +327,10 @@ const AddProductPage = () => {
                   tooltip={"Saisir les informations de categorie du produit"}
                 >
                   <VStack mt={5} width="full">
-                    <FormTextInput
-                      name="category"
+                    <FormSelect
+                      name="categoryName"
+                      setFieldValue={setFieldValue}
+                      listItems={categoryList}
                       placeholder="Choisissez une categorie"
                     />
                   </VStack>

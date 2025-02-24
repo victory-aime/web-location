@@ -1,6 +1,5 @@
 import * as Constants from "./constants";
 import { TYPES } from "_store/src";
-import { execOnce } from "next/dist/shared/lib/utils";
 import { Action } from "redux";
 
 export interface GetAllProductsRequestAction extends Action {
@@ -15,6 +14,35 @@ export interface GetAllProductsRequestActionSuccess extends Action {
 
 export interface GetAllProductsRequestActionFailed extends Action {
   type: typeof Constants.GET_PRODUCTS_FAILED;
+  payload: string;
+}
+
+export interface UpdateProducRequestAction extends Action {
+  type: typeof Constants.UPDATE_PRODUCT;
+  payload: string;
+}
+
+export interface UpdateProducRequestActionSuccess extends Action {
+  type: typeof Constants.UPDATE_PRODUCT_SUCCESS;
+  payload: any;
+}
+
+export interface UpdateProducRequestActionFailed extends Action {
+  type: typeof Constants.UPDATE_PRODUCT_FAILED;
+  payload: string;
+}
+
+export interface GetAllCategoriesRequestAction extends Action {
+  type: typeof Constants.GET_CATEGORIES_LIST;
+}
+
+export interface GetAllCategoriesRequestActionSuccess extends Action {
+  type: typeof Constants.GET_CATEGORIES_LIST_SUCCESS;
+  payload: any;
+}
+
+export interface GetAllCategoriesRequestActionFailed extends Action {
+  type: typeof Constants.GET_CATEGORIES_LIST_FAILED;
   payload: string;
 }
 
@@ -43,4 +71,10 @@ export type ProductActionsTypes =
   | CreateProductRequest
   | CreateProductSuccess
   | CreateProductFailed
+  | GetAllCategoriesRequestAction
+  | GetAllCategoriesRequestActionSuccess
+  | GetAllCategoriesRequestActionFailed
+  | UpdateProducRequestAction
+  | UpdateProducRequestActionSuccess
+  | UpdateProducRequestActionFailed
   | ClearKeys;
