@@ -5,6 +5,9 @@ import {
   ConfirmCommand,
   NoDataFoundLottie,
   LoaderAnimation,
+  DeleteAnimation,
+  TrashAnimation,
+  TrashAnimationV2,
 } from "_lottie/json";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -21,4 +24,18 @@ const LoaderLottie = () => {
   return <Lottie animationData={LoaderAnimation} />;
 };
 
-export { LottieAnimation, NoDataFoundLottieAnimation, LoaderLottie };
+const DeleteLottie = () => {
+  return <Lottie animationData={DeleteAnimation} />;
+};
+
+const TrashLottieAnimation = () => {
+  return <Lottie animationData={TrashAnimation} />;
+};
+
+export {
+  LottieAnimation,
+  NoDataFoundLottieAnimation,
+  LoaderLottie,
+  DeleteLottie,
+  TrashLottieAnimation,
+};

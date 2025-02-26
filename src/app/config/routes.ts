@@ -20,5 +20,6 @@ export const APP_ROUTES = {
         ADD: "/private/ecommerce/products/addproduct",
       },
     },
+    TRASH: "/private/trash",
   },
 };

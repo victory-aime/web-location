@@ -115,6 +115,30 @@ const APIS = (baseUrl?: string) => {
         method: "GET",
         baseUrl,
       }),
+      DELETE_PRODUCT: createApiAction({
+        path: "/products/delete-product",
+        pathBase: "SECURED_API",
+        method: "DELETE",
+        baseUrl,
+      }),
+      SOFT_DELETE_PRODUCT: createApiAction({
+        path: "/products/soft-delete-product",
+        pathBase: "SECURED_API",
+        method: "PUT",
+        baseUrl,
+      }),
+      TRASH_LIST_PRODUCT: createApiAction({
+        path: "/products/trash-list",
+        pathBase: "SECURED_API",
+        method: "GET",
+        baseUrl,
+      }),
+      RESTORE_PRODUCT: createApiAction({
+        path: "/products/restore-product",
+        pathBase: "SECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
     },
   };
 };

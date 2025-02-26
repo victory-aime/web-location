@@ -4,6 +4,7 @@ import { IoNewspaperOutline } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import { BaseButton } from "../button";
 import { ActionButtonsProps } from "./interface/data-types";
+import { TbRestore } from "react-icons/tb";
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -57,6 +58,19 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
                 disabled={isDisabled}
               >
                 <IoNewspaperOutline />
+              </IconButton>
+            );
+          case "restore":
+            return (
+              <IconButton
+                key={index}
+                aria-label="restore"
+                colorPalette="blue"
+                size="sm"
+                onClick={() => action.handleClick(item)}
+                disabled={isDisabled}
+              >
+                <TbRestore />
               </IconButton>
             );
           default:

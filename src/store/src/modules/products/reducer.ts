@@ -7,8 +7,14 @@ const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
     content: [],
   },
   categories: [],
+  trashList: {
+    content: [],
+  },
   isLoading: false,
   addProduct: false,
+  updateProduct: false,
+  deleteProduct: false,
+  restoreProduct: false,
   error: null,
 };
 
@@ -88,6 +94,79 @@ const ProductsReducer = (
         isLoading: false,
         error: action.payload,
       };
+
+    case Constants.DELETE_PRODUCT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        deleteProduct: true,
+      };
+    case Constants.DELETE_PRODUCT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case Constants.SOFT_DELETE_PRODUCT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.SOFT_DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        deleteProduct: true,
+      };
+    case Constants.SOFT_DELETE_PRODUCT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case Constants.TRASH_PRODUCT_LIST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.TRASH_PRODUCT_LIST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        trashList: { content: action?.payload?.content },
+      };
+    case Constants.TRASH_PRODUCT_LIST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action?.payload,
+      };
+
+    case Constants.RESTORE_PRODUCT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.RESTORE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        restoreProduct: true,
+      };
+    case Constants.RESTORE_PRODUCT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action?.payload,
+      };
+
     case Constants.CLEAR_PRODUCTS_KEYS:
       return initialState;
     default:

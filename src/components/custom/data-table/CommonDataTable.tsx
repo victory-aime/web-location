@@ -1,4 +1,4 @@
-import { Box, Button, Center, Table } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Table, Text } from "@chakra-ui/react";
 import React, { useEffect, useState, FC } from "react";
 import { Checkbox } from "_components/ui/checkbox";
 import {
@@ -11,7 +11,10 @@ import PaginationDataTable from "./components/PaginationDataTable";
 import { TableProps } from "./interface/data-types";
 import { ActionButtons } from "./ActionButtons";
 import { Skeleton, SkeletonText } from "_/components/ui/skeleton";
-import { NoDataFoundLottieAnimation } from "_lottie/animations/LottieAnimation";
+import {
+  NoDataFoundLottieAnimation,
+  TrashLottieAnimation,
+} from "_lottie/animations/LottieAnimation";
 
 export const CommonDataTable: FC<TableProps> = ({
   data,
@@ -24,6 +27,7 @@ export const CommonDataTable: FC<TableProps> = ({
   initialPage = 1,
   pageSize = 5,
   lazy = false,
+  animationType = "folder",
 }) => {
   const [selection, setSelection] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
@@ -96,12 +100,38 @@ export const CommonDataTable: FC<TableProps> = ({
     );
   }
 
+  const renderNodataAnimation = () => {
+    switch (animationType) {
+      case "trash":
+        return (
+          <Center flexDir={"column"} gap={4}>
+            <TrashLottieAnimation />
+            <Flex flexDir={"column"} alignItems={"center"} gap={2}>
+              <Text color={"whiteAlpha.700"}>Aucun element</Text>
+              <Text
+                color={"whiteAlpha.400"}
+                textAlign={{ base: "center", md: "left" }}
+              >
+                Seuls les produits supprimer s'affichent ici. Ils sont supprimes
+                definitivement au bout de 30 jours
+              </Text>
+            </Flex>
+          </Center>
+        );
+      case "folder":
+        return (
+          <Center flexDir={"column"} gap={4}>
+            <NoDataFoundLottieAnimation />
+            <Text color={"whiteAlpha.400"}>Aucun element</Text>
+          </Center>
+        );
+      default:
+        return null;
+    }
+  };
+
   if (data?.length === 0) {
-    return (
-      <Center width={"full"} height={"30%"}>
-        <NoDataFoundLottieAnimation />
-      </Center>
-    );
+    return renderNodataAnimation();
   }
 
   return (

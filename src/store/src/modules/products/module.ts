@@ -20,9 +20,14 @@ export class ProductModule implements IStateModule {
       products: {
         content: [],
       },
+      trashList: {
+        content: [],
+      },
       isLoading: false,
       categories: [],
       updateProduct: false,
+      deleteProduct: false,
+      restoreProduct: false,
       error: null,
       addProduct: false,
     };

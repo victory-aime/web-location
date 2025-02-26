@@ -46,8 +46,11 @@ export interface IProductsCategories {
 export interface IProductState {
   products: IResponseProductList;
   categories?: IProductsCategories[];
+  trashList: IResponseProductList;
   isLoading: boolean;
   addProduct: boolean;
-  updateProduct?: boolean;
+  updateProduct: boolean;
+  deleteProduct: boolean;
+  restoreProduct: boolean;
   error: string | null;
 }

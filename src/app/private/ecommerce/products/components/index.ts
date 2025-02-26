@@ -4,6 +4,7 @@ import { PublishProductList } from "./PublishProductList";
 import { ProductStock } from "./ProductStock";
 import { DraftProducts } from "./DraftProduct";
 import { ProductContainer } from "./ProductContainer";
+import { ProductDetails } from "./modal/ProductDetails";
 
 export {
   ProductList,
@@ -12,4 +13,5 @@ export {
   ProductStock,
   DraftProducts,
   ProductContainer,
+  ProductDetails,
 };

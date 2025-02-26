@@ -1,9 +1,30 @@
-import { strict } from "assert";
 import { TYPES } from "../..";
 import * as Constants from "./constants";
 
 export const getAllProductsRequestAction = (storeId: { storeId: string }) => ({
   type: Constants.GET_PRODUCTS,
+  payload: storeId,
+});
+
+export const deleteProductRequest = (productId: { productId: string }) => ({
+  type: Constants.DELETE_PRODUCT,
+  payload: productId,
+});
+
+export const softDeleteRequestAction = (productId: { productId: string }) => ({
+  type: Constants.SOFT_DELETE_PRODUCT,
+  payload: productId,
+});
+
+export const restoreProductRequestAtion = (productId?: {
+  productId: string;
+}) => ({
+  type: Constants.RESTORE_PRODUCT,
+  payload: productId,
+});
+
+export const getTrashProductRequestAction = (storeId: { storeId: string }) => ({
+  type: Constants.TRASH_PRODUCT_LIST,
   payload: storeId,
 });
 

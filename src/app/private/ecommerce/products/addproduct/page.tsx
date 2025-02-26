@@ -79,7 +79,7 @@ const AddProductPage = () => {
       images,
       storeId: currentUser?.store?.id ?? "",
     };
-    if (requestData) {
+    if (requestId) {
       dispatch(
         ProductModule.actions.updateProduct({
           id: requestId,

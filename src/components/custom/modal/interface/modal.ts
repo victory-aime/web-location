@@ -1,0 +1,22 @@
+import { DialogRootProps } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import { variantColorType } from "../../button/interface/button";
+
+export interface ModalProps extends DialogRootProps {
+  title?: string | undefined;
+  isOpen?: boolean | undefined;
+  onChange: (value: any) => void;
+  ignoreFooter?: boolean;
+  modalType?: "dialog" | "alertdialog" | undefined;
+  buttonSaveTitle?: string;
+  colorSaveButton?: variantColorType;
+  isFull?: boolean | undefined;
+  onClick?: () => void;
+  isLoading?: boolean;
+  children: ReactNode;
+}
+
+export interface ModalOpenProps {
+  onChange: (value: any) => void;
+  isOpen?: boolean | undefined;
+}

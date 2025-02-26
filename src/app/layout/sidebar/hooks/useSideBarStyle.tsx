@@ -16,7 +16,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
 
   const sideBarStyle: BoxProps = useMemo(
     () => ({
-      w: { base: "100%", md: "80px", lg: "210px" },
+      w: { base: "100%", md: "80px", lg: "230px" },
       h: "100vh",
       position: "fixed",
       transition: "all 400ms cubic-bezier(0.25, 0.1, 0.25, 1)",

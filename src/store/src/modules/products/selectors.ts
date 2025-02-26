@@ -16,5 +16,14 @@ export const getCategoriesProducts = (state: RootState) =>
 export const getUpdateProduct = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE]?.updateProduct;
 
+export const deleteProductSelector = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE]?.deleteProduct;
+
+export const trashListSelector = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE]?.trashList;
+
+export const restoreProductSelector = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE]?.restoreProduct;
+
 export const productSelector = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE];

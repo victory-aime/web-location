@@ -7,6 +7,7 @@ import LogOutIcon from "./log-out.svg";
 import ShoppingCart from "./shopping-cart.svg";
 import EyeOff from "./eye-off-icon.svg";
 import Eye from "./eye-icon.svg";
+import TrashIcon from "./trash-icon.svg";
 
 export {
   ListMenu,
@@ -18,4 +19,5 @@ export {
   ShoppingCart,
   Eye,
   EyeOff,
+  TrashIcon,
 };

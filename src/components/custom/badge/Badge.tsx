@@ -13,7 +13,7 @@ export const CustomBadge: FC<Props> = ({
   type = "order",
   ...props
 }) => {
-  const getBadgeAttributes = (status: Status, type: BadgeType) => {
+  const getBadgeAttributes = (status: Status | string, type: BadgeType) => {
     if (type === "order") {
       switch (status) {
         case "DONE":
@@ -54,7 +54,7 @@ export const CustomBadge: FC<Props> = ({
       variant={variant}
       size="lg"
       borderRadius="7px"
-      p={2}
+      p={"4px"}
       color="white"
       bgColor={color}
     >

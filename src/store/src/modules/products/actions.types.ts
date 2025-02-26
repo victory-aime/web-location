@@ -1,5 +1,6 @@
 import * as Constants from "./constants";
 import { TYPES } from "_store/src";
+import { extend } from "lodash";
 import { Action } from "redux";
 
 export interface GetAllProductsRequestAction extends Action {
@@ -60,6 +61,63 @@ export interface CreateProductFailed extends Action {
   payload: string;
 }
 
+export interface DeleteProductRequest extends Action {
+  type: typeof Constants.DELETE_PRODUCT;
+  payload: string;
+}
+
+export interface DeleteProductSuccess extends Action {
+  type: typeof Constants.DELETE_PRODUCT_SUCCESS;
+}
+
+export interface DeleteProductFailed extends Action {
+  type: typeof Constants.DELETE_PRODUCT_FAILED;
+  payload: string;
+}
+
+export interface SoftDeleteProductRequest extends Action {
+  type: typeof Constants.SOFT_DELETE_PRODUCT;
+  payload: string;
+}
+
+export interface SoftDeleteProductSuccess extends Action {
+  type: typeof Constants.SOFT_DELETE_PRODUCT_SUCCESS;
+}
+
+export interface SoftDeleteProductFailed extends Action {
+  type: typeof Constants.SOFT_DELETE_PRODUCT_FAILED;
+  payload: string;
+}
+
+export interface TrashRequestList extends Action {
+  type: typeof Constants.TRASH_PRODUCT_LIST;
+  payload: string;
+}
+
+export interface TrashRequestSuccess {
+  type: typeof Constants.TRASH_PRODUCT_LIST_SUCCESS;
+  payload: TYPES.MODELS.PRODUCTS.IResponseProductList;
+}
+
+export interface TrashRequestFailed {
+  type: typeof Constants.TRASH_PRODUCT_LIST_FAILED;
+  payload: string;
+}
+
+export interface RestoreProduct extends Action {
+  type: typeof Constants.RESTORE_PRODUCT;
+  payload: string;
+}
+
+export interface RestoreProductSuccess {
+  type: typeof Constants.RESTORE_PRODUCT_SUCCESS;
+}
+
+export interface RestoreProductFailed {
+  type: typeof Constants.RESTORE_PRODUCT_FAILED;
+  payload: string;
+}
+
 export interface ClearKeys extends Action {
   type: typeof Constants.CLEAR_PRODUCTS_KEYS;
 }
@@ -77,4 +135,16 @@ export type ProductActionsTypes =
   | UpdateProducRequestAction
   | UpdateProducRequestActionSuccess
   | UpdateProducRequestActionFailed
+  | DeleteProductRequest
+  | DeleteProductSuccess
+  | DeleteProductFailed
+  | SoftDeleteProductRequest
+  | SoftDeleteProductSuccess
+  | SoftDeleteProductFailed
+  | TrashRequestList
+  | TrashRequestSuccess
+  | TrashRequestFailed
+  | RestoreProduct
+  | RestoreProductSuccess
+  | RestoreProductFailed
   | ClearKeys;

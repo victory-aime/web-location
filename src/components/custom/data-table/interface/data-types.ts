@@ -38,6 +38,8 @@ interface ColumnsDataTable {
   disabled?: (data?: any) => boolean;
 }
 
+type NoDataFoundType = "trash" | "folder";
+
 interface TableProps {
   data: any[];
   columns: ColumnsDataTable[];
@@ -47,6 +49,7 @@ interface TableProps {
   page?: number;
   pageSize?: number;
   lazy?: boolean;
+  animationType?: NoDataFoundType;
   handleRowSelection?: (item: any) => void;
   enabledSort?: boolean;
   hidePagination?: boolean;

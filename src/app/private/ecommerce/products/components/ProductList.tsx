@@ -10,10 +10,12 @@ import { UTILS } from "_/store/src";
 import { Box, FormatNumber } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
+import { ProductDetails } from "./modal/ProductDetails";
+import DeleteProduct from "./modal/DeleteProduct";
 
 export const ProductList = () => {
   const dispatch = useDispatch();
-  const { products, isLoading } = useSelector(
+  const { products, isLoading, deleteProduct } = useSelector(
     ProductModule.selectors.productSelector
   );
   const router = useRouter();
@@ -21,14 +23,20 @@ export const ProductList = () => {
   const pageSize = 5;
   const totalPages = Math.ceil(products?.content?.length / pageSize);
   const [selectedRows, setSelectedRows] = useState<any>([]);
+  const [selectedProduct, setSelectedProduct] = useState<any>();
+  const [openDetail, setOpenDetail] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
-    // dispatch(
-    //   ProductModule.actions.getAllProductsRequestAction({
-    //     storeId: currentUser?.store?.id ?? "",
-    //   })
-    // );
-  }, []);
+    dispatch(
+      ProductModule.actions.getAllProductsRequestAction({
+        storeId: currentUser?.store?.id ?? "",
+      })
+    );
+    if (deleteProduct) {
+      dispatch(ProductModule.actions.clearStateKeysAction());
+    }
+  }, [deleteProduct]);
 
   const columns: ColumnsDataTable[] = [
     { header: "", accessor: "select" },
@@ -85,11 +93,17 @@ export const ProductList = () => {
         },
         {
           name: "view",
-          handleClick: (value) => console.log("value clicked", value),
+          handleClick: (value) => {
+            setSelectedProduct(value);
+            setOpenDetail(true);
+          },
         },
         {
           name: "delete",
-          handleClick: (value) => console.log("value clicked", value),
+          handleClick: (value) => {
+            setSelectedProduct(value);
+            setOpenDelete(true);
+          },
         },
       ],
     },
@@ -106,6 +120,16 @@ export const ProductList = () => {
         handleRowSelection={setSelectedRows}
         hidePagination={totalPages <= 1}
         lazy
+      />
+      <ProductDetails
+        isOpen={openDetail}
+        onChange={() => setOpenDetail(false)}
+        selectedValues={selectedProduct}
+      />
+      <DeleteProduct
+        isOpen={openDelete}
+        onChange={() => setOpenDelete(false)}
+        selectedValues={selectedProduct}
       />
     </Box>
   );

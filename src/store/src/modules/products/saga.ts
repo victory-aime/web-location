@@ -108,9 +108,130 @@ function* updateProduct(
   }
 }
 
+function* addedProductToTrash(
+  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
+): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.SOFT_DELETE_PRODUCT;
+    const token = getTokenOrThrow();
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+      token,
+      action.payload,
+      false
+    );
+    yield put({
+      type: Constants.SOFT_DELETE_PRODUCT_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.SOFT_DELETE_PRODUCT_FAILED,
+      payload: error,
+    });
+  }
+}
+
+function* getAllTrashProductsList(
+  action: PRODUCTS_ACTION_TYPES.TrashRequestList
+): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.TRASH_LIST_PRODUCT;
+    const token = getTokenOrThrow();
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+      token,
+      action.payload,
+      false
+    );
+    yield put({
+      type: Constants.TRASH_PRODUCT_LIST_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.TRASH_PRODUCT_LIST_FAILED,
+      payload: error,
+    });
+  }
+}
+
+function* restoreProducts(
+  action: PRODUCTS_ACTION_TYPES.RestoreProduct
+): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.RESTORE_PRODUCT;
+    const token = getTokenOrThrow();
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+      token,
+      action.payload,
+      false
+    );
+    yield put({
+      type: Constants.RESTORE_PRODUCT_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.RESTORE_PRODUCT_FAILED,
+      payload: error,
+    });
+  }
+}
+
+function* deleteProducts(
+  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
+): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.DELETE_PRODUCT;
+    const token = getTokenOrThrow();
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+      token,
+      action.payload,
+      false
+    );
+    handleApiSuccess(response, ToastStatus.INFO);
+    yield put({
+      type: Constants.DELETE_PRODUCT_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.DELETE_PRODUCT_FAILED,
+      payload: error,
+    });
+  }
+}
+
 export function* productSagas(): Generator {
   yield takeLatest(Constants.GET_PRODUCTS, getAllProducts);
   yield takeLatest(Constants.CREATE_PRODUCT, createProductSaga);
   yield takeLatest(Constants.GET_CATEGORIES_LIST, getCategoriesProductSaga);
   yield takeLatest(Constants.UPDATE_PRODUCT, updateProduct);
+  yield takeLatest(Constants.SOFT_DELETE_PRODUCT, addedProductToTrash);
+  yield takeLatest(Constants.DELETE_PRODUCT, deleteProducts);
+  yield takeLatest(Constants.TRASH_PRODUCT_LIST, getAllTrashProductsList);
+  yield takeLatest(Constants.RESTORE_PRODUCT, restoreProducts);
 }
