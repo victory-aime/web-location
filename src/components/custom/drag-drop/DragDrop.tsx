@@ -114,7 +114,7 @@ const FileImageList = ({
             file={file}
             pos="relative"
           >
-            <Float>
+            <Float color={"white"}>
               <FileUpload.ItemDeleteTrigger
                 p="0.5"
                 rounded="l1"

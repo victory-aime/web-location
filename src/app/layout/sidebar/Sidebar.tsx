@@ -10,6 +10,7 @@ import { AuthModule } from "_/store/src/modules";
 import MobileSidebar from "./components/MobileSidebar";
 import { BaseButton } from "_/components/custom/button";
 import { LogOutIcon } from "_assets/svg";
+import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 
 const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
@@ -75,6 +76,7 @@ const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
           </VStack>
 
           <Box pe={"10px"} ps={"10px"}>
+            <SwitchColorMode />
             <BaseButton
               width={"full"}
               withGradient

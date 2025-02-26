@@ -106,7 +106,7 @@ const page = () => {
       <Box width={"full"} mt={"30px"}>
         <VStack alignItems={"flex-start"} gap={4}>
           <Heading>Corbeille</Heading>
-          <Text color={"whiteAlpha.400"}>
+          <Text color={"gray.400"}>
             Seuls les produits supprimer s'affichent ici. Ils sont supprimes
             definitivement au bout de 30 jours
           </Text>

@@ -15,6 +15,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { adminMenu } from "../sideBarRoutes";
 import RenderLinks from "./RenderLinks";
 import { IMobileSidebar } from "../types";
+import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 
 const MobileSidebar = ({
   isOpen,
@@ -65,11 +66,14 @@ const MobileSidebar = ({
         </DrawerBody>
         <DrawerFooter
           display={"flex"}
+          flexDir={"column"}
+          alignItems={"flex-start"}
           justifyContent={"flex-start"}
-          height={"10%"}
           width={"full"}
           p={5}
         >
+          <SwitchColorMode />
+
           <BaseButton
             onClick={() => {
               handleLogout();

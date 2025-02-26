@@ -8,6 +8,7 @@ import {
   PaginationRoot,
 } from "_components/ui/pagination";
 import { Button } from "_components/ui/button";
+import { useColorModeValue } from "_/components/ui/color-mode";
 
 const PaginationDataTable: FC<PaginationProps> = ({
   table,
@@ -17,6 +18,8 @@ const PaginationDataTable: FC<PaginationProps> = ({
   lazy,
   onLazyLoad,
 }) => {
+  const textColor = useColorModeValue("red.500", "red.200");
+
   if (lazy && (totalItems === undefined || currentPage === undefined)) {
     throw new Error(
       "With lazy loading, totalItems and current Page are required"
@@ -108,7 +111,7 @@ const PaginationDataTable: FC<PaginationProps> = ({
               key={i}
               size="sm"
               bg={currentIndexPage === i + 1 ? "primary.500" : "none"}
-              color={currentIndexPage === i + 1 ? "white" : "whiteAlpha.400"}
+              color={currentIndexPage === i + 1 ? "white" : "gray.700"}
               onClick={() => handleClick(i + 1)}
             >
               {i + 1}

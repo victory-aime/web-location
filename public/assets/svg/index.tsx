@@ -8,6 +8,8 @@ import ShoppingCart from "./shopping-cart.svg";
 import EyeOff from "./eye-off-icon.svg";
 import Eye from "./eye-icon.svg";
 import TrashIcon from "./trash-icon.svg";
+import StoreIcon from "./store.svg";
+import BagIcon from "./Bag.svg";
 
 export {
   ListMenu,
@@ -20,4 +22,6 @@ export {
   Eye,
   EyeOff,
   TrashIcon,
+  StoreIcon,
+  BagIcon,
 };

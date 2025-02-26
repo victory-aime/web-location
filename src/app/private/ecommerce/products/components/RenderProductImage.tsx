@@ -26,11 +26,11 @@ export const RenderProductImage = ({ value }: any) => {
       <Flex flexDir={"column"} gap={"3px"}>
         <Text truncate>{value?.name ?? value}</Text>
         {value?.variants ? (
-          <Text truncate color={"whiteAlpha.400"}>
+          <Text truncate color={"gray.700"}>
             {value?.variants?.length} variant (s)
           </Text>
         ) : (
-          <Text truncate color={"whiteAlpha.400"}>
+          <Text truncate color={"gray.700"}>
             {value?.numberOfproducts} produit (s)
           </Text>
         )}

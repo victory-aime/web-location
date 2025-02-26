@@ -4,7 +4,6 @@ import { Poppins } from "next/font/google";
 import { Provider } from "_/components/ui/provider";
 import "./globals.css";
 import { ColorModeProvider } from "_components/ui/color-mode";
-import ProtectedRoute from "./layout/protected/ProtectedRoute";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import NProgress from "nprogress";

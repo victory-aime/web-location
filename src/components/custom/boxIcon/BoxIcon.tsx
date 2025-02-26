@@ -13,6 +13,7 @@ export const BoxIcon = ({
       alignItems={"center"}
       justifyContent={"center"}
       bgColor={color}
+      color={"white"}
       borderRadius={"15px"}
       boxSize={"45px"}
     >

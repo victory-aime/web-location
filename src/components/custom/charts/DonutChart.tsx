@@ -99,8 +99,8 @@ const DonutChartV2: FC<any> = ({
       ctx.fillText(displayValue, width / 2, height / 2 + 10);
       chart.canvas.title = tooltipValue;
       if (centerText) {
-        ctx.font = "normal 11px Poppins";
-        ctx.fillStyle = "#fff";
+        ctx.font = "normal 16px Poppins";
+        ctx.fillStyle = "#909090";
         ctx.fillText(centerText, width / 2, height / 2 - 10);
       }
       ctx.restore();

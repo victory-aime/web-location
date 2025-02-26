@@ -48,15 +48,13 @@ export const CommonTabs = ({
               <Tabs.List
                 bg={"bg.muted"}
                 border={"1px solid"}
-                borderColor={"whiteAlpha.400"}
+                borderColor={"gray.700"}
                 rounded="l3"
                 p={"4px"}
               >
                 {items.map((item, index) => (
                   <Tabs.Trigger
-                    color={
-                      currentIndex === index ? "primary.500" : "whiteAlpha.400"
-                    }
+                    color={currentIndex === index ? "primary.500" : "gray.400"}
                     key={index}
                     value={item.label}
                     p={5}

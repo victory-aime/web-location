@@ -107,14 +107,7 @@ export const CommonDataTable: FC<TableProps> = ({
           <Center flexDir={"column"} gap={4}>
             <TrashLottieAnimation />
             <Flex flexDir={"column"} alignItems={"center"} gap={2}>
-              <Text color={"whiteAlpha.700"}>Aucun element</Text>
-              <Text
-                color={"whiteAlpha.400"}
-                textAlign={{ base: "center", md: "left" }}
-              >
-                Seuls les produits supprimer s'affichent ici. Ils sont supprimes
-                definitivement au bout de 30 jours
-              </Text>
+              <Text color={"gray.700"}>Aucun element</Text>
             </Flex>
           </Center>
         );
@@ -122,7 +115,7 @@ export const CommonDataTable: FC<TableProps> = ({
         return (
           <Center flexDir={"column"} gap={4}>
             <NoDataFoundLottieAnimation />
-            <Text color={"whiteAlpha.400"}>Aucun element</Text>
+            <Text color={"gray.400"}>Aucun element</Text>
           </Center>
         );
       default:
@@ -179,7 +172,9 @@ export const CommonDataTable: FC<TableProps> = ({
               {columns?.map((col) => (
                 <Table.Cell
                   minW={col.accessor !== "select" ? "150px" : "0"}
-                  bgColor={selection.includes(item.id) ? "gray.500" : "none"}
+                  bgColor={
+                    selection.includes(item.id) ? "whiteAlpha.200" : "none"
+                  }
                   p={2}
                   key={col.accessor.toString()}
                 >

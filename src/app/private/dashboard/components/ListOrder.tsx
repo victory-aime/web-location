@@ -57,7 +57,7 @@ export const ListOrders = () => {
             p={2}
             bgColor={totalOrders.orders > 0 ? "primary.500" : "gray.400"}
           >
-            +{totalOrders.orders} orders
+            <Text color={"white"}>+{totalOrders.orders} orders</Text>
           </Badge>
         </Flex>
         <BoxIcon color={"blue.500"}>

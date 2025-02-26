@@ -66,7 +66,7 @@ export const manageProductValidation = Yup.object().shape({
 
 export const initialProductValues: TYPES.MODELS.PRODUCTS.ICreateProduct = {
   articlePrice: "0",
-  categoryName: [""],
+  categoryName: "",
   description: "",
   images: [],
   name: "",

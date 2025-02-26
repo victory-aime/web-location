@@ -22,11 +22,11 @@ export const TopCategory = () => {
       >
         <Box>
           <Text>TopCategory</Text>
-          <Text color={"whiteAlpha.400"}>Desc</Text>
+          <Text color={"gray.700"}>Desc</Text>
         </Box>
         <BaseButton colorType="primary">Voir plus</BaseButton>
       </Flex>
-      {Array.from({ length: 5 }).map((item, index) => (
+      {Array.from({ length: 5 }).map((_, index) => (
         <Box key={index} p={4}>
           <Flex alignItems={"center"} justifyContent={"space-between"} gap={4}>
             <Flex alignItems={"center"} gap={3}>
@@ -38,11 +38,11 @@ export const TopCategory = () => {
                 width={"40px"}
                 height={"40px"}
               >
-                <Image src={"/assets/images/mouse.png"} />
+                <Image src="https://avatar.iran.liara.run/public" />
               </Flex>
               <Flex flexDir={"column"} alignItems={"flex-start"}>
                 <Text>Mouse</Text>
-                <Text color={"whiteAlpha.400"}>saleNumber</Text>
+                <Text color={"gray.700"}>saleNumber</Text>
               </Flex>
             </Flex>
             <Flex>

@@ -59,7 +59,7 @@ export const RecentOrders = () => {
             p={2}
             bgColor={totalRecentOrders.orders > 0 ? "primary.500" : "gray.400"}
           >
-            +{totalRecentOrders.orders} orders
+            <Text color={"white"}>+{totalRecentOrders.orders} orders</Text>
           </Badge>
         </Flex>
         <BoxIcon color={"secondary.500"}>

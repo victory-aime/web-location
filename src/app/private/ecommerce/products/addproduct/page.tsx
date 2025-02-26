@@ -9,6 +9,8 @@ import {
   Text,
   Stack,
   createListCollection,
+  useBreakpointValue,
+  Center,
 } from "@chakra-ui/react";
 import { ActionsButton, BaseButton } from "_components/custom/button";
 import React, { useEffect, useState } from "react";
@@ -35,6 +37,7 @@ const AddProductPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const requestId = useSearchParams()?.get("requestId");
+  const responsiveMode = useBreakpointValue({ base: false, md: true });
   const [initialValues, setInitialValues] = useState(
     TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
   );
@@ -145,17 +148,26 @@ const AddProductPage = () => {
               flexDirection={{ base: "column", md: "row" }}
               gap={4}
             >
-              <Heading>
-                {!requestId ? "Ajouter un produit" : "Modifier votre produit"}
-              </Heading>
-              <ActionsButton
-                cancelTitle={"annuler"}
-                goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
-                validateTitle={requestId ? "Valider" : "Ajouter"}
-                requestId={requestId ?? ""}
-                isLoading={isLoading}
-                onClick={handleSubmit}
-              />
+              <Stack gap={2}>
+                <Heading>
+                  {!requestId ? "Ajouter un produit" : "Modifier votre produit"}
+                </Heading>
+                <Text color={"gray.400"}>
+                  Saisissez toutes les informations relatives a l'ajout de votre
+                  produit
+                </Text>
+              </Stack>
+
+              {responsiveMode ? (
+                <ActionsButton
+                  cancelTitle={"annuler"}
+                  goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
+                  validateTitle={requestId ? "Valider" : "Ajouter"}
+                  requestId={requestId ?? ""}
+                  isLoading={isLoading}
+                  onClick={handleSubmit}
+                />
+              ) : null}
             </Flex>
             <Flex
               alignItems={"flex-start"}
@@ -270,7 +282,7 @@ const AddProductPage = () => {
                       }
                     >
                       <Box mt={5} width="full">
-                        <Text color={"whiteAlpha.400"} mb={5}>
+                        <Text color={"gray.400"} mb={5}>
                           Les variations vous permettent d'ajouter différentes
                           options pour un même produit, comme la couleur ou la
                           taille. Ajoutez celles qui s'appliquent à votre
@@ -354,6 +366,19 @@ const AddProductPage = () => {
                 </ProductContainer>
               </VStack>
             </Flex>
+
+            {!responsiveMode && (
+              <Center>
+                <ActionsButton
+                  cancelTitle={"annuler"}
+                  goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
+                  validateTitle={requestId ? "Valider" : "Ajouter"}
+                  requestId={requestId ?? ""}
+                  isLoading={isLoading}
+                  onClick={handleSubmit}
+                />
+              </Center>
+            )}
             <ProfitCalculator />
           </Box>
         )}
