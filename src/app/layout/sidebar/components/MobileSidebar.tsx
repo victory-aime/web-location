@@ -76,7 +76,7 @@ const MobileSidebar = ({
 
           <BaseButton
             onClick={() => {
-              handleLogout();
+              handleLogout?.();
               onClose(!isOpen);
             }}
             withGradient

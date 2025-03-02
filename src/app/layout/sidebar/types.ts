@@ -4,7 +4,7 @@ import React from "react";
 export interface IMobileSidebar {
   isOpen: boolean;
   onClose: (value?: any) => void;
-  handleLogout: () => void;
+  handleLogout?: () => void;
   currentUser?: TYPES.MODELS.AUTH.User;
 }
 export interface ILink {

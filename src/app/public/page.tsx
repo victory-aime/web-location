@@ -9,13 +9,12 @@ import OurProduct from "./components/OurProduct";
 
 const PublicHome = () => {
   return (
-    <div>
-      <Header />
+    <Header>
       <Hero />
       <ShopCategories />
       <OurProduct />
       <Footer />
-    </div>
+    </Header>
   );
 };
 

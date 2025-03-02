@@ -13,9 +13,12 @@ import React, { useState } from "react";
 import { BsEyeFill } from "react-icons/bs";
 import { HiHeart } from "react-icons/hi";
 import DisplayItems from "./DisplayItems";
+import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "_/app/config/routes";
 
 const OurProduct = () => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
+  const router = useRouter();
 
   return (
     <DisplayItems
@@ -27,13 +30,13 @@ const OurProduct = () => {
       pageIndex={0}
       controlled={false}
       label={"Nos produits"}
+      onClick={() => router?.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST)}
     />
   );
 };
 
-const ProductCard = ({ isMobile }: { isMobile: boolean }) => {
+export const ProductCard = ({ isMobile }: { isMobile: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <Box
       width={{ base: "100%", sm: "45%", lg: "20%" }}

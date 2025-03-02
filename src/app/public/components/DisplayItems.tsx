@@ -11,6 +11,7 @@ interface DisplayItemsProps {
   itemsMobilePage?: number;
   bottomSection?: boolean;
   pageIndex?: number;
+  onClick?: () => void;
 }
 
 const DisplayItems: FC<DisplayItemsProps> = ({
@@ -21,6 +22,7 @@ const DisplayItems: FC<DisplayItemsProps> = ({
   bottomSection = true,
   itemsMobilePage = 1,
   pageIndex = 0,
+  onClick,
 }) => {
   const itemsPerPage =
     useBreakpointValue({ base: itemsMobilePage, sm: 4, lg: 4 }) ||
@@ -74,11 +76,11 @@ const DisplayItems: FC<DisplayItemsProps> = ({
       >
         {items
           ?.slice(startIndex, startIndex + itemsPerPage)
-          ?.map((item) => <>{item?.content}</>)}
+          ?.map((item, index) => <>{item?.content}</>)}
       </Flex>
       {bottomSection && (
         <Flex mt={10} alignItems="center" justifyContent="flex-end">
-          <BaseButton>Voir plus</BaseButton>
+          <BaseButton onClick={onClick}>Voir plus</BaseButton>
         </Flex>
       )}
     </Box>
