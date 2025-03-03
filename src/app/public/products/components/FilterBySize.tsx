@@ -1,15 +1,13 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { Checkbox } from "_/components/ui/checkbox";
-import React from "react";
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { CheckBoxFom } from '_/components/custom/form';
+import React from 'react';
 
-const FilterBySize = () => {
+const FilterBySize = ({ name }: { name: string }) => {
   return (
-    <Box width={"full"}>
+    <Box width={'full'}>
       {Array.from({ length: 6 }).map((_, index) => (
-        <Flex key={index} gap={8} width={"full"}>
-          <Checkbox key={index} mb={4} width={"full"} alignItems={"center"}>
-            <Text>S</Text>
-          </Checkbox>
+        <Flex key={index} gap={8} width={'full'}>
+          <CheckBoxFom name={name} label={'size'} />
           <Text>(10)</Text>
         </Flex>
       ))}

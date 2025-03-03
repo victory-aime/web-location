@@ -23,7 +23,7 @@ interface ColumnsDataTable {
 }
 
 interface PaginationProps {
-  table: any;
+  table?: any;
   totalItems?: number;
   pageSize: number;
   currentPage?: number;

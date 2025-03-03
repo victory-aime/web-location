@@ -1,14 +1,13 @@
 "use client";
 import React, { FC, useCallback, useState } from "react";
 import { PaginationProps } from "../interface/data-types";
-import { Flex, Text, Input } from "@chakra-ui/react";
+import { Flex, Input, Text } from "@chakra-ui/react";
 import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
   PaginationRoot,
 } from "_components/ui/pagination";
 import { Button } from "_components/ui/button";
-import { useColorModeValue } from "_/components/ui/color-mode";
 
 const PaginationDataTable: FC<PaginationProps> = ({
   table,
@@ -18,8 +17,6 @@ const PaginationDataTable: FC<PaginationProps> = ({
   lazy,
   onLazyLoad,
 }) => {
-  const textColor = useColorModeValue("red.500", "red.200");
-
   if (lazy && (totalItems === undefined || currentPage === undefined)) {
     throw new Error(
       "With lazy loading, totalItems and current Page are required"
@@ -127,6 +124,20 @@ const PaginationDataTable: FC<PaginationProps> = ({
         gap={4}
       >
         <Text>Go to Page</Text>
+        {/* <NumberInputRoot
+          width="80px"
+          min={currentPage}
+          max={pageSize}
+          onChange={handleInputChange}
+          value={inputPageValue}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleGoToPage();
+            }
+          }}
+        >
+          <NumberInputField p={'10px'} />
+        </NumberInputRoot> */}
         <Input
           type="number"
           min={currentPage}
@@ -139,7 +150,7 @@ const PaginationDataTable: FC<PaginationProps> = ({
             }
           }}
           p={"10px"}
-          width={"50px"}
+          width={"80px"}
         />
       </Flex>
     </Flex>

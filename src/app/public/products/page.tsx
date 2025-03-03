@@ -5,33 +5,26 @@ import { Formik, Form } from "formik";
 import Header from "../components/Header";
 import {
   Box,
-  Button,
   Flex,
-  Heading,
-  Stack,
-  Image,
-  Text,
-  SimpleGrid,
   useBreakpointValue,
   Spinner,
-  VStack,
   IconButton,
 } from "@chakra-ui/react";
 import { CustomAccordion } from "_/components/custom/accordion/CustomAccordion";
-import { BsEyeFill, BsFillSendCheckFill } from "react-icons/bs";
+import { BsFillSendCheckFill } from "react-icons/bs";
 import { FaStoreAlt, FaFirstdraft } from "react-icons/fa";
 import Categories from "./components/Categories";
 import FilterPrice from "./components/FilterPrice";
 import FilterByColor from "./components/FilterByColor";
 import FilterBySize from "./components/FilterBySize";
 import FilterMobileDisplay from "./components/FilterMobileDisplay";
-import { IoIosHeartEmpty } from "react-icons/io";
+import CustomProductList from "./components/CustomProductList";
 
-const fetchProducts = async (filters: any, page: number) => {
-  console.log("Filtres appliqués:", filters, "Page:", page);
-  return Array.from({ length: 9 }).map((_, index) => ({
-    id: index + page * 10,
-    name: `Produit ${index + 1 + page * 10}`,
+const fetchProducts = async (filters: any) => {
+  console.log("Filtres appliqués:", filters);
+  return Array.from({ length: 30 }).map((_, index) => ({
+    id: index * 10,
+    name: `Produit ${index + 1 * 10}`,
     category: "Category",
     price: Math.floor(Math.random() * 100) + 10,
     image: "/assets/images/bag.jpg",
@@ -40,35 +33,34 @@ const fetchProducts = async (filters: any, page: number) => {
 
 const PublicProductPage = () => {
   const [products, setProducts] = useState<any>([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const pageSize = 6;
   const [filters, setFilters] = useState({});
   const [open, setOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
   });
+  const totalPages = Math.ceil(products?.length / pageSize);
 
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
-      const fetchedProducts = await fetchProducts(filters, page);
+      const fetchedProducts = await fetchProducts(filters);
       setProducts(fetchedProducts);
       setLoading(false);
     };
     loadProducts();
-  }, [filters, page]);
+  }, [filters]);
 
   const handleFilterSubmit = (values: any) => {
     setFilters(values);
-    setPage(1);
   };
 
   return (
     <Header>
-      <Box padding={10}>
+      <Box padding={{ base: 5, lg: 10 }}>
         <Flex
           width={"full"}
           alignItems={"flex-start"}
@@ -91,7 +83,7 @@ const PublicProductPage = () => {
               initialValues={{ price: "", color: "", size: "", category: "" }}
               onSubmit={handleFilterSubmit}
             >
-              {({ handleSubmit }) => (
+              {({ handleSubmit, setFieldValue }) => (
                 <Form>
                   {responsiveMode ? (
                     <CustomAccordion
@@ -104,17 +96,24 @@ const PublicProductPage = () => {
                         {
                           label: "Prix",
                           icon: <FaStoreAlt />,
-                          content: <FilterPrice />,
+                          content: (
+                            <FilterPrice
+                              name={"price"}
+                              onSliderChange={(value) =>
+                                setFieldValue("price", value)
+                              }
+                            />
+                          ),
                         },
                         {
                           label: "Couleur",
                           icon: <FaFirstdraft />,
-                          content: <FilterByColor />,
+                          content: <FilterByColor name={"color"} />,
                         },
                         {
                           label: "Taille",
                           icon: <FaFirstdraft />,
-                          content: <FilterBySize />,
+                          content: <FilterBySize name={"size"} />,
                         },
                       ]}
                     />
@@ -134,17 +133,24 @@ const PublicProductPage = () => {
                           {
                             label: "Prix",
                             icon: <FaStoreAlt />,
-                            content: <FilterPrice />,
+                            content: (
+                              <FilterPrice
+                                name={"price"}
+                                onSliderChange={(value) =>
+                                  setFieldValue("price", value)
+                                }
+                              />
+                            ),
                           },
                           {
                             label: "Couleur",
                             icon: <FaFirstdraft />,
-                            content: <FilterByColor />,
+                            content: <FilterByColor name={"color"} />,
                           },
                           {
                             label: "Taille",
                             icon: <FaFirstdraft />,
-                            content: <FilterBySize />,
+                            content: <FilterBySize name={"size"} />,
                           },
                         ]}
                       />
@@ -161,77 +167,14 @@ const PublicProductPage = () => {
                 <Spinner size="xl" />
               </Flex>
             ) : (
-              <SimpleGrid columns={{ base: 2, lg: 3 }} gap={10} width={"full"}>
-                {products.map((product: any) => (
-                  <Flex key={product.id}>
-                    <Box
-                      width={"full"}
-                      position="relative"
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    >
-                      <Flex
-                        width="full"
-                        position="relative"
-                        overflow="hidden"
-                        borderRadius="12px"
-                      >
-                        <Image
-                          src={product.image}
-                          borderRadius="12px"
-                          objectFit="cover"
-                          transition="transform 0.3s"
-                          transform={isHovered ? "scale(1.05)" : "scale(1)"}
-                        />
-
-                        <VStack
-                          position="absolute"
-                          top="5%"
-                          right="5%"
-                          gap={4}
-                          opacity={isHovered ? 1 : 0}
-                          visibility={isHovered ? "visible" : "hidden"}
-                          transition="opacity 0.3s"
-                        >
-                          <IoIosHeartEmpty size={20} cursor="pointer" />
-                          <BsEyeFill size={20} cursor="pointer" />
-                        </VStack>
-                        <Box
-                          position="absolute"
-                          bottom="5%"
-                          left="50%"
-                          transform="translate(-50%, -5%)"
-                          opacity={isHovered ? 1 : 0}
-                          visibility={isHovered ? "visible" : "hidden"}
-                          transition="opacity 0.3s"
-                        >
-                          <Button p="10px" bgColor="white" color="primary.500">
-                            Ajouter au panier
-                          </Button>
-                        </Box>
-                      </Flex>
-
-                      <Stack p={2} mt={2}>
-                        <Heading size="md">{product.name}</Heading>
-                        <Text fontSize="sm">{product.category}</Text>
-                        <Flex gap={4}>
-                          <Text fontWeight="bold" color="primary.500">
-                            ${product.price}
-                          </Text>
-                        </Flex>
-                      </Stack>
-                    </Box>
-                  </Flex>
-                ))}
-              </SimpleGrid>
+              <CustomProductList
+                products={products}
+                initialPage={1}
+                totalItems={totalPages}
+                pageSize={pageSize}
+                lazy
+              />
             )}
-
-            <Flex justifyContent="center" mt={4} gap={4}>
-              <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
-                Précédent
-              </Button>
-              <Button onClick={() => setPage(page + 1)}>Suivant</Button>
-            </Flex>
           </Box>
         </Flex>
       </Box>

@@ -46,5 +46,10 @@ interface FullSelectProps {
   required?: boolean;
   width?: string;
 }
+interface DefaultProps extends TextInputProps {
+  isNumber?: boolean;
+  min: number;
+  max: number;
+}
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps };
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps };
