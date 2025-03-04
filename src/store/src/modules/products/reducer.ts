@@ -10,6 +10,7 @@ const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
   trashList: {
     content: [],
   },
+  publicProducts: [],
   isLoading: false,
   addProduct: false,
   updateProduct: false,
@@ -42,6 +43,26 @@ const ProductsReducer = (
         isLoading: false,
         error: action.payload,
       };
+
+
+      case Constants.PUBLIC_PRODUCTS:
+        return {
+          ...state,
+          isLoading: true,
+        };
+      case Constants.PUBLIC_PRODUCTS_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+         publicProducts: action.payload,
+        };
+      case Constants.PUBLIC_PRODUCTS_FAILED:
+        return {
+          ...state,
+          isLoading: false,
+          error: action.payload,
+        };
+  
 
     case Constants.UPDATE_PRODUCT:
       return {

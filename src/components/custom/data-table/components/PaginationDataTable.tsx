@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useCallback, useState } from "react";
 import { PaginationProps } from "../interface/data-types";
-import { Flex, Input, Text } from "@chakra-ui/react";
+import { Flex, Input, Text, useBreakpointValue } from "@chakra-ui/react";
 import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
@@ -27,6 +27,7 @@ const PaginationDataTable: FC<PaginationProps> = ({
     !lazy ? 1 : currentPage!
   );
   const [itemsPerPage, setItemsPerPage] = useState<number>(pageSize);
+  const responsiveMode = useBreakpointValue({ base: false, lg: true });
 
   const handleClick = useCallback(
     (index: number | string) => {
@@ -117,42 +118,30 @@ const PaginationDataTable: FC<PaginationProps> = ({
           <PaginationNextTrigger onClick={getNextPage} />
         </PaginationRoot>
       </Flex>
-      <Flex
-        width={"full"}
-        alignItems={"center"}
-        justifyContent={"flex-end"}
-        gap={4}
-      >
-        <Text>Go to Page</Text>
-        {/* <NumberInputRoot
-          width="80px"
-          min={currentPage}
-          max={pageSize}
-          onChange={handleInputChange}
-          value={inputPageValue}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              handleGoToPage();
-            }
-          }}
+      {responsiveMode && (
+        <Flex
+          width={"full"}
+          alignItems={"center"}
+          justifyContent={"flex-end"}
+          gap={4}
         >
-          <NumberInputField p={'10px'} />
-        </NumberInputRoot> */}
-        <Input
-          type="number"
-          min={currentPage}
-          max={pageSize}
-          value={inputPageValue}
-          onChange={handleInputChange}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              handleGoToPage();
-            }
-          }}
-          p={"10px"}
-          width={"80px"}
-        />
-      </Flex>
+          <Text>Go to Page</Text>
+          <Input
+            type="number"
+            min={currentPage}
+            max={pageSize}
+            value={inputPageValue}
+            onChange={handleInputChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleGoToPage();
+              }
+            }}
+            p={"10px"}
+            width={"80px"}
+          />
+        </Flex>
+      )}
     </Flex>
   );
 };

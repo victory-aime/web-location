@@ -1,8 +1,6 @@
 import {
   Flex,
   Box,
-  VStack,
-  Button,
   Stack,
   Heading,
   Text,
@@ -11,11 +9,11 @@ import {
   SimpleGrid,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { APP_ROUTES } from "_/app/config/routes";
 import PaginationDataTable from "_/components/custom/data-table/components/PaginationDataTable";
 import { PaginationProps } from "_/components/custom/data-table/interface/data-types";
+import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
-import { BsEyeFill } from "react-icons/bs";
-import { IoIosHeartEmpty } from "react-icons/io";
 
 interface ProductListProps extends PaginationProps {
   products: any[];
@@ -33,6 +31,7 @@ const CustomProductList: FC<ProductListProps> = ({
   lazy = false,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
+  const router = useRouter();
   const [sortConfig, setSortConfig] = useState<{
     key: string;
     direction: "asc" | "desc";
@@ -62,77 +61,53 @@ const CustomProductList: FC<ProductListProps> = ({
 
   return (
     <Box width={"full"}>
-      <SimpleGrid columns={{ base: 2, md: 3 }} gap={10} width={"full"}>
+      <SimpleGrid columns={{ base: 2, md: 4 }} gap={10} width={"full"}>
         <For each={paginatedItems}>
           {(item, index) => (
-            <Flex width={"full"} gap={"20px"} key={index}>
-              <Box
-                width={"full"}
-                key={index}
-                position="relative"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <Flex
-                  width="full"
-                  position="relative"
-                  overflow="hidden"
-                  borderRadius="12px"
-                >
-                  <Image
-                    src={item?.image}
-                    borderRadius="12px"
-                    objectFit="cover"
-                    transition="transform 0.3s"
-                    transform={
+            <Box
+              width={"full"}
+              cursor={"pointer"}
+              onClick={() =>
+                router.push?.(
+                  `${APP_ROUTES.PUBLIC.PRODUCTS_LIST.DETAILS}?requestId=${item.id}`
+                )
+              }
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <Box width={"full"} height={{ base: "250px", md: "450px" }}>
+                <Image
+                  src={item?.images[0]}
+                  alt={"image"}
+                  width={"full"}
+                  height={"full"}
+                  style={{
+                    borderRadius: "12px",
+                    objectFit: "cover",
+                    transform: `${
                       isMobile || hoveredIndex === index
                         ? "scale(1.05)"
                         : "scale(1)"
-                    }
-                  />
-
-                  <VStack
-                    position="absolute"
-                    top="5%"
-                    right="5%"
-                    gap={4}
-                    opacity={isMobile || hoveredIndex === index ? 1 : 0}
-                    visibility={
-                      isMobile || hoveredIndex === index ? "visible" : "hidden"
-                    }
-                    transition="opacity 0.3s"
-                  >
-                    <IoIosHeartEmpty size={20} cursor="pointer" />
-                    <BsEyeFill size={20} cursor="pointer" />
-                  </VStack>
-                  <Box
-                    position="absolute"
-                    bottom="5%"
-                    left="50%"
-                    transform="translate(-50%, -5%)"
-                    opacity={isMobile || hoveredIndex === index ? 1 : 0}
-                    visibility={
-                      isMobile || hoveredIndex === index ? "visible" : "hidden"
-                    }
-                    transition="opacity 0.3s"
-                  >
-                    <Button p="10px" bgColor="white" color="primary.500">
-                      Ajouter au panier
-                    </Button>
-                  </Box>
-                </Flex>
-
-                <Stack p={2} mt={2}>
-                  <Heading size="md">{item?.name}</Heading>
-                  <Text fontSize="sm">{item?.category}</Text>
-                  <Flex gap={4}>
-                    <Text fontWeight="bold" color="primary.500">
-                      ${item?.price}
-                    </Text>
-                  </Flex>
-                </Stack>
+                    }`,
+                    transition: "transform 0.3s",
+                  }}
+                />
               </Box>
-            </Flex>
+              <Stack p={2} mt={2} width={"full"}>
+                <Heading textTransform={"capitalize"} truncate>
+                  {item?.name}
+                </Heading>
+                <Flex gap={4}>
+                  <Text
+                    fontSize={{ base: "xl", md: "2xl" }}
+                    fontWeight="bold"
+                    color="primary.500"
+                  >
+                    ${item?.price}
+                  </Text>
+                </Flex>
+              </Stack>
+            </Box>
           )}
         </For>
       </SimpleGrid>

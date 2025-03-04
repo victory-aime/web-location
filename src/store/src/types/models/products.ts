@@ -47,6 +47,7 @@ export interface IProductState {
   products: IResponseProductList;
   categories?: IProductsCategories[];
   trashList: IResponseProductList;
+  publicProducts: any[]
   isLoading: boolean;
   addProduct: boolean;
   updateProduct: boolean;

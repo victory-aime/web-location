@@ -3,13 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import Header from "../components/Header";
-import {
-  Box,
-  Flex,
-  useBreakpointValue,
-  Spinner,
-  IconButton,
-} from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, IconButton } from "@chakra-ui/react";
 import { CustomAccordion } from "_/components/custom/accordion/CustomAccordion";
 import { BsFillSendCheckFill } from "react-icons/bs";
 import { FaStoreAlt, FaFirstdraft } from "react-icons/fa";
@@ -19,21 +13,16 @@ import FilterByColor from "./components/FilterByColor";
 import FilterBySize from "./components/FilterBySize";
 import FilterMobileDisplay from "./components/FilterMobileDisplay";
 import CustomProductList from "./components/CustomProductList";
-
-const fetchProducts = async (filters: any) => {
-  console.log("Filtres appliqués:", filters);
-  return Array.from({ length: 30 }).map((_, index) => ({
-    id: index * 10,
-    name: `Produit ${index + 1 * 10}`,
-    category: "Category",
-    price: Math.floor(Math.random() * 100) + 10,
-    image: "/assets/images/bag.jpg",
-  }));
-};
+import { ProductModule } from "_/store/src/modules";
+import { useDispatch, useSelector } from "react-redux";
+import { isEmpty } from "lodash";
+import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkeletonLoader";
 
 const PublicProductPage = () => {
-  const [products, setProducts] = useState<any>([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, publicProducts } = useSelector(
+    ProductModule.selectors.productSelector
+  );
   const pageSize = 6;
   const [filters, setFilters] = useState({});
   const [open, setOpen] = useState(false);
@@ -42,16 +31,13 @@ const PublicProductPage = () => {
     sm: false,
     lg: true,
   });
-  const totalPages = Math.ceil(products?.length / pageSize);
+
+  const totalPages = Math.ceil(publicProducts?.length / pageSize);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setLoading(true);
-      const fetchedProducts = await fetchProducts(filters);
-      setProducts(fetchedProducts);
-      setLoading(false);
-    };
-    loadProducts();
+    if (isEmpty(publicProducts)) {
+      dispatch(ProductModule.actions.publicProductRequestAction());
+    }
   }, [filters]);
 
   const handleFilterSubmit = (values: any) => {
@@ -162,16 +148,15 @@ const PublicProductPage = () => {
           </Box>
 
           <Box width={"full"}>
-            {loading ? (
-              <Flex justifyContent="center" alignItems="center" height="200px">
-                <Spinner size="xl" />
-              </Flex>
+            {isLoading ? (
+              <CustomSkeletonLoader type="PRODUCT_LIST_CARD" />
             ) : (
               <CustomProductList
-                products={products}
+                products={publicProducts}
                 initialPage={1}
                 totalItems={totalPages}
                 pageSize={pageSize}
+                hidePagination={totalPages <= 1}
                 lazy
               />
             )}

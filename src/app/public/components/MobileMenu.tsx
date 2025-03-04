@@ -21,13 +21,7 @@ const MobileMenu = ({
   open: boolean;
   onChange: (value: any) => void;
 }) => {
-  const fakeLink = [
-    { text: "Accueil", link: "" },
-    { text: "Services", link: "" },
-    { text: "Produit", link: "" },
-    { text: "Societé", link: "", subMenu: ["Equipe", "A propos"] },
-    { text: "Contact", link: "" },
-  ];
+  const fakeLink = [{ text: "Accueil", link: "/" }];
   return (
     <DrawerRoot
       open={open}
@@ -62,35 +56,9 @@ const MobileMenu = ({
                   position="relative"
                   fontSize="20px"
                   textDecoration="none"
+                  href={item.link}
                   p="10px 20px"
                   _hover={{ textDecoration: "none" }}
-                  css={{
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      borderRadius: "full",
-                      height: "4px",
-                      width: "100%",
-                      background:
-                        "linear-gradient(90deg, #1A3C8A, #F6A724, #ffffff)",
-                      backgroundSize: "200% auto",
-                      transition: "all 0.5s",
-                      transform: "translateX(-100%)",
-                      opacity: 0,
-                    },
-                    "&:hover::after": {
-                      transform: "translateX(0%)",
-                      animation: "gradient-89 3s linear infinite",
-                      opacity: 1,
-                    },
-                    "@keyframes gradient-89": {
-                      "0%": { backgroundPosition: "100% 0%" },
-                      "50%": { backgroundPosition: "0% 0%" },
-                      "100%": { backgroundPosition: "100% 0%" },
-                    },
-                  }}
                 >
                   <Text>{item.text}</Text>
                 </Link>

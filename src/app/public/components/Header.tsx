@@ -18,7 +18,7 @@ import WebDisplay from "./WebDisplay";
 import MobileMenu from "./MobileMenu";
 import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
-import { IoBag } from "react-icons/io5";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -51,7 +51,7 @@ const Header = ({ children }: { children: ReactNode }) => {
             </Flex>
             <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
               <IoIosHeartEmpty size={22} />
-              <IoBag size={22} />
+              <FaCartShopping size={22} />
               <IconButton
                 bgColor={"primary.500"}
                 aria-label="user-icon"
@@ -88,9 +88,7 @@ const Header = ({ children }: { children: ReactNode }) => {
           <MobileMenu open={open} onChange={() => setOpen(false)} />
         )}
       </Box>
-      <Box>
-        {children}
-      </Box>
+      <Box>{children}</Box>
     </>
   );
 };

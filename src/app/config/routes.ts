@@ -3,7 +3,7 @@ export const APP_ROUTES = {
     FORGOT_PASSWORD: "/public/auth/forgot-password",
     LEGAL_NOTICE: "/public-private/legal-notice",
     SECURITY_MENTION: "/public-private/security-mention",
-    PRODUCTS_LIST: "/public/products",
+    PRODUCTS_LIST: {LIST:"/public/products",DETAILS:'/public/products/details'},
     SIGN_UP: "/public/auth/register",
     SIGN_IN: "/public/auth/login",
   },

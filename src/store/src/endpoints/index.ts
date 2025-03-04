@@ -97,6 +97,12 @@ const APIS = (baseUrl?: string) => {
         method: "GET",
         baseUrl,
       }),
+      PUBLIC_PRODUCTS: createApiAction({
+        path: "/products/all-public-products",
+        pathBase: "UNSECURED_API",
+        method: "GET",
+        baseUrl,
+      }),
       CREATE_PRODUCT: createApiAction({
         path: "/products/add-product",
         pathBase: "SECURED_API",

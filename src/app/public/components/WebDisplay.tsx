@@ -5,8 +5,8 @@ import { FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { FaCartShopping } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { IoBag } from "react-icons/io5";
 import { RiSearch2Line } from "react-icons/ri";
 
 const WebDisplay = () => {
@@ -53,7 +53,7 @@ const WebDisplay = () => {
       >
         <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
           <IoIosHeartEmpty size={24} />
-          <IoBag size={24} />
+          <FaCartShopping size={24} />
         </Flex>
         <BaseButton onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}>
           Se connecter

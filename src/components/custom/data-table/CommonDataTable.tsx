@@ -15,6 +15,7 @@ import {
   NoDataFoundLottieAnimation,
   TrashLottieAnimation,
 } from "_lottie/animations/LottieAnimation";
+import CustomSkeletonLoader from "../custom-skeleton/CustomSkeletonLoader";
 
 export const CommonDataTable: FC<TableProps> = ({
   data,
@@ -68,36 +69,7 @@ export const CommonDataTable: FC<TableProps> = ({
   }, [selection]);
 
   if (isLoading) {
-    return (
-      <Box overflowX="auto" width="full">
-        <Table.Root minH={minH}>
-          <Table.Header>
-            <Table.Row>
-              {columns.map((col, index) => (
-                <Table.ColumnHeader
-                  key={col.accessor.toString()}
-                  minW="150px"
-                  p={2}
-                >
-                  <Skeleton height="20px" width="80%" />
-                </Table.ColumnHeader>
-              ))}
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {Array.from({ length: pageSize }).map((_, rowIndex) => (
-              <Table.Row key={rowIndex}>
-                {columns.map((col, colIndex) => (
-                  <Table.Cell key={col.accessor.toString()} minW="150px" p={2}>
-                    <SkeletonText noOfLines={1} />
-                  </Table.Cell>
-                ))}
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </Box>
-    );
+    return <CustomSkeletonLoader type={"DATA_TABLE"} />;
   }
 
   const renderNodataAnimation = () => {

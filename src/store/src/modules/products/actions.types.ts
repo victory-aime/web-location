@@ -1,6 +1,5 @@
 import * as Constants from "./constants";
 import { TYPES } from "_store/src";
-import { extend } from "lodash";
 import { Action } from "redux";
 
 export interface GetAllProductsRequestAction extends Action {
@@ -15,6 +14,21 @@ export interface GetAllProductsRequestActionSuccess extends Action {
 
 export interface GetAllProductsRequestActionFailed extends Action {
   type: typeof Constants.GET_PRODUCTS_FAILED;
+  payload: string;
+}
+
+
+export interface PublicProductsRequestAction extends Action {
+  type: typeof Constants.PUBLIC_PRODUCTS;
+}
+
+export interface PublicProductsRequestActionSuccess extends Action {
+  type: typeof Constants.PUBLIC_PRODUCTS_SUCCESS;
+  payload:any;
+}
+
+export interface PublicProductsRequestActionFailed extends Action {
+  type: typeof Constants.PUBLIC_PRODUCTS_FAILED;
   payload: string;
 }
 
@@ -147,4 +161,7 @@ export type ProductActionsTypes =
   | RestoreProduct
   | RestoreProductSuccess
   | RestoreProductFailed
+  | PublicProductsRequestAction
+  | PublicProductsRequestActionSuccess
+  | PublicProductsRequestActionFailed
   | ClearKeys;

@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/fr"; // Import French locale if needed
 import imageCompression from "browser-image-compression";
+import { isEmpty } from "lodash";
 dayjs.extend(customParseFormat); // Extend Dayjs with the custom parse format plugin
 dayjs.locale("fr"); // Set the default locale to French
 
@@ -96,11 +97,14 @@ export const formatCreatedAt = (createdAt: string): string => {
  * @returns The found object or null if not found
  */
 export const findDynamicIdInList = (id: string | undefined, list: any) => {
-  if (!Array.isArray(list?.content) || !id) {
-    return null;
-  }
-  return list.content.find((item: { id: string }) => item.id === id) || null;
+  if (!id || !list) return null;
+
+  const array = Array.isArray(list) ? list : Array.isArray(list.content) ? list.content : null;
+  if (!array) return null;
+
+  return array.find((item: { id: string }) => item.id === id) || null;
 };
+
 
 /**
  * A generic function to parse a date from a string.

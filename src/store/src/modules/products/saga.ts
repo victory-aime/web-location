@@ -35,6 +35,32 @@ function* getAllProducts(action: any): Generator {
   }
 }
 
+function* allPublicProducts(): Generator {
+  try {
+    const apiConfig = APIS().PRODUCTS.PUBLIC_PRODUCTS;
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+null,
+{},
+      false
+    );
+    yield put({
+      type: Constants.PUBLIC_PRODUCTS_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.PUBLIC_PRODUCTS_FAILED,
+      payload: error,
+    });
+  }
+}
+
 function* createProductSaga(
   action: PRODUCTS_ACTION_TYPES.CreateProductRequest
 ): Generator {
@@ -234,4 +260,5 @@ export function* productSagas(): Generator {
   yield takeLatest(Constants.DELETE_PRODUCT, deleteProducts);
   yield takeLatest(Constants.TRASH_PRODUCT_LIST, getAllTrashProductsList);
   yield takeLatest(Constants.RESTORE_PRODUCT, restoreProducts);
+  yield takeLatest(Constants.PUBLIC_PRODUCTS, allPublicProducts)
 }
