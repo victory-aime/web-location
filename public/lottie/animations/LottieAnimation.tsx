@@ -32,10 +32,15 @@ const TrashLottieAnimation = () => {
   return <Lottie animationData={TrashAnimation} />;
 };
 
+const TrashLottieAnimationV2 = () => {
+  return <Lottie animationData={TrashAnimationV2} />;
+};
+
 export {
   LottieAnimation,
   NoDataFoundLottieAnimation,
   LoaderLottie,
   DeleteLottie,
   TrashLottieAnimation,
+  TrashLottieAnimationV2,
 };

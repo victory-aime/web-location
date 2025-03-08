@@ -5,8 +5,8 @@ import APIS from "_store/src/endpoints";
 import { handleApiError, handleApiSuccess } from "_utils/handleApis";
 import * as PRODUCTS_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
-import { ToastStatus } from "_/components/custom/toast/CustomToast";
 import { getTokenOrThrow } from "_/utils/check.token.utils";
+import { ToastStatus } from "_/components/custom/toast/interface/toats";
 
 function* getAllProducts(action: any): Generator {
   try {
@@ -38,14 +38,7 @@ function* getAllProducts(action: any): Generator {
 function* allPublicProducts(): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.PUBLIC_PRODUCTS;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-null,
-{},
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, null, {}, false);
     yield put({
       type: Constants.PUBLIC_PRODUCTS_SUCCESS,
       payload: response,
@@ -260,5 +253,5 @@ export function* productSagas(): Generator {
   yield takeLatest(Constants.DELETE_PRODUCT, deleteProducts);
   yield takeLatest(Constants.TRASH_PRODUCT_LIST, getAllTrashProductsList);
   yield takeLatest(Constants.RESTORE_PRODUCT, restoreProducts);
-  yield takeLatest(Constants.PUBLIC_PRODUCTS, allPublicProducts)
+  yield takeLatest(Constants.PUBLIC_PRODUCTS, allPublicProducts);
 }

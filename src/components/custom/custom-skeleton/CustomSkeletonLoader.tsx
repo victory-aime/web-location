@@ -44,7 +44,7 @@ const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> = ({
   const PublicProductCard = (
     <SimpleGrid columns={{ base: 2, md: 4 }} width={"full"}>
       {Array.from({ length: 6 }, (_, i) => (
-        <Box p={5} width={"full"}>
+        <Box key={i} p={5} width={"full"}>
           <Box key={`box-${i}`}>
             <Skeleton variant={"shine"} borderRadius={"7px"} height={height} />
           </Box>

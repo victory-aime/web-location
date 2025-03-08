@@ -22,7 +22,9 @@ export const deleteProductSelector = (state: RootState) =>
 export const trashListSelector = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE]?.trashList;
 
-export const publicProductsSelector = (state:RootState) => state[Constants.PRODUCT_KEY_IN_STORE].publicProducts
+export const publicProductsSelector = (state: RootState) =>
+  state[Constants.PRODUCT_KEY_IN_STORE].publicProducts;
+
 
 export const restoreProductSelector = (state: RootState) =>
   state[Constants.PRODUCT_KEY_IN_STORE]?.restoreProduct;

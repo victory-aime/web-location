@@ -13,6 +13,8 @@ import { HStack, IconButton, Flex, For, Link, Text } from "@chakra-ui/react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { BaseButton } from "_/components/custom/button";
 import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
+import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "_/app/config/routes";
 
 const MobileMenu = ({
   open,
@@ -22,6 +24,7 @@ const MobileMenu = ({
   onChange: (value: any) => void;
 }) => {
   const fakeLink = [{ text: "Accueil", link: "/" }];
+  const router = useRouter();
   return (
     <DrawerRoot
       open={open}
@@ -34,7 +37,9 @@ const MobileMenu = ({
       <DrawerContent height={"full"} pos={"absolute"}>
         <DrawerHeader>
           <HStack p={5} justifyContent={"space-between"}>
-            <DrawerTitle>E-Shop</DrawerTitle>
+            <DrawerTitle onClick={() => router.push(APP_ROUTES.PUBLIC.HOME)}>
+              E-Shop
+            </DrawerTitle>
             <DrawerActionTrigger asChild>
               <IconButton
                 aria-label="close-drawer"

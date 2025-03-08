@@ -65,6 +65,7 @@ const CustomProductList: FC<ProductListProps> = ({
         <For each={paginatedItems}>
           {(item, index) => (
             <Box
+              key={index}
               width={"full"}
               cursor={"pointer"}
               onClick={() =>

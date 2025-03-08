@@ -5,7 +5,6 @@ import APIS from "_store/src/endpoints";
 import { handleApiError, handleApiSuccess } from "_utils/handleApis";
 import * as AUTH_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
-import { ToastStatus } from "_/components/custom/toast/CustomToast";
 import { getTokenOrThrow } from "_/utils/check.token.utils";
 import { persistor, store } from "_/store/store";
 

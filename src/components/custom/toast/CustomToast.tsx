@@ -1,28 +1,12 @@
 import { toaster } from "_/components/ui/toaster";
-
-const DEFAULT_TIME = 5000;
-
-export enum ToastStatus {
-  SUCCESS = "success",
-  ERROR = "error",
-  LOADING = "loading",
-  WARNING = "warning",
-  INFO = "info",
-}
-
-interface Props {
-  title?: string;
-  description?: string;
-  type?: ToastStatus | undefined;
-  duration?: number;
-}
+import { ToastStatus, DEFAULT_TIME, ToastProps } from "./interface/toats";
 
 export const CustomToast = ({
-  title,
+  title = "Notification",
   type = ToastStatus.SUCCESS,
   description,
   duration,
-}: Props) => {
+}: ToastProps) => {
   return toaster.create({
     title,
     description,

@@ -5,10 +5,8 @@ import { authLogoutRequestAction } from "_/store/src/modules/auth/actions";
 import { handleApiError } from "_utils/handleApis";
 import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
-import {
-  CustomToast,
-  ToastStatus,
-} from "_/components/custom/toast/CustomToast";
+import { CustomToast } from "_/components/custom/toast/CustomToast";
+import { ToastStatus } from "_/components/custom/toast/interface/toats";
 
 export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,

@@ -1,14 +1,15 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { IStateModule } from "_store/src/main/types";
 import { activeModules } from "./src/modules/constants/global.modules";
 import { ModuleStateMapping } from "./src/modules/constants/keys";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: "root",
   storage:
     typeof window !== "undefined" ? storage : (null as unknown as Storage),
+  //blacklist: ["products"],
 };
 
 export type RootState = {

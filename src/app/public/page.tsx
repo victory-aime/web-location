@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 
 import CustomProductList from "./products/components/CustomProductList";
-import { fetchProducts } from "./products/data/data";
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { BaseButton } from "_/components/custom/button";
 import { Footer } from "./components/Footer";
@@ -22,10 +21,8 @@ const PublicHome = () => {
   const router = useRouter();
 
   useEffect(() => {
-    //dispatch(ProductModule.actions.publicProductRequestAction());
+    dispatch(ProductModule.actions.publicProductRequestAction());
   }, []);
-
-  console.log("product", publicProducts);
 
   return (
     <Header>
@@ -59,7 +56,6 @@ const PublicHome = () => {
           </Box>
         </Box>
       )}
-
       <Footer />
     </Header>
   );

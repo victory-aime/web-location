@@ -1,5 +1,3 @@
-import { AnyAaaaRecord } from "dns";
-
 export type ProductStatus = "PUBLISH" | "DRAFT" | "DISABLED";
 
 export interface ICreateProduct extends IProduct {
@@ -18,6 +16,7 @@ export interface ProductsVariants {
 }
 
 export interface IProduct {
+  id?: string;
   name?: string;
   description?: string;
   price?: number;
@@ -41,6 +40,15 @@ export interface IResponseProductList {
 export interface IProductsCategories {
   id?: string;
   name?: string;
+}
+
+export interface IShoppingStore {
+  id?: string;
+  name?: string;
+  category?: string;
+  images?: any[];
+  quantity?: number;
+  price?: string;
 }
 
 export interface IProductState {

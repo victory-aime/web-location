@@ -1,7 +1,5 @@
-import {
-  CustomToast,
-  ToastStatus,
-} from "_/components/custom/toast/CustomToast";
+import { CustomToast } from "_/components/custom/toast/CustomToast";
+import { ToastStatus } from "_/components/custom/toast/interface/toats";
 
 export const handleApiError = (response: {
   status: number;

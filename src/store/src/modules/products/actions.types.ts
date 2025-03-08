@@ -17,14 +17,13 @@ export interface GetAllProductsRequestActionFailed extends Action {
   payload: string;
 }
 
-
 export interface PublicProductsRequestAction extends Action {
   type: typeof Constants.PUBLIC_PRODUCTS;
 }
 
 export interface PublicProductsRequestActionSuccess extends Action {
   type: typeof Constants.PUBLIC_PRODUCTS_SUCCESS;
-  payload:any;
+  payload: any;
 }
 
 export interface PublicProductsRequestActionFailed extends Action {
@@ -131,6 +130,8 @@ export interface RestoreProductFailed {
   type: typeof Constants.RESTORE_PRODUCT_FAILED;
   payload: string;
 }
+
+
 
 export interface ClearKeys extends Action {
   type: typeof Constants.CLEAR_PRODUCTS_KEYS;
