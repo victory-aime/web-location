@@ -2,9 +2,7 @@
 
 import {
   Box,
-  Circle,
   Flex,
-  Float,
   IconButton,
   Text,
   useBreakpointValue,
@@ -13,33 +11,53 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import WebDisplay from "./WebDisplay";
 import MobileMenu from "./MobileMenu";
 import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
-import { FaCartShopping } from "react-icons/fa6";
-import { MenuContent, MenuRoot, MenuTrigger } from "_/components/ui/menu";
-import DisplayCartItems from "../products/components/DisplayCartItems";
-import { TrashLottieAnimationV2 } from "_lottie/animations/LottieAnimation";
+import { useCart } from "_/app/hooks/cart";
+import { CartComponents } from "./CartComponents";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
   });
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { removeFromCart, clearCart, fetchCartFromStorage, cart, setCart } =
+    useCart();
+  /**
+   * @param cart
+   */
+  useEffect(() => {
+    fetchCartFromStorage().then(setCart);
+  }, []);
+
+  const removeItem = (itemToRemove: { name: string; id: string }) => {
+    setLoading(true);
+    setTimeout(() => {
+      removeFromCart(itemToRemove);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const clearAllCartItems = () => {
+    setLoading(true);
+    setTimeout(() => {
+      clearCart();
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
     <>
       <Box>
-        {/* Menu */}
         <Box display={{ base: "block", sm: "block", lg: "none" }}>
           <Flex
             m={{ base: "3" }}
@@ -58,35 +76,12 @@ const Header = ({ children }: { children: ReactNode }) => {
             </Flex>
             <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
               <IoIosHeartEmpty size={22} />
-
-              <MenuRoot>
-                <MenuTrigger asChild>
-                  <Box position="relative" cursor={"pointer"}>
-                    {cart?.length > 0 && (
-                      <Float>
-                        <Circle size="5" bg="red" color="white">
-                          {cart?.length}
-                        </Circle>
-                      </Float>
-                    )}
-                    <FaCartShopping size={22} />
-                  </Box>
-                </MenuTrigger>
-                <MenuContent p={5}>
-                  {cart === 0 ? (
-                    <Flex
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      boxSize={"45px"}
-                    >
-                      <TrashLottieAnimationV2 />
-                    </Flex>
-                  ) : (
-                    <DisplayCartItems items={cart} />
-                  )}
-                </MenuContent>
-              </MenuRoot>
-
+              <CartComponents
+                cart={cart}
+                removeItem={removeItem}
+                clearAllCartItems={clearAllCartItems}
+                loading={loading}
+              />
               <IconButton
                 bgColor={"primary.500"}
                 aria-label="user-icon"
@@ -102,7 +97,7 @@ const Header = ({ children }: { children: ReactNode }) => {
                 <FormTextInput
                   name={"search"}
                   placeholder="Recherchez votre produit"
-                  leftAccessory={<RiSearch2Line />}
+                  leftAccessory={<RiSearch2Line size={24} />}
                   onChangeFunction={(e: any) => {
                     setFieldValue("search", e?.target.value);
                   }}
@@ -118,7 +113,12 @@ const Header = ({ children }: { children: ReactNode }) => {
           </Formik>
         </Box>
         {responsiveMode ? (
-          <WebDisplay />
+          <WebDisplay
+            cart={cart}
+            removeItem={removeFromCart}
+            clearAllCartItems={clearAllCartItems}
+            loading={loading}
+          />
         ) : (
           <MobileMenu open={open} onChange={() => setOpen(false)} />
         )}

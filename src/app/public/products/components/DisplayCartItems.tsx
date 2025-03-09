@@ -7,14 +7,11 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
-import useCart from "_/app/hooks/cart";
 import { BaseButton } from "_/components/custom/button";
-import { CustomToast } from "_/components/custom/toast/CustomToast";
-import { ToastStatus } from "_/components/custom/toast/interface/toats";
 import { MenuSeparator } from "_/components/ui/menu";
 import { TrashIcon } from "_assets/svg";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 export interface CartItem {
   id: string;
@@ -26,47 +23,18 @@ export interface CartItem {
 interface DisplayCartItemsProps {
   items: CartItem[];
   setItems?: (items: CartItem[]) => void;
+  handleSubmit?: (value: FormData) => void;
+  removeItem?: (item: { name: string; id: string }) => void;
+  clearCart?: () => void;
+  loading?: boolean;
 }
 
 const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
   items,
-  setItems,
+  removeItem,
+  clearCart,
+  loading = false,
 }) => {
-  const [loading, setLoading] = useState(false);
-
-  const removeItem = (itemToRemove: CartItem) => {
-    setLoading(true);
-    setTimeout(() => {
-      const updatedCart = items?.filter((item) => item.id !== itemToRemove.id);
-      setItems && setItems(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      CustomToast({
-        title: "Article supprimé",
-        description: `${itemToRemove?.name} a été retiré du panier.`,
-        type: ToastStatus.WARNING,
-        duration: 2000,
-      });
-
-      setLoading(false);
-    }, 1000);
-  };
-
-  const clearCart = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setItems && setItems([]);
-      localStorage.removeItem("cart");
-      CustomToast({
-        title: "Panier vidé",
-        description: "Tous les articles ont été supprimés.",
-        type: ToastStatus.ERROR,
-        duration: 2000,
-      });
-
-      setLoading(false);
-    }, 1000);
-  };
-
   const calculateTotalPrice = () => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -102,7 +70,10 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
                 bgColor={"red"}
                 boxSize={"35px"}
                 rounded={"lg"}
-                onClick={() => removeItem(item)}
+                onClick={() => {
+                  removeItem && removeItem(item);
+                  console.log("remove", item);
+                }}
                 disabled={loading}
               >
                 {loading ? <Spinner size="sm" /> : <TrashIcon fill={"#fff"} />}

@@ -17,8 +17,8 @@ import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 
 const MobileMenu = ({
-  open,
   onChange,
+  open,
 }: {
   open: boolean;
   onChange: (value: any) => void;

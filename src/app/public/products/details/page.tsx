@@ -25,16 +25,16 @@ import { BsHeart } from "react-icons/bs";
 import { StepperInput } from "_components/ui/stepper-input";
 import { Avatar } from "_components/ui/avatar";
 import CustomProductList from "../components/CustomProductList";
-import { useDispatch } from "react-redux";
 import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
+import { saveCartToStorage, useCart } from "_/app/hooks/cart";
 
 const PublicDetailsProducts = () => {
   const requestId = useSearchParams()?.get("requestId");
-  const dispatch = useDispatch();
   const { publicProducts } = useSelector(
     ProductModule.selectors.productSelector
   );
+  const { fetchCartFromStorage, cart, setCart } = useCart();
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(false);
   const findItem = UTILS.findDynamicIdInList(requestId ?? "", publicProducts);
@@ -53,12 +53,12 @@ const PublicDetailsProducts = () => {
     if (requestId && findItem) {
       setImages(findItem?.images);
       setSelectedImage(findItem.images?.[0] || null);
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const existingItem = cart.find((item: any) => item.id === findItem.id);
+      const existingItem = cart?.find((item: any) => item.id === findItem.id);
       if (existingItem) {
         setQuantity(existingItem.quantity);
       } else {
         setQuantity(0);
+        fetchCartFromStorage().then(setCart);
       }
     }
   }, [requestId, findItem]);
@@ -66,21 +66,17 @@ const PublicDetailsProducts = () => {
   const addItemToCart = () => {
     setLoading(true);
     setTimeout(() => {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const imagesAsFiles = cart.images?.map((base64: string, index: number) =>
-        UTILS.base64ToFile(base64, `image_${index}.jpg`)
-      );
-      const existingItemIndex = cart.findIndex(
+      const existingItemIndex = cart?.findIndex(
         (item: any) => item.id === findItem.id
       );
-
       if (existingItemIndex !== -1) {
         cart[existingItemIndex].quantity += 1;
       } else {
-        cart.push({ ...findItem, images: imagesAsFiles, quantity: 1 });
+        cart.push({ ...findItem, quantity: 1 });
       }
-      localStorage.setItem("cart", JSON.stringify(cart));
+      saveCartToStorage(cart);
       setQuantity((prev) => prev + 1);
+      fetchCartFromStorage();
       setLoading(false);
       CustomToast({
         description: "Produit ajouter au panier",
@@ -103,8 +99,9 @@ const PublicDetailsProducts = () => {
         } else {
           cart[existingItemIndex].quantity = newQuantity;
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        saveCartToStorage(cart);
         setQuantity(newQuantity);
+        fetchCartFromStorage();
         CustomToast({
           type: ToastStatus.INFO,
           description: "Produit mis a jour",
