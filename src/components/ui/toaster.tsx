@@ -30,6 +30,7 @@ export const Toaster = () => {
                   ? "primary.500"
                   : ""
             }
+            color={"white"}
             width={{ md: "sm" }}
             p={4}
           >
@@ -47,7 +48,9 @@ export const Toaster = () => {
             {toast.action && (
               <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
             )}
-            {toast.meta?.closable && <Toast.CloseTrigger />}
+            {toast.meta?.closable && (
+              <Toast.CloseTrigger p={2} color="'white" />
+            )}
           </Toast.Root>
         )}
       </ChakraToaster>

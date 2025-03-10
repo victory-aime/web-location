@@ -6,11 +6,13 @@ import {
   Stack,
   Text,
   Spinner,
+  Image,
+  Center,
+  Separator,
 } from "@chakra-ui/react";
 import { BaseButton } from "_/components/custom/button";
 import { MenuSeparator } from "_/components/ui/menu";
 import { TrashIcon } from "_assets/svg";
-import Image from "next/image";
 import React from "react";
 
 export interface CartItem {
@@ -18,6 +20,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  images: string[];
 }
 
 interface DisplayCartItemsProps {
@@ -40,19 +43,19 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
   };
 
   return (
-    <Box width={"full"}>
+    <Box width={"full"} bgColor={"yellow"}>
       <Text mb={4}>Vous avez {items?.length} articles dans votre panier</Text>
       {items?.map((item) => (
-        <Box key={item.id}>
+        <Box key={item.id} width={"full"}>
           <Flex m={2} gap={5} justifyContent={"space-between"}>
             <Flex gap={3}>
-              <Box>
+              <Box boxSize={"65px"} bgColor={"yellow"}>
                 <Image
-                  src={"https:avatar.iran.liara.run/public"}
+                  src={item?.images[0] ?? "https:avatar.iran.liara.run/public"}
                   alt="cart-images"
-                  width={45}
-                  height={45}
-                  unoptimized={true}
+                  width={"full"}
+                  height={"full"}
+                  objectFit="cover"
                 />
               </Box>
 
@@ -80,7 +83,7 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
               </IconButton>
             </Flex>
           </Flex>
-          <MenuSeparator />
+          <Separator />
         </Box>
       ))}
       <Box mt={5} width={"full"}>

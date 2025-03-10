@@ -12,5 +12,8 @@ export const CustomToast = ({
     description,
     type,
     duration: DEFAULT_TIME ?? duration,
+    meta: {
+      closable: true,
+    },
   });
 };

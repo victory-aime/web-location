@@ -32,25 +32,27 @@ import { saveCartToStorage, useCart } from "_/app/hooks/cart";
 const PublicDetailsProducts = () => {
   const requestId = useSearchParams()?.get("requestId");
   const { publicProducts } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
-  const { fetchCartFromStorage, cart, setCart } = useCart();
+  const { cart, setCart, triggerRefresh, fetchCartFromStorage } = useCart();
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(false);
   const findItem = UTILS.findDynamicIdInList(requestId ?? "", publicProducts);
 
   const findSameCategoriesItem = publicProducts?.filter(
     (value) =>
-      value.categoryName === findItem?.categoryName && value.id !== findItem?.id
+      value.categoryName === findItem?.categoryName &&
+      value.id !== findItem?.id,
   );
 
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
     if (requestId && findItem) {
+      fetchCartFromStorage().then(setCart);
       setImages(findItem?.images);
       setSelectedImage(findItem.images?.[0] || null);
       const existingItem = cart?.find((item: any) => item.id === findItem.id);
@@ -58,16 +60,15 @@ const PublicDetailsProducts = () => {
         setQuantity(existingItem.quantity);
       } else {
         setQuantity(0);
-        fetchCartFromStorage().then(setCart);
       }
     }
-  }, [requestId, findItem]);
+  }, [requestId, findItem, triggerRefresh]);
 
   const addItemToCart = () => {
     setLoading(true);
     setTimeout(() => {
       const existingItemIndex = cart?.findIndex(
-        (item: any) => item.id === findItem.id
+        (item: any) => item.id === findItem.id,
       );
       if (existingItemIndex !== -1) {
         cart[existingItemIndex].quantity += 1;
@@ -80,7 +81,7 @@ const PublicDetailsProducts = () => {
       setLoading(false);
       CustomToast({
         description: "Produit ajouter au panier",
-        duration: 3000,
+        duration: 1000,
       });
     }, 1500);
   };
@@ -90,7 +91,7 @@ const PublicDetailsProducts = () => {
     setTimeout(() => {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const existingItemIndex = cart.findIndex(
-        (item: any) => item.id === findItem.id
+        (item: any) => item.id === findItem.id,
       );
 
       if (existingItemIndex !== -1) {
@@ -105,7 +106,7 @@ const PublicDetailsProducts = () => {
         CustomToast({
           type: ToastStatus.INFO,
           description: "Produit mis a jour",
-          duration: 3000,
+          duration: 1000,
         });
         setLoading(false);
       }
@@ -159,7 +160,13 @@ const PublicDetailsProducts = () => {
               p={2}
             >
               {images?.map((img: string, index: number) => (
-                <Image key={index} src={img} borderRadius="12px" width="100%" />
+                <Image
+                  key={index}
+                  src={img}
+                  borderRadius="12px"
+                  width="100%"
+                  alt={"image-details"}
+                />
               ))}
             </Flex>
           </Box>

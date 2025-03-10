@@ -11,7 +11,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import WebDisplay from "./WebDisplay";
@@ -30,14 +30,8 @@ const Header = ({ children }: { children: ReactNode }) => {
   });
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { removeFromCart, clearCart, fetchCartFromStorage, cart, setCart } =
-    useCart();
-  /**
-   * @param cart
-   */
-  useEffect(() => {
-    fetchCartFromStorage().then(setCart);
-  }, []);
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const { removeFromCart, clearCart } = useCart();
 
   const removeItem = (itemToRemove: { name: string; id: string }) => {
     setLoading(true);

@@ -73,7 +73,6 @@ const WebDisplay = ({
             removeItem={removeItem}
             clearAllCartItems={clearAllCartItems}
             loading={loading}
-          
           />
         </Flex>
         <BaseButton onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}>
