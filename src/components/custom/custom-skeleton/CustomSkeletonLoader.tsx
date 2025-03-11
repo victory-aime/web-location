@@ -30,10 +30,10 @@ const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> = ({
       <Table.Body minH={"190px"}>
         {Array.from({ length: tableRows || 1 }, (_, j) => (
           <Table.Row key={`StyledTr-${j}`}>
-            {Array.from({ length: tableColumns || 1 }, ($, k) => (
-              <Table.ColumnHeader key={`StyledTd-${j}-${k}`}>
+            {Array.from({ length: tableColumns || 1 }, (_, k) => (
+              <Table.Cell key={`StyledTd-${j}-${k}`}>
                 <Skeleton variant={"shine"} height={"25px"} />
-              </Table.ColumnHeader>
+              </Table.Cell>
             ))}
           </Table.Row>
         ))}

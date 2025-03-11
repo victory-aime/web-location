@@ -3,7 +3,15 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import { useCart } from "_/app/hooks/cart";
-import { Box, Flex, For, Image, Separator, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  For,
+  Image,
+  Separator,
+  VStack,
+} from "@chakra-ui/react";
 
 import { TrashIcon } from "_assets/svg";
 import { BaseButton } from "_components/custom/button";
@@ -13,14 +21,19 @@ import {
   TextWeight,
 } from "_components/custom/base-text";
 import { StepperInput } from "_components/ui/stepper-input";
+import CustomFormatNumber from "_components/custom/format-number/CustomFormatNumber";
+import { APP_ROUTES } from "_app/config/routes";
+import { useRouter } from "next/navigation";
 
 const CheckOut = () => {
+  const router = useRouter();
   const {
     cart,
     fetchCartFromStorage,
     setCart,
     triggerRefresh,
     removeFromCart,
+    calculateTotalPrice,
   } = useCart();
   useEffect(() => {
     fetchCartFromStorage().then((data) => {
@@ -29,29 +42,62 @@ const CheckOut = () => {
     });
   }, [triggerRefresh]);
 
+  if (cart?.length === 0) {
+    return (
+      <Header>
+        <Box mt={50} padding={{ base: 5, lg: 10 }}>
+          <Box width={"full"} boxShadow={"lg"} borderRadius={"7px"} p={4}>
+            <Center flexDir={"column"} gap={4}>
+              <Image
+                src={"/assets/images/cart/cart.jpg"}
+                alt={"cart-empty"}
+                width={"200px"}
+                height={"200px"}
+              />
+              <BaseText>Votre panier est vide!</BaseText>
+              <BaseText>
+                Parcourez nos catégories et découvrez nos meilleures offres!
+              </BaseText>
+              <BaseButton
+                colorType={"secondary"}
+                onClick={() =>
+                  router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST)
+                }
+              >
+                <BaseText variant={TextVariant.S}>
+                  Commencez vos achats
+                </BaseText>
+              </BaseButton>
+            </Center>
+          </Box>
+        </Box>
+      </Header>
+    );
+  }
+
   return (
     <Header>
-      <Box mt={50} padding={{ base: 5, lg: 10 }}>
-        <BaseText variant={TextVariant.H1}>Panier ({cart?.length})</BaseText>
+      <Box mt={50} padding={{ base: 5, lg: 10 }} width={"full"}>
         <Flex
           gap={10}
           mt={5}
-          bgColor={"green"}
-          boxShadow={"lg"}
           flexDir={{ base: "column", lg: "row" }}
+          width={"full"}
         >
-          <Box width={"full"} bgColor={"yellow"}>
+          <Box width={"full"} boxShadow={"lg"} borderRadius={"7px"} p={4}>
+            <BaseText variant={TextVariant.H3}>Cart ({cart?.length})</BaseText>
+            <Separator mt={2} />
             <For each={cart}>
               {(item, index) => (
-                <Box key={index} width={"full"}>
+                <Box key={index} width={"full"} mt={6}>
                   <Flex
-                    m={2}
                     gap={5}
                     alignItems={"flex-start"}
                     justifyContent={"space-between"}
+                    width={"full"}
                   >
-                    <Flex alignItems={"flex-start"} gap={3}>
-                      <Box boxSize={"150px"} bgColor={"yellow"} mb={4}>
+                    <Flex alignItems={"flex-start"} gap={3} width={"full"}>
+                      <Box mb={4} width={"full"}>
                         <Image
                           src={
                             item?.images[0] ??
@@ -59,39 +105,37 @@ const CheckOut = () => {
                           }
                           alt="cart-images"
                           width={"full"}
-                          height={"full"}
+                          borderRadius={"7px"}
+                          height={200}
                           objectFit="cover"
                         />
                       </Box>
-                      <Box>
-                        <Stack>
-                          <BaseText truncate variant={TextVariant.H3}>
-                            {item?.name}
-                          </BaseText>
-                          <BaseText variant={TextVariant.M}>
-                            Vendeur : Test
-                          </BaseText>
-                          <BaseText
-                            variant={TextVariant.XL}
-                            weight={TextWeight.Regular}
-                          >
-                            {item.stock <= 4
-                              ? "Quelques aticles restant"
-                              : "Ne manquez pas cet article"}
-                          </BaseText>
-                        </Stack>
-                      </Box>
+                      <VStack gap={2} width={"full"} alignItems={"flex-start"}>
+                        <BaseText flexWrap={"wrap"} variant={TextVariant.L}>
+                          {item?.name}
+                        </BaseText>
+                        <BaseText variant={TextVariant.S}>
+                          Vendeur : Test
+                        </BaseText>
+                        <BaseText
+                          variant={TextVariant.S}
+                          weight={TextWeight.Regular}
+                        >
+                          {item.stock <= 5
+                            ? "Quelques aticles restant"
+                            : "Ne manquez pas cet article"}
+                        </BaseText>
+                      </VStack>
                     </Flex>
                     <Flex
-                      justifyContent={"center"}
-                      alignItems={"center"}
-                      bgColor={"pink"}
+                      justifyContent={"flex-start"}
+                      alignItems={"flex-start"}
                     >
                       <BaseText
-                        variant={TextVariant.H2}
+                        variant={TextVariant.M}
                         fontWeight={TextWeight.Regular}
                       >
-                        ${item?.price}
+                        <CustomFormatNumber value={item?.price} />
                       </BaseText>
                     </Flex>
                   </Flex>
@@ -103,10 +147,9 @@ const CheckOut = () => {
                       onClick={() => {
                         removeFromCart(item);
                       }}
-                      disabled={triggerRefresh}
                       isLoading={triggerRefresh}
                     >
-                      Supprimer
+                      <BaseText variant={TextVariant.XS}>Delete</BaseText>
                     </BaseButton>
                     <StepperInput
                       defaultValue={item?.quantity?.toString()}
@@ -118,14 +161,51 @@ const CheckOut = () => {
                       }
                     />
                   </Flex>
-                  <Separator mt={3} mb={3} />
+                  {cart?.length > 2 && <Separator mt={3} mb={3} />}
                 </Box>
               )}
             </For>
           </Box>
 
-          <Box width={"1/3"} bgColor={"blue"}>
-            Display resume here
+          <Box
+            width={{ base: "full", lg: "1/2" }}
+            height={"fit-content"}
+            boxShadow={"lg"}
+            borderRadius={"7px"}
+          >
+            <Box>
+              <BaseText p={2} textTransform={"uppercase"}>
+                Cart resume
+              </BaseText>
+              <Separator />
+              <Box p={2}>
+                <Flex alignItems={"center"} justifyContent={"space-between"}>
+                  <BaseText>Sous-total</BaseText>
+                  <BaseText variant={TextVariant.H3}>
+                    <CustomFormatNumber value={calculateTotalPrice(cart)} />
+                  </BaseText>
+                </Flex>
+                <BaseText variant={TextVariant.XS} mt={1}>
+                  Frais de livraison non inclus à ce stade.
+                </BaseText>
+              </Box>
+              <Separator />
+              <Box p={2} width={"full"} mt={8}>
+                <BaseButton
+                  colorType={"secondary"}
+                  withGradient
+                  width={"full"}
+                  onClick={() =>
+                    router?.push(
+                      APP_ROUTES.PUBLIC.PRODUCTS_LIST.CHECKOUT.PROCESS,
+                    )
+                  }
+                >
+                  Commander(
+                  <CustomFormatNumber value={calculateTotalPrice(cart)} />)
+                </BaseButton>
+              </Box>
+            </Box>
           </Box>
         </Flex>
       </Box>

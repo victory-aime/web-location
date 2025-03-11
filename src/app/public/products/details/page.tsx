@@ -1,17 +1,17 @@
 "use client";
 import {
   Box,
-  Text,
+  Circle,
   Flex,
-  Stack,
-  Image,
+  Float,
+  FormatNumber,
   Heading,
   HStack,
-  FormatNumber,
-  Float,
-  Circle,
+  Image,
   Separator,
   Spinner,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ import CustomProductList from "../components/CustomProductList";
 import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
 import { saveCartToStorage, useCart } from "_/app/hooks/cart";
+import { BaseText, TextVariant } from "_components/custom/base-text";
 
 const PublicDetailsProducts = () => {
   const requestId = useSearchParams()?.get("requestId");
@@ -77,7 +78,7 @@ const PublicDetailsProducts = () => {
       }
       saveCartToStorage(cart);
       setQuantity((prev) => prev + 1);
-      fetchCartFromStorage();
+      fetchCartFromStorage().then((r) => setCart(r));
       setLoading(false);
       CustomToast({
         description: "Produit ajouter au panier",
@@ -102,7 +103,7 @@ const PublicDetailsProducts = () => {
         }
         saveCartToStorage(cart);
         setQuantity(newQuantity);
-        fetchCartFromStorage();
+        fetchCartFromStorage().then((r) => setCart(r));
         CustomToast({
           type: ToastStatus.INFO,
           description: "Produit mis a jour",
@@ -225,7 +226,7 @@ const PublicDetailsProducts = () => {
                   colorType={"success"}
                   onClick={addItemToCart}
                 >
-                  Ajouter au panier
+                  <BaseText variant={TextVariant.S}>Ajouter au panier</BaseText>
                 </BaseButton>
               )}
             </Flex>

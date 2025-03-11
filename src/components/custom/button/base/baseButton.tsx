@@ -41,7 +41,7 @@ const getVariantStyles = (colorType: variantColorType): VariantColorStyle => {
         bg: "rgb(3, 186, 153)",
         gradient:
           "linear-gradient(to right, rgb(3, 186, 153), rgb(0, 145, 119))",
-        hover: "linear-gradient(to right, rgb(23, 206, 173), rgb(0, 165, 129))",
+        hover: "linear-gradient(to right, rgb(23, 206, 173), rgb(0, 165, 79))",
         textColor: "white",
       };
     default:
@@ -55,7 +55,7 @@ const getVariantStyles = (colorType: variantColorType): VariantColorStyle => {
 };
 
 const getVariantFromStatus = (
-  status?: string
+  status?: string,
 ): variantColorType | undefined => {
   switch (status) {
     case "active":
@@ -83,7 +83,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
     : colorType || "none";
 
   const { bg, gradient, hover, textColor } = getVariantStyles(
-    resolvedVariant || "none"
+    resolvedVariant || "none",
   );
 
   const animationMap: Record<string, string> = {
@@ -103,7 +103,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             }}
             _active={{ background: withGradient ? hover : `${bg}AA` }}
             _disabled={{ background: "gray.300", cursor: "not-allowed" }}
-            borderRadius={"12px"}
+            borderRadius={"7px"}
             padding={"20px"}
             loading={isLoading}
             disabled={isLoading}
@@ -127,7 +127,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             }}
             _active={{ background: withGradient ? hover : `${bg}AA` }}
             _disabled={{ background: "gray.300", cursor: "not-allowed" }}
-            borderRadius={"12px"}
+            borderRadius={"7px"}
             padding={"20px"}
             loading={isLoading}
             disabled={isLoading}
@@ -151,7 +151,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
           }}
           _active={{ background: withGradient ? hover : `${bg}AA` }}
           _disabled={{ background: "gray.300", cursor: "not-allowed" }}
-          borderRadius="12px"
+          borderRadius="7px"
           loading={isLoading}
           disabled={isLoading}
           loadingText="patientez..."

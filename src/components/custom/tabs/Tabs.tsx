@@ -3,7 +3,6 @@ import { TabsProps } from "./interface/table";
 import { hexToRGB } from "_/theme/colors";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { FaRegCalendarDays } from "react-icons/fa6";
 import { TbFilter } from "react-icons/tb";
 import { BaseButton } from "../button";
 
@@ -49,7 +48,7 @@ export const CommonTabs = ({
                 bg={"bg.muted"}
                 border={"1px solid"}
                 borderColor={"gray.700"}
-                rounded="l3"
+                rounded="lg"
                 p={"4px"}
               >
                 {items.map((item, index) => (

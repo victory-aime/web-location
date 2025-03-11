@@ -7,13 +7,12 @@ import {
   Text,
   Spinner,
   Image,
-  Center,
   Separator,
 } from "@chakra-ui/react";
 import { BaseButton } from "_/components/custom/button";
-import { MenuSeparator } from "_/components/ui/menu";
 import { TrashIcon } from "_assets/svg";
 import React from "react";
+import { useCart } from "_app/hooks/cart";
 
 export interface CartItem {
   id: string;
@@ -38,9 +37,7 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
   clearCart,
   loading = false,
 }) => {
-  const calculateTotalPrice = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  const { calculateTotalPrice } = useCart();
 
   return (
     <Box width={"full"} bgColor={"yellow"}>
@@ -74,7 +71,7 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
                 boxSize={"35px"}
                 rounded={"lg"}
                 onClick={() => {
-                  removeItem && removeItem(item);
+                  removeItem?.(item);
                   console.log("remove", item);
                 }}
                 disabled={loading}
@@ -87,7 +84,7 @@ const DisplayCartItems: React.FC<DisplayCartItemsProps> = ({
         </Box>
       ))}
       <Box mt={5} width={"full"}>
-        <Heading>Total : ${calculateTotalPrice()}</Heading>
+        <Heading>Total : ${calculateTotalPrice(items)}</Heading>
         <Flex flexDir={"column"} gap={2} mt={2}>
           <BaseButton width={"full"}>Voir le panier</BaseButton>
           <BaseButton

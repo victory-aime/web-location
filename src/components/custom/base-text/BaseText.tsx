@@ -25,13 +25,15 @@ export const BaseText: React.FC<BaseTextProps> = ({
   };
 
   const weightMap: Record<TextWeight, string> = {
-    [TextWeight.Regular]: "400",
-    [TextWeight.Medium]: "500",
-    [TextWeight.SemiBold]: "600",
-    [TextWeight.Bold]: "700",
-    [TextWeight.ExtraBold]: "800",
-    [TextWeight.Black]: "900",
-    [TextWeight.Light]: "300",
+    [TextWeight.THIN]: "thin",
+    [TextWeight.ExtraLight]: "extralight",
+    [TextWeight.Light]: "light",
+    [TextWeight.Regular]: "normal",
+    [TextWeight.Medium]: "medium",
+    [TextWeight.SemiBold]: "semibold",
+    [TextWeight.Bold]: "bold",
+    [TextWeight.ExtraBold]: "extrabold",
+    [TextWeight.Black]: "black",
   };
 
   return (

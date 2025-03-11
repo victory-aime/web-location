@@ -67,6 +67,14 @@ const useCart = () => {
     });
   };
 
+  const calculateTotalPrice = (cart: { price: number; quantity: number }[]) => {
+    return cart.reduce(
+      (total: number, item: { price: number; quantity: number }) =>
+        total + item.price * item.quantity,
+      0,
+    );
+  };
+
   return {
     cart,
     setCart,
@@ -74,7 +82,8 @@ const useCart = () => {
     clearCart,
     triggerRefresh,
     fetchCartFromStorage,
-    setTriggerRefresh, // ✅ Expose le trigger pour forcer une mise à jour ailleurs si besoin
+    setTriggerRefresh,
+    calculateTotalPrice,
   };
 };
 

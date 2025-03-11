@@ -1,4 +1,4 @@
-import { Flex, Box, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { FormTextInput } from "_/components/custom/form";
@@ -8,6 +8,7 @@ import React from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import { CartComponents } from "./CartComponents";
+import { BaseText, TextVariant } from "_components/custom/base-text";
 
 const WebDisplay = ({
   cart,
@@ -36,7 +37,7 @@ const WebDisplay = ({
         cursor={"pointer"}
         onClick={() => router.push(APP_ROUTES.PUBLIC.HOME)}
       >
-        <Text fontSize={"35px"}> E-Shop</Text>
+        <BaseText variant={TextVariant.L}> E-Shop</BaseText>
       </Box>
 
       <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
@@ -75,8 +76,11 @@ const WebDisplay = ({
             loading={loading}
           />
         </Flex>
-        <BaseButton onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}>
-          Se connecter
+        <BaseButton
+          onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
+          colorType={"secondary"}
+        >
+          <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
         </BaseButton>
       </Flex>
     </Flex>

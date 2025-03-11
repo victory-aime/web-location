@@ -6,7 +6,10 @@ export const APP_ROUTES = {
     PRODUCTS_LIST: {
       LIST: "/public/products",
       DETAILS: "/public/products/details",
-      CHECKOUT: '/public/products/checkout'
+      CHECKOUT: {
+        OVERVIEW: "/public/products/checkout",
+        PROCESS: "/public/products/checkout/process",
+      },
     },
     HOME: "/",
     SIGN_UP: "/public/auth/register",

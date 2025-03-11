@@ -10,6 +10,8 @@ export enum TextVariant {
 }
 
 export enum TextWeight {
+  THIN = "Thin",
+  ExtraLight = "ExtraLight",
   Regular = "Regular",
   Medium = "Medium",
   SemiBold = "SemiBold",
