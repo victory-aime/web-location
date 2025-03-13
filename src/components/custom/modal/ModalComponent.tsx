@@ -20,6 +20,7 @@ const ModalComponent = ({
   title = "Modal Title",
   colorSaveButton = "success",
   buttonSaveTitle = "Save",
+  showCloseButton = true,
   isLoading,
   onClick,
   isFull,
@@ -64,7 +65,7 @@ const ModalComponent = ({
             </BaseButton>
           </DialogFooter>
         ) : null}
-        <DialogCloseTrigger />
+        {showCloseButton && <DialogCloseTrigger />}
       </DialogContent>
     </DialogRoot>
   );

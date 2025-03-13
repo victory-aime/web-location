@@ -68,7 +68,7 @@ export const CartComponents = ({
         position="relative"
         cursor={"pointer"}
         onClick={() =>
-          router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CHECKOUT.PROCESS)
+          router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.OVERVIEW)
         }
       >
         {cart?.length > 0 && (

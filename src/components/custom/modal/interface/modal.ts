@@ -6,6 +6,7 @@ export interface ModalProps extends DialogRootProps {
   title?: string | undefined;
   isOpen?: boolean | undefined;
   onChange: (value: any) => void;
+  showCloseButton?: boolean;
   ignoreFooter?: boolean;
   modalType?: "dialog" | "alertdialog" | undefined;
   buttonSaveTitle?: string;

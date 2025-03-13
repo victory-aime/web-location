@@ -1,61 +1,75 @@
 "use client";
 import {
-  StepsCompletedContent,
   StepsContent,
   StepsItem,
   StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
   StepsRoot,
 } from "_components/ui/steps";
-import { LuUser } from "react-icons/lu";
-import { Box, For } from "@chakra-ui/react";
-import React, { FC, ReactNode, useState } from "react";
+import { Box, For, useBreakpointValue, VStack } from "@chakra-ui/react";
+import React, { FC, useEffect, useState } from "react";
+import { BaseText, TextVariant } from "_components/custom/base-text";
+import { StepperProps } from "./interface/stepper";
 
-interface StepperProps {
-  steps: {
-    icon: ReactNode;
-    content: ReactNode | string | any;
-    label: string;
-    stepNumber: number;
-  }[];
-  goNextSteps: (step: number) => void;
-}
-
-const CustomStepper: FC<StepperProps> = ({ steps, goNextSteps }) => {
+const CustomStepper: FC<StepperProps> = ({ steps, goNextSteps, stepTitle }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const responsive = useBreakpointValue({ base: true, sm: false, lg: false });
+
   const handleStepChange = (step: number) => {
     const index = steps.findIndex((item) => item.stepNumber === step);
-    if (index !== -1) setCurrentIndex(index);
+    if (index !== -1) {
+      setCurrentIndex(index);
+    }
   };
+
+  useEffect(() => {
+    goNextSteps(currentIndex);
+  }, [currentIndex]);
+
   return (
     <StepsRoot
-      minHeight={{ base: "100%", md: "300px" }}
       w={"100%"}
-      //linear={true}
+      linear
       count={steps?.length}
       defaultValue={steps[currentIndex]?.stepNumber}
       variant={"solid"}
-      onStepChange={({ step }) => handleStepChange(step)}
-      onStepComplete={() => {
-        const nextStep = currentIndex + 1;
-        if (nextStep < steps.length) {
-          setCurrentIndex(nextStep);
-          goNextSteps(nextStep);
-        }
+      colorPalette={"teal"}
+      onStepChange={({ step }) => {
+        handleStepChange(step);
       }}
     >
-      <StepsList width={"full"}>
+      {stepTitle && <BaseText variant={TextVariant.H2}>{stepTitle}</BaseText>}
+
+      <StepsList width={"full"} mt={5}>
         <For each={steps}>
           {(item, index) => (
-            <StepsItem
-              color={currentIndex === index ? "primary.500" : "gray.400"}
-              key={index}
-              index={index}
-              icon={item?.icon ?? <LuUser />}
-            />
+            <Box width={"full"} key={index}>
+              {responsive ? (
+                <VStack gap={2} key={index} width={"full"} alignItems={"start"}>
+                  <StepsItem
+                    width={"full"}
+                    key={index}
+                    index={index}
+                    icon={item?.icon}
+                  />
+                  <BaseText variant={TextVariant.XS}>{item?.label}</BaseText>
+                </VStack>
+              ) : (
+                <StepsItem
+                  key={index}
+                  width={"full"}
+                  title={item?.label}
+                  index={index}
+                  icon={item?.icon}
+                />
+              )}
+            </Box>
           )}
         </For>
       </StepsList>
-      <Box mt={5} mb={50} bgColor={"red"}>
+
+      <Box mt={5}>
         <For each={steps}>
           {(item, index) => (
             <StepsContent
@@ -70,12 +84,18 @@ const CustomStepper: FC<StepperProps> = ({ steps, goNextSteps }) => {
                 animationDuration: "120ms",
               }}
             >
-              {index === currentIndex && item.content}
+              {item.content({
+                NextTrigger: ({ children }) => (
+                  <StepsNextTrigger>{children}</StepsNextTrigger>
+                ),
+                PrevTrigger: ({ children }) => (
+                  <StepsPrevTrigger>{children}</StepsPrevTrigger>
+                ),
+              })}
             </StepsContent>
           )}
         </For>
       </Box>
-      <StepsCompletedContent>All steps are complete!</StepsCompletedContent>
     </StepsRoot>
   );
 };

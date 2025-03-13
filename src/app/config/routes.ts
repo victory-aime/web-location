@@ -6,9 +6,9 @@ export const APP_ROUTES = {
     PRODUCTS_LIST: {
       LIST: "/public/products",
       DETAILS: "/public/products/details",
-      CHECKOUT: {
-        OVERVIEW: "/public/products/checkout",
-        PROCESS: "/public/products/checkout/process",
+      CART: {
+        OVERVIEW: "/public/products/cart/overview",
+        PROCESS: "/public/products/cart/process",
       },
     },
     HOME: "/",

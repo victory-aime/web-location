@@ -28,7 +28,6 @@ export const StepsItem = React.forwardRef<HTMLDivElement, StepsItemProps>(
           </ChakraSteps.Indicator>
           <StepInfo title={title} description={description} />
         </ChakraSteps.Trigger>
-        <ChakraSteps.Separator />
       </ChakraSteps.Item>
     );
   },

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Header from "../../components/Header";
-import { useCart } from "_/app/hooks/cart";
+import Header from "../../../components/Header";
+import { useCart } from "_app/hooks/cart";
 import {
   Box,
   Center,
@@ -38,7 +38,6 @@ const CheckOut = () => {
   useEffect(() => {
     fetchCartFromStorage().then((data) => {
       setCart(data);
-      console.log("data", data);
     });
   }, [triggerRefresh]);
 
@@ -111,7 +110,7 @@ const CheckOut = () => {
                         />
                       </Box>
                       <VStack gap={2} width={"full"} alignItems={"flex-start"}>
-                        <BaseText flexWrap={"wrap"} variant={TextVariant.L}>
+                        <BaseText flexWrap={"wrap"} variant={TextVariant.S}>
                           {item?.name}
                         </BaseText>
                         <BaseText variant={TextVariant.S}>
@@ -196,9 +195,7 @@ const CheckOut = () => {
                   withGradient
                   width={"full"}
                   onClick={() =>
-                    router?.push(
-                      APP_ROUTES.PUBLIC.PRODUCTS_LIST.CHECKOUT.PROCESS,
-                    )
+                    router?.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS)
                   }
                 >
                   Commander(
