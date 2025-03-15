@@ -1,7 +1,7 @@
 import {
   HTMLChakraProps,
   ListCollection,
-  SelectRootProps,
+  CheckboxRootProps,
 } from "@chakra-ui/react";
 import { HTMLInputTypeAttribute } from "react";
 
@@ -52,4 +52,16 @@ interface DefaultProps extends TextInputProps {
   max: number;
 }
 
-export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps };
+interface CheckBoxProps extends HTMLChakraProps<"label"> {
+  name: string;
+  validate?: any;
+  label: string | React.ReactNode;
+}
+
+export type {
+  TextInputProps,
+  FormTextAreaProps,
+  FullSelectProps,
+  DefaultProps,
+  CheckBoxProps,
+};

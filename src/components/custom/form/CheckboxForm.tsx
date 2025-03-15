@@ -1,17 +1,10 @@
-import { Field } from '@chakra-ui/react';
-import { Checkbox } from '_/components/ui/checkbox';
-import { useField } from 'formik';
-import React, { useState } from 'react';
+import { Field } from "@chakra-ui/react";
+import { Checkbox } from "_/components/ui/checkbox";
+import { useField } from "formik";
+import React, { FC, useState } from "react";
+import { CheckBoxProps } from "./interface/input";
 
-const CheckboxForm = ({
-  name,
-  validate,
-  label,
-}: {
-  name: string;
-  validate?: any;
-  label: string;
-}) => {
+const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label }) => {
   const fieldHookConfig = {
     name,
     validate,
@@ -27,7 +20,8 @@ const CheckboxForm = ({
         {...field}
         name={name}
         checked={field.value}
-        colorPalette={isChecked ? 'green' : 'none'}
+        size={"lg"}
+        colorPalette={isChecked ? "green" : isError ? "red" : "none"}
         onCheckedChange={({ checked }) => {
           setValue(checked);
           setIschecked(true);
@@ -36,6 +30,7 @@ const CheckboxForm = ({
       >
         {label}
       </Checkbox>
+      {isError && <Field.ErrorText>{error}</Field.ErrorText>}
     </Field.Root>
   );
 };

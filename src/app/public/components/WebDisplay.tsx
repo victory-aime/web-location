@@ -15,11 +15,15 @@ const WebDisplay = ({
   removeItem,
   clearAllCartItems,
   loading,
+  isLoggedIn,
+  setInfoModal,
 }: {
   cart: any[];
   removeItem: (item: { id: string; name: string }) => void;
   clearAllCartItems: () => void;
   loading: boolean;
+  isLoggedIn: boolean;
+  setInfoModal: (value: boolean) => void;
 }) => {
   const router = useRouter();
 
@@ -68,7 +72,15 @@ const WebDisplay = ({
         gap={8}
       >
         <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
-          <IoIosHeartEmpty size={24} />
+          <IoIosHeartEmpty
+            size={24}
+            onClick={() => {
+              isLoggedIn
+                ? router?.push(APP_ROUTES.PRIVATE.CLIENT.FAVOURITE)
+                : setInfoModal(true);
+            }}
+            cursor={"pointer"}
+          />
           <CartComponents
             cart={cart}
             removeItem={removeItem}
@@ -78,7 +90,7 @@ const WebDisplay = ({
         </Flex>
         <BaseButton
           onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
-          colorType={"secondary"}
+          colorType={"primary"}
         >
           <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
         </BaseButton>

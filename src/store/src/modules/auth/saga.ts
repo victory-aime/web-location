@@ -5,8 +5,7 @@ import APIS from "_store/src/endpoints";
 import { handleApiError, handleApiSuccess } from "_utils/handleApis";
 import * as AUTH_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
-import { getTokenOrThrow } from "_/utils/check.token.utils";
-import { persistor, store } from "_/store/store";
+import { persistor } from "_/store/store";
 
 export function* loginSaga(
   action: AUTH_ACTION_TYPES.LoginRequestAction
@@ -23,6 +22,8 @@ export function* loginSaga(
     });
     localStorage.setItem(Constants.STORAGE_CURRENT_USER, access_token);
   } catch (error) {
+    console.log("error loginSaga", error);
+
     if (isApiError(error)) {
       if (isApiError(error)) {
         handleApiError(error);

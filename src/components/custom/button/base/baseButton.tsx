@@ -9,7 +9,9 @@ import { keyframes } from "_/theme/animations";
 import { HStack } from "@chakra-ui/react";
 import "../animation/animation.css";
 
-const getVariantStyles = (colorType: variantColorType): VariantColorStyle => {
+const getVariantStyles: any = (
+  colorType: variantColorType
+): VariantColorStyle => {
   switch (colorType) {
     case "primary":
       return {
@@ -55,7 +57,7 @@ const getVariantStyles = (colorType: variantColorType): VariantColorStyle => {
 };
 
 const getVariantFromStatus = (
-  status?: string,
+  status?: string
 ): variantColorType | undefined => {
   switch (status) {
     case "active":
@@ -83,7 +85,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
     : colorType || "none";
 
   const { bg, gradient, hover, textColor } = getVariantStyles(
-    resolvedVariant || "none",
+    resolvedVariant || "none"
   );
 
   const animationMap: Record<string, string> = {

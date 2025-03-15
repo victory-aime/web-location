@@ -13,9 +13,12 @@ import {
   Icon,
   useFileUpload,
   useFileUploadContext,
+  Circle,
+  Center,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { HiX } from "react-icons/hi";
+import { HiUpload, HiX } from "react-icons/hi";
 import { LuUpload } from "react-icons/lu";
 import {
   ACCEPTED_TYPES,
@@ -24,6 +27,8 @@ import {
   MAX_FILES,
 } from "./constant/constants";
 import { UTILS } from "_/store/src";
+import { Avatar } from "_/components/ui/avatar";
+import { BaseText, TextVariant } from "../base-text";
 
 const FileImageList = ({
   getFilesUploaded,
@@ -181,6 +186,160 @@ export const CustomDragDropZone = ({
           <Text color="fg.muted">.png, .jpg jusqu'à {MAX_FILE_SIZE_MB}MB</Text>
         </FileUploadDropzoneContent>
       </FileUploadDropzone>
+    </FileUpload.Root>
+  );
+};
+
+const SimpleFileUpload = ({
+  getFileUploaded,
+  avatarImage,
+  name,
+}: {
+  getFileUploaded: (file: File | null) => void;
+  avatarImage?: string;
+  name?: string;
+}) => {
+  const fileUpload = useFileUploadContext();
+  const [error, setError] = useState<string | null>(null);
+  const [errorType, setErrorType] = useState<"size" | "type" | null>(null);
+
+  useEffect(() => {
+    if (fileUpload.rejectedFiles.length > 0) {
+      const oversizedFiles = fileUpload.rejectedFiles.some((file) =>
+        file.errors.includes("FILE_TOO_LARGE")
+      );
+      const invalidTypeFiles = fileUpload.rejectedFiles.some((file) =>
+        file.errors.includes("FILE_INVALID_TYPE")
+      );
+      if (oversizedFiles) {
+        setErrorType("size");
+        setError(
+          `Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`
+        );
+      } else if (invalidTypeFiles) {
+        setErrorType("type");
+        setError(
+          "Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg"
+        );
+      } else {
+        setError(null);
+        setErrorType(null);
+      }
+    }
+    getFileUploaded(fileUpload.acceptedFiles[0]);
+  }, [fileUpload]);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+        setErrorType(null);
+        fileUpload.clearRejectedFiles();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (avatarImage && fileUpload.acceptedFiles.length === 0) {
+      const convertedFile = UTILS.base64ToFile(avatarImage, `image-user.jpg`);
+      fileUpload.setFiles([convertedFile]);
+    }
+  }, [avatarImage]);
+
+  return (
+    <Center flexDir={"column"}>
+      <Avatar
+        boxSize={"100px"}
+        size={"2xl"}
+        colorPalette={"yellow"}
+        name={name}
+        src={avatarImage}
+        css={{
+          outlineWidth: "2px",
+          outlineColor: "colorPalette.500",
+          outlineOffset: "2px",
+          outlineStyle: "solid",
+        }}
+      >
+        <Float placement="bottom-end" offsetX="2" offsetY="2">
+          <Circle
+            bg="gray.500"
+            size="25px"
+            width={"full"}
+            outline="0.2em solid"
+            outlineColor="bg"
+          >
+            {!avatarImage ? (
+              <FileUpload.Trigger asChild>
+                <HiUpload size={"14px"} color={"white"} />
+              </FileUpload.Trigger>
+            ) : (
+              <>
+                {fileUpload.acceptedFiles.map((file: any) => (
+                  <FileUpload.Item
+                    p="2"
+                    width="auto"
+                    key={file.name}
+                    file={file}
+                    pos="relative"
+                    rounded={"full"}
+                    bg={"red.500"}
+                    outline="0.2em solid"
+                    outlineColor="bg"
+                  >
+                    <FileUpload.ItemDeleteTrigger>
+                      <HiX color={"white"} />
+                    </FileUpload.ItemDeleteTrigger>
+                  </FileUpload.Item>
+                ))}
+              </>
+            )}
+          </Circle>
+        </Float>
+      </Avatar>
+      {error && (
+        <Alert.Root status="error" mt={5} p={4} width={"fit-content"}>
+          <Alert.Indicator />
+          <Alert.Content>
+            <Alert.Title>
+              {errorType === "size"
+                ? "Taille limite dépassée"
+                : "Format non accepté"}
+            </Alert.Title>
+            <Alert.Description>{error}</Alert.Description>
+          </Alert.Content>
+        </Alert.Root>
+      )}
+    </Center>
+  );
+};
+
+export const UploadAvatar = ({
+  getFileUploaded,
+  avatarImage,
+  name,
+}: {
+  getFileUploaded: (file: File | null) => void;
+  avatarImage?: string | any;
+  name?: string;
+}) => {
+  const { getRootProps } = useFileUpload();
+  return (
+    <FileUpload.Root
+      {...getRootProps()}
+      maxFiles={1}
+      maxFileSize={MAX_FILE_SIZE}
+      accept={ACCEPTED_TYPES}
+      alignItems={"center"}
+      justifyContent={"center"}
+    >
+      <FileUpload.HiddenInput />
+      <SimpleFileUpload
+        getFileUploaded={getFileUploaded}
+        avatarImage={avatarImage}
+        name={name}
+      />
     </FileUpload.Root>
   );
 };

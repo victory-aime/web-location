@@ -1,10 +1,9 @@
 "use client";
 
-import { Center, Box, Heading, VStack, Flex, Text } from "@chakra-ui/react";
+import { Center, Box, VStack, Flex } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { Checkbox } from "_/components/ui/checkbox";
-import { VariablesColors } from "_/theme/variables";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ForgetPassword from "./ForgetPassword";
@@ -14,12 +13,18 @@ import { AuthModule } from "_/store/src/modules";
 import { useSelector } from "react-redux";
 import { Formik, FormikValues } from "formik";
 import { FormTextInput } from "_/components/custom/form";
+import { getRedirectRoute } from "_hooks/dynamic-redirect";
+import {
+  BaseText,
+  TextVariant,
+  TextWeight,
+} from "_/components/custom/base-text";
 
 const LoginComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { isLoggedIn, isLoading } = useSelector(
+  const { isLoggedIn, isLoading, currentUser } = useSelector(
     AuthModule.selectors.authSelector
   );
 
@@ -33,7 +38,12 @@ const LoginComponent = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) router.push(APP_ROUTES.PRIVATE.DASH);
+    if (isLoggedIn && currentUser?.role) {
+      const roles = Array.isArray(currentUser.role)
+        ? currentUser.role
+        : [currentUser.role];
+      router.push(getRedirectRoute(roles));
+    }
   }, [isLoggedIn]);
 
   return (
@@ -44,16 +54,16 @@ const LoginComponent = () => {
         flexDir={"column"}
         gap={4}
       >
-        <Heading>Bon retour parmi Nous!</Heading>
-        <Text textAlign="center" color={"gray.500"}>
+        <BaseText variant={TextVariant.L}>Bon retour parmi Nous!</BaseText>
+        <BaseText color={"gray.500"}>
           Veuillez saisir vos identifiants de connexion
-        </Text>
+        </BaseText>
 
         <Formik
           enableReinitialize
           initialValues={{
-            email: "victory@example.com",
-            password: "SecurePass123!",
+            email: "users@example.com",
+            password: "1passworD45!@",
           }}
           onSubmit={submitForm}
         >
@@ -81,18 +91,19 @@ const LoginComponent = () => {
                 justifyContent={"space-between"}
               >
                 <Checkbox size={"lg"}>Se souvenir de moi</Checkbox>
-                <Text
+                <BaseText
                   onClick={() => setOpen(true)}
                   cursor={"pointer"}
-                  fontWeight={"bold"}
-                  color={"primary.500"}
+                  weight={TextWeight.Medium}
+                  color={"blue.500"}
+                  variant={TextVariant.S}
                 >
                   Mot de passe oublié ?
-                </Text>
+                </BaseText>
               </Flex>
               <BaseButton
                 withGradient
-                colorType="success"
+                colorType="primary"
                 padding={"25px"}
                 w={"100%"}
                 onClick={() => {
@@ -100,25 +111,27 @@ const LoginComponent = () => {
                 }}
                 isLoading={isLoading}
               >
-                Se connecter
+                <BaseText>Se connecter</BaseText>
               </BaseButton>
             </VStack>
           )}
         </Formik>
-        <Flex>
-          <Text>
-            Vous n'avez pas de compte?{" "}
-            <Link href={APP_ROUTES.PUBLIC.SIGN_UP}>
-              <span
-                style={{
-                  color: VariablesColors.primary,
-                  fontWeight: "bold",
-                }}
-              >
-                Creer votre compte
-              </span>
-            </Link>
-          </Text>
+        <Flex
+          width={"full"}
+          gap={2}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <BaseText variant={TextVariant.S}>Vous avez deja un compte?</BaseText>
+          <Link href={APP_ROUTES.PUBLIC.SIGN_IN}>
+            <BaseText
+              variant={TextVariant.S}
+              color={"blue.500"}
+              weight={TextWeight.Medium}
+            >
+              Connectez-vous
+            </BaseText>
+          </Link>
         </Flex>
       </Center>
       <ForgetPassword open={open} onChange={() => setOpen(false)} />

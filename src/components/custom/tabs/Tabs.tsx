@@ -11,7 +11,7 @@ export const CommonTabs = ({
   redirectLink,
   isMobile,
   title = "Produits",
-  addTitle = "Ajouter un produit",
+  addTitle,
   ...rest
 }: TabsProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -74,21 +74,24 @@ export const CommonTabs = ({
                 alignItems={{ base: "flex-start", md: "flex-end" }}
                 justifyContent={{ base: "flex-start", md: "flex-end" }}
               >
-                <BaseButton
-                  p={"5px"}
-                  colorType={"secondary"}
-                  leftIcon={<TbFilter />}
-                  width={{ base: "full", md: "auto" }}
-                />
                 {addTitle && (
-                  <BaseButton
-                    bgColor={"primary.500"}
-                    p={"8px"}
-                    leftIcon={<FaPlus />}
-                    onClick={() => redirectLink && redirectLink()}
-                  >
-                    {addTitle}
-                  </BaseButton>
+                  <>
+                    <BaseButton
+                      p={"5px"}
+                      colorType={"secondary"}
+                      leftIcon={<TbFilter />}
+                      width={{ base: "full", md: "auto" }}
+                    />
+
+                    <BaseButton
+                      bgColor={"primary.500"}
+                      p={"8px"}
+                      leftIcon={<FaPlus />}
+                      onClick={() => redirectLink && redirectLink()}
+                    >
+                      {addTitle}
+                    </BaseButton>
+                  </>
                 )}
               </HStack>
             </Flex>

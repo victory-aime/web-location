@@ -50,6 +50,7 @@ const ProductPage = () => {
         redirectLink={() =>
           router?.replace(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)
         }
+        addTitle="Nouveau produit"
         isMobile={isMobile}
       />
     </ProtectedRoute>

@@ -2,6 +2,7 @@ export const APP_ROUTES = {
   PUBLIC: {
     FORGOT_PASSWORD: "/public/auth/forgot-password",
     LEGAL_NOTICE: "/public-private/legal-notice",
+    TERMS_CONDITIONS: "/public/terms-conditions",
     SECURITY_MENTION: "/public-private/security-mention",
     PRODUCTS_LIST: {
       LIST: "/public/products",
@@ -30,5 +31,10 @@ export const APP_ROUTES = {
       },
     },
     TRASH: "/private/trash",
+    CLIENT: {
+      FAVOURITE: "/private/users/favourite",
+      PROFILE: "/private/users/profile",
+      SHIPPIN_ADDRESS: "/private/users/manage-address",
+    },
   },
 };

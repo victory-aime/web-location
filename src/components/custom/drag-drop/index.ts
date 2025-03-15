@@ -1,3 +1,2 @@
-import { CustomDragDropZone } from "./DragDrop";
-
-export { CustomDragDropZone };
+import { CustomDragDropZone, UploadAvatar } from "./DragDrop";
+export { CustomDragDropZone, UploadAvatar };

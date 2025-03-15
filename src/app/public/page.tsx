@@ -39,7 +39,7 @@ const PublicHome = () => {
           >
             <Heading>Meilleur produits</Heading>
             <BaseButton
-              colorType={"success"}
+              colorType={"primary"}
               onClick={() => router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST)}
             >
               Voir plus

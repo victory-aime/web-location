@@ -55,7 +55,7 @@ const Register = () => {
         {selectedRole === "Marchand" ? (
           <Text>Marchand</Text>
         ) : (
-          <RegisterComponent />
+          <RegisterComponent selectedRole={selectedRole} />
         )}
       </Box>
     </AuthBox>

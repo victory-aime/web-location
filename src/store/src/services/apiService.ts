@@ -7,8 +7,8 @@ import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
 import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
-import { useSelector } from "react-redux";
-import { AuthModule } from "../modules";
+import { RootState } from "_/store/rootReducer";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 
 export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,
@@ -20,7 +20,10 @@ export const apiCall = async (
   const headers = {
     ...(token && { Authorization: `Bearer ${token}` }),
   };
-  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
+
+  const state = store.getState() as RootState & PersistPartial;
+  const currentUser = state.auth?.currentUser;
+
   const config: AxiosRequestConfig = {
     method,
     url,

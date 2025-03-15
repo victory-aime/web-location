@@ -10,6 +10,11 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
+import {
+  BaseText,
+  TextVariant,
+  TextWeight,
+} from "_/components/custom/base-text";
 import PaginationDataTable from "_/components/custom/data-table/components/PaginationDataTable";
 import { PaginationProps } from "_/components/custom/data-table/interface/data-types";
 import { useRouter } from "next/navigation";
@@ -94,19 +99,18 @@ const CustomProductList: FC<ProductListProps> = ({
                   }}
                 />
               </Box>
-              <Stack p={2} mt={2} width={"full"}>
-                <Heading textTransform={"capitalize"} truncate>
+              <Stack p={2} mt={2} width={"full"} gap={1}>
+                <BaseText textTransform={"capitalize"} truncate>
                   {item?.name}
-                </Heading>
-                <Flex gap={4}>
-                  <Text
-                    fontSize={{ base: "xl", md: "2xl" }}
-                    fontWeight="bold"
-                    color="primary.500"
-                  >
-                    ${item?.price}
-                  </Text>
-                </Flex>
+                </BaseText>
+
+                <BaseText
+                  variant={TextVariant.L}
+                  weight={TextWeight.Black}
+                  color="blue.500"
+                >
+                  ${item?.price}
+                </BaseText>
               </Stack>
             </Box>
           )}

@@ -3,6 +3,8 @@ export enum Status {
   INACTIVE = "INACTIVE",
 }
 
+export type UserRole = "vendor" | "user" | "admin";
+
 export interface IStore {
   id?: string | null | undefined;
   name?: string | null | undefined;
@@ -22,11 +24,12 @@ export interface User {
   email?: string;
   phone?: string;
   createdAt?: string;
-  address?: string;
+  shippingAddress?: string;
   status?: Status;
   password?: string;
   confirmPassword?: string;
   store?: IStore;
+  role?: UserRole[];
 }
 
 export interface AuthRequest {

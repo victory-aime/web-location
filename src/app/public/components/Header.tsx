@@ -2,7 +2,9 @@
 
 import {
   Box,
+  Center,
   Flex,
+  Group,
   IconButton,
   Text,
   useBreakpointValue,
@@ -11,7 +13,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import WebDisplay from "./WebDisplay";
@@ -20,15 +22,23 @@ import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
 import { useCart } from "_/app/hooks/cart";
 import { CartComponents } from "./CartComponents";
+import { useSelector, useDispatch } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
+import { ModalComponent } from "_/components/custom/modal";
+import { BaseText, TextVariant } from "_/components/custom/base-text";
+import { BaseButton } from "_/components/custom/button";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector(AuthModule.selectors.authSelector);
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
   });
   const [open, setOpen] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const { removeFromCart, clearCart } = useCart();
@@ -50,75 +60,130 @@ const Header = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <>
-      <Box>
-        <Box display={{ base: "block", sm: "block", lg: "none" }}>
-          <Flex
-            m={{ base: "3" }}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <Flex alignItems={"center"} gap={5}>
-              <IconButton
-                bgColor={"white"}
-                aria-label="menu"
-                onClick={() => setOpen(true)}
-              >
-                <ListMenu />
-              </IconButton>
-              <Text fontSize={"22px"}>E-shop</Text>
-            </Flex>
-            <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
-              <IoIosHeartEmpty size={22} />
-              <CartComponents
-                cart={cart}
-                removeItem={removeItem}
-                clearAllCartItems={clearAllCartItems}
-                loading={loading}
-              />
-              <IconButton
-                bgColor={"primary.500"}
-                aria-label="user-icon"
-                onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
-              >
-                <TbUser size={18} />
-              </IconButton>
-            </Flex>
+    <Box>
+      <Box display={{ base: "block", sm: "block", lg: "none" }}>
+        <Flex
+          m={{ base: "3" }}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <Flex alignItems={"center"} gap={5}>
+            <IconButton
+              bgColor={"white"}
+              aria-label="menu"
+              onClick={() => setOpen(true)}
+            >
+              <ListMenu />
+            </IconButton>
+            <BaseText variant={TextVariant.H3}>E-shop</BaseText>
           </Flex>
-          <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
-            {({ values, handleSubmit, setFieldValue }) => (
-              <Flex width={"full"} p={{ base: "3" }}>
-                <FormTextInput
-                  name={"search"}
-                  placeholder="Recherchez votre produit"
-                  leftAccessory={<RiSearch2Line size={24} />}
-                  onChangeFunction={(e: any) => {
-                    setFieldValue("search", e?.target.value);
-                  }}
-                  value={values?.search}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      handleSubmit();
-                    }
-                  }}
-                />
-              </Flex>
-            )}
-          </Formik>
-        </Box>
-        {responsiveMode ? (
-          <WebDisplay
-            cart={cart}
-            removeItem={removeFromCart}
-            clearAllCartItems={clearAllCartItems}
-            loading={loading}
-          />
-        ) : (
-          <MobileMenu open={open} onChange={() => setOpen(false)} />
-        )}
+          <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
+            <IoIosHeartEmpty
+              size={22}
+              onClick={() => {
+                isLoggedIn
+                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.FAVOURITE)
+                  : setInfoModal(true);
+              }}
+              cursor={"pointer"}
+            />
+
+            <CartComponents
+              cart={cart}
+              removeItem={removeItem}
+              clearAllCartItems={clearAllCartItems}
+              loading={loading}
+            />
+            <BaseButton
+              colorType={"primary"}
+              withGradient
+              p={0}
+              onClick={() =>
+                isLoggedIn
+                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.PROFILE)
+                  : router.push(APP_ROUTES.PUBLIC.SIGN_UP)
+              }
+              leftIcon={<TbUser size={18} />}
+            />
+          </Flex>
+        </Flex>
+        <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
+          {({ values, handleSubmit, setFieldValue }) => (
+            <Flex width={"full"} p={{ base: "3" }}>
+              <FormTextInput
+                name={"search"}
+                placeholder="Recherchez votre produit"
+                leftAccessory={<RiSearch2Line size={24} />}
+                onChangeFunction={(e: any) => {
+                  setFieldValue("search", e?.target.value);
+                }}
+                value={values?.search}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit();
+                  }
+                }}
+              />
+            </Flex>
+          )}
+        </Formik>
       </Box>
-      <Box>{children}</Box>
-    </>
+      {responsiveMode ? (
+        <WebDisplay
+          cart={cart}
+          setInfoModal={setInfoModal}
+          isLoggedIn={isLoggedIn}
+          removeItem={removeFromCart}
+          clearAllCartItems={clearAllCartItems}
+          loading={loading}
+        />
+      ) : (
+        <MobileMenu open={open} onChange={() => setOpen(false)} />
+      )}
+
+      <ModalComponent
+        title={"Information"}
+        open={infoModal}
+        onChange={() => setInfoModal(false)}
+      >
+        <Center flexDir={"column"} gap={5}>
+          <BaseText
+            lineHeight={1.5}
+            variant={TextVariant.L}
+            textAlign={"center"}
+          >
+            Vous devez vous connecter pour accéder à cette fonctionnalité
+          </BaseText>
+
+          <Group width={"full"} gap={5} flexDir={"column"}>
+            <BaseButton
+              width={"full"}
+              colorType="primary"
+              withGradient
+              onClick={() => {
+                router?.push(APP_ROUTES.PUBLIC.SIGN_IN);
+                setInfoModal(false);
+              }}
+            >
+              <BaseText>Se connecter</BaseText>
+            </BaseButton>
+
+            <BaseButton
+              width={"full"}
+              colorType={"secondary"}
+              withGradient
+              onClick={() => {
+                router?.push(APP_ROUTES.PUBLIC.SIGN_UP);
+                setInfoModal(false);
+              }}
+            >
+              <BaseText>Creer un compte</BaseText>
+            </BaseButton>
+          </Group>
+        </Center>
+      </ModalComponent>
+      {children}
+    </Box>
   );
 };
 
