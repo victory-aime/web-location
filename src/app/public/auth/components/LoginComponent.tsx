@@ -52,8 +52,8 @@ const LoginComponent = () => {
         <Formik
           enableReinitialize
           initialValues={{
-            email: "owner@example.com",
-            password: "password123",
+            email: "victory@example.com",
+            password: "SecurePass123!",
           }}
           onSubmit={submitForm}
         >

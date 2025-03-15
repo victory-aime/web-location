@@ -15,6 +15,7 @@ export function* loginSaga(
     const apiConfig = APIS().AUTH.SIGN_IN;
     const response = yield call(apiCall, apiConfig, action.payload);
     const { message, access_token, user } = response;
+
     handleApiSuccess(message);
     yield put({
       type: Constants.AUTH_LOGIN_SUCCESS,
@@ -30,11 +31,10 @@ export function* loginSaga(
     yield put({ type: Constants.AUTH_LOGIN_FAILURE, payload: error });
   }
 }
-export function* logoutSaga(): Generator {
+export function* logoutSaga(action: any): Generator {
   try {
-    const token = getTokenOrThrow();
     const apiConfig = APIS().AUTH.LOG_OUT;
-    const response = yield call(apiCall, apiConfig, null, token);
+    const response = yield call(apiCall, apiConfig, null, null, action.payload);
     localStorage.removeItem(Constants.STORAGE_CURRENT_USER);
     handleApiSuccess(response);
     yield put({ type: Constants.AUTH_CLEAR_SESSION });

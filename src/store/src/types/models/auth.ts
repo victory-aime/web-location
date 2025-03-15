@@ -16,6 +16,7 @@ export interface IStore {
 
 export interface User {
   id?: string;
+  keycloakId?: string;
   firstName?: string;
   name?: string;
   email?: string;

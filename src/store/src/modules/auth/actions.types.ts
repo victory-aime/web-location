@@ -28,11 +28,19 @@ export interface ClearSessionActionFaillure {
 export interface LogoutRequestAction {
   type: typeof Constants.AUTH_LOGOUT_REQUEST;
 }
+export interface LogoutRequestActionSuccess {
+  type: typeof Constants.AUTH_LOGOUT_REQUEST_SUCCESS;
+}
+export interface LogoutRequestActionFailed {
+  type: typeof Constants.AUTH_LOGOUT_REQUEST_FAILED;
+}
 
 export type AuthActionTypes =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
   | LogoutRequestAction
+  | LogoutRequestActionSuccess
+  | LogoutRequestActionFailed
   | ClearSessionAction
   | ClearSessionActionFaillure;

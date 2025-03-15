@@ -8,8 +8,9 @@ export const authLoginRequestAction = (
   payload,
 });
 
-export const authLogoutRequestAction = () => ({
+export const authLogoutRequestAction = (userId: { userId: string }) => ({
   type: Constants.AUTH_LOGOUT_REQUEST,
+  payload: userId,
 });
 
 export const authClearSessionAction = () => ({

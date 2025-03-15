@@ -42,6 +42,18 @@ const AuthReducer = (
         ...state,
         isLoading: true,
       };
+    case Constants.AUTH_LOGOUT_REQUEST_SUCCESS:
+      return {
+        ...initialState,
+        isLoading: false,
+        isLogout: true,
+      };
+    case Constants.AUTH_LOGOUT_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     case Constants.AUTH_CLEAR_SESSION:
       return { ...initialState, isLogout: true, isLoading: false };
 

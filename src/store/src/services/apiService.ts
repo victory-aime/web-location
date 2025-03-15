@@ -7,6 +7,8 @@ import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
 import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
+import { useSelector } from "react-redux";
+import { AuthModule } from "../modules";
 
 export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,
@@ -18,6 +20,7 @@ export const apiCall = async (
   const headers = {
     ...(token && { Authorization: `Bearer ${token}` }),
   };
+  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const config: AxiosRequestConfig = {
     method,
     url,
@@ -29,7 +32,9 @@ export const apiCall = async (
 
   try {
     if (token && isTokenExpired(token)) {
-      store.dispatch(authLogoutRequestAction());
+      store.dispatch(
+        authLogoutRequestAction({ userId: currentUser?.keycloakId ?? "" })
+      );
       CustomToast({
         description: "Session expirée. Veuillez vous reconnecter.",
         title: "Attention",

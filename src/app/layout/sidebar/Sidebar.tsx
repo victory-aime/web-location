@@ -5,7 +5,7 @@ import useSideBarStyle from "./hooks/useSideBarStyle";
 import { adminMenu } from "./sideBarRoutes";
 import { SideBarProps } from "./types";
 import { VariablesColors } from "_theme/variables";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
 import MobileSidebar from "./components/MobileSidebar";
 import { BaseButton } from "_/components/custom/button";
@@ -18,10 +18,13 @@ const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
   const dispatch = useDispatch();
-  const { isLogout } = useSelector(AuthModule.selectors.authSelector);
 
   const handleLogout = () => {
-    dispatch(AuthModule.actions.authLogoutRequestAction());
+    dispatch(
+      AuthModule.actions.authLogoutRequestAction({
+        userId: currentUser?.keycloakId ?? "",
+      })
+    );
   };
 
   return (
