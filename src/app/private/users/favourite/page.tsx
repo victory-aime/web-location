@@ -1,10 +1,13 @@
-import Header from '_/app/public/components/Header'
-import React from 'react'
+import Header from "_/app/public/components/Header";
+import React from "react";
+import Favourite from "../components/Favourite";
 
-const page = () => {
+const FavouritePage = () => {
   return (
-    <Header>Favourite page</Header>
-  )
-}
+    <Header>
+      <Favourite />
+    </Header>
+  );
+};
 
-export default page
+export default FavouritePage;

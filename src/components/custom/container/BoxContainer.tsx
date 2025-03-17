@@ -1,12 +1,40 @@
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Stack } from "@chakra-ui/react";
 import React from "react";
 import { boxStyle } from "./style";
+import { FaPlus } from "react-icons/fa";
+import { BaseText, TextVariant } from "../base-text";
+import { BaseButton } from "../button";
 
-type IBoxProps = BoxProps;
+interface IBoxProps extends BoxProps {
+  title?: string;
+  description?: string;
+  buttonTitle?: string;
+}
 
-const BoxContainer = ({ children, ...rest }: IBoxProps) => {
+const BoxContainer = ({
+  title,
+  description,
+  buttonTitle,
+  children,
+  ...rest
+}: IBoxProps) => {
   return (
     <Box {...boxStyle} {...rest}>
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        justifyContent={"space-between"}
+        gap={5}
+      >
+        <Stack gap={2}>
+          <BaseText variant={TextVariant.H3}>{title}</BaseText>
+          <BaseText variant={TextVariant.S}>{description}</BaseText>
+        </Stack>
+        {buttonTitle && (
+          <BaseButton colorType={"primary"} leftIcon={<FaPlus size={"18px"} />}>
+            <BaseText>Nouvelle addresse</BaseText>
+          </BaseButton>
+        )}
+      </Flex>
       {children}
     </Box>
   );

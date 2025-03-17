@@ -1,13 +1,15 @@
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 import Header from "_/app/public/components/Header";
 import React from "react";
+import ManageAddress from "../components/ManageAddress";
 
-const page = () => {
+const ManageAdressPage = () => {
   return (
     <>
-      <Header>Hello</Header>
+      <Header>
+        <ManageAddress />
+      </Header>
     </>
   );
 };
 
-export default page;
+export default ManageAdressPage;

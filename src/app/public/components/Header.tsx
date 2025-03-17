@@ -27,6 +27,8 @@ import { AuthModule } from "_/store/src/modules";
 import { ModalComponent } from "_/components/custom/modal";
 import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
+import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
+import { Avatar } from "_/components/ui/avatar";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -94,17 +96,17 @@ const Header = ({ children }: { children: ReactNode }) => {
               clearAllCartItems={clearAllCartItems}
               loading={loading}
             />
-            <BaseButton
-              colorType={"primary"}
-              withGradient
-              p={0}
-              onClick={() =>
-                isLoggedIn
-                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.PROFILE)
-                  : router.push(APP_ROUTES.PUBLIC.SIGN_UP)
-              }
-              leftIcon={<TbUser size={18} />}
-            />
+            {!isLoggedIn ? (
+              <BaseButton
+                colorType={"primary"}
+                withGradient
+                p={0}
+                onClick={() => router.push(APP_ROUTES.PUBLIC.SIGN_UP)}
+                leftIcon={<TbUser size={18} />}
+              />
+            ) : (
+              <Avatar name="user" />
+            )}
           </Flex>
         </Flex>
         <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
@@ -127,6 +129,9 @@ const Header = ({ children }: { children: ReactNode }) => {
             </Flex>
           )}
         </Formik>
+        <Box m={{ base: "3" }}>
+          <BreadcrumbNav />
+        </Box>
       </Box>
       {responsiveMode ? (
         <WebDisplay

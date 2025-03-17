@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isLoggedIn, currentUser } = useSelector(
-    AuthModule.selectors.authSelector
+    AuthModule.selectors.authSelector,
   );
   const dispatch = useDispatch();
   const [roles, setRoles] = useState<any>();
@@ -37,7 +37,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     }
     if (token && isTokenExpired(token)) {
       dispatch(
-        authLogoutRequestAction({ userId: currentUser?.keycloakId ?? "" })
+        authLogoutRequestAction({ userId: currentUser?.keycloakId ?? "" }),
       );
       CustomToast({
         description: "Session expirée. Veuillez vous reconnecter.",
@@ -51,6 +51,8 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     <>
       {isLoggedIn && (roles?.includes("vendor") || roles?.includes("admin")) ? (
         <Layout>{children}</Layout>
+      ) : isLoggedIn && roles?.includes("users") ? (
+        children
       ) : (
         children
       )}

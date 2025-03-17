@@ -9,6 +9,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import { CartComponents } from "./CartComponents";
 import { BaseText, TextVariant } from "_components/custom/base-text";
+import { Avatar } from "_/components/ui/avatar";
 
 const WebDisplay = ({
   cart,
@@ -88,12 +89,23 @@ const WebDisplay = ({
             loading={loading}
           />
         </Flex>
-        <BaseButton
-          onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
-          colorType={"primary"}
-        >
-          <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
-        </BaseButton>
+        {isLoggedIn ? (
+          <BaseButton
+            onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
+            colorType={"primary"}
+          >
+            <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
+          </BaseButton>
+        ) : (
+          <Avatar
+            name="user"
+            boxSize={"45px"}
+            cursor={"pointer"}
+            onClick={() =>
+              router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
+            }
+          />
+        )}
       </Flex>
     </Flex>
   );

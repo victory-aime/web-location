@@ -39,13 +39,13 @@ const MobileMenu = ({
       link: "",
       subMenu: [
         { text: "Mes Informations", link: APP_ROUTES.PRIVATE.CLIENT.PROFILE },
-        { text: "Mes Commandes", link: "/service/mobile-dev" },
+        //{ text: "Mes Commandes", link: "/service/mobile-dev" },
         { text: "Favoris", link: APP_ROUTES.PRIVATE.CLIENT.FAVOURITE },
         {
           text: "Gerer mes addresses",
           link: APP_ROUTES.PRIVATE.CLIENT.SHIPPIN_ADDRESS,
         },
-        { text: "Paramètres", link: APP_ROUTES.PRIVATE.CLIENT.PROFILE },
+        { text: "Paramètres", link: APP_ROUTES.PRIVATE.CLIENT.SETTINGS },
       ],
     },
   ];
