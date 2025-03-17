@@ -10,6 +10,7 @@ import Profile from "../components/Profile";
 import ManageAddress from "../components/ManageAddress";
 import Favourite from "../components/Favourite";
 import Settings from "../components/Settings";
+import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 
 const ProfilePage = () => {
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
@@ -30,23 +31,25 @@ const ProfilePage = () => {
   };
 
   return (
-    <Header>
-      <Flex
-        gap={{ base: "10px", lg: "20px" }}
-        marginTop={"30px"}
-        p={{ base: 5, md: 10 }}
-        flexDir={{ base: "column", lg: "row" }}
-      >
-        <UserInfo
-          currentUser={currentUser}
-          currentStep={currentStep}
-          onChangeStep={setCurrentStep}
-        />
-        <Box width={"100%"} p={{ base: 0, md: 10 }}>
-          {renderStep()}
-        </Box>
-      </Flex>
-    </Header>
+    <ProtectedRoute>
+      <Header>
+        <Flex
+          gap={{ base: "10px", lg: "20px" }}
+          marginTop={"30px"}
+          p={{ base: 5, md: 10 }}
+          flexDir={{ base: "column", lg: "row" }}
+        >
+          <UserInfo
+            currentUser={currentUser}
+            currentStep={currentStep}
+            onChangeStep={setCurrentStep}
+          />
+          <Box width={"100%"} p={{ base: 0, md: 10 }}>
+            {renderStep()}
+          </Box>
+        </Flex>
+      </Header>
+    </ProtectedRoute>
   );
 };
 

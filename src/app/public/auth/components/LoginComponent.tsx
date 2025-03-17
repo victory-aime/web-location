@@ -19,10 +19,13 @@ import {
   TextVariant,
   TextWeight,
 } from "_/components/custom/base-text";
+import { getTokenOrThrow } from "_/utils/check.token.utils";
+import { isTokenExpired } from "_/utils/expireToken.utils";
 
 const LoginComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const token = getTokenOrThrow();
   const dispatch = useDispatch();
   const { isLoggedIn, isLoading, currentUser } = useSelector(
     AuthModule.selectors.authSelector
@@ -38,13 +41,22 @@ const LoginComponent = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn && currentUser?.role) {
+    if (!isLoggedIn || !currentUser?.role || !token) return;
+
+    if (isTokenExpired(token)) {
+      dispatch(
+        AuthModule.actions.authLogoutRequestAction({
+          userId: currentUser?.keycloakId ?? "",
+        })
+      );
+    } else {
       const roles = Array.isArray(currentUser.role)
         ? currentUser.role
         : [currentUser.role];
+
       router.push(getRedirectRoute(roles));
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, currentUser, token, router, dispatch]);
 
   return (
     <Box mt={"30px"}>
@@ -123,7 +135,7 @@ const LoginComponent = () => {
           justifyContent={"center"}
         >
           <BaseText variant={TextVariant.S}>Vous avez deja un compte?</BaseText>
-          <Link href={APP_ROUTES.PUBLIC.SIGN_IN}>
+          <Link href={APP_ROUTES.PUBLIC.SIGN_UP}>
             <BaseText
               variant={TextVariant.S}
               color={"blue.500"}

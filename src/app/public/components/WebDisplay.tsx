@@ -18,6 +18,7 @@ const WebDisplay = ({
   loading,
   isLoggedIn,
   setInfoModal,
+  name,
 }: {
   cart: any[];
   removeItem: (item: { id: string; name: string }) => void;
@@ -25,6 +26,7 @@ const WebDisplay = ({
   loading: boolean;
   isLoggedIn: boolean;
   setInfoModal: (value: boolean) => void;
+  name:string
 }) => {
   const router = useRouter();
 
@@ -89,7 +91,7 @@ const WebDisplay = ({
             loading={loading}
           />
         </Flex>
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <BaseButton
             onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
             colorType={"primary"}
@@ -98,7 +100,7 @@ const WebDisplay = ({
           </BaseButton>
         ) : (
           <Avatar
-            name="user"
+            name={name}
             boxSize={"45px"}
             cursor={"pointer"}
             onClick={() =>

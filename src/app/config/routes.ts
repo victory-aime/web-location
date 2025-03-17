@@ -32,11 +32,7 @@ export const APP_ROUTES = {
     },
     TRASH: "/private/trash",
     CLIENT: {
-      FAVOURITE: "/private/users/favourite",
-      PROFILE: "/private/users/profile",
-      SHIPPIN_ADDRESS: "/private/users/manage-address",
-      SETTINGS: '/private/users/settings',
-      MANAGE_PROFILE: "/private/users/manage-profile"
+      MANAGE_PROFILE: "/private/users/manage-profile",
     },
   },
 };

@@ -33,7 +33,9 @@ import { Avatar } from "_/components/ui/avatar";
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector(AuthModule.selectors.authSelector);
+  const { isLoggedIn, currentUser } = useSelector(
+    AuthModule.selectors.authSelector
+  );
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
@@ -84,7 +86,7 @@ const Header = ({ children }: { children: ReactNode }) => {
               size={22}
               onClick={() => {
                 isLoggedIn
-                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.FAVOURITE)
+                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
                   : setInfoModal(true);
               }}
               cursor={"pointer"}
@@ -105,7 +107,12 @@ const Header = ({ children }: { children: ReactNode }) => {
                 leftIcon={<TbUser size={18} />}
               />
             ) : (
-              <Avatar name="user" />
+              <Avatar
+                name={currentUser?.name}
+                onClick={() =>
+                  router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
+                }
+              />
             )}
           </Flex>
         </Flex>
@@ -141,6 +148,7 @@ const Header = ({ children }: { children: ReactNode }) => {
           removeItem={removeFromCart}
           clearAllCartItems={clearAllCartItems}
           loading={loading}
+          name={currentUser?.name ?? "user"}
         />
       ) : (
         <MobileMenu open={open} onChange={() => setOpen(false)} />
