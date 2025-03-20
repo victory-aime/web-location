@@ -30,7 +30,7 @@ export default function BreadcrumbNav() {
       <HStack>
         <For each={breadcrumbItems}>
           {(item, index) => (
-            <NextLink href={item?.href} passHref>
+            <NextLink key={index} href={item?.href} passHref>
               <Breadcrumb.List key={index}>
                 <Breadcrumb.Item>
                   <Breadcrumb.Link>

@@ -26,7 +26,7 @@ const WebDisplay = ({
   loading: boolean;
   isLoggedIn: boolean;
   setInfoModal: (value: boolean) => void;
-  name:string
+  name: string;
 }) => {
   const router = useRouter();
 
@@ -79,7 +79,7 @@ const WebDisplay = ({
             size={24}
             onClick={() => {
               isLoggedIn
-                ? router?.push(APP_ROUTES.PRIVATE.CLIENT.FAVOURITE)
+                ? router?.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
                 : setInfoModal(true);
             }}
             cursor={"pointer"}

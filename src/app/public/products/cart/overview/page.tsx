@@ -24,6 +24,7 @@ import { StepperInput } from "_components/ui/stepper-input";
 import CustomFormatNumber from "_components/custom/format-number/CustomFormatNumber";
 import { APP_ROUTES } from "_app/config/routes";
 import { useRouter } from "next/navigation";
+import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 
 const CheckOut = () => {
   const router = useRouter();
@@ -97,17 +98,7 @@ const CheckOut = () => {
                   >
                     <Flex alignItems={"flex-start"} gap={3} width={"full"}>
                       <Box mb={4} width={"full"}>
-                        <Image
-                          src={
-                            item?.images[0] ??
-                            "https:avatar.iran.liara.run/public"
-                          }
-                          alt="cart-images"
-                          width={"full"}
-                          borderRadius={"7px"}
-                          height={200}
-                          objectFit="cover"
-                        />
+                        <ImageRatio image={item?.images[0]} />
                       </Box>
                       <VStack gap={2} width={"full"} alignItems={"flex-start"}>
                         <BaseText flexWrap={"wrap"} variant={TextVariant.S}>

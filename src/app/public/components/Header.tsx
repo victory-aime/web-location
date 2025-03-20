@@ -29,6 +29,7 @@ import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
 import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
 import { Avatar } from "_/components/ui/avatar";
+import { clearPersistedStorage } from "_/utils/clear.store.utils";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -62,6 +63,10 @@ const Header = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    //clearPersistedStorage();
+  }, []);
 
   return (
     <Box>

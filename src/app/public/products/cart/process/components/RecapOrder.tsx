@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  For,
-  Image,
-  Separator,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Center, Flex, For, Separator, VStack } from "@chakra-ui/react";
 import {
   BaseText,
   TextVariant,
@@ -19,6 +11,7 @@ import { BaseButton } from "_components/custom/button";
 import ModalComponent from "_components/custom/modal/ModalComponent";
 import { APP_ROUTES } from "_app/config/routes";
 import { useRouter } from "next/navigation";
+import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 
 const RecapOrder = ({
   cart,
@@ -51,14 +44,10 @@ const RecapOrder = ({
                 justifyContent={"flex-start"}
                 width={"full"}
               >
-                <Image
-                  src={item?.images[0] ?? "https:avatar.iran.liara.run/public"}
-                  alt="cart-images"
-                  width={150}
-                  height={150}
-                  objectFit="cover"
-                  borderRadius={"7px"}
-                />
+                <Box width={"200px"}>
+                  <ImageRatio image={item?.images[0]} />
+                </Box>
+
                 <VStack alignItems={"flex-start"} justifyContent={"flex-start"}>
                   <BaseText flexWrap={"wrap"} variant={TextVariant.M}>
                     {item?.name}

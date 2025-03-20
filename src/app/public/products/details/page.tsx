@@ -29,11 +29,12 @@ import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
 import { saveCartToStorage, useCart } from "_/app/hooks/cart";
 import { BaseText, TextVariant } from "_components/custom/base-text";
+import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 
 const PublicDetailsProducts = () => {
   const requestId = useSearchParams()?.get("requestId");
   const { publicProducts } = useSelector(
-    ProductModule.selectors.productSelector,
+    ProductModule.selectors.productSelector
   );
   const { cart, setCart, triggerRefresh, fetchCartFromStorage } = useCart();
   const [quantity, setQuantity] = useState(0);
@@ -42,13 +43,12 @@ const PublicDetailsProducts = () => {
 
   const findSameCategoriesItem = publicProducts?.filter(
     (value) =>
-      value.categoryName === findItem?.categoryName &&
-      value.id !== findItem?.id,
+      value.categoryName === findItem?.categoryName && value.id !== findItem?.id
   );
 
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const PublicDetailsProducts = () => {
     setLoading(true);
     setTimeout(() => {
       const existingItemIndex = cart?.findIndex(
-        (item: any) => item.id === findItem.id,
+        (item: any) => item.id === findItem.id
       );
       if (existingItemIndex !== -1) {
         cart[existingItemIndex].quantity += 1;
@@ -92,7 +92,7 @@ const PublicDetailsProducts = () => {
     setTimeout(() => {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const existingItemIndex = cart.findIndex(
-        (item: any) => item.id === findItem.id,
+        (item: any) => item.id === findItem.id
       );
 
       if (existingItemIndex !== -1) {
@@ -122,19 +122,16 @@ const PublicDetailsProducts = () => {
           <Box flex={1}>
             {/* Image principale sur PC */}
 
-            <Flex width="100%" maxH={"500px"} position={"relative"}>
+            <Flex width="100%" position={"relative"}>
+              <ImageRatio
+                image={selectedImage}
+                display={{ base: "none", md: "block" }}
+              />
               <Float placement={{ base: "top-center", md: "top-end" }}>
                 <Circle size="45px" bg="white" color="red">
                   <BsHeart />
                 </Circle>
               </Float>
-              <Image
-                src={selectedImage}
-                borderRadius="12px"
-                width={"full"}
-                objectFit="cover"
-                display={{ base: "none", md: "block" }}
-              />
             </Flex>
 
             {/* Miniatures sur PC */}
@@ -144,7 +141,7 @@ const PublicDetailsProducts = () => {
                   key={index}
                   src={img}
                   boxSize="80px"
-                  borderRadius="8px"
+                  borderRadius="7px"
                   cursor="pointer"
                   border={selectedImage === img ? "2px solid #3182CE" : "none"}
                   onClick={() => setSelectedImage(img)}
@@ -205,7 +202,14 @@ const PublicDetailsProducts = () => {
                 <Text>display item here</Text>
               </Box>
             </Stack>
-            <Flex width={"full"} mt={8} p={5} gap={5} alignItems={"center"}>
+            <Flex
+              width={"full"}
+              mt={8}
+              p={5}
+              gap={5}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
               {loading ? (
                 <Spinner />
               ) : quantity > 0 ? (

@@ -8,8 +8,10 @@ import {
   For,
   SimpleGrid,
   useBreakpointValue,
+  AspectRatio,
 } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
+import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 import {
   BaseText,
   TextVariant,
@@ -81,29 +83,23 @@ const CustomProductList: FC<ProductListProps> = ({
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <Box width={"full"} height={{ base: "250px", md: "450px" }}>
-                <Image
-                  src={item?.images[0]}
-                  alt={"image"}
-                  width={"full"}
-                  height={"full"}
-                  style={{
-                    borderRadius: "12px",
-                    objectFit: "cover",
-                    transform: `${
-                      isMobile || hoveredIndex === index
-                        ? "scale(1.05)"
-                        : "scale(1)"
-                    }`,
-                    transition: "transform 0.3s",
-                  }}
-                />
-              </Box>
+              <ImageRatio
+                image={item?.images[0]}
+                style={{
+                  borderRadius: "7px",
+                  transform: `${
+                    isMobile || hoveredIndex === index
+                      ? "scale(1.05)"
+                      : "scale(1)"
+                  }`,
+                  transition: "transform 0.3s",
+                }}
+              />
+
               <Stack p={2} mt={2} width={"full"} gap={1}>
                 <BaseText textTransform={"capitalize"} truncate>
                   {item?.name}
                 </BaseText>
-
                 <BaseText
                   variant={TextVariant.L}
                   weight={TextWeight.Black}
