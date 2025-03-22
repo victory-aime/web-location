@@ -31,7 +31,7 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
         lg: isSidebarOpen ? "calc(100% - 230px)" : "calc(100% - 70px)",
       },
     }),
-    [isSidebarOpen]
+    [isSidebarOpen],
   );
 
   return (

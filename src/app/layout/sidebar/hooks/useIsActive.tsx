@@ -1,5 +1,5 @@
-import { usePathname } from 'next/navigation';
-import { subItems } from '../types';
+import { usePathname } from "next/navigation";
+import { subItems } from "../types";
 
 const useIsActive = () => {
   const pathname = usePathname();
@@ -10,9 +10,9 @@ const useIsActive = () => {
 
   const itHasActiveChildLink = (links?: subItems): boolean => {
     if (!links) return false;
-    const hasExactChildMatch = links?.some(link => pathname === link?.path);
+    const hasExactChildMatch = links?.some((link) => pathname === link?.path);
     if (hasExactChildMatch) return true;
-    return links?.some(link => {
+    return links?.some((link) => {
       return pathname?.includes(`${link?.path}/`);
     });
   };

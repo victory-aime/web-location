@@ -37,7 +37,7 @@ export const handleApiError = (response: {
 
 export const handleApiSuccess = (
   response: { message: string; status: number },
-  toastType?: ToastStatus
+  toastType?: ToastStatus,
 ) => {
   const statusCode = response?.message || response?.status;
   const defaultMessage = "Operation successful";

@@ -11,20 +11,17 @@ import MobileSidebar from "./components/MobileSidebar";
 import { BaseButton } from "_/components/custom/button";
 import { LogOutIcon } from "_assets/svg";
 import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
+import { keycloakSessionLogOut } from "_/app/hooks/logout";
+import { signOut } from "next-auth/react";
 
 const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
     sideToggled,
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(
-      AuthModule.actions.authLogoutRequestAction({
-        userId: currentUser?.keycloakId ?? "",
-      })
-    );
+    keycloakSessionLogOut().then(() => signOut({ callbackUrl: "/" }));
   };
 
   return (

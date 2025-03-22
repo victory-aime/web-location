@@ -1,46 +1,15 @@
 import * as Constants from "./constants";
-import { TYPES } from "_store/src";
 
-export interface LoginRequestAction {
-  type: typeof Constants.AUTH_LOGIN_REQUEST;
-  payload: TYPES.MODELS.AUTH.AuthRequest;
-}
-
-export interface LoginSuccessAction {
-  type: typeof Constants.AUTH_LOGIN_SUCCESS;
-  payload: TYPES.MODELS.AUTH.AuthPayload;
-}
-
-export interface LoginFailureAction {
-  type: typeof Constants.AUTH_LOGIN_FAILURE;
+export interface SetAccessTokenRequestAction {
+  type: typeof Constants.SET_ACCESS_TOKEN;
   payload: string;
 }
 
-export interface ClearSessionAction {
-  type: typeof Constants.AUTH_CLEAR_SESSION;
-}
-
-export interface ClearSessionActionFaillure {
-  type: typeof Constants.AUTH_CLEAR_SESSION_FAILURE;
+export interface ClearAccessTokenRequestAction {
+  type: typeof Constants.CLEAR_ACCESS_TOKEN;
   payload: string;
-}
-
-export interface LogoutRequestAction {
-  type: typeof Constants.AUTH_LOGOUT_REQUEST;
-}
-export interface LogoutRequestActionSuccess {
-  type: typeof Constants.AUTH_LOGOUT_REQUEST_SUCCESS;
-}
-export interface LogoutRequestActionFailed {
-  type: typeof Constants.AUTH_LOGOUT_REQUEST_FAILED;
 }
 
 export type AuthActionTypes =
-  | LoginRequestAction
-  | LoginSuccessAction
-  | LoginFailureAction
-  | LogoutRequestAction
-  | LogoutRequestActionSuccess
-  | LogoutRequestActionFailed
-  | ClearSessionAction
-  | ClearSessionActionFaillure;
+  | SetAccessTokenRequestAction
+  | ClearAccessTokenRequestAction;

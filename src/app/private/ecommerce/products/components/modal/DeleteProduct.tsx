@@ -14,7 +14,7 @@ const DeleteProduct = ({
 }: IProductMoalProps) => {
   const dispatch = useDispatch();
   const { deleteProduct, isLoading } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
 
   const [showAnimation, setShowAnimation] = useState(false);
@@ -34,13 +34,13 @@ const DeleteProduct = ({
       dispatch(
         ProductModule.actions.softDeleteRequestAction({
           productId: selectedValues?.id,
-        })
+        }),
       );
     } else {
       dispatch(
         ProductModule.actions.deleteProductRequest({
           productId: selectedValues?.id,
-        })
+        }),
       );
     }
   };

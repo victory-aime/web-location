@@ -10,6 +10,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { CartComponents } from "./CartComponents";
 import { BaseText, TextVariant } from "_components/custom/base-text";
 import { Avatar } from "_/components/ui/avatar";
+import { signIn } from "next-auth/react";
 
 const WebDisplay = ({
   cart,
@@ -92,10 +93,7 @@ const WebDisplay = ({
           />
         </Flex>
         {!isLoggedIn ? (
-          <BaseButton
-            onClick={() => router?.push(APP_ROUTES.PUBLIC.SIGN_IN)}
-            colorType={"primary"}
-          >
+          <BaseButton onClick={() => signIn("keycloak")} colorType={"primary"}>
             <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
           </BaseButton>
         ) : (

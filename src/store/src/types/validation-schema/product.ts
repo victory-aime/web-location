@@ -44,7 +44,7 @@ export const manageProductValidation = Yup.object().shape({
 
   status: Yup.array()
     .of(
-      Yup.string().oneOf(["DRAFT", "PUBLISHED", "ARCHIVED"], "Statut invalide")
+      Yup.string().oneOf(["DRAFT", "PUBLISHED", "ARCHIVED"], "Statut invalide"),
     )
     .min(1, "Au moins un statut est requis")
     .required("Le statut est requis"),
@@ -59,7 +59,7 @@ export const manageProductValidation = Yup.object().shape({
       Yup.object().shape({
         name: Yup.string().trim().required("Le nom du variant est requis"),
         value: Yup.string().trim().required("La valeur du variant est requise"),
-      })
+      }),
     )
     .optional(),
 });

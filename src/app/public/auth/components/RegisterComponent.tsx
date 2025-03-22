@@ -31,7 +31,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
         "http://localhost:4000/_api/v1/unsecured/user/register",
         {
           ...request,
-        }
+        },
       );
       console.log(response.data);
     } catch (error) {

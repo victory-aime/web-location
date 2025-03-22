@@ -16,7 +16,7 @@ import DeleteProduct from "./modal/DeleteProduct";
 export const ProductList = () => {
   const dispatch = useDispatch();
   const { products, isLoading, deleteProduct } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
   const router = useRouter();
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
@@ -31,7 +31,7 @@ export const ProductList = () => {
     dispatch(
       ProductModule.actions.getAllProductsRequestAction({
         storeId: currentUser?.store?.id ?? "",
-      })
+      }),
     );
     if (deleteProduct) {
       dispatch(ProductModule.actions.clearStateKeysAction());
@@ -87,7 +87,7 @@ export const ProductList = () => {
           title: "edit les value",
           handleClick: (value) => {
             router.push(
-              `${APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD}?requestId=${value?.id}`
+              `${APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD}?requestId=${value?.id}`,
             );
           },
         },

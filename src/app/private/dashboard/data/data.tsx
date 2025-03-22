@@ -65,7 +65,7 @@ const barChartData = formated()?.map(
       EXPECTED_AMOUNT: item.values.EXPECTED_AMOUNT,
       RECEIVED_AMOUNT: item.values.RECEIVED_AMOUNT,
     },
-  })
+  }),
 );
 
 const ordersData = Array.from({ length: 20 }, (_, i) => ({

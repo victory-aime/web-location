@@ -11,6 +11,7 @@ import "../components/custom/progess-bar/progress.css";
 import { Toaster } from "_components/ui/toaster";
 import AppMainEntry from "./app";
 import LoaderWrapper from "_/components/custom/loader/LoaderWrapper";
+import { SessionProvider } from "next-auth/react";
 
 const poppins = Poppins({
   weight: ["400", "900"],
@@ -45,14 +46,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable}`}>
-        <Provider>
-          <ColorModeProvider>
-            <Toaster />
-            <AppMainEntry>
-              <LoaderWrapper>{children}</LoaderWrapper>
-            </AppMainEntry>
-          </ColorModeProvider>
-        </Provider>
+        <SessionProvider>
+          <Provider>
+            <ColorModeProvider>
+              <Toaster />
+              <AppMainEntry>
+                <LoaderWrapper>{children}</LoaderWrapper>
+              </AppMainEntry>
+            </ColorModeProvider>
+          </Provider>
+        </SessionProvider>
       </body>
     </html>
   );

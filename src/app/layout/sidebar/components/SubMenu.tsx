@@ -32,7 +32,7 @@ const SubMenu: FC<SubMenuProps> = ({
             color: "primary.500",
           }
         : textStyle,
-    [isActiveLink, textStyle]
+    [isActiveLink, textStyle],
   );
 
   return (

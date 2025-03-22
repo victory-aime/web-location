@@ -131,8 +131,6 @@ export interface RestoreProductFailed {
   payload: string;
 }
 
-
-
 export interface ClearKeys extends Action {
   type: typeof Constants.CLEAR_PRODUCTS_KEYS;
 }

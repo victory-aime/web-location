@@ -34,7 +34,7 @@ const DonutChartV2: FC<any> = ({
 }) => {
   const chartRef = useRef<ChartJS<"doughnut"> | null>(null);
   const sortedData = dataChart?.sort(
-    (a: { count: number }, b: { count: number }) => b.count - a.count
+    (a: { count: number }, b: { count: number }) => b.count - a.count,
   );
   const data = {
     labels: sortedData?.map((item: { category: any }) => item?.category),

@@ -21,10 +21,10 @@ const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
 
 const ProductsReducer: (
   state: TYPES.MODELS.PRODUCTS.IProductState,
-  action: ProductActionsTypes
+  action: ProductActionsTypes,
 ) => TYPES.MODELS.PRODUCTS.IProductState = (
   state: TYPES.MODELS.PRODUCTS.IProductState = initialState,
-  action: ProductActionsTypes
+  action: ProductActionsTypes,
 ): TYPES.MODELS.PRODUCTS.IProductState => {
   switch (action.type) {
     case Constants.GET_PRODUCTS:

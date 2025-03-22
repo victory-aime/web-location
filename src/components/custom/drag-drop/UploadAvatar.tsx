@@ -28,22 +28,22 @@ const FileUploadList = ({
   useEffect(() => {
     if (fileUpload.rejectedFiles.length > 0) {
       const oversizedFiles = fileUpload.rejectedFiles.filter((file) =>
-        file.errors.includes("FILE_TOO_LARGE")
+        file.errors.includes("FILE_TOO_LARGE"),
       );
 
       const invalidTypeFiles = fileUpload.rejectedFiles.filter((file) =>
-        file.errors.includes("FILE_INVALID_TYPE")
+        file.errors.includes("FILE_INVALID_TYPE"),
       );
 
       if (oversizedFiles.length > 0) {
         setErrorType("size");
         setError(
-          `Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`
+          `Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`,
         );
       } else if (invalidTypeFiles.length > 0) {
         setErrorType("type");
         setError(
-          "Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg"
+          "Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg",
         );
       } else {
         setError(null);
@@ -71,7 +71,7 @@ const FileUploadList = ({
       fileUpload.acceptedFiles.length === 0
     ) {
       const convertedFiles = base64Images?.map((base64, index) =>
-        UTILS.base64ToFile(base64, `image-${index}.jpg`)
+        UTILS.base64ToFile(base64, `image-${index}.jpg`),
       );
       fileUpload.setFiles([...convertedFiles, ...fileUpload.acceptedFiles]);
     }

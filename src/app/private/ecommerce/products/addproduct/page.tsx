@@ -39,7 +39,7 @@ const AddProductPage = () => {
   const requestId = useSearchParams()?.get("requestId");
   const responsiveMode = useBreakpointValue({ base: false, md: true });
   const [initialValues, setInitialValues] = useState(
-    TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
+    TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues,
   );
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const { addProduct, products, isLoading, categories, updateProduct } =
@@ -50,13 +50,13 @@ const AddProductPage = () => {
 
   const existingProductFiles = UTILS.findDynamicIdInList(
     requestId ?? "",
-    products
+    products,
   );
 
   const fetchBase64Images = async () => {
     if (filesUploaded?.length > 0) {
       const base64Images = await Promise.all(
-        filesUploaded?.map((file) => UTILS.fileToBase64(file))
+        filesUploaded?.map((file) => UTILS.fileToBase64(file)),
       );
       setImages(base64Images);
     }
@@ -87,7 +87,7 @@ const AddProductPage = () => {
         ProductModule.actions.updateProduct({
           id: requestId,
           ...requestData,
-        })
+        }),
       );
     } else {
       dispatch(ProductModule.actions.createProduct(requestData));
@@ -114,7 +114,7 @@ const AddProductPage = () => {
           (item: { name: string; variantValue: string }) => ({
             name: item?.name,
             value: item?.variantValue,
-          })
+          }),
         ),
         categoryName: [existingProductFiles?.categoryName],
         status: [existingProductFiles.status],

@@ -19,8 +19,8 @@ import {
   TextVariant,
   TextWeight,
 } from "_/components/custom/base-text";
-import { getTokenOrThrow } from "_/utils/check.token.utils";
-import { isTokenExpired } from "_/utils/expireToken.utils";
+import { getTokenOrThrow } from "_/utils/auth/check-token";
+import { isTokenExpired } from "_/utils/auth/expire-token";
 
 const LoginComponent = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const LoginComponent = () => {
   const token = getTokenOrThrow();
   const dispatch = useDispatch();
   const { isLoggedIn, isLoading, currentUser } = useSelector(
-    AuthModule.selectors.authSelector
+    AuthModule.selectors.authSelector,
   );
 
   const submitForm = (values: FormikValues) => {
@@ -36,7 +36,7 @@ const LoginComponent = () => {
       AuthModule.actions.authLoginRequestAction({
         email: values?.email as string,
         password: values?.password as string,
-      })
+      }),
     );
   };
 
@@ -47,7 +47,7 @@ const LoginComponent = () => {
       dispatch(
         AuthModule.actions.authLogoutRequestAction({
           userId: currentUser?.keycloakId ?? "",
-        })
+        }),
       );
     } else {
       const roles = Array.isArray(currentUser.role)

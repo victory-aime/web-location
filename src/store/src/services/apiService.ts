@@ -1,28 +1,27 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { APIObjectType } from "_store/src/endpoints";
-import { store } from "_store/store";
-import { authLogoutRequestAction } from "_/store/src/modules/auth/actions";
 import { handleApiError } from "_utils/handleApis";
-import { isTokenExpired } from "_utils/expireToken.utils";
 import { loaderService } from "_store/src/services/loader";
-import { CustomToast } from "_/components/custom/toast/CustomToast";
-import { ToastStatus } from "_/components/custom/toast/interface/toats";
+import { store } from "_/store/store";
 import { RootState } from "_/store/rootReducer";
 import { PersistPartial } from "redux-persist/es/persistReducer";
 
 export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,
   data?: any,
-  token?: string | null,
   params?: any,
-  showLoader = true
+  showLoader = true,
 ) => {
-  const headers = {
-    ...(token && { Authorization: `Bearer ${token}` }),
-  };
-
   const state = store.getState() as RootState & PersistPartial;
-  const currentUser = state.auth?.currentUser;
+  const token = state.auth?.access_token;
+
+  console.log("token axios", token);
+
+  const headers = {
+    ...(token && {
+      Authorization: `Bearer ${token}`,
+    }),
+  };
 
   const config: AxiosRequestConfig = {
     method,
@@ -34,17 +33,6 @@ export const apiCall = async (
   };
 
   try {
-    if (token && isTokenExpired(token)) {
-      store.dispatch(
-        authLogoutRequestAction({ userId: currentUser?.keycloakId ?? "" })
-      );
-      CustomToast({
-        description: "Session expirée. Veuillez vous reconnecter.",
-        title: "Attention",
-        type: ToastStatus.WARNING,
-      });
-      return Promise.reject({ status: 401, message: "Session expired" });
-    }
     if (showLoader) {
       loaderService.showLoader();
     }

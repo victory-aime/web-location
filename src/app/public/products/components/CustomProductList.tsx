@@ -63,7 +63,7 @@ const CustomProductList: FC<ProductListProps> = ({
 
   const paginatedItems = sortedData.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   return (
@@ -77,7 +77,7 @@ const CustomProductList: FC<ProductListProps> = ({
               cursor={"pointer"}
               onClick={() =>
                 router.push?.(
-                  `${APP_ROUTES.PUBLIC.PRODUCTS_LIST.DETAILS}?requestId=${item.id}`
+                  `${APP_ROUTES.PUBLIC.PRODUCTS_LIST.DETAILS}?requestId=${item.id}`,
                 )
               }
               onMouseEnter={() => setHoveredIndex(index)}

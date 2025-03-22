@@ -28,7 +28,7 @@ export const CustomAccordion: FC<AccordionProps> = ({ items, ...rest }) => {
       value={[items[currentIndex]?.label]}
       onValueChange={(details: { value: string[] }) => {
         const index = items?.findIndex(
-          (item) => item?.label === details.value[0]
+          (item) => item?.label === details.value[0],
         );
         setCurrentIndex(index);
       }}

@@ -57,7 +57,7 @@ export const CommonDataTable: FC<TableProps> = ({
 
   const paginatedItems = sortedData.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   const handleSelectAll = (checked: boolean) => {
@@ -158,7 +158,7 @@ export const CommonDataTable: FC<TableProps> = ({
                         setSelection((prev) =>
                           changes.checked
                             ? [...prev, item.id]
-                            : prev.filter((id) => id !== item.id)
+                            : prev.filter((id) => id !== item.id),
                         );
                       }}
                     />

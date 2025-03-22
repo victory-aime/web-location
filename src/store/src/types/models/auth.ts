@@ -39,10 +39,7 @@ export interface AuthRequest {
 
 export interface AuthState {
   currentUser: User | null;
-  isLoggedIn: boolean;
-  isLoading: boolean;
-  isLogout: boolean;
-  error: string | null;
+  access_token: string | null;
 }
 
 export type AuthPayload = {

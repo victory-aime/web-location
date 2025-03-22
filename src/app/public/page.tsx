@@ -16,7 +16,7 @@ import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkel
 const PublicHome = () => {
   const dispatch = useDispatch();
   const { isLoading, publicProducts } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
   const router = useRouter();
 

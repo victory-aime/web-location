@@ -5,7 +5,7 @@ type ObjectItem = {
   };
 };
 export const extractArrays = (
-  data: ObjectItem[]
+  data: ObjectItem[],
 ): { labels: string[]; values: { [key: string]: number[] } } => {
   const result: {
     labels: string[];

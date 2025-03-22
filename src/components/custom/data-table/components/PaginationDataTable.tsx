@@ -19,12 +19,12 @@ const PaginationDataTable: FC<PaginationProps> = ({
 }) => {
   if (lazy && (totalItems === undefined || currentPage === undefined)) {
     throw new Error(
-      "With lazy loading, totalItems and current Page are required"
+      "With lazy loading, totalItems and current Page are required",
     );
   }
 
   const [currentIndexPage, setCurrentIndexPage] = useState<number>(
-    !lazy ? 1 : currentPage!
+    !lazy ? 1 : currentPage!,
   );
   const [itemsPerPage, setItemsPerPage] = useState<number>(pageSize);
   const responsiveMode = useBreakpointValue({ base: false, lg: true });
@@ -47,11 +47,11 @@ const PaginationDataTable: FC<PaginationProps> = ({
         }
       }
     },
-    [currentIndexPage, table, onLazyLoad]
+    [currentIndexPage, table, onLazyLoad],
   );
 
   const [inputPageValue, setInputPageValue] = useState<string>(
-    currentIndexPage.toString()
+    currentIndexPage.toString(),
   );
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputPageValue(event.target?.value);

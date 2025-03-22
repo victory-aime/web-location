@@ -35,7 +35,7 @@ interface FullSelectProps {
   setFieldValue: (
     field: string,
     value: any,
-    shouldValidate?: boolean
+    shouldValidate?: boolean,
   ) => Promise<any>;
   placeholder?: string;
   isDisabled?: boolean;

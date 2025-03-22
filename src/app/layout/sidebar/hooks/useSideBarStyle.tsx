@@ -26,7 +26,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
       borderBottomRightRadius: "20px",
       zIndex: { base: "999", md: "10" },
     }),
-    []
+    [],
   );
   const toggledSideBarStyle = useMemo(
     () =>
@@ -36,7 +36,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
             ...sideBarStyle,
             w: { base: "100%", md: "220px", lg: "70px" },
           },
-    [sideBarStyle, sideToggled]
+    [sideBarStyle, sideToggled],
   );
 
   const textStyle: TextProps = useMemo(
@@ -45,7 +45,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
       fontSize: "16px",
       transition: "all ease-in-out 200ms",
     }),
-    []
+    [],
   );
   const setMenuTextStyle = useCallback(
     (links?: subItems) =>
@@ -56,7 +56,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
             color: "primary.500",
           }
         : textStyle,
-    [pathname]
+    [pathname],
   );
   const setMenuItemTextStyle = useCallback(
     (link: string) =>
@@ -71,13 +71,13 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
             ...textStyle,
             color: "whiteAlpha.400",
           },
-    [pathname]
+    [pathname],
   );
   // Utilisation de useCallback pour définir le style
   const setMenuItemPointStyle = useCallback(
     (link: string) =>
       isActiveLink(link) ? VariablesColors.primary : VariablesColors.grayScale,
-    [pathname]
+    [pathname],
   );
   const toggledTextStyles = useMemo(
     () =>
@@ -96,7 +96,7 @@ const useSideBarStyle = ({ sideToggled }: UseSideBarStyleProps) => {
             opacity: { base: 1, md: 1, lg: 0 },
             overflow: { base: "auto", md: "auto", lg: "hidden" },
           },
-    [sideToggled, textStyle]
+    [sideToggled, textStyle],
   );
   const activeItemStyle: BoxProps = {
     position: "relative",

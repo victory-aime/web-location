@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Flex, VStack, Text, Stack, HStack, For } from "@chakra-ui/react";
-import { getTokenOrThrow } from "_/utils/check.token.utils";
+import { getTokenOrThrow } from "_/utils/auth/check-token";
 import { useSelector } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
 import BoxContainer from "_/components/custom/container/BoxContainer";
@@ -26,7 +26,7 @@ const MyOrder = () => {
     try {
       const response = await axios.get(
         `http://localhost:4000/_api/v1/secure/order/user-order-list?userId=${currentUser?.id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       console.log("response ====", response.data);
       setData(response.data || []);

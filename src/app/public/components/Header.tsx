@@ -6,7 +6,6 @@ import {
   Flex,
   Group,
   IconButton,
-  Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
@@ -22,7 +21,7 @@ import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
 import { useCart } from "_/app/hooks/cart";
 import { CartComponents } from "./CartComponents";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
 import { ModalComponent } from "_/components/custom/modal";
 import { BaseText, TextVariant } from "_/components/custom/base-text";
@@ -30,13 +29,13 @@ import { BaseButton } from "_/components/custom/button";
 import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
 import { Avatar } from "_/components/ui/avatar";
 import { clearPersistedStorage } from "_/utils/clear.store.utils";
+import { signOut, useSession, signIn } from "next-auth/react";
+import { decrypt } from "_/utils/encrypt";
+import { Session } from "next-auth";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoggedIn, currentUser } = useSelector(
-    AuthModule.selectors.authSelector
-  );
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
@@ -46,7 +45,9 @@ const Header = ({ children }: { children: ReactNode }) => {
   const [infoModal, setInfoModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const { data: session } = useSession() as { data: Session | null };
   const { removeFromCart, clearCart } = useCart();
+  const isLoggedIn = !!session;
 
   const removeItem = (itemToRemove: { name: string; id: string }) => {
     setLoading(true);
@@ -64,8 +65,22 @@ const Header = ({ children }: { children: ReactNode }) => {
     }, 1000);
   };
 
+  async function keycloakSessionLogOut() {
+    try {
+      await fetch(`/api/auth/logout`, { method: "GET" });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     //clearPersistedStorage();
+    if (session && session?.access_token) {
+      const decodeToken = decrypt(session?.access_token);
+      dispatch(AuthModule.actions.setAccessToken(decodeToken));
+    } else {
+      dispatch(AuthModule.actions.clearAccessToken());
+    }
   }, []);
 
   return (
@@ -108,12 +123,12 @@ const Header = ({ children }: { children: ReactNode }) => {
                 colorType={"primary"}
                 withGradient
                 p={0}
-                onClick={() => router.push(APP_ROUTES.PUBLIC.SIGN_IN)}
+                onClick={() => signIn("keycloak")}
                 leftIcon={<TbUser size={18} />}
               />
             ) : (
               <Avatar
-                name={currentUser?.name}
+                name={isLoggedIn ? session?.user?.name || "" : ""}
                 onClick={() =>
                   router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
                 }
@@ -153,10 +168,14 @@ const Header = ({ children }: { children: ReactNode }) => {
           removeItem={removeFromCart}
           clearAllCartItems={clearAllCartItems}
           loading={loading}
-          name={currentUser?.name ?? "user"}
+          name={"user"}
         />
       ) : (
-        <MobileMenu open={open} onChange={() => setOpen(false)} />
+        <MobileMenu
+          open={open}
+          onChange={() => setOpen(false)}
+          isLoggedIn={isLoggedIn}
+        />
       )}
 
       <ModalComponent

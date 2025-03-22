@@ -21,7 +21,7 @@ import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkel
 const PublicProductPage = () => {
   const dispatch = useDispatch();
   const { isLoading, publicProducts } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
   const pageSize = 6;
   const [filters, setFilters] = useState({});

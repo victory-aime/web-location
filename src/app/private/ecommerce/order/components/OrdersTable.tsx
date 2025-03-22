@@ -59,7 +59,7 @@ const OrdersTable = () => {
           name: "view",
           handleClick: (value) => {
             router.push(
-              `${APP_ROUTES.PRIVATE.ECOMMERCE.ORDER.DETAILS}?orderId=${value?.orderId}`
+              `${APP_ROUTES.PRIVATE.ECOMMERCE.ORDER.DETAILS}?orderId=${value?.orderId}`,
             );
           },
         },

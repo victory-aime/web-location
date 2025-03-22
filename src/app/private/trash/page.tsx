@@ -15,7 +15,7 @@ import DeleteProduct from "../ecommerce/products/components/modal/DeleteProduct"
 const page = () => {
   const dispatch = useDispatch();
   const { trashList, isLoading, restoreProduct, deleteProduct } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const pageSize = 10;
@@ -28,7 +28,7 @@ const page = () => {
     dispatch(
       ProductModule.actions.getTrashProductRequestAction({
         storeId: currentUser?.store?.id ?? "",
-      })
+      }),
     );
     if (restoreProduct || deleteProduct) {
       dispatch(ProductModule.actions.clearStateKeysAction());
@@ -86,7 +86,7 @@ const page = () => {
             dispatch(
               ProductModule.actions.restoreProductRequestAtion({
                 productId: value?.id,
-              })
+              }),
             );
           },
         },

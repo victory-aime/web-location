@@ -1,8 +1,8 @@
-import { Field, Flex, FormatNumber, Text } from '@chakra-ui/react';
-import { Slider } from '_/components/ui/slider';
-import { useField } from 'formik';
-import React, { FC } from 'react';
-import { DefaultProps } from './interface/input';
+import { Field, Flex, FormatNumber, Text } from "@chakra-ui/react";
+import { Slider } from "_/components/ui/slider";
+import { useField } from "formik";
+import React, { FC } from "react";
+import { DefaultProps } from "./interface/input";
 
 const SliderForm: FC<DefaultProps> = ({
   name,
@@ -27,27 +27,27 @@ const SliderForm: FC<DefaultProps> = ({
     <Field.Root {...rest} id={name} invalid={isError}>
       {label && (
         <Field.Label
-          display={'flex'}
-          gap={'6px'}
-          fontSize={{ base: '16px', lg: '18px' }}
+          display={"flex"}
+          gap={"6px"}
+          fontSize={{ base: "16px", lg: "18px" }}
         >
           {label}
           {required ? (
-            <Text color={'red'}> * </Text>
+            <Text color={"red"}> * </Text>
           ) : isNumber ? (
-            <Flex ml={3} gap={2} alignItems={'center'}>
+            <Flex ml={3} gap={2} alignItems={"center"}>
               <FormatNumber
                 value={field.value}
                 currency="USD"
                 notation="compact"
-                style={'currency'}
+                style={"currency"}
               />
               -
               <FormatNumber
                 value={max}
                 currency="USD"
                 notation="compact"
-                style={'currency'}
+                style={"currency"}
               />
             </Flex>
           ) : null}

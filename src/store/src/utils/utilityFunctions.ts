@@ -28,7 +28,7 @@ export const convertDateFormat = (date: string | Date): string => {
  */
 export const getPeriodInMonths = (
   nbePeriod: number,
-  period: "QUARTERLY" | "SEMIANNUAL" | "ANNUAL" | string
+  period: "QUARTERLY" | "SEMIANNUAL" | "ANNUAL" | string,
 ): number => {
   switch (period) {
     case "QUARTERLY":
@@ -99,12 +99,15 @@ export const formatCreatedAt = (createdAt: string): string => {
 export const findDynamicIdInList = (id: string | undefined, list: any) => {
   if (!id || !list) return null;
 
-  const array = Array.isArray(list) ? list : Array.isArray(list.content) ? list.content : null;
+  const array = Array.isArray(list)
+    ? list
+    : Array.isArray(list.content)
+      ? list.content
+      : null;
   if (!array) return null;
 
   return array.find((item: { id: string }) => item.id === id) || null;
 };
-
 
 /**
  * A generic function to parse a date from a string.
@@ -114,7 +117,7 @@ export const findDynamicIdInList = (id: string | undefined, list: any) => {
  */
 export const parseDateString = (
   date: Date | string | null | undefined,
-  inputFormat: string = APP_DATE_FORMAT
+  inputFormat: string = APP_DATE_FORMAT,
 ): Date | null => {
   if (!date) return null;
 
@@ -135,7 +138,7 @@ export const parseDateString = (
 export const getMonthFromDateString = (
   dateString: string,
   inputFormat: string = APP_DATE_FORMAT,
-  locale: string = "fr"
+  locale: string = "fr",
 ): string | null => {
   if (!dateString) return null;
 
@@ -158,7 +161,7 @@ export const convertToCreatedUpdatedInfo = <
     updatedAt?: string;
   },
 >(
-  data: T[]
+  data: T[],
 ): Array<
   T & {
     createdInfo: { createdBy?: string; createdAt?: string };

@@ -23,7 +23,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 type FormatData = {
@@ -100,9 +100,9 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
           stepSize: Math.ceil(
             Math.max(
               ...Object.keys(formatData.maxValues ?? {}).map(
-                (key) => formatData.maxValues?.[key] ?? 0
-              )
-            ) / 5
+                (key) => formatData.maxValues?.[key] ?? 0,
+              ),
+            ) / 5,
           ),
         },
         stacked: true,
@@ -136,7 +136,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
           xCoor,
           top,
           xCoor + segmentWidth,
-          top
+          top,
         );
         gradient.addColorStop(0, "rgba(6, 82, 76, 0.2)");
         gradient.addColorStop(1, "rgba(6, 82, 76, 1)");

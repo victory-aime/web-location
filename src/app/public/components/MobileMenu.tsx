@@ -17,20 +17,20 @@ import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { AuthModule } from "_/store/src/modules";
+import { keycloakSessionLogOut } from "_/app/hooks/logout";
+import { signIn, signOut } from "next-auth/react";
 
 const MobileMenu = ({
   onChange,
   open,
+  isLoggedIn,
 }: {
   open: boolean;
   onChange: (value: any) => void;
+  isLoggedIn: boolean;
 }) => {
   const fakeLink = [{ text: "Accueil", link: "/" }];
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { isLoggedIn, currentUser } = useSelector(
-    AuthModule.selectors.authSelector
-  );
   const contentRef = useRef<React.RefObject<HTMLElement> | any>(null);
 
   return (
@@ -92,14 +92,12 @@ const MobileMenu = ({
           <BaseButton
             onClick={() => {
               if (isLoggedIn) {
-                dispatch(
-                  AuthModule.actions.authLogoutRequestAction({
-                    userId: currentUser?.keycloakId ?? "",
-                  })
+                keycloakSessionLogOut().then(() =>
+                  signOut({ callbackUrl: "/" }),
                 );
                 onChange(false);
               } else {
-                router.push(APP_ROUTES.PUBLIC.SIGN_IN);
+                signIn("keycloak");
                 onChange(false);
               }
             }}

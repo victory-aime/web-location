@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
     workerThreads: false,
     cpus: 1,
   },
+  env: {
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  },
 };
 
 export default nextConfig;

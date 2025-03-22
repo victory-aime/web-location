@@ -33,7 +33,7 @@ const createApiAction = ({
   responseType,
 }: ApiActionProps): APIObjectType => {
   const url = baseUrl?.concat(
-    ...[API_BASIC_URL_MAP[platformType][pathBase], path]
+    ...[API_BASIC_URL_MAP[platformType][pathBase], path],
   );
   return {
     url,
