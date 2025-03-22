@@ -11,6 +11,7 @@ import { BaseButton } from "_components/custom/button";
 import PaymentInfo from "_app/public/products/cart/process/components/PaymentInfo";
 import { useCart } from "_app/hooks/cart";
 import RecapOrder from "_app/public/products/cart/process/components/RecapOrder";
+import axios from "axios";
 
 const CheckoutProcess: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -57,6 +58,18 @@ const CheckoutProcess: React.FC = () => {
     if (index !== -1) {
       setCurrentStep(index);
     }
+  };
+
+  const sendOrder = async () => {
+    const values = {
+      total: calculateTotalPrice(cart),
+      userId: "4a8a79ea-301d-4165-9cfd-fb4b5c71577c",
+      productId: cart[0].id,
+      price: parseFloat(cart[0].price as unknown as string),
+      quantity: parseInt(cart[0].quantity as unknown as string, 10),
+    };
+    const send = await axios.post("http://localhost:4000/order", values);
+    console.log("response ====", send.data);
   };
 
   return (

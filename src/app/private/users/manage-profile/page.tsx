@@ -11,6 +11,7 @@ import ManageAddress from "../components/ManageAddress";
 import Favourite from "../components/Favourite";
 import Settings from "../components/Settings";
 import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import MyOrder from "../components/MyOrder";
 
 const ProfilePage = () => {
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
@@ -20,11 +21,14 @@ const ProfilePage = () => {
       case 0:
         return <Profile />;
       case 1:
-        return <ManageAddress />;
+        return <MyOrder />;
       case 2:
-        return <Favourite />;
+        return <ManageAddress />;
       case 3:
+        return <Favourite />;
+      case 4:
         return <Settings />;
+
       default:
         return <Profile />;
     }
@@ -44,9 +48,7 @@ const ProfilePage = () => {
             currentStep={currentStep}
             onChangeStep={setCurrentStep}
           />
-          <Box width={"100%"} p={{ base: 0, md: 10 }}>
-            {renderStep()}
-          </Box>
+          <Box width={"100%"}>{renderStep()}</Box>
         </Flex>
       </Header>
     </ProtectedRoute>

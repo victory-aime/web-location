@@ -108,7 +108,7 @@ const Header = ({ children }: { children: ReactNode }) => {
                 colorType={"primary"}
                 withGradient
                 p={0}
-                onClick={() => router.push(APP_ROUTES.PUBLIC.SIGN_UP)}
+                onClick={() => router.push(APP_ROUTES.PUBLIC.SIGN_IN)}
                 leftIcon={<TbUser size={18} />}
               />
             ) : (

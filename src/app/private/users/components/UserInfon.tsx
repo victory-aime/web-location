@@ -4,7 +4,7 @@ import { Avatar } from "_/components/ui/avatar";
 import { TYPES } from "_/store/src";
 import { hexToRGB } from "_/theme/colors";
 import React, { Dispatch, SetStateAction } from "react";
-import { BsHeart } from "react-icons/bs";
+import { BsCart, BsHeart } from "react-icons/bs";
 import { HiOutlineUser } from "react-icons/hi2";
 import { IoIosCog } from "react-icons/io";
 import { LuMapPin } from "react-icons/lu";
@@ -32,6 +32,10 @@ const UserInfo = ({ currentUser, currentStep, onChangeStep }: Props) => {
     {
       icon: <IoIosCog />,
       title: "Parametres",
+    },
+    {
+      icon: <BsCart />,
+      title: "Mes commandes",
     },
   ];
 
