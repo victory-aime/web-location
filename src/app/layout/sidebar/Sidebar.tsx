@@ -14,14 +14,16 @@ import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 import { keycloakSessionLogOut } from "_/app/hooks/logout";
 import { signOut } from "next-auth/react";
 
-const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
+const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
     sideToggled,
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const handleLogout = () => {
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: "/" }));
+    keycloakSessionLogOut().then(() =>
+      signOut({ callbackUrl: process.env.NEXTAUTH_URL })
+    );
   };
 
   return (
@@ -31,7 +33,7 @@ const SideBar = ({ sideToggled, onShowSidebar, currentUser }: SideBarProps) => {
           isOpen={sideToggled}
           onClose={onShowSidebar}
           handleLogout={handleLogout}
-          currentUser={currentUser}
+     
         />
       ) : (
         <Box {...toggledSideBarStyle} className="sidebar">

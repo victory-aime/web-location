@@ -1,8 +1,11 @@
 import { Box, Flex, VStack, Text, Separator } from "@chakra-ui/react";
+import { keycloakSessionLogOut } from "_/app/hooks/logout";
 import { BaseText } from "_/components/custom/base-text";
+import { BaseButton } from "_/components/custom/button";
 import { Avatar } from "_/components/ui/avatar";
 import { TYPES } from "_/store/src";
 import { hexToRGB } from "_/theme/colors";
+import { signOut, useSession } from "next-auth/react";
 import React, { Dispatch, SetStateAction } from "react";
 import { BsCart, BsHeart } from "react-icons/bs";
 import { HiOutlineUser } from "react-icons/hi2";
@@ -10,12 +13,12 @@ import { IoIosCog } from "react-icons/io";
 import { LuMapPin } from "react-icons/lu";
 
 interface Props {
-  currentUser: TYPES.MODELS.AUTH.User | null;
   currentStep: number | string | null;
   onChangeStep: Dispatch<SetStateAction<number>>;
 }
 
-const UserInfo = ({ currentUser, currentStep, onChangeStep }: Props) => {
+const UserInfo = ({ currentStep, onChangeStep }: Props) => {
+  const { data: session, status } = useSession();
   const renderStepMap = [
     {
       icon: <HiOutlineUser />,
@@ -59,7 +62,7 @@ const UserInfo = ({ currentUser, currentStep, onChangeStep }: Props) => {
         <Avatar size={"xl"} />
         <Box>
           <BaseText>Bonjour,👋</BaseText>
-          <Text>{currentUser?.firstName + " " + currentUser?.name}</Text>
+          <Text>{session?.user?.name}</Text>
         </Box>
       </Box>
       <Separator mt={4} mb={4} />
@@ -93,6 +96,21 @@ const UserInfo = ({ currentUser, currentStep, onChangeStep }: Props) => {
             <BaseText>{item.title}</BaseText>
           </Flex>
         ))}
+
+        {status === "authenticated" && (
+          <BaseButton
+            onClick={() =>
+              keycloakSessionLogOut().then(() =>
+                signOut({ callbackUrl: process.env.NEXTAUTH_URL })
+              )
+            }
+            width={"full"}
+            colorType={"danger"}
+            withGradient
+          >
+            Deconnexion
+          </BaseButton>
+        )}
       </VStack>
     </Box>
   );

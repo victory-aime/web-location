@@ -17,12 +17,7 @@ import RenderLinks from "./RenderLinks";
 import { IMobileSidebar } from "../types";
 import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 
-const MobileSidebar = ({
-  isOpen,
-  onClose,
-  handleLogout,
-  currentUser,
-}: IMobileSidebar) => {
+const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
   return (
     <DrawerRoot
       open={isOpen}
@@ -35,7 +30,7 @@ const MobileSidebar = ({
       <DrawerContent height={"full"}>
         <DrawerHeader>
           <HStack p={5} justifyContent={"space-between"}>
-            <DrawerTitle>{currentUser?.store?.name}</DrawerTitle>
+            <DrawerTitle>{"store.name"}</DrawerTitle>
             <DrawerActionTrigger asChild>
               <IconButton
                 aria-label="close-drawer"

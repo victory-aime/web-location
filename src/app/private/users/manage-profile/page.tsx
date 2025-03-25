@@ -13,7 +13,6 @@ import MyOrder from "../components/MyOrder";
 import Header from "_/app/components/Header";
 
 const ProfilePage = () => {
-  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const [currentStep, setCurrentStep] = useState(0);
   const renderStep = () => {
     switch (currentStep) {
@@ -41,11 +40,7 @@ const ProfilePage = () => {
         p={{ base: 5, md: 10 }}
         flexDir={{ base: "column", lg: "row" }}
       >
-        <UserInfo
-          currentUser={currentUser}
-          currentStep={currentStep}
-          onChangeStep={setCurrentStep}
-        />
+        <UserInfo currentStep={currentStep} onChangeStep={setCurrentStep} />
         <Box width={"100%"}>{renderStep()}</Box>
       </Flex>
     </Header>

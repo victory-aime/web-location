@@ -3,14 +3,19 @@ import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
 import { UploadAvatar } from "_/components/custom/drag-drop";
 import { FormTextInput } from "_/components/custom/form";
-import { AuthModule } from "_/store/src/modules";
+import { AuthModule, UsersModule } from "_/store/src/modules";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import { isEmpty } from "lodash";
+import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
+  const { data: session, status } = useSession();
+  const { user, isLoading } = useSelector(UsersModule.selectors.userSelector);
+  const dispatch = useDispatch();
   const [enabledEdit, setEnableEdit] = useState(false);
   const [avatar, setAvatar] = useState<string | undefined | null>(null);
 
@@ -26,6 +31,18 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    if (isEmpty(user) && status === "authenticated") {
+      dispatch(
+        UsersModule.actions.userInfoRequestAction({
+          email: session?.user?.email ?? "",
+        })
+      );
+    }
+  }, []);
+
+  console.log("user", user);
+
   return (
     <Box p={{ base: 4, md: 6 }} width={"full"}>
       <BaseText variant={TextVariant.M}>Informations personnelles</BaseText>
@@ -40,7 +57,7 @@ const Profile = () => {
         <UploadAvatar
           getFileUploaded={handleFileUpload}
           avatarImage={avatar}
-          name={currentUser?.name}
+          name={user?.lastName}
         />
         {!enabledEdit ? (
           <BaseButton
@@ -74,12 +91,7 @@ const Profile = () => {
       </Flex>
       <Formik
         enableReinitialize
-        initialValues={{
-          name: currentUser?.name,
-          firstName: currentUser?.firstName,
-          email: currentUser?.email,
-          phone: currentUser?.phone,
-        }}
+        initialValues={{}}
         onSubmit={() => {
           console.log("submit");
         }}
@@ -93,7 +105,7 @@ const Profile = () => {
                 name={"name"}
                 label={"Nom"}
                 placeholder={"Veuillez saisir votre nom"}
-                value={values.name}
+                //value={values.name}
               />
               <FormTextInput
                 required
@@ -101,7 +113,7 @@ const Profile = () => {
                 name={"firstName"}
                 label={"Prenom"}
                 placeholder={"Veuillez saisir votre prenom"}
-                value={values.firstName}
+                //value={values.firstName}
               />
             </Stack>
             <Stack flexDir={{ base: "column", md: "row" }} width="full" gap={4}>
@@ -112,7 +124,7 @@ const Profile = () => {
                 type={"email"}
                 label={"Email"}
                 placeholder={"Veuillez saisir votre addresse email"}
-                value={values.email}
+                //value={values.email}
               />
               <FormTextInput
                 required
@@ -121,7 +133,7 @@ const Profile = () => {
                 type={"tel"}
                 label={"Telephone"}
                 placeholder={"Veuillez saisir votre numero de telephone"}
-                value={values.phone}
+                //value={values.phone}
               />
             </Stack>
           </VStack>

@@ -6,6 +6,7 @@ import { TYPES } from "../..";
 import { AUTH_KEY_IN_STORE } from "../auth/constants";
 import { LOADER_KEY_IN_STORE } from "../loader/constants";
 import { PRODUCT_KEY_IN_STORE } from "../products/constants";
+import { USERS_KEY_IN_STORE } from "../users/constants";
 import GlobalModuleInterface from "./global.modules.interface";
 
 /**
@@ -17,4 +18,5 @@ export interface ModuleStateMapping {
   [AUTH_KEY_IN_STORE]: TYPES.MODELS.AUTH.AuthState;
   [LOADER_KEY_IN_STORE]: GlobalModuleInterface;
   [PRODUCT_KEY_IN_STORE]: TYPES.MODELS.PRODUCTS.IProductState;
+  [USERS_KEY_IN_STORE]: TYPES.MODELS.USERS.UserState;
 }

@@ -1,8 +1,3 @@
-export enum Status {
-  ACTIVE = "ACTIVE",
-  INACTIVE = "INACTIVE",
-}
-
 export interface IStore {
   id?: string | null | undefined;
   name?: string | null | undefined;
@@ -14,17 +9,18 @@ export interface IStore {
   deletedAt?: null;
 }
 
-export interface User {
+export interface IUser {
   id?: string;
   firstName?: string;
-  name?: string;
+  lastName?: string;
   email?: string;
   phone?: string;
   address?: string;
   store?: IStore;
 }
 
-export interface AuthState {
-  currentUser: User | null;
-  access_token: string | null;
+export interface UserState {
+  user: IUser | null;
+  isLoading: boolean;
+  error: string | null;
 }

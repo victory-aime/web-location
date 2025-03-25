@@ -15,8 +15,6 @@ import { BaseButton } from "_/components/custom/button";
 import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
-import { useSelector, useDispatch } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
 import { keycloakSessionLogOut } from "_/app/hooks/logout";
 import { signIn, signOut } from "next-auth/react";
 
@@ -93,11 +91,11 @@ const MobileMenu = ({
             onClick={() => {
               if (isLoggedIn) {
                 keycloakSessionLogOut().then(() =>
-                  signOut({ callbackUrl: "/" }),
+                  signOut({ callbackUrl: process.env.NEXTAUTH_URL })
                 );
                 onChange(false);
               } else {
-                signIn("keycloak");
+                signIn("keycloak", { callbackUrl: process.env.NEXTAUTH_URL });
                 onChange(false);
               }
             }}

@@ -33,7 +33,7 @@ const createApiAction = ({
   responseType,
 }: ApiActionProps): APIObjectType => {
   const url = baseUrl?.concat(
-    ...[API_BASIC_URL_MAP[platformType][pathBase], path],
+    ...[API_BASIC_URL_MAP[platformType][pathBase], path]
   );
   return {
     url,
@@ -52,41 +52,18 @@ const APIS = (baseUrl?: string) => {
         baseUrl,
       }),
     },
-    AUTH: {
-      SIGN_IN: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth/login",
-        method: "POST",
+    AUTH: {},
+    USERS: {
+      ME: createApiAction({
+        path: "/user/me",
+        pathBase: "SECURED_API",
+        method: "GET",
         baseUrl,
       }),
-      LOG_OUT: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth/logout",
-        method: "POST",
-        baseUrl,
-      }),
-      SIGN_UP: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth/sign-up",
-        method: "POST",
-        baseUrl,
-      }),
-      VALIDATE_OTP: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth/validate-otp",
-        method: "POST",
-        baseUrl,
-      }),
-      FORGOT_PASSWORD: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth/forgot-password",
-        method: "POST",
-        baseUrl,
-      }),
-      UPDATE_PASSWORD: createApiAction({
-        pathBase: "UNSECURED_API",
-        path: "/auth-updatePassword",
-        method: "POST",
+      UPDATE_USER: createApiAction({
+        path: "/user/update-info",
+        pathBase: "SECURED_API",
+        method: "PATCH",
         baseUrl,
       }),
     },
