@@ -30,7 +30,7 @@ const OurProduct = () => {
       pageIndex={0}
       controlled={false}
       label={"Nos produits"}
-      onClick={() => router?.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST)}
+      onClick={() => router?.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST)}
     />
   );
 };

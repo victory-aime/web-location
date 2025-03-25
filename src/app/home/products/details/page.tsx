@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import { UTILS } from "_/store/src";
 import { useSelector } from "react-redux";
 import { ProductModule } from "_store/src/modules";
@@ -34,7 +34,7 @@ import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 const PublicDetailsProducts = () => {
   const requestId = useSearchParams()?.get("requestId");
   const { publicProducts } = useSelector(
-    ProductModule.selectors.productSelector,
+    ProductModule.selectors.productSelector
   );
   const { cart, setCart, triggerRefresh, fetchCartFromStorage } = useCart();
   const [quantity, setQuantity] = useState(0);
@@ -43,13 +43,12 @@ const PublicDetailsProducts = () => {
 
   const findSameCategoriesItem = publicProducts?.filter(
     (value) =>
-      value.categoryName === findItem?.categoryName &&
-      value.id !== findItem?.id,
+      value.categoryName === findItem?.categoryName && value.id !== findItem?.id
   );
 
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   useEffect(() => {
@@ -70,7 +69,7 @@ const PublicDetailsProducts = () => {
     setLoading(true);
     setTimeout(() => {
       const existingItemIndex = cart?.findIndex(
-        (item: any) => item.id === findItem.id,
+        (item: any) => item.id === findItem.id
       );
       if (existingItemIndex !== -1) {
         cart[existingItemIndex].quantity += 1;
@@ -93,7 +92,7 @@ const PublicDetailsProducts = () => {
     setTimeout(() => {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const existingItemIndex = cart.findIndex(
-        (item: any) => item.id === findItem.id,
+        (item: any) => item.id === findItem.id
       );
 
       if (existingItemIndex !== -1) {

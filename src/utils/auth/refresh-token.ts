@@ -12,7 +12,7 @@ export async function refreshAccessToken(token: any) {
     }).toString(),
     {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    },
+    }
   );
 
   const refreshToken = resp.data;

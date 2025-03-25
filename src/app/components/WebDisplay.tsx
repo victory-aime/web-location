@@ -11,6 +11,7 @@ import { CartComponents } from "./CartComponents";
 import { BaseText, TextVariant } from "_components/custom/base-text";
 import { Avatar } from "_/components/ui/avatar";
 import { signIn } from "next-auth/react";
+import { BsSend } from "react-icons/bs";
 
 const WebDisplay = ({
   cart,
@@ -27,7 +28,7 @@ const WebDisplay = ({
   loading: boolean;
   isLoggedIn: boolean;
   setInfoModal: (value: boolean) => void;
-  name: string;
+  name: string | undefined;
 }) => {
   const router = useRouter();
 
@@ -45,7 +46,7 @@ const WebDisplay = ({
         cursor={"pointer"}
         onClick={() => router.push(APP_ROUTES.PUBLIC.HOME)}
       >
-        <BaseText variant={TextVariant.L}> E-Shop</BaseText>
+        <BaseText variant={TextVariant.L}>E-Shop</BaseText>
       </Box>
 
       <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
@@ -55,6 +56,15 @@ const WebDisplay = ({
               name={"search"}
               placeholder="Recherchez votre produit"
               leftAccessory={<RiSearch2Line size={24} />}
+              rightAccessory={
+                <BsSend
+                  cursor={"pointer"}
+                  size={18}
+                  onClick={() => {
+                    handleSubmit();
+                  }}
+                />
+              }
               onChangeFunction={(e: any) => {
                 setFieldValue("search", e?.target.value);
               }}
@@ -93,7 +103,14 @@ const WebDisplay = ({
           />
         </Flex>
         {!isLoggedIn ? (
-          <BaseButton onClick={() => signIn("keycloak")} colorType={"primary"}>
+          <BaseButton
+            onClick={() =>
+              signIn("keycloak", {
+                //callbackUrl: `${process.env.REDIRECT_URL}`,
+              })
+            }
+            colorType={"primary"}
+          >
             <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
           </BaseButton>
         ) : (

@@ -15,7 +15,7 @@ import {
   OrdersTable,
 } from "./components";
 import { IoMdDoneAll } from "react-icons/io";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import Layout from "_/app/layout/Layout";
 
 const OrderPage = () => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const OrderPage = () => {
   ];
 
   return (
-    <ProtectedRoute>
+    <Layout>
       <CommonTabs
         items={items}
         title={"Commandes"}
@@ -54,7 +54,7 @@ const OrderPage = () => {
         }
         isMobile={isMobile}
       />
-    </ProtectedRoute>
+    </Layout>
   );
 };
 

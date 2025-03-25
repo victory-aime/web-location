@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Header from "./components/Header";
+import Header from "../components/Header";
 
 import CustomProductList from "./products/components/CustomProductList";
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { BaseButton } from "_/components/custom/button";
-import { Footer } from "./components/Footer";
+import { Footer } from "../components/Footer";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "../config/routes";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkel
 const PublicHome = () => {
   const dispatch = useDispatch();
   const { isLoading, publicProducts } = useSelector(
-    ProductModule.selectors.productSelector,
+    ProductModule.selectors.productSelector
   );
   const router = useRouter();
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ListOrders,
   ReviewStats,
@@ -10,18 +10,13 @@ import {
   TopProducts,
   TopCategory,
 } from "./components";
-import { Flex, For, Box, Heading } from "@chakra-ui/react";
+import { Flex, For, Box } from "@chakra-ui/react";
 import { statData } from "./data/data";
-import { useSelector } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
-import { useDispatch } from "react-redux";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import Layout from "../../layout";
 
 const Dashoard = () => {
-  const dispatch = useDispatch();
-
   return (
-    <ProtectedRoute>
+    <Layout>
       <Box width={"full"}>
         <Flex gap={8} width={"full"} mt={50} overflowX={"auto"}>
           <For each={statData}>
@@ -63,7 +58,7 @@ const Dashoard = () => {
           <TopCategory />
         </Flex>
       </Box>
-    </ProtectedRoute>
+    </Layout>
   );
 };
 

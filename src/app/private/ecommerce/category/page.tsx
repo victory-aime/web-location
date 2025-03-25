@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Heading, HStack, Flex, Text } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 import { BaseButton } from "_/components/custom/button";
 import { CommonDataTable } from "_/components/custom/data-table";
 import React, { useState } from "react";
@@ -8,7 +8,7 @@ import { FaPlus } from "react-icons/fa";
 import { categoryData } from "./data/data";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import CategoryModal from "./components/CategoryModal";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import Layout from "_/app/layout/Layout";
 
 const Category = () => {
   const pageSize = 10;
@@ -73,7 +73,7 @@ const Category = () => {
   ];
 
   return (
-    <ProtectedRoute>
+    <Layout>
       <Box width={"full"} mt={"30px"}>
         <HStack
           width={"full"}
@@ -107,7 +107,7 @@ const Category = () => {
           onChange={() => setOpen(false)}
         />
       </Box>
-    </ProtectedRoute>
+    </Layout>
   );
 };
 

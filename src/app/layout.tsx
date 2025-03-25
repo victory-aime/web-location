@@ -46,16 +46,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable}`}>
-        <SessionProvider>
-          <Provider>
-            <ColorModeProvider>
-              <Toaster />
-              <AppMainEntry>
+        <Provider>
+          <ColorModeProvider>
+            <Toaster />
+            <AppMainEntry>
+              <SessionProvider>
                 <LoaderWrapper>{children}</LoaderWrapper>
-              </AppMainEntry>
-            </ColorModeProvider>
-          </Provider>
-        </SessionProvider>
+              </SessionProvider>
+            </AppMainEntry>
+          </ColorModeProvider>
+        </Provider>
       </body>
     </html>
   );

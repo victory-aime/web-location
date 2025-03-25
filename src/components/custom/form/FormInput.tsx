@@ -101,7 +101,17 @@ const FormTextInput = ({
           ) : toolTipInfo ? (
             <InfoTip lazyMount size={"sm"} content={toolTipInfo} />
           ) : (
-            rightAccessory
+            rightAccessory && (
+              <Flex
+                mt={"5px"}
+                pr={"10px"}
+                boxSize={"30px"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                {rightAccessory}
+              </Flex>
+            )
           )
         }
       >

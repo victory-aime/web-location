@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, FormatNumber, Heading, Text, VStack } from "@chakra-ui/react";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
 import { CustomBadge } from "_/components/custom/badge";
 import { CommonDataTable } from "_/components/custom/data-table";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
@@ -11,11 +10,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RenderProductImage } from "../ecommerce/products/components";
 import DeleteProduct from "../ecommerce/products/components/modal/DeleteProduct";
+import Layout from "../../layout";
 
 const page = () => {
   const dispatch = useDispatch();
   const { trashList, isLoading, restoreProduct, deleteProduct } = useSelector(
-    ProductModule.selectors.productSelector,
+    ProductModule.selectors.productSelector
   );
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const pageSize = 10;
@@ -28,7 +28,7 @@ const page = () => {
     dispatch(
       ProductModule.actions.getTrashProductRequestAction({
         storeId: currentUser?.store?.id ?? "",
-      }),
+      })
     );
     if (restoreProduct || deleteProduct) {
       dispatch(ProductModule.actions.clearStateKeysAction());
@@ -86,7 +86,7 @@ const page = () => {
             dispatch(
               ProductModule.actions.restoreProductRequestAtion({
                 productId: value?.id,
-              }),
+              })
             );
           },
         },
@@ -102,7 +102,7 @@ const page = () => {
   ];
 
   return (
-    <ProtectedRoute>
+    <Layout>
       <Box width={"full"} mt={"30px"}>
         <VStack alignItems={"flex-start"} gap={4}>
           <Heading>Corbeille</Heading>
@@ -132,7 +132,7 @@ const page = () => {
         onChange={() => setOpenDelete(false)}
         deleteType={"permanently"}
       />
-    </ProtectedRoute>
+    </Layout>
   );
 };
 

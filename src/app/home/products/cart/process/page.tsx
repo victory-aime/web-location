@@ -2,16 +2,16 @@
 import React, { ReactNode, useState } from "react";
 import { Box, Flex, Separator } from "@chakra-ui/react";
 import CustomStepper from "_components/custom/stepper/CustomStepper";
-import Header from "_app/public/components/Header";
 import BoxContainer from "_components/custom/container/BoxContainer";
 import { BaseText, TextVariant } from "_components/custom/base-text";
-import ShippingAddress from "_app/public/products/cart/process/components/ShippingAddress";
 import CustomFormatNumber from "_components/custom/format-number/CustomFormatNumber";
 import { BaseButton } from "_components/custom/button";
-import PaymentInfo from "_app/public/products/cart/process/components/PaymentInfo";
 import { useCart } from "_app/hooks/cart";
-import RecapOrder from "_app/public/products/cart/process/components/RecapOrder";
 import axios from "axios";
+import PaymentInfo from "./components/PaymentInfo";
+import RecapOrder from "./components/RecapOrder";
+import ShippingAddress from "./components/ShippingAddress";
+import Header from "_/app/components/Header";
 
 const CheckoutProcess: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { Box, Flex, useBreakpointValue, IconButton } from "@chakra-ui/react";
 import { CustomAccordion } from "_/components/custom/accordion/CustomAccordion";
 import { BsFillSendCheckFill } from "react-icons/bs";
@@ -21,7 +21,7 @@ import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkel
 const PublicProductPage = () => {
   const dispatch = useDispatch();
   const { isLoading, publicProducts } = useSelector(
-    ProductModule.selectors.productSelector,
+    ProductModule.selectors.productSelector
   );
   const pageSize = 6;
   const [filters, setFilters] = useState({});

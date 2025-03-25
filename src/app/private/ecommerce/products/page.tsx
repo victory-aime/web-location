@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 import { CommonTabs } from "_/components/custom/tabs/Tabs";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import Layout from "_/app/layout/Layout";
 
 const ProductPage = () => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const ProductPage = () => {
   ];
 
   return (
-    <ProtectedRoute>
+    <Layout>
       <CommonTabs
         items={items}
         redirectLink={() =>
@@ -53,7 +53,7 @@ const ProductPage = () => {
         addTitle="Nouveau produit"
         isMobile={isMobile}
       />
-    </ProtectedRoute>
+    </Layout>
   );
 };
 

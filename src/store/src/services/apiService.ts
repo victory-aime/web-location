@@ -10,12 +10,10 @@ export const apiCall = async (
   { url, method, responseType = "json" }: APIObjectType,
   data?: any,
   params?: any,
-  showLoader = true,
+  showLoader = true
 ) => {
   const state = store.getState() as RootState & PersistPartial;
   const token = state.auth?.access_token;
-
-  console.log("token axios", token);
 
   const headers = {
     ...(token && {

@@ -28,10 +28,10 @@ import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
 import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
 import { Avatar } from "_/components/ui/avatar";
-import { clearPersistedStorage } from "_/utils/clear.store.utils";
 import { signOut, useSession, signIn } from "next-auth/react";
 import { decrypt } from "_/utils/encrypt";
 import { Session } from "next-auth";
+import { BsSend } from "react-icons/bs";
 
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -45,7 +45,10 @@ const Header = ({ children }: { children: ReactNode }) => {
   const [infoModal, setInfoModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  const { data: session } = useSession() as { data: Session | null };
+  const { data: session, status } = useSession() as {
+    data: Session | null;
+    status: string;
+  };
   const { removeFromCart, clearCart } = useCart();
   const isLoggedIn = !!session;
 
@@ -65,16 +68,7 @@ const Header = ({ children }: { children: ReactNode }) => {
     }, 1000);
   };
 
-  async function keycloakSessionLogOut() {
-    try {
-      await fetch(`/api/auth/logout`, { method: "GET" });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   useEffect(() => {
-    //clearPersistedStorage();
     if (session && session?.access_token) {
       const decodeToken = decrypt(session?.access_token);
       dispatch(AuthModule.actions.setAccessToken(decodeToken));
@@ -82,6 +76,18 @@ const Header = ({ children }: { children: ReactNode }) => {
       dispatch(AuthModule.actions.clearAccessToken());
     }
   }, []);
+
+  useEffect(() => {
+    if (
+      status !== "loading" &&
+      session &&
+      session?.error === "RefreshAccessTokenError"
+    ) {
+      signOut({
+        callbackUrl: `${process.env.NEXTAUTH_URL}`,
+      });
+    }
+  }, [session, status]);
 
   return (
     <Box>
@@ -123,12 +129,16 @@ const Header = ({ children }: { children: ReactNode }) => {
                 colorType={"primary"}
                 withGradient
                 p={0}
-                onClick={() => signIn("keycloak")}
+                onClick={() =>
+                  signIn("keycloak", {
+                    callbackUrl: `${process.env.NEXTAUTH_URL}`,
+                  })
+                }
                 leftIcon={<TbUser size={18} />}
               />
             ) : (
               <Avatar
-                name={isLoggedIn ? session?.user?.name || "" : ""}
+                name={session?.user?.name || ""}
                 onClick={() =>
                   router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
                 }
@@ -136,13 +146,25 @@ const Header = ({ children }: { children: ReactNode }) => {
             )}
           </Flex>
         </Flex>
-        <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
+        <Formik
+          initialValues={{ search: "" }}
+          onSubmit={(values) => console.log("values ====>", values)}
+        >
           {({ values, handleSubmit, setFieldValue }) => (
             <Flex width={"full"} p={{ base: "3" }}>
               <FormTextInput
                 name={"search"}
                 placeholder="Recherchez votre produit"
                 leftAccessory={<RiSearch2Line size={24} />}
+                rightAccessory={
+                  <BsSend
+                    cursor={"pointer"}
+                    size={18}
+                    onClick={() => {
+                      handleSubmit();
+                    }}
+                  />
+                }
                 onChangeFunction={(e: any) => {
                   setFieldValue("search", e?.target.value);
                 }}
@@ -168,7 +190,7 @@ const Header = ({ children }: { children: ReactNode }) => {
           removeItem={removeFromCart}
           clearAllCartItems={clearAllCartItems}
           loading={loading}
-          name={"user"}
+          name={session?.user?.name ?? ""}
         />
       ) : (
         <MobileMenu

@@ -9,10 +9,9 @@ export const authOptions = {
     KeycloakProvider({
       clientId: `${process.env.KEYCLOAK_CLIENT_ID}`,
       clientSecret: `${process.env.KEYCLOAK_CLIENT_SECRET}`,
-      issuer: `${process.env.KEYCLOAK_ISSEUR}`,
+      issuer: `${process.env.KEYCLOAK_ISSUER}`,
     }),
   ],
-
   callbacks: {
     async jwt({ token, account }: { token: any; account?: any }) {
       const nowTimeStamp = Math.floor(Date.now() / 1000);
@@ -26,10 +25,8 @@ export const authOptions = {
         token.refresh_token = account.refresh_token;
         return token;
       } else if (nowTimeStamp < token.expires_at) {
-        // token has not expired yet, return it
         return token;
       } else {
-        // token is expired, try to refresh it
         console.log("Token has expired. Will refresh...");
         try {
           const refreshedToken = await refreshAccessToken(token);
@@ -47,6 +44,32 @@ export const authOptions = {
       session.id_token = encrypt(token.id_token);
       session.error = token.error;
       return session;
+    },
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+      //   // if (url?.startsWith("/")) {
+      //   //   return `${baseUrl}/redirect`;
+      //   // }
+      //   // return url?.startsWith(baseUrl) ? url : baseUrl;
+
+      //return url ? url : baseUrl;
+
+      // Rediriger vers une page spécifique après connexion ou déconnexion
+      // Si url est indéfini, on retourne directement baseUrl
+      if (!url) return baseUrl;
+
+      // Si l'url commence par /home, on ajoute le baseUrl devant
+      if (url.startsWith("/home")) return `${baseUrl}${url}`;
+
+      // Essaye de créer l'objet URL et vérifie son origine
+      try {
+        const parsedUrl = new URL(url);
+        if (parsedUrl.origin === baseUrl) return url;
+      } catch (error) {
+        // En cas d'erreur (url malformée), retourne baseUrl
+        return baseUrl;
+      }
+
+      return baseUrl;
     },
   },
 };
