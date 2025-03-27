@@ -21,8 +21,8 @@ import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
 import { useCart } from "_/app/hooks/cart";
 import { CartComponents } from "./CartComponents";
-import { useDispatch } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthModule, UsersModule } from "_/store/src/modules";
 import { ModalComponent } from "_/components/custom/modal";
 import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
@@ -36,6 +36,7 @@ import { BsSend } from "react-icons/bs";
 const Header = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { user } = useSelector(UsersModule.selectors.userSelector);
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
@@ -69,13 +70,13 @@ const Header = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (session && session?.access_token) {
+    if (session && session?.access_token && session?.refresh_token) {
       const decodeToken = decrypt(session?.access_token);
+      const decodeRefreshToken = decrypt(session?.refresh_token);
       dispatch(AuthModule.actions.setAccessToken(decodeToken));
-    } else {
-      dispatch(AuthModule.actions.clearAccessToken());
+      dispatch(AuthModule.actions.setRefreshToken(decodeRefreshToken));
     }
-  }, []);
+  }, [session?.access_token, session?.refresh_token]);
 
   useEffect(() => {
     if (
@@ -86,6 +87,7 @@ const Header = ({ children }: { children: ReactNode }) => {
       signOut({
         callbackUrl: `${process.env.NEXTAUTH_URL}`,
       });
+      dispatch(AuthModule.actions.clearKeys());
     }
   }, [session, status]);
 
@@ -138,7 +140,6 @@ const Header = ({ children }: { children: ReactNode }) => {
               />
             ) : (
               <Avatar
-                name={session?.user?.name || ""}
                 onClick={() =>
                   router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
                 }
@@ -190,7 +191,6 @@ const Header = ({ children }: { children: ReactNode }) => {
           removeItem={removeFromCart}
           clearAllCartItems={clearAllCartItems}
           loading={loading}
-          name={session?.user?.name ?? ""}
         />
       ) : (
         <MobileMenu

@@ -14,12 +14,12 @@ export async function GET() {
       return new Response("ID token is missing or invalid.", { status: 400 });
     }
 
-    if (!process.env.LOGOUT_URL) {
+    if (!process.env.NEXT_PUBLIC_LOGOUT_URL) {
       return new Response("LOGOUT_URL is not configured.", { status: 500 });
     }
 
     try {
-      const logoutUrl = `${process.env.LOGOUT_URL}?id_token_hint=${idToken}&post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}`;
+      const logoutUrl = `${process.env.NEXT_PUBLIC_LOGOUT_URL}?id_token_hint=${idToken}&post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}`;
       await axios.get(logoutUrl);
     } catch (err) {
       return new Response("Logout request failed.", { status: 400 });

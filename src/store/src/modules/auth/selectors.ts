@@ -7,5 +7,8 @@ export const getAuthUserSelector = (state: RootState) =>
 export const accessToken = (state: RootState) =>
   state[Constant.AUTH_KEY_IN_STORE].access_token;
 
+export const refreshToken = (state: RootState) =>
+  state[Constant.AUTH_KEY_IN_STORE].refresh_token;
+
 export const authSelector = (state: RootState) =>
   state[Constant.AUTH_KEY_IN_STORE];

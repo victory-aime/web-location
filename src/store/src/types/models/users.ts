@@ -12,7 +12,7 @@ export interface IStore {
 export interface IUser {
   id?: string;
   firstName?: string;
-  lastName?: string;
+  name?: string;
   email?: string;
   phone?: string;
   address?: string;

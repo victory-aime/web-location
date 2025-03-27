@@ -27,4 +27,5 @@ export interface User {
 export interface AuthState {
   currentUser: User | null;
   access_token: string | null;
+  refresh_token: string | null;
 }

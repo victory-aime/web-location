@@ -26,7 +26,6 @@ const ProfilePage = () => {
         return <Favourite />;
       case 4:
         return <Settings />;
-
       default:
         return <Profile />;
     }

@@ -17,6 +17,9 @@ import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 import { keycloakSessionLogOut } from "_/app/hooks/logout";
 import { signIn, signOut } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
+import { clearPersistedStorage } from "_/utils/clear.store.utils";
 
 const MobileMenu = ({
   onChange,
@@ -30,6 +33,7 @@ const MobileMenu = ({
   const fakeLink = [{ text: "Accueil", link: "/" }];
   const router = useRouter();
   const contentRef = useRef<React.RefObject<HTMLElement> | any>(null);
+  const dispatch = useDispatch();
 
   return (
     <DrawerRoot
@@ -94,6 +98,8 @@ const MobileMenu = ({
                   signOut({ callbackUrl: process.env.NEXTAUTH_URL })
                 );
                 onChange(false);
+                dispatch(AuthModule.actions.clearKeys());
+                clearPersistedStorage();
               } else {
                 signIn("keycloak", { callbackUrl: process.env.NEXTAUTH_URL });
                 onChange(false);

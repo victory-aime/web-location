@@ -9,7 +9,7 @@ const persistConfig = {
   key: "root",
   storage:
     typeof window !== "undefined" ? storage : (null as unknown as Storage),
-  //blacklist: ["products"],
+  whitelist: [],
 };
 
 export type RootState = {

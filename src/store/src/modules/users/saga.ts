@@ -2,9 +2,10 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import * as Constants from "./constants";
 import { apiCall } from "_store/src/services/apiService";
 import APIS from "_store/src/endpoints";
-import { handleApiError } from "_utils/handleApis";
+import { handleApiError, handleApiSuccess } from "_utils/handleApis";
 import * as USERS_ACTION_TYPES from "./actions.types";
 import isApiError from "_utils/isApisError";
+import { ToastStatus } from "_/components/custom/toast/interface/toats";
 
 export function* userInfo(action: any): Generator {
   try {
@@ -25,6 +26,29 @@ export function* userInfo(action: any): Generator {
   }
 }
 
+export function* updateUser(
+  action: USERS_ACTION_TYPES.UpdateUserInfo
+): Generator {
+  try {
+    const apiConfig = APIS().USERS.UPDATE_USER;
+    const response = yield call(apiCall, apiConfig, action?.payload);
+    handleApiSuccess(response, ToastStatus.INFO);
+    yield put({
+      type: Constants.UPDATE_USER_REQUEST_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.UPDATE_USER_REQUEST_FAILED,
+      payload: error,
+    });
+  }
+}
+
 export function* userSaga(): Generator {
   yield takeLatest(Constants.USER_INFO_REQUEST, userInfo);
+  yield takeLatest(Constants.UPDATE_USER_REQUEST, updateUser);
 }

@@ -17,6 +17,7 @@ export class AuthModule implements IStateModule {
     return {
       currentUser: null,
       access_token: null,
+      refresh_token: null,
     };
   }
 }

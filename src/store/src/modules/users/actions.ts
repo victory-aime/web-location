@@ -1,9 +1,9 @@
 import * as Constants from "./constants";
 import { TYPES } from "_store/src";
 
-export const userInfoRequestAction = (email: { email: string }) => ({
+export const userInfoRequestAction = (userId: { userId: string }) => ({
   type: Constants.USER_INFO_REQUEST,
-  payload: email,
+  payload: userId,
 });
 
 export const updateUserRequestInfo = (payload: TYPES.MODELS.USERS.IUser) => ({

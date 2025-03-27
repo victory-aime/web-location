@@ -29,7 +29,7 @@ export const authOptions = {
       } else {
         console.log("Token has expired. Will refresh...");
         try {
-          const refreshedToken = await refreshAccessToken(token);
+          const refreshedToken = await refreshAccessToken(token?.refresh_token);
           console.log("Token is refreshed.");
           return refreshedToken;
         } catch (error) {
@@ -40,32 +40,19 @@ export const authOptions = {
     },
     async session({ session, token }: { session: any; token: any }) {
       session.access_token = encrypt(token.access_token);
+      session.refresh_token = encrypt(token.refresh_token);
       session.roles = token.decoded.realm_access.roles;
       session.id_token = encrypt(token.id_token);
       session.error = token.error;
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      //   // if (url?.startsWith("/")) {
-      //   //   return `${baseUrl}/redirect`;
-      //   // }
-      //   // return url?.startsWith(baseUrl) ? url : baseUrl;
-
-      //return url ? url : baseUrl;
-
-      // Rediriger vers une page spécifique après connexion ou déconnexion
-      // Si url est indéfini, on retourne directement baseUrl
       if (!url) return baseUrl;
-
-      // Si l'url commence par /home, on ajoute le baseUrl devant
       if (url.startsWith("/home")) return `${baseUrl}${url}`;
-
-      // Essaye de créer l'objet URL et vérifie son origine
       try {
         const parsedUrl = new URL(url);
         if (parsedUrl.origin === baseUrl) return url;
       } catch (error) {
-        // En cas d'erreur (url malformée), retourne baseUrl
         return baseUrl;
       }
 

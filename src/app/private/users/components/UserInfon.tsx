@@ -1,16 +1,19 @@
-import { Box, Flex, VStack, Text, Separator } from "@chakra-ui/react";
+import { Box, Flex, VStack, Separator } from "@chakra-ui/react";
 import { keycloakSessionLogOut } from "_/app/hooks/logout";
-import { BaseText } from "_/components/custom/base-text";
+import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
 import { Avatar } from "_/components/ui/avatar";
-import { TYPES } from "_/store/src";
+import { AuthModule, UsersModule } from "_/store/src/modules";
 import { hexToRGB } from "_/theme/colors";
+import { clearPersistedStorage } from "_/utils/clear.store.utils";
 import { signOut, useSession } from "next-auth/react";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { BsCart, BsHeart } from "react-icons/bs";
 import { HiOutlineUser } from "react-icons/hi2";
 import { IoIosCog } from "react-icons/io";
 import { LuMapPin } from "react-icons/lu";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 interface Props {
   currentStep: number | string | null;
@@ -18,11 +21,18 @@ interface Props {
 }
 
 const UserInfo = ({ currentStep, onChangeStep }: Props) => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
+  const { user } = useSelector(UsersModule.selectors.userSelector);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const renderStepMap = [
     {
       icon: <HiOutlineUser />,
       title: "Informations personnelles",
+    },
+    {
+      icon: <BsCart />,
+      title: "Mes commandes",
     },
     {
       icon: <LuMapPin />,
@@ -35,10 +45,6 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
     {
       icon: <IoIosCog />,
       title: "Parametres",
-    },
-    {
-      icon: <BsCart />,
-      title: "Mes commandes",
     },
   ];
 
@@ -59,10 +65,12 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
         alignItems={"center"}
         gap={2}
       >
-        <Avatar size={"xl"} />
+        <Avatar size={"xl"} name={user?.name + " " + user?.firstName} />
         <Box>
           <BaseText>Bonjour,👋</BaseText>
-          <Text>{session?.user?.name}</Text>
+          <BaseText variant={TextVariant.S}>
+            {user?.name + " " + user?.firstName}
+          </BaseText>
         </Box>
       </Box>
       <Separator mt={4} mb={4} />
@@ -99,13 +107,19 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
 
         {status === "authenticated" && (
           <BaseButton
-            onClick={() =>
-              keycloakSessionLogOut().then(() =>
-                signOut({ callbackUrl: process.env.NEXTAUTH_URL })
-              )
-            }
+            mt={"30px"}
+            onClick={() => {
+              keycloakSessionLogOut().then(() => {
+                signOut({ callbackUrl: process.env.NEXTAUTH_URL });
+                setLoading(false);
+              });
+              dispatch(AuthModule.actions.clearKeys());
+              setLoading(true);
+              clearPersistedStorage();
+            }}
             width={"full"}
             colorType={"danger"}
+            isLoading={loading}
             withGradient
           >
             Deconnexion

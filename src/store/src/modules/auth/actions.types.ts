@@ -5,11 +5,16 @@ export interface SetAccessTokenRequestAction {
   payload: string;
 }
 
-export interface ClearAccessTokenRequestAction {
-  type: typeof Constants.CLEAR_ACCESS_TOKEN;
+export interface SetRefreshTokenRequestAction {
+  type: typeof Constants.SET_REFRESH_TOKEN;
   payload: string;
+}
+
+export interface ClearKeysRequestAction {
+  type: typeof Constants.CLEAR_KEYS;
 }
 
 export type AuthActionTypes =
   | SetAccessTokenRequestAction
-  | ClearAccessTokenRequestAction;
+  | SetRefreshTokenRequestAction
+  | ClearKeysRequestAction;

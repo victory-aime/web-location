@@ -1,20 +1,20 @@
 export const APP_ROUTES = {
   PUBLIC: {
-    FORGOT_PASSWORD: "/home/public/auth/forgot-password",
-    LEGAL_NOTICE: "/home/public-private/legal-notice",
-    TERMS_CONDITIONS: "/home/public/terms-conditions",
-    SECURITY_MENTION: "/home/public-private/security-mention",
+    FORGOT_PASSWORD: "/home/auth/forgot-password",
+    LEGAL_NOTICE: "/home-private/legal-notice",
+    TERMS_CONDITIONS: "/home/terms-conditions",
+    SECURITY_MENTION: "/home-private/security-mention",
     PRODUCTS_LIST: {
-      LIST: "/home/public/products",
-      DETAILS: "/home/public/products/details",
+      LIST: "/home/products",
+      DETAILS: "/home/products/details",
       CART: {
-        OVERVIEW: "/home/public/products/cart/overview",
-        PROCESS: "/home/public/products/cart/process",
+        OVERVIEW: "/home/products/cart/overview",
+        PROCESS: "/home/products/cart/process",
       },
     },
     HOME: "/home",
-    SIGN_UP: "/home/public/auth/register",
-    SIGN_IN: "/home/public/auth/login",
+    SIGN_UP: "/home/auth/register",
+    SIGN_IN: "/home/auth/login",
   },
   PRIVATE: {
     HOME: "/",

@@ -20,7 +20,6 @@ const WebDisplay = ({
   loading,
   isLoggedIn,
   setInfoModal,
-  name,
 }: {
   cart: any[];
   removeItem: (item: { id: string; name: string }) => void;
@@ -28,7 +27,6 @@ const WebDisplay = ({
   loading: boolean;
   isLoggedIn: boolean;
   setInfoModal: (value: boolean) => void;
-  name: string | undefined;
 }) => {
   const router = useRouter();
 
@@ -106,7 +104,7 @@ const WebDisplay = ({
           <BaseButton
             onClick={() =>
               signIn("keycloak", {
-                //callbackUrl: `${process.env.REDIRECT_URL}`,
+                callbackUrl: `${process.env.NEXTAUTH_URL}`,
               })
             }
             colorType={"primary"}
@@ -115,7 +113,6 @@ const WebDisplay = ({
           </BaseButton>
         ) : (
           <Avatar
-            name={name}
             boxSize={"45px"}
             cursor={"pointer"}
             onClick={() =>

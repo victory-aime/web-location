@@ -5,6 +5,11 @@ export const setAccessToken = (access_token: string) => ({
   payload: access_token,
 });
 
-export const clearAccessToken = () => ({
-  type: Constants.CLEAR_ACCESS_TOKEN,
+export const setRefreshToken = (refresh_token: string) => ({
+  type: Constants.SET_REFRESH_TOKEN,
+  payload: refresh_token,
+});
+
+export const clearKeys = () => ({
+  type: Constants.CLEAR_KEYS,
 });
