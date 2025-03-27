@@ -9,12 +9,14 @@ interface IBoxProps extends BoxProps {
   title?: string;
   description?: string;
   buttonTitle?: string;
+  onClick?: () => void;
 }
 
 const BoxContainer = ({
   title,
   description,
   buttonTitle,
+  onClick,
   children,
   ...rest
 }: IBoxProps) => {
@@ -30,8 +32,12 @@ const BoxContainer = ({
           <BaseText variant={TextVariant.S}>{description}</BaseText>
         </Stack>
         {buttonTitle && (
-          <BaseButton colorType={"primary"} leftIcon={<FaPlus size={"18px"} />}>
-            <BaseText>Nouvelle addresse</BaseText>
+          <BaseButton
+            onClick={onClick}
+            colorType={"primary"}
+            leftIcon={<FaPlus size={"18px"} />}
+          >
+            <BaseText>{buttonTitle}</BaseText>
           </BaseButton>
         )}
       </Flex>

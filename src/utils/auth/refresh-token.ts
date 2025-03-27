@@ -17,11 +17,14 @@ export async function refreshAccessToken(refresh_token: any) {
 
   const refreshToken = resp.data;
 
+  console.log("resfreh token ====> ", refreshToken);
+
   return {
     ...refresh_token,
     access_token: refreshToken.access_token,
     decoded: jwtDecode(refreshToken.access_token),
     id_token: refreshToken.id_token,
+    keycloakId: refreshToken.decode.sub,
     expires_at: Math.floor(Date.now() / 1000) + refreshToken.expires_in,
     refresh_token: refreshToken.refresh_token,
   };

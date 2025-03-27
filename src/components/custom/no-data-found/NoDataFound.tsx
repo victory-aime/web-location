@@ -3,12 +3,14 @@ import React, { FC } from "react";
 
 interface NoDataFoundProps {
   title?: string;
+  imageType?: "v1" | "v2";
   containerStyle?: BoxProps;
   isPublic?: boolean;
 }
 
 const NoDataFound: FC<NoDataFoundProps> = ({
   title = "Oooup's aucune donnees",
+  imageType = "v1",
   containerStyle,
 }) => {
   return (
@@ -23,7 +25,11 @@ const NoDataFound: FC<NoDataFoundProps> = ({
     >
       <Image
         width={{ base: "100%", md: "20%" }}
-        src={"/assets/svg/no-data-found-V2.svg"}
+        src={
+          imageType === "v1"
+            ? "/assets/svg/no-data-found.svg"
+            : "/assets/svg/no-data-found-V2.svg"
+        }
         alt="no-data-found"
         transition={"filter 0.5s ease, opacity 0.5s ease"}
         draggable={false}

@@ -5,6 +5,7 @@ import { UserActionsTypes } from "./actions.types";
 const initialState: TYPES.MODELS.USERS.UserState = {
   user: null,
   isLoading: false,
+  addressAction: false,
   error: null,
 };
 
@@ -47,6 +48,45 @@ const UsersReducer = (
         isLoading: false,
         error: action.payload,
       };
+
+    case Constants.NEW_SHIPPING_ADDRESS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.NEW_SHIPPING_ADDRESS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        addressAction: true,
+      };
+    case Constants.NEW_SHIPPING_ADDRESS_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        addressAction: false,
+        error: action.payload,
+      };
+
+    case Constants.EDIT_SHIPPING_ADDRESS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.EDIT_SHIPPING_ADDRESS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        addressAction: true,
+        isLoading: false,
+      };
+    case Constants.EDIT_SHIPPING_ADDRESS_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        addressAction: false,
+        error: action.payload,
+      };
+
     case Constants.CLEAR_USER_STORE:
       return initialState;
     default:

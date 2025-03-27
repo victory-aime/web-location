@@ -35,14 +35,14 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (isEmpty(user) || status === "authenticated") {
+    if (isEmpty(user) && status === "authenticated") {
       dispatch(
         UsersModule.actions.userInfoRequestAction({
-          userId: user?.id ?? session?.user?.email ?? "",
+          userId: session?.keycloakId ?? "",
         })
       );
     }
-  }, [status]);
+  }, [status, user]);
 
   useEffect(() => {
     if (!isEmpty(user)) {

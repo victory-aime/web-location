@@ -66,6 +66,18 @@ const APIS = (baseUrl?: string) => {
         method: "PATCH",
         baseUrl,
       }),
+      NEW_ADDRESS: createApiAction({
+        path: "/user/add-shipping-address",
+        pathBase: "SECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
+      EDIT_ADDRESS: createApiAction({
+        path: "/user/update-shipping-address",
+        pathBase: "SECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
     },
     PRODUCTS: {
       GET_PRODUCTS: createApiAction({

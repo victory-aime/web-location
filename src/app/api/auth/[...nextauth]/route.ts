@@ -23,6 +23,7 @@ export const authOptions = {
         token.id_token = account.id_token;
         token.expires_at = account.expires_at;
         token.refresh_token = account.refresh_token;
+        token.sub = account?.sub;
         return token;
       } else if (nowTimeStamp < token.expires_at) {
         return token;
@@ -42,6 +43,7 @@ export const authOptions = {
       session.access_token = encrypt(token.access_token);
       session.refresh_token = encrypt(token.refresh_token);
       session.roles = token.decoded.realm_access.roles;
+      session.keycloakId = token.decoded.sub;
       session.id_token = encrypt(token.id_token);
       session.error = token.error;
       return session;

@@ -28,6 +28,32 @@ export interface UpdateUserInfoFailed extends Action {
   payload: string;
 }
 
+export interface NewShippingAddressRequest extends Action {
+  type: typeof Constants.NEW_SHIPPING_ADDRESS_REQUEST;
+  payload: TYPES.MODELS.USERS.shippingAddress;
+}
+
+export interface NewShippingAddressSuccess extends Action {
+  type: typeof Constants.NEW_SHIPPING_ADDRESS_REQUEST_SUCCESS;
+}
+export interface NewShippingAddressFailed extends Action {
+  type: typeof Constants.NEW_SHIPPING_ADDRESS_REQUEST_FAILED;
+  payload: string;
+}
+
+export interface EditShippingAddressRequest extends Action {
+  type: typeof Constants.EDIT_SHIPPING_ADDRESS_REQUEST;
+  payload: TYPES.MODELS.USERS.shippingAddress;
+}
+
+export interface EditShippingAddressSuccess extends Action {
+  type: typeof Constants.EDIT_SHIPPING_ADDRESS_REQUEST_SUCCESS;
+}
+export interface EditShippingAddressFailed extends Action {
+  type: typeof Constants.EDIT_SHIPPING_ADDRESS_REQUEST_FAILED;
+  payload: string;
+}
+
 export interface ClearStore extends Action {
   type: typeof Constants.CLEAR_USER_STORE;
 }
@@ -39,4 +65,10 @@ export type UserActionsTypes =
   | UpdateUserInfo
   | UpdateUserInfoSuccess
   | UpdateUserInfoFailed
+  | NewShippingAddressRequest
+  | NewShippingAddressSuccess
+  | NewShippingAddressFailed
+  | EditShippingAddressRequest
+  | EditShippingAddressSuccess
+  | EditShippingAddressFailed
   | ClearStore;

@@ -19,6 +19,7 @@ export class UsersModule implements IStateModule {
     return {
       user: null,
       isLoading: false,
+      addressAction: false,
       error: null,
     };
   }

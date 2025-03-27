@@ -9,6 +9,16 @@ export interface IStore {
   deletedAt?: null;
 }
 
+export interface shippingAddress {
+  id?: string;
+  street?: string;
+  city?: string;
+  country?: string;
+  userId?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface IUser {
   id?: string;
   firstName?: string;
@@ -16,11 +26,13 @@ export interface IUser {
   email?: string;
   phone?: string;
   address?: string;
+  shippingAddress?: shippingAddress[];
   store?: IStore;
 }
 
 export interface UserState {
   user: IUser | null;
   isLoading: boolean;
+  addressAction?: boolean;
   error: string | null;
 }
