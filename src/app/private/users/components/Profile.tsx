@@ -7,6 +7,7 @@ import { AuthModule, UsersModule } from "_/store/src/modules";
 import { refreshAccessToken } from "_/utils/auth/refresh-token";
 import { Formik } from "formik";
 import { isEmpty } from "lodash";
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
@@ -35,14 +36,14 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (isEmpty(user) && status === "authenticated") {
+    if (isEmpty(user) && session?.keycloakId && status === "authenticated") {
       dispatch(
         UsersModule.actions.userInfoRequestAction({
           userId: session?.keycloakId ?? "",
         })
       );
     }
-  }, [status, user]);
+  }, [status, user, session]);
 
   useEffect(() => {
     if (!isEmpty(user)) {

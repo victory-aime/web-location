@@ -8,7 +8,7 @@ import { FaPlus } from "react-icons/fa";
 import { categoryData } from "./data/data";
 import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-types";
 import CategoryModal from "./components/CategoryModal";
-import Layout from "_/app/layout/Layout";
+import Layout from "_/app/layout-container/Layout";
 
 const Category = () => {
   const pageSize = 10;

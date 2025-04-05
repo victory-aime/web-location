@@ -78,6 +78,12 @@ const APIS = (baseUrl?: string) => {
         method: "POST",
         baseUrl,
       }),
+      DELETE_ADDRESS: createApiAction({
+        path: "/user/delete-shipping-address",
+        pathBase: "SECURED_API",
+        method: "DELETE",
+        baseUrl,
+      }),
     },
     PRODUCTS: {
       GET_PRODUCTS: createApiAction({

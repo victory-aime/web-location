@@ -13,7 +13,6 @@ import { AuthModule } from "_/store/src/modules";
 const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -31,22 +30,14 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
         lg: isSidebarOpen ? "calc(100% - 230px)" : "calc(100% - 70px)",
       },
     }),
-    [isSidebarOpen],
+    [isSidebarOpen]
   );
 
   return (
     <>
-      <Sidebar
-        currentUser={currentUser ?? undefined}
-        sideToggled={isSidebarOpen}
-        onShowSidebar={toggleSidebar}
-      />
+      <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} />
       <Box {...toggledLayoutStyle}>
-        <Header
-          currentUser={currentUser ?? undefined}
-          sideToggled={false}
-          onShowSidebar={toggleSidebar}
-        />
+        <Header sideToggled={false} onShowSidebar={toggleSidebar} />
         <Container>{children}</Container>
       </Box>
     </>

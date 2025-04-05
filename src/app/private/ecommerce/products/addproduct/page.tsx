@@ -28,7 +28,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { useDispatch } from "react-redux";
 import { AuthModule, ProductModule } from "_store/src/modules";
 import { useSelector } from "react-redux";
-import ProtectedRoute from "_/app/layout/protected/ProtectedRoute";
+import ProtectedRoute from "_/app/layout-container/protected/ProtectedRoute";
 import { TYPES, UTILS } from "_store/src";
 import { GiCancel } from "react-icons/gi";
 import { ProfitCalculator } from "_/app/hooks/profit-calculator";
@@ -39,7 +39,7 @@ const AddProductPage = () => {
   const requestId = useSearchParams()?.get("requestId");
   const responsiveMode = useBreakpointValue({ base: false, md: true });
   const [initialValues, setInitialValues] = useState(
-    TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues,
+    TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues
   );
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const { addProduct, products, isLoading, categories, updateProduct } =
@@ -50,13 +50,13 @@ const AddProductPage = () => {
 
   const existingProductFiles = UTILS.findDynamicIdInList(
     requestId ?? "",
-    products,
+    products
   );
 
   const fetchBase64Images = async () => {
     if (filesUploaded?.length > 0) {
       const base64Images = await Promise.all(
-        filesUploaded?.map((file) => UTILS.fileToBase64(file)),
+        filesUploaded?.map((file) => UTILS.fileToBase64(file))
       );
       setImages(base64Images);
     }
@@ -80,14 +80,14 @@ const AddProductPage = () => {
         })),
       status: values?.status && values?.status[0],
       images,
-      storeId: currentUser?.store?.id ?? "",
+      storeId: currentUser?.store?.id ?? "939cfc00-dc4c-4327-9db9-362d08bcfb52",
     };
     if (requestId) {
       dispatch(
         ProductModule.actions.updateProduct({
           id: requestId,
           ...requestData,
-        }),
+        })
       );
     } else {
       dispatch(ProductModule.actions.createProduct(requestData));
@@ -114,7 +114,7 @@ const AddProductPage = () => {
           (item: { name: string; variantValue: string }) => ({
             name: item?.name,
             value: item?.variantValue,
-          }),
+          })
         ),
         categoryName: [existingProductFiles?.categoryName],
         status: [existingProductFiles.status],

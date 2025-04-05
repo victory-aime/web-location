@@ -54,6 +54,19 @@ export interface EditShippingAddressFailed extends Action {
   payload: string;
 }
 
+export interface DeleteShippingAddressRequest extends Action {
+  type: typeof Constants.DELETE_SHIPPING_ADDRESS_REQUEST;
+  payload: TYPES.MODELS.USERS.shippingAddress;
+}
+
+export interface DeleteShippingAddressSuccess extends Action {
+  type: typeof Constants.DELETE_SHIPPING_ADDRESS_REQUEST_SUCCESS;
+}
+export interface DeleteShippingAddressFailed extends Action {
+  type: typeof Constants.DELETE_SHIPPING_ADDRESS_REQUEST_FAILED;
+  payload: string;
+}
+
 export interface ClearStore extends Action {
   type: typeof Constants.CLEAR_USER_STORE;
 }
@@ -71,4 +84,7 @@ export type UserActionsTypes =
   | EditShippingAddressRequest
   | EditShippingAddressSuccess
   | EditShippingAddressFailed
+  | DeleteShippingAddressRequest
+  | DeleteShippingAddressSuccess
+  | DeleteShippingAddressFailed
   | ClearStore;

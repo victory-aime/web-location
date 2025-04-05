@@ -12,7 +12,7 @@ import {
 } from "./components";
 import { Flex, For, Box } from "@chakra-ui/react";
 import { statData } from "./data/data";
-import Layout from "../../layout";
+import Layout from "../../layout-container";
 
 const Dashoard = () => {
   return (

@@ -25,6 +25,13 @@ export const editNewShippingAddressRequestAction = (
   payload,
 });
 
+export const deleteShippingAddressRequestAction = (addressId: {
+  addressId: string;
+}) => ({
+  type: Constants.DELETE_SHIPPING_ADDRESS_REQUEST,
+  payload: addressId,
+});
+
 export const clearUserStoreRequestAction = () => ({
   type: Constants.CLEAR_USER_STORE,
 });

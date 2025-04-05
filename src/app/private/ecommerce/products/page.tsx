@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "_/app/config/routes";
 import { CommonTabs } from "_/components/custom/tabs/Tabs";
-import Layout from "_/app/layout/Layout";
+import Layout from "_/app/layout-container/Layout";
 
 const ProductPage = () => {
   const router = useRouter();

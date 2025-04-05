@@ -15,7 +15,7 @@ import {
   OrdersTable,
 } from "./components";
 import { IoMdDoneAll } from "react-icons/io";
-import Layout from "_/app/layout/Layout";
+import Layout from "_/app/layout-container/Layout";
 
 const OrderPage = () => {
   const router = useRouter();

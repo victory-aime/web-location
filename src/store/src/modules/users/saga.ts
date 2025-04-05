@@ -92,9 +92,38 @@ export function* editAddress(
   }
 }
 
+export function* deleteAddress(
+  action: USERS_ACTION_TYPES.DeleteShippingAddressRequest
+): Generator {
+  try {
+    const apiConfig = APIS().USERS.DELETE_ADDRESS;
+    const response = yield call(
+      apiCall,
+      apiConfig,
+      null,
+      action?.payload,
+      false
+    );
+    handleApiSuccess(response, ToastStatus.WARNING);
+    yield put({
+      type: Constants.DELETE_SHIPPING_ADDRESS_REQUEST_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error);
+    }
+    yield put({
+      type: Constants.DELETE_SHIPPING_ADDRESS_REQUEST_FAILED,
+      payload: error,
+    });
+  }
+}
+
 export function* userSaga(): Generator {
   yield takeLatest(Constants.USER_INFO_REQUEST, userInfo);
   yield takeLatest(Constants.UPDATE_USER_REQUEST, updateUser);
   yield takeLatest(Constants.NEW_SHIPPING_ADDRESS_REQUEST, newAddress);
   yield takeLatest(Constants.EDIT_SHIPPING_ADDRESS_REQUEST, editAddress);
+  yield takeLatest(Constants.DELETE_SHIPPING_ADDRESS_REQUEST, deleteAddress);
 }

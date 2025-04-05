@@ -1,5 +1,5 @@
 import { HStack, IconButton } from "@chakra-ui/react";
-import { IMobileSidebar } from "_/app/layout/sidebar/types";
+import { IMobileSidebar } from "_/app/layout-container/sidebar/types";
 import { BaseButton } from "_/components/custom/button";
 import {
   DrawerActionTrigger,

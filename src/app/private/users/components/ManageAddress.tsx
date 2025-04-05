@@ -21,6 +21,7 @@ const ManageAddress = () => {
   );
   const { data: session } = useSession();
   const [open, setOpen] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] =
     useState<TYPES.MODELS.USERS.shippingAddress>();
   const [initialValues, setInitialValues] =
@@ -50,6 +51,13 @@ const ManageAddress = () => {
     if (addressAction) {
       dispatch(UsersModule.actions.clearUserStoreRequestAction());
       setOpen(false);
+      setOpenDelete(false);
+      setSelectedAddress({});
+      setInitialValues({
+        city: "",
+        country: "",
+        street: "",
+      });
     }
   }, [addressAction]);
 
@@ -62,8 +70,6 @@ const ManageAddress = () => {
       );
     }
   }, [user]);
-
-  console.log("values", initialValues);
 
   return (
     <BoxContainer
@@ -99,6 +105,7 @@ const ManageAddress = () => {
                   >
                     <BaseButton
                       bg={"gray"}
+                      width={"85px"}
                       onClick={() => {
                         setOpen(true);
                         setSelectedAddress(item);
@@ -112,7 +119,15 @@ const ManageAddress = () => {
                     >
                       edit
                     </BaseButton>
-                    <BaseButton colorType={"danger"}>Delete</BaseButton>
+                    <BaseButton
+                      colorType={"danger"}
+                      onClick={() => {
+                        setOpenDelete(true);
+                        setSelectedAddress(item);
+                      }}
+                    >
+                      Delete
+                    </BaseButton>
                   </VStack>
                 </HStack>
                 <Separator mt={3} mb={3} />
@@ -149,6 +164,28 @@ const ManageAddress = () => {
           </ModalComponent>
         )}
       </Formik>
+      <ModalComponent
+        title={"Information"}
+        open={openDelete}
+        onChange={() => setOpenDelete(false)}
+        onClick={() => {
+          dispatch(
+            UsersModule.actions.deleteShippingAddressRequestAction({
+              addressId: selectedAddress?.id ?? "",
+            })
+          );
+          console.log("address delete", selectedAddress);
+        }}
+        ignoreFooter={false}
+        buttonSaveTitle="confimer"
+        isLoading={isLoading}
+        modalType="alertdialog"
+      >
+        <BaseText lineHeight={1.5} variant={TextVariant.L} textAlign={"center"}>
+          Etes vous sur de vouloir supprimer cette addresse cette action est
+          irreverssible?
+        </BaseText>
+      </ModalComponent>
     </BoxContainer>
   );
 };

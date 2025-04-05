@@ -87,6 +87,25 @@ const UsersReducer = (
         error: action.payload,
       };
 
+    case Constants.DELETE_SHIPPING_ADDRESS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case Constants.DELETE_SHIPPING_ADDRESS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        addressAction: true,
+        isLoading: false,
+      };
+    case Constants.DELETE_SHIPPING_ADDRESS_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        addressAction: false,
+        error: action.payload,
+      };
+
     case Constants.CLEAR_USER_STORE:
       return initialState;
     default:
