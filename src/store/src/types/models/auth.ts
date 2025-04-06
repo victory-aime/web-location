@@ -28,4 +28,7 @@ export interface AuthState {
   currentUser: User | null;
   access_token: string | null;
   refresh_token: string | null;
+  loading: boolean;
+  success: boolean;
+  error: string | null;
 }

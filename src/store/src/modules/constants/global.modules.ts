@@ -7,6 +7,7 @@ import { authModuleInstance } from "_/store/src/modules/auth";
 import { loaderModuleInstance } from "_/store/src/modules/loader";
 import { productsModuleInstance } from "_store/src/modules/products";
 import { usersModuleInstance } from "_store/src/modules/users";
+import { wishlistModuleInstance } from "_store/src/modules/wishlist";
 
 // Global IStateModule interface
 import { IStateModule } from "_store/src/main/types";
@@ -17,6 +18,7 @@ export const globalModules: IStateModule[] = [
   loaderModuleInstance,
   productsModuleInstance,
   usersModuleInstance,
+  wishlistModuleInstance,
 ];
 
 /**

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Center, VStack, Flex } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
 import { BaseButton } from "_/components/custom/button";
 import { VariablesColors } from "_/theme/variables";
-import Link from "next/link";
 import { CheckBoxFom, FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
 import {
@@ -14,10 +13,13 @@ import {
 import { useRouter } from "next/navigation";
 import { TYPES } from "_/store/src";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import { signIn } from "next-auth/react";
+import { AuthModule } from "_/store/src/modules";
+import { useSelector } from "react-redux";
 
 const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
   const router = useRouter();
+  const { success, loading } = useSelector(AuthModule.selectors.authSelector);
   const dispatch = useDispatch();
 
   const submitValues = async (values: any) => {
@@ -25,19 +27,14 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
       type: selectedRole,
       ...values,
     };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/_api/v1/unsecured/user/register",
-        {
-          ...request,
-        },
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(AuthModule.actions.signUpResquestAction(request));
   };
+
+  useEffect(() => {
+    if (success) {
+      router?.push(APP_ROUTES.PUBLIC.HOME);
+    }
+  }, [success]);
 
   return (
     <Center
@@ -60,7 +57,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
           email: "users@example.com",
           password: "1passworD45!@",
           phone: "12544785",
-          shippingAddress: "Residence Bosh 4000, Sousse",
+          address: "Residence Bosh 4000, Sousse",
           terms: false,
         }}
         onSubmit={submitValues}
@@ -105,7 +102,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
               name={"shippingAddress"}
               label={"Addresse de livraison"}
               placeholder={"Veuillez saisir votre addresse de livraison"}
-              value={values.shippingAddress}
+              value={values.address}
             />
             <FormTextInput
               required
@@ -143,7 +140,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
               onClick={() => {
                 handleSubmit();
               }}
-              isLoading={false}
+              isLoading={loading}
             >
               Creer mon compte
             </BaseButton>
@@ -158,15 +155,15 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
         justifyContent={"center"}
       >
         <BaseText variant={TextVariant.S}>Vous avez deja un compte?</BaseText>
-        <Link href={APP_ROUTES.PUBLIC.SIGN_IN}>
-          <BaseText
-            variant={TextVariant.S}
-            color={VariablesColors.blue}
-            weight={TextWeight.Bold}
-          >
-            Connectez-vous
-          </BaseText>
-        </Link>
+
+        <BaseText
+          variant={TextVariant.S}
+          color={VariablesColors.blue}
+          weight={TextWeight.Bold}
+          onClick={() => signIn()}
+        >
+          Connectez-vous
+        </BaseText>
       </Flex>
     </Center>
   );

@@ -1,3 +1,4 @@
 export * as AUTH from "./auth";
 export * as PRODUCTS from "./products";
-export * as USERS from './users'
+export * as USERS from "./users";
+export * as WISHLIST from "./wishlist";

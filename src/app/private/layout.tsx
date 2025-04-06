@@ -1,7 +1,7 @@
-import { Poppins } from "next/font/google";
-import AppMainEntry from "./app";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Poppins } from "next/font/google";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import AppMainEntry from "../app";
 
 const poppins = Poppins({
   weight: ["400", "900"],

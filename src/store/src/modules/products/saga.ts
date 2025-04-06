@@ -15,7 +15,7 @@ function* getAllProducts(action: any): Generator {
       apiConfig,
       null,
       action?.payload,
-      false,
+      false
     );
     yield put({
       type: Constants.GET_PRODUCTS_SUCCESS,
@@ -32,11 +32,10 @@ function* getAllProducts(action: any): Generator {
   }
 }
 
-function* allPublicProducts(): Generator {
+function* allPublicProducts(action: any): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.PUBLIC_PRODUCTS;
-    //const = getnSession();
-    const response = yield call(apiCall, apiConfig, {}, {}, false);
+    const response = yield call(apiCall, apiConfig, {}, action.payload, false);
     yield put({
       type: Constants.PUBLIC_PRODUCTS_SUCCESS,
       payload: response,
@@ -53,7 +52,7 @@ function* allPublicProducts(): Generator {
 }
 
 function* createProductSaga(
-  action: PRODUCTS_ACTION_TYPES.CreateProductRequest,
+  action: PRODUCTS_ACTION_TYPES.CreateProductRequest
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.CREATE_PRODUCT;
@@ -90,7 +89,7 @@ function* getCategoriesProductSaga(): Generator {
 }
 
 function* updateProduct(
-  action: PRODUCTS_ACTION_TYPES.UpdateProducRequestAction,
+  action: PRODUCTS_ACTION_TYPES.UpdateProducRequestAction
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.UPDATE_PRODUCT;
@@ -109,7 +108,7 @@ function* updateProduct(
 }
 
 function* addedProductToTrash(
-  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest,
+  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.SOFT_DELETE_PRODUCT;
@@ -118,7 +117,7 @@ function* addedProductToTrash(
       apiConfig,
       null,
       action.payload,
-      false,
+      false
     );
     yield put({
       type: Constants.SOFT_DELETE_PRODUCT_SUCCESS,
@@ -136,7 +135,7 @@ function* addedProductToTrash(
 }
 
 function* getAllTrashProductsList(
-  action: PRODUCTS_ACTION_TYPES.TrashRequestList,
+  action: PRODUCTS_ACTION_TYPES.TrashRequestList
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.TRASH_LIST_PRODUCT;
@@ -145,7 +144,7 @@ function* getAllTrashProductsList(
       apiConfig,
       null,
       action.payload,
-      false,
+      false
     );
     yield put({
       type: Constants.TRASH_PRODUCT_LIST_SUCCESS,
@@ -163,7 +162,7 @@ function* getAllTrashProductsList(
 }
 
 function* restoreProducts(
-  action: PRODUCTS_ACTION_TYPES.RestoreProduct,
+  action: PRODUCTS_ACTION_TYPES.RestoreProduct
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.RESTORE_PRODUCT;
@@ -172,7 +171,7 @@ function* restoreProducts(
       apiConfig,
       null,
       action.payload,
-      false,
+      false
     );
     yield put({
       type: Constants.RESTORE_PRODUCT_SUCCESS,
@@ -190,7 +189,7 @@ function* restoreProducts(
 }
 
 function* deleteProducts(
-  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest,
+  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
 ): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.DELETE_PRODUCT;
@@ -199,7 +198,7 @@ function* deleteProducts(
       apiConfig,
       null,
       action.payload,
-      false,
+      false
     );
     handleApiSuccess(response, ToastStatus.INFO);
     yield put({

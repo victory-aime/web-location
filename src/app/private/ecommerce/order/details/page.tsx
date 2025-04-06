@@ -36,7 +36,7 @@ import { ColumnsDataTable } from "_/components/custom/data-table/interface/data-
 import { RenderProductImage } from "../../products/components";
 import { ordersDetailsData } from "../data/data";
 import { CommonDataTable } from "_/components/custom/data-table";
-import ProtectedRoute from "_/app/layout-container/protected/ProtectedRoute";
+import ProtectedRoute from "_/app/layout-container/protected/PrivateDashboardLayout";
 
 const DetailsPage = () => {
   const data = useSearchParams()?.get("orderId");

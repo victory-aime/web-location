@@ -24,7 +24,7 @@ export const RenderProductImage = ({ value }: any) => {
         />
       </Flex>
       <Flex flexDir={"column"} gap={"3px"}>
-        <Text truncate>{value?.name ?? value}</Text>
+        {/* <Text truncate>{value?.name ?? value}</Text> */}
         {value?.variants ? (
           <Text truncate color={"gray.700"}>
             {value?.variants?.length} variant (s)

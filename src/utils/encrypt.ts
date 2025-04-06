@@ -12,9 +12,9 @@ if (!secretKey) {
 const cryptr = new Cryptr(secretKey);
 
 export function encrypt(text: string) {
-  return cryptr.encrypt(text);
+  return cryptr?.encrypt(text);
 }
 
 export function decrypt(encryptedString: string) {
-  return cryptr.decrypt(encryptedString);
+  return cryptr?.decrypt(encryptedString);
 }

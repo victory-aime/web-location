@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RenderProductImage } from "../ecommerce/products/components";
 import DeleteProduct from "../ecommerce/products/components/modal/DeleteProduct";
-import Layout from "../../layout";
+import Layout from "../../layout-container/Layout";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,8 @@ const page = () => {
   useEffect(() => {
     dispatch(
       ProductModule.actions.getTrashProductRequestAction({
-        storeId: currentUser?.store?.id ?? "",
+        storeId:
+          currentUser?.store?.id ?? "939cfc00-dc4c-4327-9db9-362d08bcfb52",
       })
     );
     if (restoreProduct || deleteProduct) {

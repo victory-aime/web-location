@@ -7,7 +7,7 @@ export const resetPrivatePassword = Yup.object().shape({
     .min(12, "le nouveau mot de passe doit contenir 12 caractères")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/,
-      "Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+      "Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial"
     ),
   confirmPassword: Yup.string()
     .required("ce champ est requis")
@@ -28,14 +28,12 @@ export const registerUserValidation = Yup.object().shape({
     .min(12, "Le mot de passe doit contenir au moins 12 caractères")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/,
-      "Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+      "Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial"
     )
     .required("Le mot de passe est requis"),
-  shippingAddress: Yup.string().required(
-    "Votre adresse de livraison est requise",
-  ),
+  address: Yup.string().required("Votre adresse est requise"),
   terms: Yup.boolean().oneOf(
     [true],
-    "Vous devez accepter les termes et conditions",
+    "Vous devez accepter les termes et conditions"
   ),
 });

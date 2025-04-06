@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Center,
-  Flex,
-  Group,
-  IconButton,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { APP_ROUTES } from "_/app/config/routes";
 import { FormTextInput } from "_/components/custom/form";
 import { Formik } from "formik";
@@ -21,42 +14,61 @@ import { ListMenu } from "_assets/svg";
 import { TbUser } from "react-icons/tb";
 import { useCart } from "_/app/hooks/cart";
 import { CartComponents } from "./CartComponents";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthModule, UsersModule } from "_/store/src/modules";
-import { ModalComponent } from "_/components/custom/modal";
+import { useDispatch } from "react-redux";
+import { AuthModule } from "_/store/src/modules";
 import { BaseText, TextVariant } from "_/components/custom/base-text";
 import { BaseButton } from "_/components/custom/button";
 import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
 import { Avatar } from "_/components/ui/avatar";
-import { signOut, useSession, signIn } from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 import { decrypt } from "_/utils/encrypt";
 import { Session } from "next-auth";
 import { BsSend } from "react-icons/bs";
+import ModalInfo from "./ModalInfo";
 
-const Header = ({ children }: { children: ReactNode }) => {
+type Props = {
+  session: Session | null;
+};
+
+const Header = ({ session }: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user } = useSelector(UsersModule.selectors.userSelector);
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
   });
+
   const [open, setOpen] = useState(false);
   const [infoModal, setInfoModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  const { data: session, status } = useSession() as {
-    data: Session | null;
-    status: string;
-  };
+
   const { removeFromCart, clearCart } = useCart();
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const isLoggedIn = !!session;
 
-  const removeItem = (itemToRemove: { name: string; id: string }) => {
+  // 1. Stockage des tokens déchiffrés
+  useEffect(() => {
+    if (session?.access_token && session?.refresh_token) {
+      const decodeToken = decrypt(session.access_token);
+      const decodeRefreshToken = decrypt(session.refresh_token);
+      dispatch(AuthModule.actions.setAccessToken(decodeToken));
+      dispatch(AuthModule.actions.setRefreshToken(decodeRefreshToken));
+    }
+  }, [session]);
+
+  // 2. Déconnexion automatique si erreur de refresh
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` });
+      dispatch(AuthModule.actions.clearKeys());
+    }
+  }, [session]);
+
+  const removeItem = (item: { name: string; id: string }) => {
     setLoading(true);
     setTimeout(() => {
-      removeFromCart(itemToRemove);
+      removeFromCart(item);
       setLoading(false);
     }, 1000);
   };
@@ -69,39 +81,14 @@ const Header = ({ children }: { children: ReactNode }) => {
     }, 1000);
   };
 
-  useEffect(() => {
-    if (session && session?.access_token && session?.refresh_token) {
-      const decodeToken = decrypt(session?.access_token);
-      const decodeRefreshToken = decrypt(session?.refresh_token);
-      dispatch(AuthModule.actions.setAccessToken(decodeToken));
-      dispatch(AuthModule.actions.setRefreshToken(decodeRefreshToken));
-    }
-  }, [session?.access_token, session?.refresh_token]);
-
-  useEffect(() => {
-    if (
-      status !== "loading" &&
-      session &&
-      session?.error === "RefreshAccessTokenError"
-    ) {
-      signOut({
-        callbackUrl: `${process.env.NEXTAUTH_URL}`,
-      });
-      dispatch(AuthModule.actions.clearKeys());
-    }
-  }, [session, status]);
-
   return (
     <Box>
+      {/* Mobile Header */}
       <Box display={{ base: "block", sm: "block", lg: "none" }}>
-        <Flex
-          m={{ base: "3" }}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <Flex alignItems={"center"} gap={5}>
+        <Flex m={3} alignItems="center" justifyContent="space-between">
+          <Flex alignItems="center" gap={5}>
             <IconButton
-              bgColor={"white"}
+              bgColor="white"
               aria-label="menu"
               onClick={() => setOpen(true)}
             >
@@ -109,17 +96,16 @@ const Header = ({ children }: { children: ReactNode }) => {
             </IconButton>
             <BaseText variant={TextVariant.H3}>E-shop</BaseText>
           </Flex>
-          <Flex gap={5} alignItems={"center"} justifyContent={"center"}>
+          <Flex gap={5} alignItems="center">
             <IoIosHeartEmpty
               size={22}
-              onClick={() => {
+              onClick={() =>
                 isLoggedIn
-                  ? router?.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
-                  : setInfoModal(true);
-              }}
-              cursor={"pointer"}
+                  ? router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
+                  : setInfoModal(true)
+              }
+              cursor="pointer"
             />
-
             <CartComponents
               cart={cart}
               removeItem={removeItem}
@@ -128,12 +114,12 @@ const Header = ({ children }: { children: ReactNode }) => {
             />
             {!isLoggedIn ? (
               <BaseButton
-                colorType={"primary"}
+                colorType="primary"
                 withGradient
                 p={0}
                 onClick={() =>
                   signIn("keycloak", {
-                    callbackUrl: `${process.env.NEXTAUTH_URL}`,
+                    callbackUrl: process.env.NEXTAUTH_URL,
                   })
                 }
                 leftIcon={<TbUser size={18} />}
@@ -147,42 +133,41 @@ const Header = ({ children }: { children: ReactNode }) => {
             )}
           </Flex>
         </Flex>
+        {/* Search Bar */}
         <Formik
           initialValues={{ search: "" }}
-          onSubmit={(values) => console.log("values ====>", values)}
+          onSubmit={(values) => console.log(values)}
         >
           {({ values, handleSubmit, setFieldValue }) => (
-            <Flex width={"full"} p={{ base: "3" }}>
+            <Flex width="full" p={3}>
               <FormTextInput
-                name={"search"}
+                name="search"
                 placeholder="Recherchez votre produit"
                 leftAccessory={<RiSearch2Line size={24} />}
                 rightAccessory={
                   <BsSend
-                    cursor={"pointer"}
+                    cursor="pointer"
                     size={18}
-                    onClick={() => {
-                      handleSubmit();
-                    }}
+                    onClick={() => handleSubmit()}
                   />
                 }
-                onChangeFunction={(e: any) => {
-                  setFieldValue("search", e?.target.value);
-                }}
-                value={values?.search}
+                onChangeFunction={(e: any) =>
+                  setFieldValue("search", e.target.value)
+                }
+                value={values.search}
                 onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleSubmit();
-                  }
+                  if (e.key === "Enter") handleSubmit();
                 }}
               />
             </Flex>
           )}
         </Formik>
-        <Box m={{ base: "3" }}>
+        <Box m={3}>
           <BreadcrumbNav />
         </Box>
       </Box>
+
+      {/* Desktop Menu */}
       {responsiveMode ? (
         <WebDisplay
           cart={cart}
@@ -200,48 +185,12 @@ const Header = ({ children }: { children: ReactNode }) => {
         />
       )}
 
-      <ModalComponent
-        title={"Information"}
+      {/* Modal Connexion */}
+      <ModalInfo
         open={infoModal}
         onChange={() => setInfoModal(false)}
-      >
-        <Center flexDir={"column"} gap={5}>
-          <BaseText
-            lineHeight={1.5}
-            variant={TextVariant.L}
-            textAlign={"center"}
-          >
-            Vous devez vous connecter pour accéder à cette fonctionnalité
-          </BaseText>
-
-          <Group width={"full"} gap={5} flexDir={"column"}>
-            <BaseButton
-              width={"full"}
-              colorType="primary"
-              withGradient
-              onClick={() => {
-                router?.push(APP_ROUTES.PUBLIC.SIGN_IN);
-                setInfoModal(false);
-              }}
-            >
-              <BaseText>Se connecter</BaseText>
-            </BaseButton>
-
-            <BaseButton
-              width={"full"}
-              colorType={"secondary"}
-              withGradient
-              onClick={() => {
-                router?.push(APP_ROUTES.PUBLIC.SIGN_UP);
-                setInfoModal(false);
-              }}
-            >
-              <BaseText>Creer un compte</BaseText>
-            </BaseButton>
-          </Group>
-        </Center>
-      </ModalComponent>
-      {children}
+        onClick={() => signIn()}
+      />
     </Box>
   );
 };

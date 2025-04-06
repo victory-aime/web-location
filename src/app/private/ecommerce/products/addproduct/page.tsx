@@ -28,7 +28,7 @@ import { APP_ROUTES } from "_/app/config/routes";
 import { useDispatch } from "react-redux";
 import { AuthModule, ProductModule } from "_store/src/modules";
 import { useSelector } from "react-redux";
-import ProtectedRoute from "_/app/layout-container/protected/ProtectedRoute";
+import ProtectedRoute from "_/app/layout-container/protected/PrivateDashboardLayout";
 import { TYPES, UTILS } from "_store/src";
 import { GiCancel } from "react-icons/gi";
 import { ProfitCalculator } from "_/app/hooks/profit-calculator";

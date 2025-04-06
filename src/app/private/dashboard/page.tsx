@@ -12,11 +12,11 @@ import {
 } from "./components";
 import { Flex, For, Box } from "@chakra-ui/react";
 import { statData } from "./data/data";
-import Layout from "../../layout-container";
+import PrivateDashboardLayout from "_/app/layout-container/protected/PrivateDashboardLayout";
 
 const Dashoard = () => {
   return (
-    <Layout>
+    <PrivateDashboardLayout>
       <Box width={"full"}>
         <Flex gap={8} width={"full"} mt={50} overflowX={"auto"}>
           <For each={statData}>
@@ -58,7 +58,7 @@ const Dashoard = () => {
           <TopCategory />
         </Flex>
       </Box>
-    </Layout>
+    </PrivateDashboardLayout>
   );
 };
 

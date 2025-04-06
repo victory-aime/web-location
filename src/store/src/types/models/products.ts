@@ -24,6 +24,7 @@ export interface IProduct {
   categoryName?: string[] | any;
   status?: any;
   images?: string[] | any[];
+  isInWishlist?: boolean;
   variants?: ProductsVariants[];
 }
 
@@ -55,7 +56,7 @@ export interface IProductState {
   products: IResponseProductList;
   categories?: IProductsCategories[];
   trashList: IResponseProductList;
-  publicProducts: any[];
+  publicProducts: IProduct[];
   isLoading: boolean;
   addProduct: boolean;
   updateProduct: boolean;

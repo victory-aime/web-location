@@ -1,3 +1,5 @@
+import { WISHLIST } from "../types/models";
+
 type MethodType = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 export type APIObjectType = {
   url: string;
@@ -52,7 +54,14 @@ const APIS = (baseUrl?: string) => {
         baseUrl,
       }),
     },
-    AUTH: {},
+    AUTH: {
+      SIGN_UP: createApiAction({
+        path: "/user/register",
+        pathBase: "UNSECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
+    },
     USERS: {
       ME: createApiAction({
         path: "/user/me",
@@ -138,6 +147,26 @@ const APIS = (baseUrl?: string) => {
         path: "/products/restore-product",
         pathBase: "SECURED_API",
         method: "POST",
+        baseUrl,
+      }),
+    },
+    WISHLIST: {
+      GET_WISHLIST: createApiAction({
+        path: "/wishlist/get-wishlist",
+        pathBase: "SECURED_API",
+        method: "GET",
+        baseUrl,
+      }),
+      ADD_WISHLIST_ITEM: createApiAction({
+        path: "/wishlist/add-to-wishlist",
+        pathBase: "SECURED_API",
+        method: "POST",
+        baseUrl,
+      }),
+      REMOVE_WISHLIST_ITEM: createApiAction({
+        path: "/wishlist/remove-from-wishlist",
+        pathBase: "SECURED_API",
+        method: "DELETE",
         baseUrl,
       }),
     },

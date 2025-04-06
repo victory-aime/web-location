@@ -6,6 +6,9 @@ const initialState: TYPES.MODELS.AUTH.AuthState = {
   access_token: null,
   currentUser: null,
   refresh_token: null,
+  loading: false,
+  success: false,
+  error: null,
 };
 
 const AuthReducer = (
@@ -23,6 +26,25 @@ const AuthReducer = (
       return {
         ...state,
         refresh_token: action.payload,
+      };
+    case Constants.SIGN_UP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        currentUser: action?.payload,
+      };
+    case Constants.SIGN_UP_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        currentUser: null,
+      };
+    case Constants.SIGN_UP_REQUEST_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: action?.payload,
       };
 
     case Constants.CLEAR_KEYS:

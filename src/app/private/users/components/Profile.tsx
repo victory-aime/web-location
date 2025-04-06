@@ -7,15 +7,14 @@ import { AuthModule, UsersModule } from "_/store/src/modules";
 import { refreshAccessToken } from "_/utils/auth/refresh-token";
 import { Formik } from "formik";
 import { isEmpty } from "lodash";
-import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-const Profile = () => {
-  const { data: session, status, update } = useSession();
+const Profile = ({ session }: any) => {
+  const { status, update } = useSession();
   const { user } = useSelector(UsersModule.selectors.userSelector);
   const dispatch = useDispatch();
   const { refresh_token } = useSelector(AuthModule.selectors.authSelector);

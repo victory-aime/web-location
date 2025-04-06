@@ -1,10 +1,13 @@
 import { CustomToast } from "_/components/custom/toast/CustomToast";
 import { ToastStatus } from "_/components/custom/toast/interface/toats";
 
-export const handleApiError = (response: {
-  status: number;
-  data: { message: string };
-}) => {
+export const handleApiError = (
+  response: {
+    status: number;
+    data: { message: string };
+  },
+  toastType?: ToastStatus
+) => {
   const statusCode = response?.status || 500;
   const defaultMessage = "Connection Error";
 
@@ -31,13 +34,13 @@ export const handleApiError = (response: {
   CustomToast({
     title,
     description,
-    type: ToastStatus.ERROR,
+    type: toastType || ToastStatus.ERROR,
   });
 };
 
 export const handleApiSuccess = (
   response: { message: string; status: number },
-  toastType?: ToastStatus,
+  toastType?: ToastStatus
 ) => {
   const statusCode = response?.message || response?.status;
   const defaultMessage = "Operation successful";
