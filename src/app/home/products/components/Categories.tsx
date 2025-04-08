@@ -1,16 +1,24 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { CheckBoxFom } from "_/components/custom/form";
+import { ProductModule } from "_/store/src/modules";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Categories = ({ name }: { name: string }) => {
+  const { categories } = useSelector(ProductModule.selectors.productSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (categories?.length === 0) {
+      dispatch(ProductModule.actions.getCategoriesList());
+    }
+  }, []);
+
   return (
     <Box mb={8} width={"full"}>
-      {Array.from({ length: 10 }).map((_, index) => (
-        <Flex key={index} gap={8}>
-          <CheckBoxFom name={name} label={"category"} />
-        </Flex>
-      ))}
+      <CheckBoxFom name={name} items={categories} />
     </Box>
   );
 };

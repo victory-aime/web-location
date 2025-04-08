@@ -10,7 +10,11 @@ const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
   trashList: {
     content: [],
   },
-  publicProducts: [],
+  publicProducts: {
+    content: [],
+    totalDataPerPage: 0,
+    totalPages: 0,
+  },
   isLoading: false,
   addProduct: false,
   updateProduct: false,
@@ -52,7 +56,11 @@ const ProductsReducer = (
       return {
         ...state,
         isLoading: false,
-        publicProducts: action.payload,
+        publicProducts: {
+          content: action.payload.content,
+          totalPages: action?.payload.totalPages,
+          totalDataPerPage: action?.payload.totalDataPerPage,
+        },
       };
     case Constants.PUBLIC_PRODUCTS_FAILED:
       return {

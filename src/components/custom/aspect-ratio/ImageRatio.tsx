@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { IAspectRatioProps } from "./interface/aspect-ratio";
-import { AspectRatio, Image } from "@chakra-ui/react";
+import { AspectRatio, Image, IconButton, Box } from "@chakra-ui/react";
+import { GoTrash } from "react-icons/go";
 
 const ImageRatio: FC<IAspectRatioProps> = ({
   image,
@@ -9,7 +10,7 @@ const ImageRatio: FC<IAspectRatioProps> = ({
   ...rest
 }) => {
   return (
-    <AspectRatio ratio={ratio} width={"full"} {...rest}>
+    <AspectRatio ratio={ratio} width={"full"} position="relative" {...rest}>
       <Image
         src={image}
         alt="image"

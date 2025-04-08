@@ -66,10 +66,7 @@ export const WishlistReducer = (
         error: action.payload,
       };
     case Constants.WISHLIST_CLEAR_STORE:
-      return {
-        ...state,
-        success: false,
-      };
+      return initialState;
     default:
       return state;
   }

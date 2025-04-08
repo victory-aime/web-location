@@ -52,11 +52,17 @@ export interface IShoppingStore {
   price?: string;
 }
 
+export interface IResponPublicProduct {
+  content: IProduct[];
+  totalPages?: number;
+  totalDataPerPage?: number;
+}
+
 export interface IProductState {
   products: IResponseProductList;
   categories?: IProductsCategories[];
   trashList: IResponseProductList;
-  publicProducts: IProduct[];
+  publicProducts: IResponPublicProduct;
   isLoading: boolean;
   addProduct: boolean;
   updateProduct: boolean;

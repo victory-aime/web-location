@@ -34,10 +34,10 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
       icon: <BsCart />,
       title: "Mes commandes",
     },
-    {
-      icon: <LuMapPin />,
-      title: "Gerer mes addresses",
-    },
+    // {
+    //   icon: <LuMapPin />,
+    //   title: "Gerer mes addresses",
+    // },
     {
       icon: <BsHeart />,
       title: "My Wishlist",

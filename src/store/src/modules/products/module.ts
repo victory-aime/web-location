@@ -23,7 +23,7 @@ export class ProductModule implements IStateModule {
       trashList: {
         content: [],
       },
-      publicProducts: [],
+      publicProducts: { content: [], totalPages: 0, totalDataPerPage: 0 },
       isLoading: false,
       categories: [],
       updateProduct: false,

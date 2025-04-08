@@ -57,9 +57,10 @@ export const PublicProductList = ({ session }: any) => {
           </Flex>
           <Box p={{ base: 5, md: 10 }}>
             <CustomProductList
-              products={publicProducts}
+              products={publicProducts?.content}
               initialPage={1}
-              pageSize={8}
+              pageSize={publicProducts?.totalDataPerPage!}
+              totalItems={publicProducts?.totalPages!}
               hidePagination
               lazy
             />

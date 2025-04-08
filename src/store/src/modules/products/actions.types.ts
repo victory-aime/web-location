@@ -23,7 +23,7 @@ export interface PublicProductsRequestAction extends Action {
 
 export interface PublicProductsRequestActionSuccess extends Action {
   type: typeof Constants.PUBLIC_PRODUCTS_SUCCESS;
-  payload: any;
+  payload: TYPES.MODELS.PRODUCTS.IResponPublicProduct;
 }
 
 export interface PublicProductsRequestActionFailed extends Action {

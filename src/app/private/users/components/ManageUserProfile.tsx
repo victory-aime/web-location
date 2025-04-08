@@ -18,11 +18,11 @@ const ManageUserProfile = ({ session }: { session: Session }) => {
         return <Profile session={session} />;
       case 1:
         return <MyOrder />;
+      // case 2:
+      //   return <ManageAddress />;
       case 2:
-        return <ManageAddress />;
+        return <Favourite session={session} />;
       case 3:
-        return <Favourite />;
-      case 4:
         return <Settings />;
       default:
         return <Profile session={session} />;

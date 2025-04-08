@@ -24,7 +24,7 @@ const NoDataFound: FC<NoDataFoundProps> = ({
       {...containerStyle}
     >
       <Image
-        width={{ base: "100%", md: "20%" }}
+        width={{ base: "100%", md: "25%" }}
         src={
           imageType === "v1"
             ? "/assets/svg/no-data-found.svg"

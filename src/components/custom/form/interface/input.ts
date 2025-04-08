@@ -35,7 +35,7 @@ interface FullSelectProps {
   setFieldValue: (
     field: string,
     value: any,
-    shouldValidate?: boolean,
+    shouldValidate?: boolean
   ) => Promise<any>;
   placeholder?: string;
   isDisabled?: boolean;
@@ -54,8 +54,13 @@ interface DefaultProps extends TextInputProps {
 
 interface CheckBoxProps extends HTMLChakraProps<"label"> {
   name: string;
+  label?: string | React.ReactNode;
   validate?: any;
-  label: string | React.ReactNode;
+  items?: {
+    id?: string;
+    name?: string;
+    value?: string;
+  }[];
 }
 
 export type {

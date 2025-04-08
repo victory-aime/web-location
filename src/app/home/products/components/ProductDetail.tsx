@@ -13,9 +13,8 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
-import Header from "../../../components/Header";
 import { UTILS } from "_/store/src";
 import { useSelector } from "react-redux";
 import { ProductModule, WishlistModule } from "_store/src/modules";
@@ -31,14 +30,12 @@ import { saveCartToStorage, useCart } from "_/app/hooks/cart";
 import { BaseText, TextVariant } from "_components/custom/base-text";
 import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 import { useSession } from "next-auth/react";
-import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { IoIosHeart } from "react-icons/io";
 
 const DetailsProducts = ({ session }: { session: any }) => {
   const requestId = useSearchParams()?.get("requestId");
   const dispatch = useDispatch();
-  const router = useRouter();
   const { publicProducts } = useSelector(
     ProductModule.selectors.productSelector
   );
@@ -47,7 +44,11 @@ const DetailsProducts = ({ session }: { session: any }) => {
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(false);
   const { status } = useSession();
-  const findItem = UTILS.findDynamicIdInList(requestId ?? "", publicProducts);
+
+  const findItem = UTILS.findDynamicIdInList(
+    requestId ?? "",
+    publicProducts?.content
+  );
 
   const toggleWishlist = useCallback(() => {
     if (!session?.keycloakId) return;
@@ -68,7 +69,7 @@ const DetailsProducts = ({ session }: { session: any }) => {
     }
   }, [findItem]);
 
-  const findSameCategoriesItem = publicProducts?.filter(
+  const findSameCategoriesItem = publicProducts?.content?.filter(
     (value) =>
       value.categoryName === findItem?.categoryName && value.id !== findItem?.id
   );
@@ -93,13 +94,11 @@ const DetailsProducts = ({ session }: { session: any }) => {
   }, [requestId, findItem, triggerRefresh]);
 
   useEffect(() => {
-    if (isEmpty(publicProducts)) {
-      dispatch(
-        ProductModule.actions.publicProductRequestAction({
-          userId: session?.keycloakId ?? "",
-        })
-      );
-    }
+    dispatch(
+      ProductModule.actions.publicProductRequestAction({
+        userId: session?.keycloakId ?? "",
+      })
+    );
   }, []);
 
   useEffect(() => {

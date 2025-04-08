@@ -1,55 +1,56 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Formik, Form } from "formik";
+import { Formik, FormikValues } from "formik";
 import { Box, Flex, useBreakpointValue, IconButton } from "@chakra-ui/react";
 import { CustomAccordion } from "_/components/custom/accordion/CustomAccordion";
 import { BsFillSendCheckFill } from "react-icons/bs";
-import { FaStoreAlt, FaFirstdraft } from "react-icons/fa";
+import { FaStoreAlt } from "react-icons/fa";
 import { ProductModule } from "_/store/src/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import CustomSkeletonLoader from "_/components/custom/custom-skeleton/CustomSkeletonLoader";
 import Categories from "./Categories";
 import CustomProductList from "./CustomProductList";
-import FilterByColor from "./FilterByColor";
-import FilterBySize from "./FilterBySize";
 import FilterMobileDisplay from "./FilterMobileDisplay";
 import FilterPrice from "./FilterPrice";
+import { BaseButton } from "_/components/custom/button";
 
 const ProductViewList = () => {
   const dispatch = useDispatch();
   const { isLoading, publicProducts } = useSelector(
     ProductModule.selectors.productSelector
   );
-  const pageSize = 6;
-  const [filters, setFilters] = useState({});
   const [open, setOpen] = useState(false);
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
   });
-
-  const totalPages = Math.ceil(publicProducts?.length / pageSize);
+  const [filtersChanged, setFiltersChanged] = useState(false);
 
   useEffect(() => {
-    if (isEmpty(publicProducts)) {
+    if (isEmpty(publicProducts?.content)) {
       dispatch(ProductModule.actions.publicProductRequestAction());
     }
-  }, [filters]);
+  }, []);
 
-  const handleFilterSubmit = (values: any) => {
-    setFilters(values);
+  const handleFilterSubmit = (values: FormikValues) => {
+    const request = {
+      categories: values?.category,
+      minPrice: values?.price[0],
+      maxPrice: values?.price[1],
+    };
+    dispatch(ProductModule.actions.publicProductRequestAction(request));
   };
 
   return (
     <>
-      <Box padding={{ base: 5, lg: 10 }}>
+      <Box padding={{ base: 5, lg: "50px" }}>
         <Flex
           width={"full"}
           alignItems={"flex-start"}
-          gap={5}
+          gap={"30px"}
           flexDir={{ base: "column", lg: "row" }}
         >
           <Box width={"1/3"}>
@@ -65,84 +66,89 @@ const ProductViewList = () => {
               </Flex>
             </Box>
             <Formik
-              initialValues={{ price: "", color: "", size: "", category: "" }}
+              enableReinitialize
+              initialValues={{
+                price: [0, 2000],
+                category: [],
+              }}
               onSubmit={handleFilterSubmit}
             >
-              {({ handleSubmit, setFieldValue }) => (
-                <Form>
-                  {responsiveMode ? (
-                    <CustomAccordion
-                      items={[
-                        {
-                          label: "Catégories",
-                          icon: <BsFillSendCheckFill />,
-                          content: <Categories name="category" />,
-                        },
-                        {
-                          label: "Prix",
-                          icon: <FaStoreAlt />,
-                          content: (
-                            <FilterPrice
-                              name={"price"}
-                              onSliderChange={(value) =>
-                                setFieldValue("price", value)
-                              }
-                            />
-                          ),
-                        },
-                        {
-                          label: "Couleur",
-                          icon: <FaFirstdraft />,
-                          content: <FilterByColor name={"color"} />,
-                        },
-                        {
-                          label: "Taille",
-                          icon: <FaFirstdraft />,
-                          content: <FilterBySize name={"size"} />,
-                        },
-                      ]}
-                    />
-                  ) : (
-                    <FilterMobileDisplay
-                      isOpen={open}
-                      onClose={() => setOpen(false)}
-                      handleSubmit={handleSubmit}
-                    >
-                      <CustomAccordion
-                        items={[
-                          {
-                            label: "Catégories",
-                            icon: <BsFillSendCheckFill />,
-                            content: <Categories name="category" />,
-                          },
-                          {
-                            label: "Prix",
-                            icon: <FaStoreAlt />,
-                            content: (
-                              <FilterPrice
-                                name={"price"}
-                                onSliderChange={(value) =>
-                                  setFieldValue("price", value)
-                                }
-                              />
-                            ),
-                          },
-                          {
-                            label: "Couleur",
-                            icon: <FaFirstdraft />,
-                            content: <FilterByColor name={"color"} />,
-                          },
-                          {
-                            label: "Taille",
-                            icon: <FaFirstdraft />,
-                            content: <FilterBySize name={"size"} />,
-                          },
-                        ]}
-                      />
-                    </FilterMobileDisplay>
-                  )}
-                </Form>
-              )}
+              {({ handleSubmit, setFieldValue, values }) => {
+                useEffect(() => {
+                  setFiltersChanged(
+                    values.category.length > 0 ||
+                      values.price[0] !== 0 ||
+                      values.price[1] !== 2000
+                  );
+                }, [values]);
+                return (
+                  <Box>
+                    {responsiveMode ? (
+                      <>
+                        <CustomAccordion
+                          items={[
+                            {
+                              label: "Catégories",
+                              icon: <BsFillSendCheckFill />,
+                              content: <Categories name="category" />,
+                            },
+                            {
+                              label: "Prix",
+                              icon: <FaStoreAlt />,
+                              content: (
+                                <FilterPrice
+                                  name={"price"}
+                                  onSliderChange={(value) =>
+                                    setFieldValue("price", value)
+                                  }
+                                />
+                              ),
+                            },
+                          ]}
+                        />
+                        {filtersChanged && (
+                          <BaseButton
+                            width={"full"}
+                            colorType="secondary"
+                            isLoading={isLoading}
+                            onClick={() => handleSubmit()}
+                          >
+                            Appliquer les filtres
+                          </BaseButton>
+                        )}
+                      </>
+                    ) : (
+                      <FilterMobileDisplay
+                        isOpen={open}
+                        onClose={() => setOpen(false)}
+                        handleSubmit={handleSubmit}
+                      >
+                        <CustomAccordion
+                          items={[
+                            {
+                              label: "Catégories",
+                              icon: <BsFillSendCheckFill />,
+                              content: <Categories name="category" />,
+                            },
+                            {
+                              label: "Prix",
+                              icon: <FaStoreAlt />,
+                              content: (
+                                <FilterPrice
+                                  name={"price"}
+                                  onSliderChange={(value) =>
+                                    setFieldValue("price", value)
+                                  }
+                                />
+                              ),
+                            },
+                          ]}
+                        />
+                      </FilterMobileDisplay>
+                    )}
+                  </Box>
+                );
+              }}
             </Formik>
           </Box>
 
@@ -151,11 +157,11 @@ const ProductViewList = () => {
               <CustomSkeletonLoader type="PRODUCT_LIST_CARD" />
             ) : (
               <CustomProductList
-                products={publicProducts}
+                products={publicProducts?.content}
                 initialPage={1}
-                totalItems={totalPages}
-                pageSize={pageSize}
-                hidePagination={totalPages <= 1}
+                totalItems={publicProducts?.totalPages}
+                pageSize={publicProducts.totalDataPerPage!}
+                hidePagination={publicProducts?.totalPages! <= 1}
                 lazy
               />
             )}

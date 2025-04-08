@@ -6,9 +6,9 @@ export const getAllProductsRequestAction = (storeId: { storeId: string }) => ({
   payload: storeId,
 });
 
-export const publicProductRequestAction = (userId?: { userId: string }) => ({
+export const publicProductRequestAction = (payload?: any) => ({
   type: Constants.PUBLIC_PRODUCTS,
-  payload: userId,
+  payload,
 });
 
 export const deleteProductRequest = (productId: { productId: string }) => ({

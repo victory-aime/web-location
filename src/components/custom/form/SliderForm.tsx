@@ -1,8 +1,9 @@
-import { Field, Flex, FormatNumber, Text } from "@chakra-ui/react";
+import { Field, Flex, Text } from "@chakra-ui/react";
 import { Slider } from "_/components/ui/slider";
 import { useField } from "formik";
 import React, { FC } from "react";
 import { DefaultProps } from "./interface/input";
+import { CustomFormatNumber } from "../format-number";
 
 const SliderForm: FC<DefaultProps> = ({
   name,
@@ -36,19 +37,9 @@ const SliderForm: FC<DefaultProps> = ({
             <Text color={"red"}> * </Text>
           ) : isNumber ? (
             <Flex ml={3} gap={2} alignItems={"center"}>
-              <FormatNumber
-                value={field.value}
-                currency="USD"
-                notation="compact"
-                style={"currency"}
-              />
+              <CustomFormatNumber value={field?.value[0]} />
               -
-              <FormatNumber
-                value={max}
-                currency="USD"
-                notation="compact"
-                style={"currency"}
-              />
+              <CustomFormatNumber value={field?.value[1]} />
             </Flex>
           ) : null}
         </Field.Label>
@@ -58,16 +49,15 @@ const SliderForm: FC<DefaultProps> = ({
         {...field}
         width="full"
         name={field.name}
-        defaultValue={[min]}
-        value={[field.value]}
+        value={field.value}
         onFocusChange={({ focusedIndex, value }) => {
           if (focusedIndex !== -1) return;
-          setValue(value[0]);
-          onChangeFunction?.(value[0]);
+          setValue(value);
+          onChangeFunction?.(value);
         }}
         onValueChange={({ value }) => {
-          setValue(value[0]);
-          onChangeFunction?.(value[0]);
+          setValue(value);
+          onChangeFunction?.(value);
         }}
         min={min}
         max={max}

@@ -8,9 +8,10 @@ import {
 import { keyframes } from "_/theme/animations";
 import { HStack } from "@chakra-ui/react";
 import "../animation/animation.css";
+import { LoadingDots } from "../animation/loadingDots";
 
 const getVariantStyles: any = (
-  colorType: variantColorType,
+  colorType: variantColorType
 ): VariantColorStyle => {
   switch (colorType) {
     case "primary":
@@ -57,7 +58,7 @@ const getVariantStyles: any = (
 };
 
 const getVariantFromStatus = (
-  status?: string,
+  status?: string
 ): variantColorType | undefined => {
   switch (status) {
     case "active":
@@ -85,7 +86,7 @@ export const BaseButton: FC<ButtonBaseProps> = ({
     : colorType || "none";
 
   const { bg, gradient, hover, textColor } = getVariantStyles(
-    resolvedVariant || "none",
+    resolvedVariant || "none"
   );
 
   const animationMap: Record<string, string> = {
@@ -109,7 +110,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             padding={"20px"}
             loading={isLoading}
             disabled={isLoading}
-            loadingText={"patientez..."}
+            loadingText={"patientez"}
+            spinner={<LoadingDots />}
             spinnerPlacement={"end"}
             animation={animation ? animationMap[animation] : undefined}
             {...rest}
@@ -133,7 +135,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
             padding={"20px"}
             loading={isLoading}
             disabled={isLoading}
-            loadingText={"patientez..."}
+            loadingText={"patientez"}
+            spinner={<LoadingDots />}
             spinnerPlacement={"end"}
             animation={animation ? animationMap[animation] : undefined}
             {...rest}
@@ -156,7 +159,8 @@ export const BaseButton: FC<ButtonBaseProps> = ({
           borderRadius="7px"
           loading={isLoading}
           disabled={isLoading}
-          loadingText="patientez..."
+          loadingText="patientez"
+          spinner={<LoadingDots />}
           spinnerPlacement="end"
           animation={animation ? animationMap[animation] : undefined}
           {...rest}
