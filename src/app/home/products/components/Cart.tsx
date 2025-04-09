@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useCart } from "_app/hooks/cart";
 import {
   Box,
@@ -27,6 +27,7 @@ import ImageRatio from "_/components/custom/aspect-ratio/ImageRatio";
 
 const Cart = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false)
   const {
     cart,
     fetchCartFromStorage,
@@ -39,6 +40,7 @@ const Cart = () => {
     fetchCartFromStorage().then((data) => {
       setCart(data);
     });
+    setLoading(false)
   }, [triggerRefresh]);
 
   if (cart?.length === 0) {
@@ -135,8 +137,9 @@ const Cart = () => {
                       leftIcon={<TrashIcon fill={"#fff"} />}
                       onClick={() => {
                         removeFromCart(item);
+                        setLoading(true)
                       }}
-                      isLoading={triggerRefresh}
+                      isLoading={loading}
                     >
                       <BaseText variant={TextVariant.XS}>Delete</BaseText>
                     </BaseButton>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Session } from "next-auth";
 
 export interface IMobileSidebar {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export type subItems = SimpleSubItem[];
 export interface SideBarProps {
   onShowSidebar: () => void;
   sideToggled: boolean;
+  session: Session;
 }
 
 export interface SimpleSubItem {

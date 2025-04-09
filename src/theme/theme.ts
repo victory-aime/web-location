@@ -11,6 +11,10 @@ const config = defineConfig({
     tokens: {
       animations,
       colors,
+      fonts: {
+        heading: { value: "var(--font-bricolage)" },
+        body: { value: "var(--font-bricolage)" },
+      },
     },
   },
 });

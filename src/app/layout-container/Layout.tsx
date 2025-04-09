@@ -1,19 +1,24 @@
 "use client";
 
 import { Box } from "@chakra-ui/react";
-import React, { FunctionComponent, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 
 import Container from "./container";
 import Header from "./header";
 import { layoutStyle } from "./layout.styles";
 import Sidebar from "./sidebar";
-import { useSelector } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
+import { Session } from "next-auth";
+import { decrypt } from "_utils/encrypt";
+import { useDispatch } from "react-redux";
+import { AuthModule } from "_store/src/modules";
+import { signOut } from "next-auth/react";
 
-const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const Layout: FunctionComponent<{
+  children: React.ReactNode;
+  session: Session;
+}> = ({ children, session }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const dispatch = useDispatch();
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
@@ -30,14 +35,40 @@ const Layout: FunctionComponent<{ children: React.ReactNode }> = ({
         lg: isSidebarOpen ? "calc(100% - 230px)" : "calc(100% - 70px)",
       },
     }),
-    [isSidebarOpen]
+    [isSidebarOpen],
   );
+
+  useEffect(() => {
+    if (session?.access_token && session?.refresh_token) {
+      const decodeToken = decrypt(session.access_token);
+      const decodeRefreshToken = decrypt(session.refresh_token);
+      dispatch(AuthModule.actions.setAccessToken(decodeToken));
+      dispatch(AuthModule.actions.setRefreshToken(decodeRefreshToken));
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` }).then((r) =>
+        console.log(r),
+      );
+      dispatch(AuthModule.actions.clearKeys());
+    }
+  }, [session]);
 
   return (
     <>
-      <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} />
+      <Sidebar
+        sideToggled={isSidebarOpen}
+        onShowSidebar={toggleSidebar}
+        session={session}
+      />
       <Box {...toggledLayoutStyle}>
-        <Header sideToggled={false} onShowSidebar={toggleSidebar} />
+        <Header
+          sideToggled={false}
+          onShowSidebar={toggleSidebar}
+          session={session}
+        />
         <Container>{children}</Container>
       </Box>
     </>

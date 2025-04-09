@@ -10,12 +10,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RenderProductImage } from "../ecommerce/products/components";
 import DeleteProduct from "../ecommerce/products/components/modal/DeleteProduct";
-import Layout from "../../layout-container/Layout";
 
-const page = () => {
+const TrashPage = () => {
   const dispatch = useDispatch();
   const { trashList, isLoading, restoreProduct, deleteProduct } = useSelector(
-    ProductModule.selectors.productSelector
+    ProductModule.selectors.productSelector,
   );
   const { currentUser } = useSelector(AuthModule.selectors.authSelector);
   const pageSize = 10;
@@ -28,8 +27,8 @@ const page = () => {
     dispatch(
       ProductModule.actions.getTrashProductRequestAction({
         storeId:
-          currentUser?.store?.id ?? "939cfc00-dc4c-4327-9db9-362d08bcfb52",
-      })
+          currentUser?.store?.id ?? "cbbd22b6-9f1f-4d73-a553-3d706308080d", //"939cfc00-dc4c-4327-9db9-362d08bcfb52",
+      }),
     );
     if (restoreProduct || deleteProduct) {
       dispatch(ProductModule.actions.clearStateKeysAction());
@@ -87,7 +86,7 @@ const page = () => {
             dispatch(
               ProductModule.actions.restoreProductRequestAtion({
                 productId: value?.id,
-              })
+              }),
             );
           },
         },
@@ -103,7 +102,7 @@ const page = () => {
   ];
 
   return (
-    <Layout>
+    <>
       <Box width={"full"} mt={"30px"}>
         <VStack alignItems={"flex-start"} gap={4}>
           <Heading>Corbeille</Heading>
@@ -133,8 +132,8 @@ const page = () => {
         onChange={() => setOpenDelete(false)}
         deleteType={"permanently"}
       />
-    </Layout>
+    </>
   );
 };
 
-export default page;
+export default TrashPage;

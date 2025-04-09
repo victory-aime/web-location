@@ -1,14 +1,12 @@
-import { Poppins } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import AppMainEntry from "./app";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
-const poppins = Poppins({
-  weight: ["400", "900"],
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  variable: "--font-poppins",
 });
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -16,8 +14,8 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(authOptions);
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable}`}>
+    <html className={bricolage.variable} lang="en" suppressHydrationWarning>
+      <body>
         <AppMainEntry session={session}>{children}</AppMainEntry>
       </body>
     </html>

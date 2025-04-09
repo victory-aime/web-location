@@ -6,25 +6,34 @@ import { adminMenu } from "./sideBarRoutes";
 import { SideBarProps } from "./types";
 import { VariablesColors } from "_theme/variables";
 import { useDispatch } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
+import { LoaderModule } from "_/store/src/modules";
 import MobileSidebar from "./components/MobileSidebar";
 import { BaseButton } from "_/components/custom/button";
 import { LogOutIcon } from "_assets/svg";
 import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
 import { keycloakSessionLogOut } from "_/app/hooks/logout";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
     sideToggled,
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
-
+  const dispatch = useDispatch();
+  const { status } = useSession();
   const handleLogout = () => {
     keycloakSessionLogOut().then(() =>
-      signOut({ callbackUrl: process.env.NEXTAUTH_URL })
+      signOut({ callbackUrl: process.env.NEXTAUTH_URL }),
     );
+    dispatch(LoaderModule.actions.showLoaderAction());
   };
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      dispatch(LoaderModule.actions.hideLoaderAction());
+    }
+  }, [status]);
 
   return (
     <>
@@ -33,7 +42,6 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
           isOpen={sideToggled}
           onClose={onShowSidebar}
           handleLogout={handleLogout}
-     
         />
       ) : (
         <Box {...toggledSideBarStyle} className="sidebar">
@@ -85,6 +93,7 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
               colorType={"danger"}
               overflow={"hidden"}
               justifyContent={"center"}
+              isLoading={status === "loading"}
               onClick={handleLogout}
               leftIcon={
                 <LogOutIcon

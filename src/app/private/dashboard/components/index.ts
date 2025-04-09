@@ -5,6 +5,7 @@ import { RecentOrders } from "./RecentOrders";
 import { MonthlyIncomes } from "./MonthlyIncomes";
 import { TopProducts } from "./TopProducts";
 import { TopCategory } from "./TopCategory";
+import {Dashboard} from './Dashboard'
 
 export {
   ReviewStats,
@@ -14,4 +15,5 @@ export {
   MonthlyIncomes,
   TopProducts,
   TopCategory,
+    Dashboard
 };
