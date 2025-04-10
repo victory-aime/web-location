@@ -1,22 +1,9 @@
-import { ButtonProps } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
+import { ButtonProps } from '@chakra-ui/react';
+import React, { ReactNode } from 'react';
 
-export type variantColorType =
-  | "primary"
-  | "secondary"
-  | "danger"
-  | "success"
-  | "warning"
-  | "none";
+export type variantColorType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'none';
 
-export type animationType =
-  | "none"
-  | "pulse"
-  | "rotate"
-  | "scale"
-  | "shake"
-  | "grow"
-  | "fade";
+export type animationType = 'none' | 'pulse' | 'rotate' | 'scale' | 'shake' | 'grow' | 'fade';
 
 export interface VariantColorStyle {
   bg: string;

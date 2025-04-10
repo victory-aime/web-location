@@ -1,10 +1,10 @@
-import { createListCollection } from "@chakra-ui/react";
+import { createListCollection } from '@chakra-ui/react';
 
 export const productListStatus = createListCollection({
   items: [
-    { label: "En Ligne", value: "PUBLISH" },
-    { label: "Brouillon", value: "DRAFT" },
-    { label: "Desactive", value: "DISABLED" },
+    { label: 'En Ligne', value: 'PUBLISH' },
+    { label: 'Brouillon', value: 'DRAFT' },
+    { label: 'Desactive', value: 'DISABLED' },
   ],
 });
 

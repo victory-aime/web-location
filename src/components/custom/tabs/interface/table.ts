@@ -1,5 +1,5 @@
-import { TabsRootProps } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { TabsRootProps } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 
 interface TabsProps extends TabsRootProps {
   items: {

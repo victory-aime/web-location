@@ -1,38 +1,29 @@
-import React from "react";
-import {
-  Box,
-  Grid,
-  Heading,
-  Image,
-  Text,
-  Button,
-  VStack,
-  Container,
-} from "@chakra-ui/react";
+import React from 'react';
+import { Box, Grid, Heading, Image, Text, Button, VStack, Container } from '@chakra-ui/react';
 const products = [
   {
     id: 1,
-    name: "Premium Headphones",
+    name: 'Premium Headphones',
     price: 299.99,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
   },
   {
     id: 2,
-    name: "Smart Watch",
+    name: 'Smart Watch',
     price: 199.99,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
   },
   {
     id: 3,
-    name: "Wireless Speaker",
+    name: 'Wireless Speaker',
     price: 159.99,
-    image: "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b",
+    image: 'https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b',
   },
   {
     id: 4,
-    name: "Camera Lens",
+    name: 'Camera Lens',
     price: 799.99,
-    image: "https://images.unsplash.com/photo-1617005082133-548c4dd27f35",
+    image: 'https://images.unsplash.com/photo-1617005082133-548c4dd27f35',
   },
 ];
 export const PopularProducts = () => {
@@ -42,9 +33,9 @@ export const PopularProducts = () => {
         <Heading mb={8}>Popular Products</Heading>
         <Grid
           templateColumns={{
-            base: "1fr",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4, 1fr)",
+            base: '1fr',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(4, 1fr)',
           }}
           gap={8}
         >
@@ -58,7 +49,7 @@ export const PopularProducts = () => {
               borderColor="gray.200"
               transition="transform 0.2s"
               _hover={{
-                transform: "translateY(-4px)",
+                transform: 'translateY(-4px)',
               }}
             >
               <Image

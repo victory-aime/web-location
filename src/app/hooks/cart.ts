@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { CustomToast } from "_/components/custom/toast/CustomToast";
-import { ToastStatus } from "_/components/custom/toast/interface/toats";
-import { UTILS } from "_/store/src";
+import { useState, useEffect } from 'react';
+import { CustomToast } from '_/components/custom/toast/CustomToast';
+import { ToastStatus } from '_/components/custom/toast/interface/toats';
 
 export interface CartItem {
+  storeId: string;
   id: string;
   name: string;
   price: number;
@@ -13,22 +13,22 @@ export interface CartItem {
 }
 
 export const fetchCartFromStorage = async (): Promise<CartItem[]> => {
-  if (typeof window !== "undefined") {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (typeof window !== 'undefined') {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     return Array.isArray(cart) ? cart : [];
   }
   return [];
 };
 export const saveCartToStorage = (cart: CartItem[]) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("cart", JSON.stringify(cart));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 };
 
 const useCart = () => {
   const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("cart") || "[]");
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
     }
     return [];
   });
@@ -48,7 +48,7 @@ const useCart = () => {
       return updatedCart;
     });
     CustomToast({
-      title: "Article supprimé",
+      title: 'Article supprimé',
       description: `${value?.name} a été retiré du panier.`,
       type: ToastStatus.WARNING,
       duration: 1000,
@@ -60,8 +60,8 @@ const useCart = () => {
     saveCartToStorage([]);
     setTriggerRefresh(true);
     CustomToast({
-      title: "Panier vidé",
-      description: "Tous les articles ont été supprimés.",
+      title: 'Panier vidé',
+      description: 'Tous les articles ont été supprimés.',
       type: ToastStatus.ERROR,
       duration: 2000,
     });
@@ -71,7 +71,7 @@ const useCart = () => {
     return cart.reduce(
       (total: number, item: { price: number; quantity: number }) =>
         total + item.price * item.quantity,
-      0,
+      0
     );
   };
 

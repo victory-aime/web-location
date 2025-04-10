@@ -6,8 +6,8 @@ export interface userInitialValues {
 }
 
 export const initialValues: userInitialValues = {
-  id: "",
-  city: "",
-  country: "",
-  street: "",
+  id: '',
+  city: '',
+  country: '',
+  street: '',
 };

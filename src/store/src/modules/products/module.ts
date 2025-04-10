@@ -1,8 +1,8 @@
-import { TYPES } from "../..";
-import { IStateModule } from "../../main/types";
-import { PRODUCT_KEY_IN_STORE } from "./constants";
-import ProductsReducer from "./reducer";
-import { productSagas } from "./saga";
+import { TYPES } from '../..';
+import { IStateModule } from '../../main/types';
+import { PRODUCT_KEY_IN_STORE } from './constants';
+import ProductsReducer from './reducer';
+import { productSagas } from './saga';
 
 export class ProductModule implements IStateModule {
   getRootKeyInStore(): string {

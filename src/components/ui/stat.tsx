@@ -1,11 +1,6 @@
-import {
-  Badge,
-  type BadgeProps,
-  Stat as ChakraStat,
-  FormatNumber,
-} from "@chakra-ui/react";
-import { InfoTip } from "./toggle-tip";
-import * as React from "react";
+import { Badge, type BadgeProps, Stat as ChakraStat, FormatNumber } from '@chakra-ui/react';
+import { InfoTip } from './toggle-tip';
+import * as React from 'react';
 
 interface StatLabelProps extends ChakraStat.LabelProps {
   info?: React.ReactNode;
@@ -20,7 +15,7 @@ export const StatLabel = React.forwardRef<HTMLDivElement, StatLabelProps>(
         {info && <InfoTip>{info}</InfoTip>}
       </ChakraStat.Label>
     );
-  },
+  }
 );
 
 interface StatValueTextProps extends ChakraStat.ValueTextProps {
@@ -28,18 +23,16 @@ interface StatValueTextProps extends ChakraStat.ValueTextProps {
   formatOptions?: Intl.NumberFormatOptions;
 }
 
-export const StatValueText = React.forwardRef<
-  HTMLDivElement,
-  StatValueTextProps
->(function StatValueText(props, ref) {
-  const { value, formatOptions, children, ...rest } = props;
-  return (
-    <ChakraStat.ValueText {...rest} ref={ref}>
-      {children ||
-        (value != null && <FormatNumber value={value} {...formatOptions} />)}
-    </ChakraStat.ValueText>
-  );
-});
+export const StatValueText = React.forwardRef<HTMLDivElement, StatValueTextProps>(
+  function StatValueText(props, ref) {
+    const { value, formatOptions, children, ...rest } = props;
+    return (
+      <ChakraStat.ValueText {...rest} ref={ref}>
+        {children || (value != null && <FormatNumber value={value} {...formatOptions} />)}
+      </ChakraStat.ValueText>
+    );
+  }
+);
 
 export const StatUpTrend = React.forwardRef<HTMLDivElement, BadgeProps>(
   function StatUpTrend(props, ref) {
@@ -49,7 +42,7 @@ export const StatUpTrend = React.forwardRef<HTMLDivElement, BadgeProps>(
         {props.children}
       </Badge>
     );
-  },
+  }
 );
 
 export const StatDownTrend = React.forwardRef<HTMLDivElement, BadgeProps>(
@@ -60,7 +53,7 @@ export const StatDownTrend = React.forwardRef<HTMLDivElement, BadgeProps>(
         {props.children}
       </Badge>
     );
-  },
+  }
 );
 
 export const StatRoot = ChakraStat.Root;

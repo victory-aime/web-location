@@ -1,24 +1,14 @@
-import {
-  For,
-  HStack,
-  Icon,
-  RadioCardItemDescription,
-  Flex,
-} from "@chakra-ui/react";
-import {
-  RadioCardItem,
-  RadioCardLabel,
-  RadioCardRoot,
-} from "_components/ui/radio-card";
-import { FC, useState } from "react";
-import { Checkbox } from "_components/ui/checkbox";
-import { IRadioCardProps } from "./interface/radio-card";
+import { For, HStack, Icon, RadioCardItemDescription, Flex } from '@chakra-ui/react';
+import { RadioCardItem, RadioCardLabel, RadioCardRoot } from '_components/ui/radio-card';
+import { FC, useState } from 'react';
+import { Checkbox } from '_components/ui/checkbox';
+import { IRadioCardProps } from './interface/radio-card';
 
 export const CustomRadioCard: FC<IRadioCardProps> = ({
   items,
   labelTitle,
-  orientation = "horizontal",
-  colorPalette = "black",
+  orientation = 'horizontal',
+  colorPalette = 'black',
   stepButton,
   onValueChange,
   ...rest
@@ -28,14 +18,14 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
   return (
     <RadioCardRoot
       orientation={orientation}
-      alignItems={"flex-start"}
+      alignItems={'flex-start'}
       justifyContent="space-between"
-      size={"lg"}
-      mb={"15px"}
-      width={"full"}
+      size={'lg'}
+      mb={'15px'}
+      width={'full'}
       colorPalette={colorPalette}
       defaultValue={items[currentIndex]?.label}
-      variant={"solid"}
+      variant={'solid'}
       value={items[currentIndex]?.label}
       onValueChange={(details: { value: string }) => {
         const { value } = details;
@@ -47,19 +37,13 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
     >
       {labelTitle && <RadioCardLabel>{labelTitle}</RadioCardLabel>}
 
-      <HStack width={"full"} flexDir={{ base: "column", md: "row" }}>
+      <HStack width={'full'} flexDir={{ base: 'column', md: 'row' }}>
         <For each={items}>
           {(item, index) => (
-            <Flex
-              key={index}
-              flexDir={"column"}
-              width={"full"}
-              wrap={"wrap"}
-              gap={3}
-            >
+            <Flex key={index} flexDir={'column'} width={'full'} wrap={'wrap'} gap={3}>
               <RadioCardItem
                 p={3}
-                width={"full"}
+                width={'full'}
                 label={item?.label}
                 icon={
                   item?.icon ? (
@@ -71,7 +55,7 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
                 indicator={<Checkbox checked={index === currentIndex} />}
                 key={index}
                 value={item?.label}
-                indicatorPlacement={"end"}
+                indicatorPlacement={'end'}
                 description={item?.content}
               />
               {index === currentIndex && stepButton}
@@ -81,9 +65,7 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
       </HStack>
 
       {items[currentIndex]?.desc && (
-        <RadioCardItemDescription mt={5}>
-          {items[currentIndex]?.desc}
-        </RadioCardItemDescription>
+        <RadioCardItemDescription mt={5}>{items[currentIndex]?.desc}</RadioCardItemDescription>
       )}
     </RadioCardRoot>
   );

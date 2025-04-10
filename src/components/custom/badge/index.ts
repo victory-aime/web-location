@@ -1,2 +1,2 @@
-import { CustomBadge } from "./Badge";
+import { CustomBadge } from './Badge';
 export { CustomBadge };

@@ -1,4 +1,4 @@
-import * as Constants from "./constants";
+import * as Constants from './constants';
 
 export const showLoaderAction = () => ({
   type: Constants.SHOW_LOADER,

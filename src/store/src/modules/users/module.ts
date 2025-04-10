@@ -1,8 +1,8 @@
-import { TYPES } from "../..";
-import { IStateModule } from "../../main/types";
-import { USERS_KEY_IN_STORE } from "./constants";
-import UsersReducer from "./reducer";
-import { userSaga } from "./saga";
+import { TYPES } from '../..';
+import { IStateModule } from '../../main/types';
+import { USERS_KEY_IN_STORE } from './constants';
+import UsersReducer from './reducer';
+import { userSaga } from './saga';
 
 export class UsersModule implements IStateModule {
   getRootKeyInStore(): string {

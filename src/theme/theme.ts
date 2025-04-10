@@ -1,7 +1,7 @@
-import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
-import { keyframes, animations } from "./animations";
-import { breakpoints } from "./breakpoints";
-import { colors } from "./colors";
+import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';
+import { keyframes, animations } from './animations';
+import { breakpoints } from './breakpoints';
+import { colors } from './colors';
 
 const config = defineConfig({
   theme: {
@@ -12,8 +12,8 @@ const config = defineConfig({
       animations,
       colors,
       fonts: {
-        heading: { value: "var(--font-bricolage)" },
-        body: { value: "var(--font-bricolage)" },
+        heading: { value: 'var(--font-bricolage)' },
+        body: { value: 'var(--font-bricolage)' },
       },
     },
   },

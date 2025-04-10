@@ -1,26 +1,26 @@
-import { Box, Flex, Heading, HStack, Tabs, VStack } from "@chakra-ui/react";
-import { TabsProps } from "./interface/table";
-import { hexToRGB } from "_/theme/colors";
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { TbFilter } from "react-icons/tb";
-import { BaseButton } from "../button";
+import { Box, Flex, Heading, HStack, Tabs, VStack } from '@chakra-ui/react';
+import { TabsProps } from './interface/table';
+import { hexToRGB } from '_/theme/colors';
+import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import { TbFilter } from 'react-icons/tb';
+import { BaseButton } from '../button';
 
 export const CommonTabs = ({
   items,
   redirectLink,
   isMobile,
-  title = "Produits",
+  title = 'Produits',
   addTitle,
   ...rest
 }: TabsProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   return (
-    <Box width={"full"} mt={"30px"}>
+    <Box width={'full'} mt={'30px'}>
       <Tabs.Root
         defaultValue={items[currentIndex]?.label}
-        variant={"plain"}
+        variant={'plain'}
         value={items[currentIndex]?.label}
         onValueChange={({ value }: { value: string }) => {
           const index = items?.findIndex((item) => item?.label === value);
@@ -29,31 +29,31 @@ export const CommonTabs = ({
         {...rest}
       >
         <Flex
-          width={"full"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          overflowX={"auto"}
+          width={'full'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          overflowX={'auto'}
           gap={4}
         >
-          <VStack alignItems={"flex-start"} gap={4} width={"full"}>
+          <VStack alignItems={'flex-start'} gap={4} width={'full'}>
             <Heading>{title}</Heading>
             <Flex
-              width={"full"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              flexDirection={{ base: "column", md: "row" }}
+              width={'full'}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              flexDirection={{ base: 'column', md: 'row' }}
               gap={5}
             >
               <Tabs.List
-                bg={"bg.muted"}
-                border={"1px solid"}
-                borderColor={"gray.700"}
+                bg={'bg.muted'}
+                border={'1px solid'}
+                borderColor={'gray.700'}
                 rounded="lg"
-                p={"4px"}
+                p={'4px'}
               >
                 {items.map((item, index) => (
                   <Tabs.Trigger
-                    color={currentIndex === index ? "primary.500" : "gray.400"}
+                    color={currentIndex === index ? 'primary.500' : 'gray.400'}
                     key={index}
                     value={item.label}
                     p={5}
@@ -62,30 +62,27 @@ export const CommonTabs = ({
                     {item.label}
                   </Tabs.Trigger>
                 ))}
-                <Tabs.Indicator
-                  rounded="l2"
-                  bgColor={hexToRGB("primary", 0.2)}
-                />
+                <Tabs.Indicator rounded="l2" bgColor={hexToRGB('primary', 0.2)} />
               </Tabs.List>
               <HStack
-                width={"full"}
-                p={"4px"}
+                width={'full'}
+                p={'4px'}
                 gap={4}
-                alignItems={{ base: "flex-start", md: "flex-end" }}
-                justifyContent={{ base: "flex-start", md: "flex-end" }}
+                alignItems={{ base: 'flex-start', md: 'flex-end' }}
+                justifyContent={{ base: 'flex-start', md: 'flex-end' }}
               >
                 {addTitle && (
                   <>
                     <BaseButton
-                      p={"5px"}
-                      colorType={"secondary"}
+                      p={'5px'}
+                      colorType={'secondary'}
                       leftIcon={<TbFilter />}
-                      width={{ base: "full", md: "auto" }}
+                      width={{ base: 'full', md: 'auto' }}
                     />
 
                     <BaseButton
-                      bgColor={"primary.500"}
-                      p={"8px"}
+                      bgColor={'primary.500'}
+                      p={'8px'}
                       leftIcon={<FaPlus />}
                       onClick={() => redirectLink && redirectLink()}
                     >
@@ -103,12 +100,12 @@ export const CommonTabs = ({
               key={index}
               value={item.label}
               _open={{
-                animationName: "fade-in, scale-in",
-                animationDuration: "300ms",
+                animationName: 'fade-in, scale-in',
+                animationDuration: '300ms',
               }}
               _closed={{
-                animationName: "fade-out, scale-out",
-                animationDuration: "120ms",
+                animationName: 'fade-out, scale-out',
+                animationDuration: '120ms',
               }}
             >
               {item?.content}

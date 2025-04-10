@@ -1,6 +1,6 @@
-import { TYPES } from "../../index";
-import * as Constants from "./constants";
-import { AuthActionTypes } from "./actions.types";
+import { TYPES } from '../../index';
+import * as Constants from './constants';
+import { AuthActionTypes } from './actions.types';
 
 const initialState: TYPES.MODELS.AUTH.AuthState = {
   access_token: null,
@@ -16,16 +16,11 @@ const AuthReducer = (
   action: AuthActionTypes
 ): TYPES.MODELS.AUTH.AuthState => {
   switch (action.type) {
-    case Constants.SET_ACCESS_TOKEN:
+    case Constants.SET_TOKEN_KEYS:
       return {
         ...state,
-        access_token: action.payload,
-      };
-
-    case Constants.SET_REFRESH_TOKEN:
-      return {
-        ...state,
-        refresh_token: action.payload,
+        access_token: action.payload.access_token,
+        refresh_token: action.payload.refresh_token
       };
     case Constants.SIGN_UP_REQUEST:
       return {

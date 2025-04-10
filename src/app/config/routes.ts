@@ -1,38 +1,39 @@
 export const APP_ROUTES = {
-  PUBLIC: {
-    FORGOT_PASSWORD: "/home/auth/forgot-password",
-    LEGAL_NOTICE: "/home-private/legal-notice",
-    TERMS_CONDITIONS: "/home/terms-conditions",
-    SECURITY_MENTION: "/home-private/security-mention",
-    PRODUCTS_LIST: {
-      LIST: "/home/products",
-      DETAILS: "/home/products/details",
-      CART: {
-        OVERVIEW: "/home/products/cart/overview",
-        PROCESS: "/home/products/cart/process",
-      },
+  CLIENT_PAGES: {
+    PRIVATE: {
+      PROFILE: '/pages/private/users/manage-profile',
     },
-    HOME: "/home",
-    SIGN_UP: "/home/auth/register",
-    SIGN_IN: "/home/auth/login",
+    PUBLIC: {
+      TERMS_CONDITIONS: '/pages/public/terms-conditions',
+      PRODUCTS_LIST: {
+        LIST: '/pages/public/products',
+        DETAILS: '/pages/public/products/details',
+        CART: {
+          OVERVIEW: '/pages/public/products/cart/overview',
+          PROCESS: '/pages/public/products/cart/process',
+        },
+      },
+      HOME: '/pages/public',
+      SIGN_UP: '/pages/public/auth/register',
+    },
   },
+
   PRIVATE: {
-    HOME: "/",
-    DASH: "/private/dashboard",
+    HOME: '/dashboard',
     ECOMMERCE: {
       ORDER: {
-        LIST: "/private/ecommerce/order",
-        DETAILS: "/private/ecommerce/order/details",
+        LIST: '/dashboard/ecommerce/order',
+        DETAILS: '/dashboard/ecommerce/order/details',
       },
-      CATEGORY: "/private/ecommerce/category",
+      CATEGORY: '/dashboard/ecommerce/category',
       PRODUCTS: {
-        LIST: "/private/ecommerce/products",
-        ADD: "/private/ecommerce/products/addproduct",
+        LIST: '/dashboard/ecommerce/products',
+        ADD: '/dashboard/ecommerce/products/addproduct',
       },
     },
-    TRASH: "/private/trash",
+    TRASH: '/dashboard/trash',
     CLIENT: {
-      MANAGE_PROFILE: "/private/users/manage-profile",
+      MANAGE_PROFILE: '/dashboard/users/manage-profile',
     },
   },
 };

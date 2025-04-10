@@ -1,14 +1,9 @@
-import * as Constants from "./constants";
-import { TYPES } from "../../";
+import * as Constants from './constants';
+import { TYPES } from '../../';
 
-export const setAccessToken = (access_token: string) => ({
-  type: Constants.SET_ACCESS_TOKEN,
-  payload: access_token,
-});
-
-export const setRefreshToken = (refresh_token: string) => ({
-  type: Constants.SET_REFRESH_TOKEN,
-  payload: refresh_token,
+export const setTokenKeys = (access_token: string, refresh_token: string) => ({
+  type: Constants.SET_TOKEN_KEYS,
+  payload: {access_token, refresh_token},
 });
 
 export const signUpResquestAction = (payload: TYPES.MODELS.USERS.IUser) => ({

@@ -1,4 +1,4 @@
-import { AspectRatioProps } from "@chakra-ui/react/aspect-ratio";
+import { AspectRatioProps } from '@chakra-ui/react/aspect-ratio';
 
 export interface IAspectRatioProps extends AspectRatioProps {
   image?: string;

@@ -1,11 +1,11 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import * as Constants from "./constants";
-import { apiCall } from "_store/src/services/apiService";
-import APIS from "_store/src/endpoints";
-import { handleApiError, handleApiSuccess } from "_utils/handleApis";
-import * as USERS_ACTION_TYPES from "./actions.types";
-import isApiError from "_utils/isApisError";
-import { ToastStatus } from "_/components/custom/toast/interface/toats";
+import { call, put, takeLatest } from 'redux-saga/effects';
+import * as Constants from './constants';
+import { apiCall } from '_store/src/services/apiService';
+import APIS from '_store/src/endpoints';
+import { handleApiError, handleApiSuccess } from '_utils/handleApis';
+import * as USERS_ACTION_TYPES from './actions.types';
+import isApiError from '_utils/isApisError';
+import { ToastStatus } from '_/components/custom/toast/interface/toats';
 
 export function* userInfo(action: any): Generator {
   try {
@@ -26,9 +26,7 @@ export function* userInfo(action: any): Generator {
   }
 }
 
-export function* updateUser(
-  action: USERS_ACTION_TYPES.UpdateUserInfo
-): Generator {
+export function* updateUser(action: USERS_ACTION_TYPES.UpdateUserInfo): Generator {
   try {
     const apiConfig = APIS().USERS.UPDATE_USER;
     const response = yield call(apiCall, apiConfig, action?.payload);
@@ -48,9 +46,7 @@ export function* updateUser(
   }
 }
 
-export function* newAddress(
-  action: USERS_ACTION_TYPES.NewShippingAddressRequest
-): Generator {
+export function* newAddress(action: USERS_ACTION_TYPES.NewShippingAddressRequest): Generator {
   try {
     const apiConfig = APIS().USERS.NEW_ADDRESS;
     const response = yield call(apiCall, apiConfig, action?.payload, {}, false);
@@ -70,9 +66,7 @@ export function* newAddress(
   }
 }
 
-export function* editAddress(
-  action: USERS_ACTION_TYPES.NewShippingAddressRequest
-): Generator {
+export function* editAddress(action: USERS_ACTION_TYPES.NewShippingAddressRequest): Generator {
   try {
     const apiConfig = APIS().USERS.EDIT_ADDRESS;
     const response = yield call(apiCall, apiConfig, action?.payload, {}, false);
@@ -92,18 +86,10 @@ export function* editAddress(
   }
 }
 
-export function* deleteAddress(
-  action: USERS_ACTION_TYPES.DeleteShippingAddressRequest
-): Generator {
+export function* deleteAddress(action: USERS_ACTION_TYPES.DeleteShippingAddressRequest): Generator {
   try {
     const apiConfig = APIS().USERS.DELETE_ADDRESS;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action?.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action?.payload, false);
     handleApiSuccess(response, ToastStatus.WARNING);
     yield put({
       type: Constants.DELETE_SHIPPING_ADDRESS_REQUEST_SUCCESS,

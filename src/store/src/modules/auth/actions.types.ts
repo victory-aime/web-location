@@ -1,14 +1,12 @@
-import { TYPES } from "../..";
-import * as Constants from "./constants";
+import { TYPES } from '../..';
+import * as Constants from './constants';
 
-export interface SetAccessTokenRequestAction {
-  type: typeof Constants.SET_ACCESS_TOKEN;
-  payload: string;
-}
-
-export interface SetRefreshTokenRequestAction {
-  type: typeof Constants.SET_REFRESH_TOKEN;
-  payload: string;
+export interface SetTokenKeysRequestAction {
+  type: typeof Constants.SET_TOKEN_KEYS;
+  payload: {
+    access_token : string,
+    refresh_token: string
+  };
 }
 
 export interface SignUpRequest {
@@ -30,8 +28,7 @@ export interface ClearKeysRequestAction {
 }
 
 export type AuthActionTypes =
-  | SetAccessTokenRequestAction
-  | SetRefreshTokenRequestAction
+  | SetTokenKeysRequestAction
   | ClearKeysRequestAction
   | SignUpRequest
   | SignUpRequestSuccess

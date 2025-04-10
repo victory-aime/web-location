@@ -1,15 +1,15 @@
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import "dayjs/locale/fr"; // Import French locale if needed
-import imageCompression from "browser-image-compression";
-import { isEmpty } from "lodash";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import 'dayjs/locale/fr'; // Import French locale if needed
+import imageCompression from 'browser-image-compression';
+import { isEmpty } from 'lodash';
 dayjs.extend(customParseFormat); // Extend Dayjs with the custom parse format plugin
-dayjs.locale("fr"); // Set the default locale to French
+dayjs.locale('fr'); // Set the default locale to French
 
-export const APP_DATE_FORMAT = "DD/MM/YYYY"; // Application date format
-export const APP_DATE_PATTERN = "YYYY-MM-DD"; // Default date pattern
-export const COMMON_FORMAT_DATE = "dd/MM/yyyy"; // Common date format
-export const AMOUNT_DEFAULT_CURRENCY = "FCFA"; // Default currency (FCFA)
+export const APP_DATE_FORMAT = 'DD/MM/YYYY'; // Application date format
+export const APP_DATE_PATTERN = 'YYYY-MM-DD'; // Default date pattern
+export const COMMON_FORMAT_DATE = 'dd/MM/yyyy'; // Common date format
+export const AMOUNT_DEFAULT_CURRENCY = 'FCFA'; // Default currency (FCFA)
 
 /**
  * Converts a date in a standard format (e.g., 'YYYY-MM-DD') to the application's specific format.
@@ -17,7 +17,7 @@ export const AMOUNT_DEFAULT_CURRENCY = "FCFA"; // Default currency (FCFA)
  * @returns Formatted date according to the application format
  */
 export const convertDateFormat = (date: string | Date): string => {
-  return dayjs(date).isValid() ? dayjs(date).format(APP_DATE_FORMAT) : "";
+  return dayjs(date).isValid() ? dayjs(date).format(APP_DATE_FORMAT) : '';
 };
 
 /**
@@ -28,14 +28,14 @@ export const convertDateFormat = (date: string | Date): string => {
  */
 export const getPeriodInMonths = (
   nbePeriod: number,
-  period: "QUARTERLY" | "SEMIANNUAL" | "ANNUAL" | string,
+  period: 'QUARTERLY' | 'SEMIANNUAL' | 'ANNUAL' | string
 ): number => {
   switch (period) {
-    case "QUARTERLY":
+    case 'QUARTERLY':
       return nbePeriod * 3;
-    case "SEMIANNUAL":
+    case 'SEMIANNUAL':
       return nbePeriod * 6;
-    case "ANNUAL":
+    case 'ANNUAL':
       return nbePeriod * 12;
     default:
       return nbePeriod;
@@ -48,8 +48,8 @@ export const getPeriodInMonths = (
  * @returns The formatted date for the audit table
  */
 export const formatDateFormAuditTable = (date: string): string => {
-  if (!date || !dayjs(date).isValid()) return "";
-  return dayjs(date).format("DD MMM YYYY");
+  if (!date || !dayjs(date).isValid()) return '';
+  return dayjs(date).format('DD MMM YYYY');
 };
 
 /**
@@ -58,8 +58,8 @@ export const formatDateFormAuditTable = (date: string): string => {
  * @returns The time in 'HH:mm' format
  */
 export const getTimeValue = (date: string): string => {
-  if (!date || !dayjs(date).isValid()) return "";
-  return dayjs(date).format("HH:mm");
+  if (!date || !dayjs(date).isValid()) return '';
+  return dayjs(date).format('HH:mm');
 };
 
 /**
@@ -69,7 +69,7 @@ export const getTimeValue = (date: string): string => {
  * @returns The difference in days
  */
 function differenceInDays(now: Date, date: Date): number {
-  return dayjs(now).diff(dayjs(date), "day");
+  return dayjs(now).diff(dayjs(date), 'day');
 }
 
 /**
@@ -78,16 +78,16 @@ function differenceInDays(now: Date, date: Date): number {
  * @returns The formatted date string
  */
 export const formatCreatedAt = (createdAt: string): string => {
-  if (!createdAt || !dayjs(createdAt).isValid()) return "";
+  if (!createdAt || !dayjs(createdAt).isValid()) return '';
 
   const date = dayjs(createdAt);
   const now = dayjs();
-  const diffDays = now.diff(date, "day");
+  const diffDays = now.diff(date, 'day');
 
-  if (diffDays === 0) return `Auj. ${date.format("HH:mm")}`;
-  if (diffDays === 1) return `Hier ${date.format("HH:mm")}`;
+  if (diffDays === 0) return `Auj. ${date.format('HH:mm')}`;
+  if (diffDays === 1) return `Hier ${date.format('HH:mm')}`;
   if (diffDays < 7) return `Il y a ${diffDays}j`;
-  return date.format("DD MMM YYYY");
+  return date.format('DD MMM YYYY');
 };
 
 /**
@@ -99,11 +99,7 @@ export const formatCreatedAt = (createdAt: string): string => {
 export const findDynamicIdInList = (id: string | undefined, list: any) => {
   if (!id || !list) return null;
 
-  const array = Array.isArray(list)
-    ? list
-    : Array.isArray(list.content)
-      ? list.content
-      : null;
+  const array = Array.isArray(list) ? list : Array.isArray(list.content) ? list.content : null;
   if (!array) return null;
 
   return array.find((item: { id: string }) => item.id === id) || null;
@@ -117,7 +113,7 @@ export const findDynamicIdInList = (id: string | undefined, list: any) => {
  */
 export const parseDateString = (
   date: Date | string | null | undefined,
-  inputFormat: string = APP_DATE_FORMAT,
+  inputFormat: string = APP_DATE_FORMAT
 ): Date | null => {
   if (!date) return null;
 
@@ -138,14 +134,14 @@ export const parseDateString = (
 export const getMonthFromDateString = (
   dateString: string,
   inputFormat: string = APP_DATE_FORMAT,
-  locale: string = "fr",
+  locale: string = 'fr'
 ): string | null => {
   if (!dateString) return null;
 
   const parsedDate = dayjs(dateString, inputFormat, true);
   if (!parsedDate.isValid()) return null;
 
-  return parsedDate.locale(locale).format("MMMM");
+  return parsedDate.locale(locale).format('MMMM');
 };
 
 /**
@@ -161,7 +157,7 @@ export const convertToCreatedUpdatedInfo = <
     updatedAt?: string;
   },
 >(
-  data: T[],
+  data: T[]
 ): Array<
   T & {
     createdInfo: { createdBy?: string; createdAt?: string };
@@ -187,7 +183,7 @@ export const convertToCreatedUpdatedInfo = <
 
 export const compressImagesFiles = async (file: File) => {
   const options = {
-    fileType: "image/webp", // Convertir en WebP
+    fileType: 'image/webp', // Convertir en WebP
     maxSizeMB: 1, // Limiter à 1MB pour un bon compromis taille/qualité
     maxWidthOrHeight: 1920, // Limite la résolution à du Full HD
     initialQuality: 0.8, // Compression légère (1 = qualité max)
@@ -214,8 +210,8 @@ export const fileToBase64 = async (file: File): Promise<string> => {
  * Convert base64 filte to File
  */
 export const base64ToFile = (base64: string, filename: string): File => {
-  const arr = base64.split(",");
-  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/jpeg";
+  const arr = base64.split(',');
+  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
   const bstr = atob(arr[1]);
   let n = bstr.length;
   const u8arr = new Uint8Array(n);

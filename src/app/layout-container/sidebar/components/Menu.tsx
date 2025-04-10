@@ -1,11 +1,11 @@
-import { Flex, Text, Box } from "@chakra-ui/react";
-import { FC, memo } from "react";
-import useIsActive from "../hooks/useIsActive";
-import useSideBarStyle from "../hooks/useSideBarStyle";
-import { ILink } from "../types";
-import { VariablesColors } from "_theme/variables";
-import { hexToRGB } from "_theme/colors";
-import { ArrowDown } from "_assets/svg";
+import { Flex, Text, Box } from '@chakra-ui/react';
+import { FC, memo } from 'react';
+import useIsActive from '../hooks/useIsActive';
+import useSideBarStyle from '../hooks/useSideBarStyle';
+import { ILink } from '../types';
+import { VariablesColors } from '_theme/variables';
+import { hexToRGB } from '_theme/colors';
+import { ArrowDown } from '_assets/svg';
 interface MenuProps {
   redirectToPath: (link: ILink) => void;
   sideToggled: boolean;
@@ -13,12 +13,7 @@ interface MenuProps {
   link: ILink;
   conditionsSubMenu: (link: any) => void;
 }
-const Menu: FC<MenuProps> = ({
-  openedMenu,
-  sideToggled,
-  link,
-  conditionsSubMenu,
-}) => {
+const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu }) => {
   const { isActiveLink, itHasActiveChildLink } = useIsActive();
   const { toggledTextStyles, setMenuTextStyle } = useSideBarStyle({
     sideToggled,
@@ -27,20 +22,20 @@ const Menu: FC<MenuProps> = ({
   return (
     <Box
       key={link?.menuKey}
-      h={"40px"}
+      h={'40px'}
       display="flex"
-      width={"full"}
+      width={'full'}
       alignItems="center"
-      pe={{ base: "1rem", md: "0" }}
+      pe={{ base: '1rem', md: '0' }}
       cursor="pointer"
       transition="all ease-in-out 350ms"
       onClick={() => conditionsSubMenu(link)}
       _hover={{
-        bg: hexToRGB("primary", 0.1, 500),
-        borderRadius: "5px",
-        ps: "0",
-        pe: { base: "1rem", md: "0" },
-        ms: "0",
+        bg: hexToRGB('primary', 0.1, 500),
+        borderRadius: '5px',
+        ps: '0',
+        pe: { base: '1rem', md: '0' },
+        ms: '0',
       }}
       mt={3}
     >
@@ -48,46 +43,44 @@ const Menu: FC<MenuProps> = ({
         height="100%"
         width="8px"
         bg={
-          itHasActiveChildLink(link.subItems) || isActiveLink(link?.path ?? "")
-            ? "primary.500"
-            : "transparent"
+          itHasActiveChildLink(link.subItems) || isActiveLink(link?.path ?? '')
+            ? 'primary.500'
+            : 'transparent'
         }
         borderRadius="12px"
         transition="all 300ms ease"
       />
       <Flex
         align="center"
-        justifyContent={{ base: "flex-start", md: "center" }}
+        justifyContent={{ base: 'flex-start', md: 'center' }}
         w="100%"
         h="100%"
-        borderRadius={"5px"}
+        borderRadius={'5px'}
         py="0"
         ps="0"
-        ms={{ base: "7px", md: "10px" }}
-        me={sideToggled ? "0" : "10px"}
-        pe={{ base: "1rem", md: "0.5rem" }}
+        ms={{ base: '7px', md: '10px' }}
+        me={sideToggled ? '0' : '10px'}
+        pe={{ base: '1rem', md: '0.5rem' }}
         bg={
-          itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? "")
-            ? hexToRGB("primary", 0.1)
-            : "transparent"
+          itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? '')
+            ? hexToRGB('primary', 0.1)
+            : 'transparent'
         }
-        px={"10px"}
+        px={'10px'}
       >
         <link.icon
           width="22px"
           height="22px"
           fill={
-            itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? "")
+            itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? '')
               ? VariablesColors.primary
               : VariablesColors.grayScale
           }
         />
 
         <Box
-          display={
-            !sideToggled ? { lg: "none" } : { base: "block", lg: "block" }
-          }
-          width={"full"}
+          display={!sideToggled ? { lg: 'none' } : { base: 'block', lg: 'block' }}
+          width={'full'}
           ms="1rem"
         >
           <Text {...setMenuTextStyle(link.subItems)}>{link.label}</Text>
@@ -98,17 +91,12 @@ const Menu: FC<MenuProps> = ({
             transition="all ease-in-out 200ms"
             transform={
               link?.subItems &&
-              (itHasActiveChildLink(link?.subItems) ||
-                openedMenu === link?.menuKey)
-                ? "rotate(180deg)"
-                : ""
+              (itHasActiveChildLink(link?.subItems) || openedMenu === link?.menuKey)
+                ? 'rotate(180deg)'
+                : ''
             }
           >
-            <ArrowDown
-              width="18px"
-              height="18px"
-              fill={VariablesColors.grayScale}
-            />
+            <ArrowDown width="18px" height="18px" fill={VariablesColors.grayScale} />
           </Box>
         ) : null}
       </Flex>

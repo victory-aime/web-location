@@ -1,9 +1,9 @@
-import ConfirmCommand from "./confirm.json";
-import NoDataFoundLottie from "./no-data-found.json";
-import LoaderAnimation from "./loader.json";
-import DeleteAnimation from "./delete-animation.json";
-import TrashAnimation from "./trash-animation.json";
-import TrashAnimationV2 from "./trash-animation-2.json";
+import ConfirmCommand from './confirm.json';
+import NoDataFoundLottie from './no-data-found.json';
+import LoaderAnimation from './loader.json';
+import DeleteAnimation from './delete-animation.json';
+import TrashAnimation from './trash-animation.json';
+import TrashAnimationV2 from './trash-animation-2.json';
 export {
   ConfirmCommand,
   NoDataFoundLottie,

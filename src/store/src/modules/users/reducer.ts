@@ -1,6 +1,6 @@
-import { TYPES } from "../../index";
-import * as Constants from "./constants";
-import { UserActionsTypes } from "./actions.types";
+import { TYPES } from '../../index';
+import * as Constants from './constants';
+import { UserActionsTypes } from './actions.types';
 
 const initialState: TYPES.MODELS.USERS.UserState = {
   user: null,
@@ -25,7 +25,7 @@ const UsersReducer = (
         isLoading: false,
         user: action.payload,
       };
-    case Constants.USER_INFO_REQUEST:
+    case Constants.USER_INFO_REQUEST_FAILED:
       return {
         ...state,
         isLoading: false,

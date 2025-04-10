@@ -1,47 +1,47 @@
-import { Badge, HStack, Text } from "@chakra-ui/react";
-import React, { FC } from "react";
-import { HiStar } from "react-icons/hi";
-import { GiCancel } from "react-icons/gi";
-import { MdOutlineDoneAll } from "react-icons/md";
-import { TbProgress } from "react-icons/tb";
-import { Props, Status, BadgeType } from "./interface/badge";
+import { Badge, HStack, Text } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { HiStar } from 'react-icons/hi';
+import { GiCancel } from 'react-icons/gi';
+import { MdOutlineDoneAll } from 'react-icons/md';
+import { TbProgress } from 'react-icons/tb';
+import { Props, Status, BadgeType } from './interface/badge';
 
 export const CustomBadge: FC<Props> = ({
   children,
-  status = "NEW",
-  variant = "solid",
-  type = "order",
+  status = 'NEW',
+  variant = 'solid',
+  type = 'order',
   ...props
 }) => {
   const getBadgeAttributes = (status: Status | string, type: BadgeType) => {
-    if (type === "order") {
+    if (type === 'order') {
       switch (status) {
-        case "DONE":
+        case 'DONE':
           return {
-            color: "primary.500",
+            color: 'primary.500',
             icon: <MdOutlineDoneAll />,
-            label: "Livré",
+            label: 'Livré',
           };
-        case "IN_PROGRESS":
-          return { color: "blue.500", icon: <TbProgress />, label: "En cours" };
-        case "REJECTED":
-          return { color: "red.500", icon: <GiCancel />, label: "Annulée" };
+        case 'IN_PROGRESS':
+          return { color: 'blue.500', icon: <TbProgress />, label: 'En cours' };
+        case 'REJECTED':
+          return { color: 'red.500', icon: <GiCancel />, label: 'Annulée' };
         default:
-          return { color: "gray.500", icon: <HiStar />, label: "Nouvelle" };
+          return { color: 'gray.500', icon: <HiStar />, label: 'Nouvelle' };
       }
     } else {
       switch (status) {
-        case "PUBLISH":
+        case 'PUBLISH':
           return {
-            color: "primary.500",
-            icon: "",
-            label: "Publié",
+            color: 'primary.500',
+            icon: '',
+            label: 'Publié',
           };
 
-        case "DISABLED":
-          return { color: "red.500", icon: "", label: "Desactive" };
+        case 'DISABLED':
+          return { color: 'red.500', icon: '', label: 'Desactive' };
         default:
-          return { color: "gray.500", icon: "", label: "Brouillon" };
+          return { color: 'gray.500', icon: '', label: 'Brouillon' };
       }
     }
   };
@@ -54,7 +54,7 @@ export const CustomBadge: FC<Props> = ({
       variant={variant}
       size="lg"
       borderRadius="7px"
-      p={"4px"}
+      p={'4px'}
       color="white"
       bgColor={color}
     >

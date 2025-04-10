@@ -1,6 +1,6 @@
-import { IStateModule } from "_store/src/main/types";
-import * as Constant from "./constants";
-import LoaderReducer from "./reducer";
+import { IStateModule } from '_store/src/main/types';
+import * as Constant from './constants';
+import LoaderReducer from './reducer';
 
 export class LoaderModule implements IStateModule {
   getRootKeyInStore(): string {

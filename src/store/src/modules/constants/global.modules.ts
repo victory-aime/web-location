@@ -3,14 +3,15 @@
  * Each module follows the IStateModule interface.
  */
 
-import { authModuleInstance } from "_/store/src/modules/auth";
-import { loaderModuleInstance } from "_/store/src/modules/loader";
-import { productsModuleInstance } from "_store/src/modules/products";
-import { usersModuleInstance } from "_store/src/modules/users";
-import { wishlistModuleInstance } from "_store/src/modules/wishlist";
+import { authModuleInstance } from '_/store/src/modules/auth';
+import { loaderModuleInstance } from '_/store/src/modules/loader';
+import { productsModuleInstance } from '_store/src/modules/products';
+import { usersModuleInstance } from '_store/src/modules/users';
+import { wishlistModuleInstance } from '_store/src/modules/wishlist';
+import { ordersModuleInstance } from '_store/src/modules/orders';
 
 // Global IStateModule interface
-import { IStateModule } from "_store/src/main/types";
+import { IStateModule } from '_store/src/main/types';
 
 // Group all modules into a single array
 export const globalModules: IStateModule[] = [
@@ -19,6 +20,7 @@ export const globalModules: IStateModule[] = [
   productsModuleInstance,
   usersModuleInstance,
   wishlistModuleInstance,
+  ordersModuleInstance,
 ];
 
 /**
@@ -38,7 +40,7 @@ const EXCLUDED_MODULES: IStateModule[] = [
  * - Excludes specific modules in other environments (e.g., production).
  */
 export const activeModules = (): IStateModule[] => {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === 'development') {
     return [...globalModules];
   }
   return globalModules.filter((module) => !EXCLUDED_MODULES.includes(module));

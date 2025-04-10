@@ -7,19 +7,19 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from "_/components/ui/dialog";
-import React from "react";
-import { BaseButton } from "../button";
-import { variantColorType } from "../button/interface/button";
-import { ModalProps } from "./interface/modal";
+} from '_/components/ui/dialog';
+import React from 'react';
+import { BaseButton } from '../button';
+import { variantColorType } from '../button/interface/button';
+import { ModalProps } from './interface/modal';
 
 const ModalComponent = ({
   isOpen = false,
   ignoreFooter = true,
   onChange,
-  title = "Modal Title",
-  colorSaveButton = "success",
-  buttonSaveTitle = "Save",
+  title = 'Modal Title',
+  colorSaveButton = 'success',
+  buttonSaveTitle = 'Save',
   showCloseButton = true,
   isLoading,
   onClick,
@@ -33,13 +33,13 @@ const ModalComponent = ({
       open={isOpen}
       lazyMount
       onOpenChange={(e) => onChange(e?.open)}
-      placement={"center"}
+      placement={'center'}
       role={modalType}
-      size={isFull ? "full" : "lg"}
+      size={isFull ? 'full' : 'lg'}
       motionPreset="slide-in-top"
       {...rest}
     >
-      <DialogContent width={"full"} padding={8}>
+      <DialogContent width={'full'} padding={8}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
@@ -56,9 +56,7 @@ const ModalComponent = ({
               onClick={() => onClick && onClick()}
               isLoading={isLoading}
               colorType={
-                modalType === "alertdialog"
-                  ? "danger"
-                  : (colorSaveButton as variantColorType)
+                modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)
               }
             >
               {buttonSaveTitle}

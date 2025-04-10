@@ -1,13 +1,13 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { APIObjectType } from "_store/src/endpoints";
-import { handleApiError } from "_utils/handleApis";
-import { loaderService } from "_store/src/services/loader";
-import { store } from "_/store/store";
-import { RootState } from "_/store/rootReducer";
-import { PersistPartial } from "redux-persist/es/persistReducer";
+import axios, { AxiosRequestConfig } from 'axios';
+import { APIObjectType } from '_store/src/endpoints';
+import { handleApiError } from '_utils/handleApis';
+import { loaderService } from '_store/src/services/loader';
+import { store } from '_/store/store';
+import { RootState } from '_/store/rootReducer';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 export const apiCall = async (
-  { url, method, responseType = "json" }: APIObjectType,
+  { url, method, responseType = 'json' }: APIObjectType,
   data?: any,
   params?: any,
   showLoader = true
@@ -27,7 +27,7 @@ export const apiCall = async (
     headers,
     data,
     params,
-    responseType: responseType === "json" ? "json" : "text",
+    responseType: responseType === 'json' ? 'json' : 'text',
   };
 
   try {

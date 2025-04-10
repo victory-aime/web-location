@@ -1,6 +1,6 @@
-import { DialogRootProps } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { variantColorType } from "../../button/interface/button";
+import { DialogRootProps } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { variantColorType } from '../../button/interface/button';
 
 export interface ModalProps extends DialogRootProps {
   title?: string | undefined;
@@ -8,7 +8,7 @@ export interface ModalProps extends DialogRootProps {
   onChange: (value: any) => void;
   showCloseButton?: boolean;
   ignoreFooter?: boolean;
-  modalType?: "dialog" | "alertdialog" | undefined;
+  modalType?: 'dialog' | 'alertdialog' | undefined;
   buttonSaveTitle?: string;
   colorSaveButton?: variantColorType;
   isFull?: boolean | undefined;

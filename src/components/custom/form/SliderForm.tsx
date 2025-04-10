@@ -1,9 +1,9 @@
-import { Field, Flex, Text } from "@chakra-ui/react";
-import { Slider } from "_/components/ui/slider";
-import { useField } from "formik";
-import React, { FC } from "react";
-import { DefaultProps } from "./interface/input";
-import { CustomFormatNumber } from "../format-number";
+import { Field, Flex, Text } from '@chakra-ui/react';
+import { Slider } from '_/components/ui/slider';
+import { useField } from 'formik';
+import React, { FC } from 'react';
+import { DefaultProps } from './interface/input';
+import { CustomFormatNumber } from '../format-number';
 
 const SliderForm: FC<DefaultProps> = ({
   name,
@@ -27,16 +27,12 @@ const SliderForm: FC<DefaultProps> = ({
   return (
     <Field.Root {...rest} id={name} invalid={isError}>
       {label && (
-        <Field.Label
-          display={"flex"}
-          gap={"6px"}
-          fontSize={{ base: "16px", lg: "18px" }}
-        >
+        <Field.Label display={'flex'} gap={'6px'} fontSize={{ base: '16px', lg: '18px' }}>
           {label}
           {required ? (
-            <Text color={"red"}> * </Text>
+            <Text color={'red'}> * </Text>
           ) : isNumber ? (
-            <Flex ml={3} gap={2} alignItems={"center"}>
+            <Flex ml={3} gap={2} alignItems={'center'}>
               <CustomFormatNumber value={field?.value[0]} />
               -
               <CustomFormatNumber value={field?.value[1]} />

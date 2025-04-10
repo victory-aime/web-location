@@ -1,4 +1,4 @@
-import { Field, Flex, Text } from "@chakra-ui/react";
+import { Field, Flex, Text } from '@chakra-ui/react';
 import {
   SelectContent,
   SelectItem,
@@ -6,10 +6,10 @@ import {
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from "_components/ui/select";
-import React, { FC } from "react";
-import { FullSelectProps } from "./interface/input";
-import { useField } from "formik";
+} from '_components/ui/select';
+import React, { FC } from 'react';
+import { FullSelectProps } from './interface/input';
+import { useField } from 'formik';
 
 const FormSelect: FC<FullSelectProps> = ({
   listItems,
@@ -17,9 +17,9 @@ const FormSelect: FC<FullSelectProps> = ({
   name,
   required,
   isMultiSelect = false,
-  placeholder = "Select an option",
+  placeholder = 'Select an option',
   localErrorMsg,
-  width = "full",
+  width = 'full',
   validate,
   isDisabled = false,
   onChangeFunc,
@@ -33,16 +33,11 @@ const FormSelect: FC<FullSelectProps> = ({
   const isError = !!(touched && error);
 
   return (
-    <Field.Root
-      id={name}
-      invalid={isError}
-      disabled={isDisabled}
-      width={"full"}
-    >
+    <Field.Root id={name} invalid={isError} disabled={isDisabled} width={'full'}>
       <SelectRoot
         name={field.name}
         value={field.value}
-        variant={"subtle"}
+        variant={'subtle'}
         required={required}
         lazyMount
         unmountOnExit
@@ -55,17 +50,13 @@ const FormSelect: FC<FullSelectProps> = ({
           field?.onBlur(e);
         }}
         collection={listItems}
-        size={"lg"}
+        size={'lg'}
         width={width}
       >
         {label && (
-          <SelectLabel
-            display={"flex"}
-            gap={"6px"}
-            fontSize={{ base: "14px", md: "16px" }}
-          >
+          <SelectLabel display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
             {label}
-            {required && <Text color={"red"}> * </Text>}
+            {required && <Text color={'red'}> * </Text>}
           </SelectLabel>
         )}
         <SelectTrigger clearable>
@@ -74,7 +65,7 @@ const FormSelect: FC<FullSelectProps> = ({
         <SelectContent borderRadius={7} p={3}>
           {listItems?.items?.map((item: any) => (
             <SelectItem
-              _highlighted={{ color: "primary.500" }}
+              _highlighted={{ color: 'primary.500' }}
               py={1}
               item={item.value}
               key={item.value}
@@ -85,14 +76,12 @@ const FormSelect: FC<FullSelectProps> = ({
         </SelectContent>
       </SelectRoot>
       {isError && (
-        <Flex gap={1} mt={1} alignItems={"center"}>
-          <Field.ErrorIcon width={4} height={4} color={"red.500"} />
+        <Flex gap={1} mt={1} alignItems={'center'}>
+          <Field.ErrorIcon width={4} height={4} color={'red.500'} />
           <Field.ErrorText>{error}</Field.ErrorText>
         </Flex>
       )}
-      {localErrorMsg && (
-        <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>
-      )}
+      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
   );
 };

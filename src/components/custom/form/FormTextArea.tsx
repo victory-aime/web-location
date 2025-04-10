@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { useField } from "formik";
-import { Field, Text, Textarea } from "@chakra-ui/react";
-import { FormTextAreaProps } from "./interface/input";
+import React, { FC } from 'react';
+import { useField } from 'formik';
+import { Field, Text, Textarea } from '@chakra-ui/react';
+import { FormTextAreaProps } from './interface/input';
 
 const FormTextArea: FC<FormTextAreaProps> = ({
   required = false,
@@ -27,25 +27,25 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   return (
     <Field.Root id={name} invalid={isError}>
       {label && (
-        <Field.Label display={"flex"} gap={"6px"}>
+        <Field.Label display={'flex'} gap={'6px'}>
           {label}
-          {required && <Text color={"red"}> * </Text>}
+          {required && <Text color={'red'}> * </Text>}
         </Field.Label>
       )}
       <Textarea
         {...field}
-        bg={"bg.muted"}
+        bg={'bg.muted'}
         autoresize
-        border={"1px solid"}
-        borderColor={isError ? "red.500" : "bg.muted"}
-        _focus={{ borderColor: "primary.500" }}
-        _placeholder={{ color: isError ? "red.500" : "gray.400" }}
-        placeholder={placeholder ?? ""}
-        fontSize={"16px"}
+        border={'1px solid'}
+        borderColor={isError ? 'red.500' : 'bg.muted'}
+        _focus={{ borderColor: 'primary.500' }}
+        _placeholder={{ color: isError ? 'red.500' : 'gray.400' }}
+        placeholder={placeholder ?? ''}
+        fontSize={'16px'}
         width={width}
         p={3}
-        mt={"5px"}
-        borderRadius={"7px"}
+        mt={'5px'}
+        borderRadius={'7px'}
         value={value ?? field.value}
         onChange={(event: never) => {
           onChangeFunction(event);
@@ -57,9 +57,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
         }}
       />
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}
-      {localErrorMsg && (
-        <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>
-      )}
+      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
   );
 };

@@ -1,11 +1,11 @@
-import { Bricolage_Grotesque } from "next/font/google";
-import AppMainEntry from "./app";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Bricolage_Grotesque } from 'next/font/google';
+import AppMainEntry from './app';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
 
 const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
+  variable: '--font-bricolage',
+  subsets: ['latin'],
 });
 export default async function RootLayout({
   children,

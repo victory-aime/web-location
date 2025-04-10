@@ -1,10 +1,10 @@
-import { Center, Group } from "@chakra-ui/react";
-import { BaseText, TextVariant } from "_/components/custom/base-text";
-import { BaseButton } from "_/components/custom/button";
-import { ModalComponent } from "_/components/custom/modal";
-import { useRouter } from "next/navigation";
-import React, { FC } from "react";
-import { APP_ROUTES } from "../config/routes";
+import { Center, Group } from '@chakra-ui/react';
+import { BaseText, TextVariant } from '_/components/custom/base-text';
+import { BaseButton } from '_/components/custom/button';
+import { ModalComponent } from '_/components/custom/modal';
+import { useRouter } from 'next/navigation';
+import React, { FC } from 'react';
+import { APP_ROUTES } from '../config/routes';
 
 interface ModalProps {
   open: boolean;
@@ -15,11 +15,7 @@ interface ModalProps {
 const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
   const router = useRouter();
   return (
-    <ModalComponent
-      title="Information"
-      open={open}
-      onChange={() => onChange(false)}
-    >
+    <ModalComponent title="Information" open={open} onChange={() => onChange(false)}>
       <Center flexDir="column" gap={5}>
         <BaseText variant={TextVariant.L} textAlign="center" lineHeight={1.5}>
           Vous devez vous connecter pour accéder à cette fonctionnalité
@@ -41,7 +37,7 @@ const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
             colorType="secondary"
             withGradient
             onClick={() => {
-              router.push(APP_ROUTES.PUBLIC.SIGN_UP);
+              router.push(APP_ROUTES.CLIENT_PAGES.PUBLIC.SIGN_UP);
               onChange(false);
             }}
           >

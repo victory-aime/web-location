@@ -1,8 +1,8 @@
-import { CheckboxGroup, Fieldset } from "@chakra-ui/react";
-import { Checkbox } from "_/components/ui/checkbox";
-import { useField } from "formik";
-import React, { FC } from "react";
-import { CheckBoxProps } from "./interface/input";
+import { CheckboxGroup, Fieldset } from '@chakra-ui/react';
+import { Checkbox } from '_/components/ui/checkbox';
+import { useField } from 'formik';
+import React, { FC } from 'react';
+import { CheckBoxProps } from './interface/input';
 
 const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
   const fieldHookConfig = {
@@ -26,7 +26,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
         >
           <Fieldset.Content>
             {items?.map((item, index) => (
-              <Checkbox key={index} value={item.name} size={"lg"}>
+              <Checkbox key={index} value={item.name} size={'lg'}>
                 {item.name}
               </Checkbox>
             ))}
@@ -38,8 +38,8 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
           name={name}
           value={field.value}
           checked={field.value}
-          size={"lg"}
-          colorPalette={field?.value ? "green" : isError ? "red" : "none"}
+          size={'lg'}
+          colorPalette={field?.value ? 'green' : isError ? 'red' : 'none'}
           onCheckedChange={({ checked }) => {
             setValue(checked);
           }}

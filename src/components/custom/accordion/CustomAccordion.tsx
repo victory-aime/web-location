@@ -1,12 +1,12 @@
-import { Icon } from "@chakra-ui/react";
+import { Icon } from '@chakra-ui/react';
 import {
   AccordionItem,
   AccordionItemContent,
   AccordionItemTrigger,
   AccordionRoot,
-} from "_components/ui/accordion";
-import { FC, useState } from "react";
-import { AccordionProps } from "./interface/accordion";
+} from '_components/ui/accordion';
+import { FC, useState } from 'react';
+import { AccordionProps } from './interface/accordion';
 
 export const CustomAccordion: FC<AccordionProps> = ({ items, ...rest }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -14,14 +14,12 @@ export const CustomAccordion: FC<AccordionProps> = ({ items, ...rest }) => {
   return (
     <AccordionRoot
       collapsible
-      width={"full"}
-      variant={"plain"}
+      width={'full'}
+      variant={'plain'}
       defaultValue={[items[currentIndex]?.label]}
       value={[items[currentIndex]?.label]}
       onValueChange={(details: { value: string[] }) => {
-        const index = items?.findIndex(
-          (item) => item?.label === details.value[0]
-        );
+        const index = items?.findIndex((item) => item?.label === details.value[0]);
         setCurrentIndex(index);
       }}
       {...rest}

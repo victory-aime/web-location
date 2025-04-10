@@ -1,8 +1,8 @@
-import { IStateModule } from "../../main/types";
-import { AUTH_KEY_IN_STORE } from "./constants";
-import AuthReducer from "./reducer";
-import { TYPES } from "_store/src";
-import { authSaga } from "./saga";
+import { IStateModule } from '../../main/types';
+import { AUTH_KEY_IN_STORE } from './constants';
+import AuthReducer from './reducer';
+import { TYPES } from '_store/src';
+import { authSaga } from './saga';
 
 export class AuthModule implements IStateModule {
   getRootKeyInStore(): string {

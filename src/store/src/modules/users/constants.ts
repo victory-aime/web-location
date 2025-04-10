@@ -1,4 +1,4 @@
-export const USERS_KEY_IN_STORE = "users";
+export const USERS_KEY_IN_STORE = 'users';
 
 export const USER_INFO_REQUEST = `${USERS_KEY_IN_STORE}/USER_INFO_REQUEST`;
 export const USER_INFO_REQUEST_SUCCESS = `${USERS_KEY_IN_STORE}/USER_INFO_REQUEST_SUCCESS`;

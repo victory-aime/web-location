@@ -1,6 +1,6 @@
-import { store } from "_store/store";
-import { ILoaderService } from "_store/src/main/types";
-import { LoaderModule } from "_store/src/modules";
+import { store } from '_store/store';
+import { ILoaderService } from '_store/src/main/types';
+import { LoaderModule } from '_store/src/modules';
 
 class LoaderService implements ILoaderService {
   private isLoaderVisible = false;

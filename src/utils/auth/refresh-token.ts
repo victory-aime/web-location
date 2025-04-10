@@ -1,5 +1,5 @@
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 export async function refreshAccessToken(refresh_token: any) {
   const resp = await axios.post(
@@ -7,17 +7,17 @@ export async function refreshAccessToken(refresh_token: any) {
     new URLSearchParams({
       client_id: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID!,
       client_secret: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET!,
-      grant_type: "refresh_token",
+      grant_type: 'refresh_token',
       refresh_token,
     }).toString(),
     {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    }
   );
 
   const refreshToken = resp.data;
 
-  console.log("resfreh token ====> ", refreshToken);
+  console.log('resfreh token ====> ', refreshToken);
 
   return {
     ...refresh_token,

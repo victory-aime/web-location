@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX } from 'react';
 
 interface ActionProps<T = any> {
   name: string | ((data: T) => string); // Nom ou fonction retournant un nom dynamique
@@ -16,7 +16,7 @@ interface ActionButtonsProps<T> {
 
 interface ColumnsDataTable {
   header: string;
-  accessor: string | "fullObject";
+  accessor: string | 'fullObject';
   cell?: (x?: any) => JSX.Element | string | Date | undefined;
   actions?: ActionProps[]; // For multiple actions
   disabled?: (data?: any) => boolean;
@@ -33,12 +33,12 @@ interface PaginationProps {
 
 interface ColumnsDataTable {
   header: string;
-  accessor: string | "fullObject";
+  accessor: string | 'fullObject';
   cell?: (x?: any) => JSX.Element | string | Date | undefined;
   disabled?: (data?: any) => boolean;
 }
 
-type NoDataFoundType = "trash" | "folder";
+type NoDataFoundType = 'trash' | 'folder';
 
 interface TableProps {
   data: any[];
@@ -61,10 +61,4 @@ interface TableProps {
   };
 }
 
-export type {
-  ActionProps,
-  PaginationProps,
-  ColumnsDataTable,
-  TableProps,
-  ActionButtonsProps,
-};
+export type { ActionProps, PaginationProps, ColumnsDataTable, TableProps, ActionButtonsProps };

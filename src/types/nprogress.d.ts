@@ -1,4 +1,4 @@
-declare module "nprogress" {
+declare module 'nprogress' {
   interface NProgressOptions {
     minimum?: number;
     easing?: string;

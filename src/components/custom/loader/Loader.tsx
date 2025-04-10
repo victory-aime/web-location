@@ -1,9 +1,9 @@
-import { Box } from "@chakra-ui/react";
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
-import { LoaderModule } from "_store/src/modules";
-import { LoaderLottie } from "_lottie/animations/LottieAnimation";
-import { LoaderProps } from "./interface/loader";
+import { Box } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { LoaderModule } from '_store/src/modules';
+import { LoaderLottie } from '_lottie/animations/LottieAnimation';
+import { LoaderProps } from './interface/loader';
 
 const Loader: FC<LoaderProps> = ({
   backDrop = true,
@@ -18,9 +18,9 @@ const Loader: FC<LoaderProps> = ({
         display="flex"
         justifyContent="center"
         alignItems="center"
-        w={fullScreen ? "100vw" : "full"}
-        h={fullScreen ? "100vh" : "full"}
-        position={"fixed"}
+        w={fullScreen ? '100vw' : 'full'}
+        h={fullScreen ? '100vh' : 'full'}
+        position={'fixed'}
         top={0}
         left={0}
         zIndex={13}

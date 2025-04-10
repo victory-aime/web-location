@@ -1,12 +1,12 @@
-import { FormatNumber, LocaleProvider } from "@chakra-ui/react";
-import { FC } from "react";
-import { FormatNumberProps } from "_components/custom/format-number/interface/format-number";
+import { FormatNumber, LocaleProvider } from '@chakra-ui/react';
+import { FC } from 'react';
+import { FormatNumberProps } from '_components/custom/format-number/interface/format-number';
 
 const CustomFormatNumber: FC<FormatNumberProps> = ({
   value,
-  notation = "compact",
-  style = "currency",
-  currencyCode = "USD",
+  notation = 'compact',
+  style = 'currency',
+  currencyCode = 'USD',
   maximumDigits,
   minimumDigits,
   isLocale = true,
@@ -18,8 +18,8 @@ const CustomFormatNumber: FC<FormatNumberProps> = ({
           value={value}
           notation={notation}
           style={style}
-          maximumFractionDigits={style === "percent" ? maximumDigits : 2}
-          minimumFractionDigits={style === "percent" ? minimumDigits : 2}
+          maximumFractionDigits={style === 'percent' ? maximumDigits : 2}
+          minimumFractionDigits={style === 'percent' ? minimumDigits : 2}
           currency={currencyCode}
         />
       ) : (

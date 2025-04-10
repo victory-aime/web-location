@@ -1,6 +1,6 @@
-export const AUTH_KEY_IN_STORE = "auth";
+export const AUTH_KEY_IN_STORE = 'auth';
 
-export const SET_ACCESS_TOKEN = `${AUTH_KEY_IN_STORE}/SET_ACCESS_TOKEN`;
+export const SET_TOKEN_KEYS = `${AUTH_KEY_IN_STORE}/SET_KEYS`;
 export const SET_REFRESH_TOKEN = `${AUTH_KEY_IN_STORE}/SET_REFRESH_TOKEN`;
 
 export const SIGN_UP_REQUEST = `${AUTH_KEY_IN_STORE}/SIGN_UP_REQUEST`;

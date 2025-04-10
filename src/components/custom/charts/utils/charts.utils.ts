@@ -5,7 +5,7 @@ type ObjectItem = {
   };
 };
 export const extractArrays = (
-  data: ObjectItem[],
+  data: ObjectItem[]
 ): { labels: string[]; values: { [key: string]: number[] } } => {
   const result: {
     labels: string[];
@@ -19,7 +19,7 @@ export const extractArrays = (
 
   // Vérifier que data est un tableau avant d'utiliser forEach
   if (!Array.isArray(data)) {
-    console.error("Data is not an array:", data);
+    console.error('Data is not an array:', data);
     return result; // Retourner un objet vide par défaut
   }
 
@@ -50,16 +50,16 @@ export const extractArrays = (
 
 export const getColorSchemaByCategory = (color: string): string => {
   switch (color) {
-    case "#2563EB":
-      return "packBasicColor";
+    case '#2563EB':
+      return 'packBasicColor';
       break;
-    case "#38BDF8":
-      return "packStandardColor";
+    case '#38BDF8':
+      return 'packStandardColor';
       break;
-    case "#DBEAFE":
-      return "packProColor";
+    case '#DBEAFE':
+      return 'packProColor';
       break;
     default:
-      return "black";
+      return 'black';
   }
 };

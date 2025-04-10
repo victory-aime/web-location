@@ -1,8 +1,8 @@
-import NextAuth from "next-auth";
-import KeycloakProvider from "next-auth/providers/keycloak";
-import { jwtDecode } from "jwt-decode";
-import { refreshAccessToken } from "_/utils/auth/refresh-token";
-import { encrypt } from "_/utils/encrypt";
+import NextAuth from 'next-auth';
+import KeycloakProvider from 'next-auth/providers/keycloak';
+import { jwtDecode } from 'jwt-decode';
+import { refreshAccessToken } from '_/utils/auth/refresh-token';
+import { encrypt } from '_/utils/encrypt';
 
 export const authOptions = {
   providers: [
@@ -25,17 +25,16 @@ export const authOptions = {
         token.refresh_token = account.refresh_token;
         token.sub = account?.sub;
         return token;
-      } else if (nowTimeStamp < token.expires_at) {
+      } else if (nowTimeStamp < token.expires_at - 180) {
         return token;
       } else {
-        console.log("Token has expired. Will refresh...");
+        console.log('Token has expired. Will refresh...');
         try {
-          const refreshedToken = await refreshAccessToken(token?.refresh_token);
-          console.log("Token is refreshed.");
-          return refreshedToken;
+          await refreshAccessToken(token?.refresh_token);
+          console.log('....Token is refreshed.');
         } catch (error) {
-          console.error("Error refreshing access token", error);
-          return { ...token, error: "RefreshAccessTokenError" };
+          console.error('Error refreshing access token', error);
+          return { ...token, error: 'RefreshAccessTokenError' };
         }
       }
     },
@@ -50,15 +49,13 @@ export const authOptions = {
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       if (!url) return baseUrl;
-      if (url.startsWith("/home")) return `${baseUrl}${url}`;
+      if (url.startsWith('/pages')) return `${baseUrl}${url}`;
       try {
         const parsedUrl = new URL(url);
         if (parsedUrl.origin === baseUrl) return url;
-      } catch (error) {
+      } catch {
         return baseUrl;
       }
-
-      return baseUrl;
     },
   },
 };

@@ -1,5 +1,5 @@
-import { TYPES } from "../..";
-import * as Constants from "./constants";
+import { TYPES } from '../..';
+import * as Constants from './constants';
 
 export const getAllProductsRequestAction = (storeId: { storeId: string }) => ({
   type: Constants.GET_PRODUCTS,
@@ -21,9 +21,7 @@ export const softDeleteRequestAction = (productId: { productId: string }) => ({
   payload: productId,
 });
 
-export const restoreProductRequestAtion = (productId?: {
-  productId: string;
-}) => ({
+export const restoreProductRequestAtion = (productId?: { productId: string }) => ({
   type: Constants.RESTORE_PRODUCT,
   payload: productId,
 });

@@ -1,5 +1,5 @@
-import { usePathname } from "next/navigation";
-import { subItems } from "../types";
+import { usePathname } from 'next/navigation';
+import { subItems } from '../types';
 
 const useIsActive = () => {
   const pathname = usePathname();

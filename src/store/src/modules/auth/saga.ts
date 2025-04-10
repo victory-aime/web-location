@@ -1,10 +1,10 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import * as Constants from "./constants";
-import { apiCall } from "_store/src/services/apiService";
-import APIS from "_store/src/endpoints";
-import { handleApiError, handleApiSuccess } from "_utils/handleApis";
-import * as AUTH_ACTION_TYPES from "./actions.types";
-import isApiError from "_utils/isApisError";
+import { call, put, takeLatest } from 'redux-saga/effects';
+import * as Constants from './constants';
+import { apiCall } from '_store/src/services/apiService';
+import APIS from '_store/src/endpoints';
+import { handleApiError, handleApiSuccess } from '_utils/handleApis';
+import * as AUTH_ACTION_TYPES from './actions.types';
+import isApiError from '_utils/isApisError';
 
 export function* register(action: AUTH_ACTION_TYPES.SignUpRequest): Generator {
   try {

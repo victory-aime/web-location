@@ -1,33 +1,14 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
 
-/**
- * Liste des routes protégées et des rôles autorisés pour chacune.
- */
+// Routes protégées et rôles associés
 const protectedRoutes: Record<string, string[]> = {
-  "/private/users": ["users"],
-  "/home": ["users"],
-  "/private/dashboard": ["admin", "vendor"],
-  "/private/ecommerce": ["admin", "vendor"],
-  "/private/trash": ["admin", "vendor"],
+  '/dashboard': ['admin', 'vendor'],
+  '/pages': ['users'],
 };
 
-/**
- * Middleware d'authentification et d'autorisation.
- *
- * Ce middleware :
- * - Vérifie si un utilisateur est authentifié via NextAuth.
- * - Extrait ses rôles depuis le token Keycloak.
- * - Vérifie s'il a accès aux routes protégées.
- * - Redirige vers la page de connexion si l'utilisateur n'est pas authentifié.
- * - Redirige vers "/unauthorized" si l'utilisateur n'a pas les permissions requises.
- *
- * @param {import("next/server").NextRequest} req - La requête entrante.
- * @returns {import("next/server").NextResponse} La réponse ou la redirection.
- */
 export default withAuth(
   function middleware(req) {
-    // Récupération du token depuis NextAuth
     const token: any = req.nextauth?.token;
 
     // Vérifie si le token est disponible (utilisateur authentifié)
@@ -67,14 +48,12 @@ export default withAuth(
       authorized: ({ token }: { token: any }): boolean => !!token,
     },
     pages: {
-      signIn: "/", // Redirige vers NextAuth pour la connexion
+      signIn: '/', // Redirige vers NextAuth pour la connexion
     },
   }
 );
 
-/**
- * Configuration du middleware pour matcher toutes les routes sous `/private/*`.
- */
+// ✅ On match uniquement les routes sensibles
 export const config = {
-  matcher: ["/private/:path*"],
+  matcher: ['/dashboad/:path*', '/pages/private/:path*'], // On n'inclut PAS les pages publiques ici
 };

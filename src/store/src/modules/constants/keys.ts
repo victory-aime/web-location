@@ -2,13 +2,14 @@
  * in redux store
  */
 
-import { TYPES } from "../..";
-import { AUTH_KEY_IN_STORE } from "../auth/constants";
-import { LOADER_KEY_IN_STORE } from "../loader/constants";
-import { PRODUCT_KEY_IN_STORE } from "../products/constants";
-import { USERS_KEY_IN_STORE } from "../users/constants";
-import { WISHLIST_KEY_IN_STORE } from "../wishlist/constants";
-import GlobalModuleInterface from "./global.modules.interface";
+import { TYPES } from '../..';
+import { AUTH_KEY_IN_STORE } from '../auth/constants';
+import { LOADER_KEY_IN_STORE } from '../loader/constants';
+import { PRODUCT_KEY_IN_STORE } from '../products/constants';
+import { USERS_KEY_IN_STORE } from '../users/constants';
+import { WISHLIST_KEY_IN_STORE } from '../wishlist/constants';
+import { ORDERS_KEY_IN_STORE } from '_store/src/modules/orders/constants';
+import GlobalModuleInterface from './global.modules.interface';
 
 /**
  * Mapping keys to state types
@@ -21,4 +22,5 @@ export interface ModuleStateMapping {
   [PRODUCT_KEY_IN_STORE]: TYPES.MODELS.PRODUCTS.IProductState;
   [USERS_KEY_IN_STORE]: TYPES.MODELS.USERS.UserState;
   [WISHLIST_KEY_IN_STORE]: TYPES.MODELS.WISHLIST.WishlistState;
+  [ORDERS_KEY_IN_STORE]: TYPES.MODELS.ORDERS.OrdersState;
 }

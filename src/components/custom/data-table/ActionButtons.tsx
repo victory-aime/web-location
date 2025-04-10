@@ -1,27 +1,24 @@
-import { HStack, IconButton } from "@chakra-ui/react";
-import { FaTrashAlt } from "react-icons/fa";
-import { IoNewspaperOutline } from "react-icons/io5";
-import { MdEdit } from "react-icons/md";
-import { BaseButton } from "../button";
-import { ActionButtonsProps } from "./interface/data-types";
-import { TbRestore } from "react-icons/tb";
+import { HStack, IconButton } from '@chakra-ui/react';
+import { FaTrashAlt } from 'react-icons/fa';
+import { IoNewspaperOutline } from 'react-icons/io5';
+import { MdEdit } from 'react-icons/md';
+import { BaseButton } from '../button';
+import { ActionButtonsProps } from './interface/data-types';
+import { TbRestore } from 'react-icons/tb';
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
     <HStack gap={2}>
       {actions.map((action, index) => {
         const isShown =
-          typeof action.isShown === "function"
-            ? action.isShown(item)
-            : action.isShown !== false;
+          typeof action.isShown === 'function' ? action.isShown(item) : action.isShown !== false;
         const isDisabled = action.isDisabled ? action.isDisabled(item) : false;
-        const label =
-          typeof action.name === "function" ? action.name(item) : action.name;
+        const label = typeof action.name === 'function' ? action.name(item) : action.name;
 
         if (!isShown) return null;
 
         switch (label) {
-          case "delete":
+          case 'delete':
             return (
               <IconButton
                 key={index}
@@ -34,7 +31,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
                 <FaTrashAlt />
               </IconButton>
             );
-          case "edit":
+          case 'edit':
             return (
               <IconButton
                 key={index}
@@ -47,7 +44,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
                 <MdEdit />
               </IconButton>
             );
-          case "view":
+          case 'view':
             return (
               <IconButton
                 key={index}
@@ -60,7 +57,7 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
                 <IoNewspaperOutline />
               </IconButton>
             );
-          case "restore":
+          case 'restore':
             return (
               <IconButton
                 key={index}

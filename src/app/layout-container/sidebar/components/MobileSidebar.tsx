@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   DrawerActionTrigger,
   DrawerBackdrop,
@@ -8,35 +8,29 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,
-} from "_components/ui/drawer";
-import { HStack, IconButton, VStack } from "@chakra-ui/react";
-import { BaseButton } from "_/components/custom/button";
-import { IoIosCloseCircle } from "react-icons/io";
-import { adminMenu } from "../sideBarRoutes";
-import RenderLinks from "./RenderLinks";
-import { IMobileSidebar } from "../types";
-import SwitchColorMode from "_/components/custom/switch-color/SwitchColorMode";
+} from '_components/ui/drawer';
+import { HStack, IconButton, VStack } from '@chakra-ui/react';
+import { BaseButton } from '_/components/custom/button';
+import { IoIosCloseCircle } from 'react-icons/io';
+import { adminMenu } from '../sideBarRoutes';
+import RenderLinks from './RenderLinks';
+import { IMobileSidebar } from '../types';
+import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
 
 const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
   return (
-    <DrawerRoot
-      open={isOpen}
-      onOpenChange={onClose}
-      placement={"start"}
-      size={"xs"}
-      closeOnEscape
-    >
+    <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
-      <DrawerContent height={"full"}>
+      <DrawerContent height={'full'}>
         <DrawerHeader>
-          <HStack p={5} justifyContent={"space-between"}>
-            <DrawerTitle>{"store.name"}</DrawerTitle>
+          <HStack p={5} justifyContent={'space-between'}>
+            <DrawerTitle>{'store.name'}</DrawerTitle>
             <DrawerActionTrigger asChild>
               <IconButton
                 aria-label="close-drawer"
-                boxSize={"35px"}
-                bgColor={"primary.500"}
-                color={"white"}
+                boxSize={'35px'}
+                bgColor={'primary.500'}
+                color={'white'}
                 onClick={onClose}
               >
                 <IoIosCloseCircle />
@@ -44,27 +38,23 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
             </DrawerActionTrigger>
           </HStack>
         </DrawerHeader>
-        <DrawerBody width={"full"} height={"full"}>
+        <DrawerBody width={'full'} height={'full'}>
           <VStack
-            alignItems={"flex-start"}
-            width={"full"}
+            alignItems={'flex-start'}
+            width={'full'}
             align="stretch"
             height="80%"
             overflow="auto"
           >
-            <RenderLinks
-              links={adminMenu}
-              sideToggled={isOpen}
-              onShowSidebar={onClose}
-            />
+            <RenderLinks links={adminMenu} sideToggled={isOpen} onShowSidebar={onClose} />
           </VStack>
         </DrawerBody>
         <DrawerFooter
-          display={"flex"}
-          flexDir={"column"}
-          alignItems={"flex-start"}
-          justifyContent={"flex-start"}
-          width={"full"}
+          display={'flex'}
+          flexDir={'column'}
+          alignItems={'flex-start'}
+          justifyContent={'flex-start'}
+          width={'full'}
           p={5}
         >
           <SwitchColorMode />
@@ -75,8 +65,8 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
               onClose(!isOpen);
             }}
             withGradient
-            colorType={"danger"}
-            width={"full"}
+            colorType={'danger'}
+            width={'full'}
           >
             Deconnexion
           </BaseButton>

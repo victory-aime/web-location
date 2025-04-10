@@ -1,4 +1,4 @@
-export const PRODUCT_KEY_IN_STORE = "products";
+export const PRODUCT_KEY_IN_STORE = 'products';
 
 export const GET_PRODUCTS = `${PRODUCT_KEY_IN_STORE}/GET_PRODUCTS`;
 export const GET_PRODUCTS_SUCCESS = `${PRODUCT_KEY_IN_STORE}/GET_PRODUCTS_SUCCESS`;

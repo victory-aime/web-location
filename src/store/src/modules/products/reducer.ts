@@ -1,6 +1,6 @@
-import { TYPES } from "../../index";
-import * as Constants from "./constants";
-import { ProductActionsTypes } from "./actions.types";
+import { TYPES } from '../../index';
+import * as Constants from './constants';
+import { ProductActionsTypes } from './actions.types';
 
 const initialState: TYPES.MODELS.PRODUCTS.IProductState = {
   products: {

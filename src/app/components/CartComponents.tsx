@@ -1,8 +1,8 @@
-import { Box, Float, Circle } from "@chakra-ui/react";
-import React from "react";
-import { FaCartShopping } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
-import { APP_ROUTES } from "_/app/config/routes";
+import { Box, Float, Circle } from '@chakra-ui/react';
+import React from 'react';
+import { FaCartShopping } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
+import { APP_ROUTES } from '_/app/config/routes';
 
 export const CartComponents = ({
   cart,
@@ -66,10 +66,8 @@ export const CartComponents = ({
       {/*)}*/}
       <Box
         position="relative"
-        cursor={"pointer"}
-        onClick={() =>
-          router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.OVERVIEW)
-        }
+        cursor={'pointer'}
+        onClick={() => router.push(APP_ROUTES.CLIENT_PAGES.PUBLIC.PRODUCTS_LIST.CART.OVERVIEW)}
       >
         {cart?.length > 0 && (
           <Float>

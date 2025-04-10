@@ -1,13 +1,13 @@
-import { BoxProps, FlexProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps } from '@chakra-ui/react';
 
 const layoutStyle: BoxProps = {
-  transition: "all 400ms cubic-bezier(0.25, 0.1, 0.25, 1)",
+  transition: 'all 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
 };
 const footerStyles: FlexProps = {
-  position: "fixed",
-  w: "100%",
-  bottom: "0",
-  alignItems: "center",
-  justifyContent: "center",
+  position: 'fixed',
+  w: '100%',
+  bottom: '0',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 export { layoutStyle, footerStyles };

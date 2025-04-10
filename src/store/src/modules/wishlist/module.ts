@@ -1,8 +1,8 @@
-import { TYPES } from "../..";
-import { IStateModule } from "../../main/types";
-import { WISHLIST_KEY_IN_STORE } from "./constants";
-import { WishlistReducer } from "./reducer";
-import { wishlistSaga } from "./saga";
+import { TYPES } from '../..';
+import { IStateModule } from '../../main/types';
+import { WISHLIST_KEY_IN_STORE } from './constants';
+import { WishlistReducer } from './reducer';
+import { wishlistSaga } from './saga';
 
 export class WishlistModule implements IStateModule {
   getRootKeyInStore(): string {

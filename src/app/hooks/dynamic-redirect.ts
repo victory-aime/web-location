@@ -1,7 +1,6 @@
-import { APP_ROUTES } from "../config/routes";
+import { APP_ROUTES } from '../config/routes';
 
 export const getRedirectRoute = (roles: string[]) => {
-  if (roles.includes("vendor") ?? roles.includes("admin"))
-    return APP_ROUTES.PRIVATE.DASH;
-  return APP_ROUTES.PUBLIC.HOME;
+  if (roles.includes('vendor') ?? roles.includes('admin')) return APP_ROUTES.PRIVATE.HOME;
+  return APP_ROUTES.CLIENT_PAGES.PUBLIC.HOME;
 };

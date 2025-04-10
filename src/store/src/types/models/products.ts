@@ -1,4 +1,4 @@
-export type ProductStatus = "PUBLISH" | "DRAFT" | "DISABLED";
+export type ProductStatus = 'PUBLISH' | 'DRAFT' | 'DISABLED';
 
 export interface ICreateProduct extends IProduct {
   discountPrice?: number;

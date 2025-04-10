@@ -1,4 +1,4 @@
-import { BoxProps } from "@chakra-ui/react";
+import { BoxProps } from '@chakra-ui/react';
 
 interface LoaderProps extends BoxProps {
   backDrop?: boolean;

@@ -1,22 +1,16 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import * as Constants from "./constants";
-import { apiCall } from "_store/src/services/apiService";
-import APIS from "_store/src/endpoints";
-import { handleApiError, handleApiSuccess } from "_utils/handleApis";
-import * as PRODUCTS_ACTION_TYPES from "./actions.types";
-import isApiError from "_utils/isApisError";
-import { ToastStatus } from "_/components/custom/toast/interface/toats";
+import { call, put, takeLatest } from 'redux-saga/effects';
+import * as Constants from './constants';
+import { apiCall } from '_store/src/services/apiService';
+import APIS from '_store/src/endpoints';
+import { handleApiError, handleApiSuccess } from '_utils/handleApis';
+import * as PRODUCTS_ACTION_TYPES from './actions.types';
+import isApiError from '_utils/isApisError';
+import { ToastStatus } from '_/components/custom/toast/interface/toats';
 
 function* getAllProducts(action: any): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.GET_PRODUCTS;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action?.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action?.payload, false);
     yield put({
       type: Constants.GET_PRODUCTS_SUCCESS,
       payload: response,
@@ -51,9 +45,7 @@ function* allPublicProducts(action: any): Generator {
   }
 }
 
-function* createProductSaga(
-  action: PRODUCTS_ACTION_TYPES.CreateProductRequest
-): Generator {
+function* createProductSaga(action: PRODUCTS_ACTION_TYPES.CreateProductRequest): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.CREATE_PRODUCT;
     const response = yield call(apiCall, apiConfig, action?.payload, {}, false);
@@ -88,9 +80,7 @@ function* getCategoriesProductSaga(): Generator {
   }
 }
 
-function* updateProduct(
-  action: PRODUCTS_ACTION_TYPES.UpdateProducRequestAction
-): Generator {
+function* updateProduct(action: PRODUCTS_ACTION_TYPES.UpdateProducRequestAction): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.UPDATE_PRODUCT;
     const response = yield call(apiCall, apiConfig, action.payload, {}, false);
@@ -107,18 +97,10 @@ function* updateProduct(
   }
 }
 
-function* addedProductToTrash(
-  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
-): Generator {
+function* addedProductToTrash(action: PRODUCTS_ACTION_TYPES.DeleteProductRequest): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.SOFT_DELETE_PRODUCT;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action.payload, false);
     yield put({
       type: Constants.SOFT_DELETE_PRODUCT_SUCCESS,
       payload: response,
@@ -134,18 +116,10 @@ function* addedProductToTrash(
   }
 }
 
-function* getAllTrashProductsList(
-  action: PRODUCTS_ACTION_TYPES.TrashRequestList
-): Generator {
+function* getAllTrashProductsList(action: PRODUCTS_ACTION_TYPES.TrashRequestList): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.TRASH_LIST_PRODUCT;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action.payload, false);
     yield put({
       type: Constants.TRASH_PRODUCT_LIST_SUCCESS,
       payload: response,
@@ -161,18 +135,10 @@ function* getAllTrashProductsList(
   }
 }
 
-function* restoreProducts(
-  action: PRODUCTS_ACTION_TYPES.RestoreProduct
-): Generator {
+function* restoreProducts(action: PRODUCTS_ACTION_TYPES.RestoreProduct): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.RESTORE_PRODUCT;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action.payload, false);
     yield put({
       type: Constants.RESTORE_PRODUCT_SUCCESS,
       payload: response,
@@ -188,18 +154,10 @@ function* restoreProducts(
   }
 }
 
-function* deleteProducts(
-  action: PRODUCTS_ACTION_TYPES.DeleteProductRequest
-): Generator {
+function* deleteProducts(action: PRODUCTS_ACTION_TYPES.DeleteProductRequest): Generator {
   try {
     const apiConfig = APIS().PRODUCTS.DELETE_PRODUCT;
-    const response = yield call(
-      apiCall,
-      apiConfig,
-      null,
-      action.payload,
-      false
-    );
+    const response = yield call(apiCall, apiConfig, null, action.payload, false);
     handleApiSuccess(response, ToastStatus.INFO);
     yield put({
       type: Constants.DELETE_PRODUCT_SUCCESS,

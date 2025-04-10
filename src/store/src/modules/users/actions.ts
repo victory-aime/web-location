@@ -1,5 +1,5 @@
-import * as Constants from "./constants";
-import { TYPES } from "_store/src";
+import * as Constants from './constants';
+import { TYPES } from '_store/src';
 
 export const userInfoRequestAction = (userId: { userId: string }) => ({
   type: Constants.USER_INFO_REQUEST,
@@ -25,9 +25,7 @@ export const editNewShippingAddressRequestAction = (
   payload,
 });
 
-export const deleteShippingAddressRequestAction = (addressId: {
-  addressId: string;
-}) => ({
+export const deleteShippingAddressRequestAction = (addressId: { addressId: string }) => ({
   type: Constants.DELETE_SHIPPING_ADDRESS_REQUEST,
   payload: addressId,
 });

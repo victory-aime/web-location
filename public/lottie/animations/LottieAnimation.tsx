@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 import {
   ConfirmCommand,
   NoDataFoundLottie,
@@ -8,9 +8,9 @@ import {
   DeleteAnimation,
   TrashAnimation,
   TrashAnimationV2,
-} from "_lottie/json";
+} from '_lottie/json';
 
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const LottieAnimation = () => {
   return <Lottie animationData={ConfirmCommand} />;

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   Chart as ChartJS,
   Tooltip,
@@ -10,21 +10,14 @@ import {
   Plugin,
   ChartData,
   ChartOptions,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import { Box, Center, Flex, Spinner, Text } from "@chakra-ui/react";
-import { extractArrays } from "./utils/charts.utils";
-import { FiBarChart2 } from "react-icons/fi";
-import { BoxIcon } from "../boxIcon";
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { Box, Center, Flex, Spinner, Text } from '@chakra-ui/react';
+import { extractArrays } from './utils/charts.utils';
+import { FiBarChart2 } from 'react-icons/fi';
+import { BoxIcon } from '../boxIcon';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 type FormatData = {
   labels: string[];
@@ -33,7 +26,7 @@ type FormatData = {
 };
 
 const BarChart: FC<any> = ({ dataChart, loader, color }) => {
-  const chartRef = useRef<ChartJS<"bar"> | null>(null);
+  const chartRef = useRef<ChartJS<'bar'> | null>(null);
 
   const [formatData, setFormatData] = useState<FormatData>({
     labels: [],
@@ -50,10 +43,10 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
     return data;
   };
 
-  const data: ChartData<"bar"> = {
+  const data: ChartData<'bar'> = {
     labels: getTranslatedLabel(formatData.labels),
     datasets: Object.keys(formatData.values).map((key, index) => ({
-      label: "BAR_CHART." + key.toUpperCase(),
+      label: 'BAR_CHART.' + key.toUpperCase(),
       data: formatData.values[key],
       backgroundColor: color[index % color.length],
       stack: `Stack ${index}`,
@@ -61,7 +54,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
     })),
   };
 
-  const options: ChartOptions<"bar"> = {
+  const options: ChartOptions<'bar'> = {
     maintainAspectRatio: false,
     plugins: {
       title: {
@@ -72,7 +65,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
       },
     },
     hover: {
-      mode: "nearest",
+      mode: 'nearest',
       intersect: true,
     },
     animation: {
@@ -80,7 +73,7 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
     },
     responsive: true,
     interaction: {
-      mode: "index" as const,
+      mode: 'index' as const,
       intersect: false,
     },
     scales: {
@@ -100,9 +93,9 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
           stepSize: Math.ceil(
             Math.max(
               ...Object.keys(formatData.maxValues ?? {}).map(
-                (key) => formatData.maxValues?.[key] ?? 0,
-              ),
-            ) / 5,
+                (key) => formatData.maxValues?.[key] ?? 0
+              )
+            ) / 5
           ),
         },
         stacked: true,
@@ -113,8 +106,8 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
     },
   };
 
-  const hoverSegment: Plugin<"bar"> = {
-    id: "hoverSegment",
+  const hoverSegment: Plugin<'bar'> = {
+    id: 'hoverSegment',
     beforeDatasetsDraw: (chart) => {
       const {
         data,
@@ -130,16 +123,10 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
 
       if (tooltip && Array.isArray(tooltip.active) && tooltip.active[0]) {
         const activeElement = tooltip.active[0];
-        const xCoor =
-          x.getPixelForValue(activeElement.index) - segmentWidth / 2;
-        const gradient = ctx.createLinearGradient(
-          xCoor,
-          top,
-          xCoor + segmentWidth,
-          top,
-        );
-        gradient.addColorStop(0, "rgba(6, 82, 76, 0.2)");
-        gradient.addColorStop(1, "rgba(6, 82, 76, 1)");
+        const xCoor = x.getPixelForValue(activeElement.index) - segmentWidth / 2;
+        const gradient = ctx.createLinearGradient(xCoor, top, xCoor + segmentWidth, top);
+        gradient.addColorStop(0, 'rgba(6, 82, 76, 0.2)');
+        gradient.addColorStop(1, 'rgba(6, 82, 76, 1)');
         ctx.fillStyle = gradient;
         ctx.fillRect(xCoor, top, 50, height);
       }
@@ -149,12 +136,10 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
   };
 
   return (
-    <Box minH={"100%"}>
-      <Flex gap={"10px"} alignItems={"center"} justifyContent={"space-between"}>
-        <Text fontSize={{ base: "xs", md: "medium" }}>
-          Weekly Incomes vs Expenses
-        </Text>
-        <BoxIcon color={"primary.500"}>
+    <Box minH={'100%'}>
+      <Flex gap={'10px'} alignItems={'center'} justifyContent={'space-between'}>
+        <Text fontSize={{ base: 'xs', md: 'medium' }}>Weekly Incomes vs Expenses</Text>
+        <BoxIcon color={'primary.500'}>
           <FiBarChart2 />
         </BoxIcon>
       </Flex>
@@ -162,19 +147,13 @@ const BarChart: FC<any> = ({ dataChart, loader, color }) => {
         <Spinner />
       ) : (
         <Box>
-          <Box width={"100%"} minHeight={"300px"} mt={"30px"} mb={"30px"}>
-            {Math.max(...Object?.values(formatData?.maxValues || {})) <
-            0 ? null : (
-              <Bar
-                ref={chartRef}
-                data={data}
-                options={options}
-                plugins={[hoverSegment]}
-              />
+          <Box width={'100%'} minHeight={'300px'} mt={'30px'} mb={'30px'}>
+            {Math.max(...Object?.values(formatData?.maxValues || {})) < 0 ? null : (
+              <Bar ref={chartRef} data={data} options={options} plugins={[hoverSegment]} />
             )}
           </Box>
-          <Center mt={"20px"}>
-            <Flex py={"10px"}>Legend</Flex>
+          <Center mt={'20px'}>
+            <Flex py={'10px'}>Legend</Flex>
           </Center>
         </Box>
       )}

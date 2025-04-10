@@ -8,7 +8,7 @@
 
 /* Pseudo-élément pour l'effet autour des bordures */
 .btn-1::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -4px;
   left: -4px;
@@ -16,14 +16,7 @@
   bottom: -4px;
   border-radius: inherit; /* Garde la même forme que le bouton */
   opacity: 0;
-  background: linear-gradient(
-    115deg,
-    #4fcf70,
-    #fad648,
-    #a767e5,
-    #12bcfe,
-    #44ce7b
-  );
+  background: linear-gradient(115deg, #4fcf70, #fad648, #a767e5, #12bcfe, #44ce7b);
   background-size: 300% 100%;
   z-index: -1; /* Place l'effet sous le bouton */
   animation: borderAnimation 1.5s linear infinite;

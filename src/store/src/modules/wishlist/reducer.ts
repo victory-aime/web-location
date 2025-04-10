@@ -1,6 +1,6 @@
-import { TYPES } from "../../index";
-import * as Constants from "./constants";
-import { WishlistActions } from "./actions.types";
+import { TYPES } from '../../index';
+import * as Constants from './constants';
+import { WishlistActions } from './actions.types';
 
 const initialState: TYPES.MODELS.WISHLIST.WishlistState = {
   wishlist: { content: [] },

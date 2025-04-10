@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Toaster as ChakraToaster,
@@ -7,11 +7,11 @@ import {
   Stack,
   Toast,
   createToaster,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 export const toaster = createToaster({
-  placement: "top-end",
-  offsets: { left: "20px", top: "20px", right: "20px", bottom: "20px" },
+  placement: 'top-end',
+  offsets: { left: '20px', top: '20px', right: '20px', bottom: '20px' },
   overlap: true,
   max: 1,
   pauseOnPageIdle: true,
@@ -20,37 +20,27 @@ export const toaster = createToaster({
 export const Toaster = () => {
   return (
     <Portal>
-      <ChakraToaster toaster={toaster} insetInline={{ mdDown: "4" }}>
+      <ChakraToaster toaster={toaster} insetInline={{ mdDown: '4' }}>
         {(toast) => (
           <Toast.Root
             bgColor={
-              toast.type === "info"
-                ? "blue.500"
-                : toast.type === "success"
-                  ? "primary.500"
-                  : ""
+              toast.type === 'info' ? 'blue.500' : toast.type === 'success' ? 'primary.500' : ''
             }
-            color={"white"}
-            width={{ md: "sm" }}
+            color={'white'}
+            width={{ md: 'sm' }}
             p={4}
           >
-            {toast.type === "loading" ? (
+            {toast.type === 'loading' ? (
               <Spinner size="sm" color="blue.solid" />
             ) : (
-              <Toast.Indicator colorPalette={"gray"} />
+              <Toast.Indicator colorPalette={'gray'} />
             )}
-            <Stack gap="1" flex="1" maxWidth="100%" color={"white"}>
+            <Stack gap="1" flex="1" maxWidth="100%" color={'white'}>
               {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
-              {toast.description && (
-                <Toast.Description>{toast.description}</Toast.Description>
-              )}
+              {toast.description && <Toast.Description>{toast.description}</Toast.Description>}
             </Stack>
-            {toast.action && (
-              <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
-            )}
-            {toast.meta?.closable && (
-              <Toast.CloseTrigger p={2} color="'white" />
-            )}
+            {toast.action && <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>}
+            {toast.meta?.closable && <Toast.CloseTrigger p={2} color="'white" />}
           </Toast.Root>
         )}
       </ChakraToaster>

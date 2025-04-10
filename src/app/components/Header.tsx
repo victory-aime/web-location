@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { Box, Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import { APP_ROUTES } from "_/app/config/routes";
-import { FormTextInput } from "_/components/custom/form";
-import { Formik } from "formik";
-import { useRouter } from "next/navigation";
-import React, { ReactNode, useEffect, useState } from "react";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { RiSearch2Line } from "react-icons/ri";
-import WebDisplay from "./WebDisplay";
-import MobileMenu from "./MobileMenu";
-import { ListMenu } from "_assets/svg";
-import { TbUser } from "react-icons/tb";
-import { useCart } from "_/app/hooks/cart";
-import { CartComponents } from "./CartComponents";
-import { useDispatch } from "react-redux";
-import { AuthModule } from "_/store/src/modules";
-import { BaseText, TextVariant } from "_/components/custom/base-text";
-import { BaseButton } from "_/components/custom/button";
-import BreadcrumbNav from "_/components/custom/breadcrumb/BreadCrumbNav";
-import { Avatar } from "_/components/ui/avatar";
-import { signOut, signIn } from "next-auth/react";
-import { decrypt } from "_/utils/encrypt";
-import { Session } from "next-auth";
-import { BsSend } from "react-icons/bs";
-import ModalInfo from "./ModalInfo";
+import { Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
+import { APP_ROUTES } from '_/app/config/routes';
+import { FormTextInput } from '_/components/custom/form';
+import { Formik, FormikValues } from 'formik';
+import { useRouter } from 'next/navigation';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { RiSearch2Line } from 'react-icons/ri';
+import WebDisplay from './WebDisplay';
+import MobileMenu from './MobileMenu';
+import { ListMenu } from '_assets/svg';
+import { TbUser } from 'react-icons/tb';
+import { useCart } from '_/app/hooks/cart';
+import { CartComponents } from './CartComponents';
+import { useDispatch } from 'react-redux';
+import { AuthModule } from '_/store/src/modules';
+import { BaseText, TextVariant } from '_/components/custom/base-text';
+import { BaseButton } from '_/components/custom/button';
+import BreadcrumbNav from '_/components/custom/breadcrumb/BreadCrumbNav';
+import { Avatar } from '_/components/ui/avatar';
+import { signOut, signIn } from 'next-auth/react';
+import { decrypt } from '_/utils/encrypt';
+import { Session } from 'next-auth';
+import { BsSend } from 'react-icons/bs';
+import ModalInfo from './ModalInfo';
 
 type Props = {
   session: Session | null;
@@ -44,7 +44,7 @@ const Header = ({ session }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { removeFromCart, clearCart } = useCart();
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const isLoggedIn = !!session;
 
   // 1. Stockage des tokens déchiffrés
@@ -52,14 +52,13 @@ const Header = ({ session }: Props) => {
     if (session?.access_token && session?.refresh_token) {
       const decodeToken = decrypt(session.access_token);
       const decodeRefreshToken = decrypt(session.refresh_token);
-      dispatch(AuthModule.actions.setAccessToken(decodeToken));
-      dispatch(AuthModule.actions.setRefreshToken(decodeRefreshToken));
+      dispatch(AuthModule.actions.setTokenKeys(decodeToken, decodeRefreshToken));
     }
   }, [session]);
 
   // 2. Déconnexion automatique si erreur de refresh
   useEffect(() => {
-    if (session?.error === "RefreshAccessTokenError") {
+    if (session?.error === 'RefreshAccessTokenError') {
       signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` });
       dispatch(AuthModule.actions.clearKeys());
     }
@@ -84,14 +83,10 @@ const Header = ({ session }: Props) => {
   return (
     <Box>
       {/* Mobile Header */}
-      <Box display={{ base: "block", sm: "block", lg: "none" }}>
+      <Box display={{ base: 'block', sm: 'block', lg: 'none' }}>
         <Flex m={3} alignItems="center" justifyContent="space-between">
           <Flex alignItems="center" gap={5}>
-            <IconButton
-              bgColor="white"
-              aria-label="menu"
-              onClick={() => setOpen(true)}
-            >
+            <IconButton bgColor="white" aria-label="menu" onClick={() => setOpen(true)}>
               <ListMenu />
             </IconButton>
             <BaseText variant={TextVariant.H3}>E-shop</BaseText>
@@ -101,7 +96,7 @@ const Header = ({ session }: Props) => {
               size={22}
               onClick={() =>
                 isLoggedIn
-                  ? router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
+                  ? router.push(APP_ROUTES.CLIENT_PAGES.PRIVATE.PROFILE)
                   : setInfoModal(true)
               }
               cursor="pointer"
@@ -118,26 +113,19 @@ const Header = ({ session }: Props) => {
                 withGradient
                 p={0}
                 onClick={() =>
-                  signIn("keycloak", {
+                  signIn('keycloak', {
                     callbackUrl: process.env.NEXTAUTH_URL,
                   })
                 }
                 leftIcon={<TbUser size={18} />}
               />
             ) : (
-              <Avatar
-                onClick={() =>
-                  router.push(APP_ROUTES.PRIVATE.CLIENT.MANAGE_PROFILE)
-                }
-              />
+              <Avatar onClick={() => router.push(APP_ROUTES.CLIENT_PAGES.PRIVATE.PROFILE)} />
             )}
           </Flex>
         </Flex>
         {/* Search Bar */}
-        <Formik
-          initialValues={{ search: "" }}
-          onSubmit={(values) => console.log(values)}
-        >
+        <Formik initialValues={{ search: '' }} onSubmit={(values) => router.push(`${APP_ROUTES.CLIENT_PAGES.PUBLIC.PRODUCTS_LIST.LIST}?search=${values?.search}`)}>
           {({ values, handleSubmit, setFieldValue }) => (
             <Flex width="full" p={3}>
               <FormTextInput
@@ -145,19 +133,10 @@ const Header = ({ session }: Props) => {
                 placeholder="Recherchez votre produit"
                 leftAccessory={<RiSearch2Line size={24} />}
                 rightAccessory={
-                  <BsSend
-                    cursor="pointer"
-                    size={18}
-                    onClick={() => handleSubmit()}
-                  />
+                  <BsSend cursor="pointer" size={18} onClick={() => handleSubmit()} />
                 }
-                onChangeFunction={(e: any) =>
-                  setFieldValue("search", e.target.value)
-                }
+                onChangeFunction={(e: any) => setFieldValue('search', e.target.value)}
                 value={values.search}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") handleSubmit();
-                }}
               />
             </Flex>
           )}
@@ -178,19 +157,11 @@ const Header = ({ session }: Props) => {
           loading={loading}
         />
       ) : (
-        <MobileMenu
-          open={open}
-          onChange={() => setOpen(false)}
-          isLoggedIn={isLoggedIn}
-        />
+        <MobileMenu open={open} onChange={() => setOpen(false)} isLoggedIn={isLoggedIn} />
       )}
 
       {/* Modal Connexion */}
-      <ModalInfo
-        open={infoModal}
-        onChange={() => setInfoModal(false)}
-        onClick={() => signIn()}
-      />
+      <ModalInfo open={infoModal} onChange={() => setInfoModal(false)} onClick={() => signIn()} />
     </Box>
   );
 };

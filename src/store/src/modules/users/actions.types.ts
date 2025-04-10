@@ -1,6 +1,6 @@
-import * as Constants from "./constants";
-import { TYPES } from "_store/src";
-import { Action } from "redux";
+import * as Constants from './constants';
+import { TYPES } from '_store/src';
+import { Action } from 'redux';
 
 export interface UserInfoRequest extends Action {
   type: typeof Constants.USER_INFO_REQUEST;

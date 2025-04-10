@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
-import type { Configuration, RuleSetRule } from "webpack";
+import type { NextConfig } from 'next';
+import type { Configuration, RuleSetRule } from 'webpack';
 
 const nextConfig: NextConfig = {
   webpack(config: Configuration) {
@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: "@svgr/webpack",
+          loader: '@svgr/webpack',
           options: {
             svgo: false,
             icon: true,

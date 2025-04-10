@@ -1,13 +1,13 @@
-"use client";
-import React, { FC, useCallback, useState } from "react";
-import { PaginationProps } from "../interface/data-types";
-import { Flex, Input, Text, useBreakpointValue } from "@chakra-ui/react";
+'use client';
+import React, { FC, useCallback, useState } from 'react';
+import { PaginationProps } from '../interface/data-types';
+import { Flex, Input, Text, useBreakpointValue } from '@chakra-ui/react';
 import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
   PaginationRoot,
-} from "_components/ui/pagination";
-import { Button } from "_components/ui/button";
+} from '_components/ui/pagination';
+import { Button } from '_components/ui/button';
 
 const PaginationDataTable: FC<PaginationProps> = ({
   table,
@@ -18,25 +18,21 @@ const PaginationDataTable: FC<PaginationProps> = ({
   onLazyLoad,
 }) => {
   if (lazy && (totalItems === undefined || currentPage === undefined)) {
-    throw new Error(
-      "With lazy loading, totalItems and current Page are required",
-    );
+    throw new Error('With lazy loading, totalItems and current Page are required');
   }
 
-  const [currentIndexPage, setCurrentIndexPage] = useState<number>(
-    !lazy ? 1 : currentPage!,
-  );
+  const [currentIndexPage, setCurrentIndexPage] = useState<number>(!lazy ? 1 : currentPage!);
   const [itemsPerPage, setItemsPerPage] = useState<number>(pageSize);
   const responsiveMode = useBreakpointValue({ base: false, lg: true });
 
   const handleClick = useCallback(
     (index: number | string) => {
-      if (index !== "...") {
-        if (index === "previous") {
+      if (index !== '...') {
+        if (index === 'previous') {
           table.previousPage();
           setCurrentIndexPage((value) => value - 1);
           onLazyLoad?.(currentIndexPage - 1);
-        } else if (index === "next") {
+        } else if (index === 'next') {
           table.nextPage();
           setCurrentIndexPage((value) => value + 1);
           onLazyLoad?.(currentIndexPage + 1);
@@ -47,12 +43,10 @@ const PaginationDataTable: FC<PaginationProps> = ({
         }
       }
     },
-    [currentIndexPage, table, onLazyLoad],
+    [currentIndexPage, table, onLazyLoad]
   );
 
-  const [inputPageValue, setInputPageValue] = useState<string>(
-    currentIndexPage.toString(),
-  );
+  const [inputPageValue, setInputPageValue] = useState<string>(currentIndexPage.toString());
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputPageValue(event.target?.value);
   };
@@ -90,14 +84,8 @@ const PaginationDataTable: FC<PaginationProps> = ({
   };
 
   return (
-    <Flex
-      alignItems="center"
-      justifyContent={"space-between"}
-      w="full"
-      mt={8}
-      mb={8}
-    >
-      <Flex width={"full"}>
+    <Flex alignItems="center" justifyContent={'space-between'} w="full" mt={8} mb={8}>
+      <Flex width={'full'}>
         <PaginationRoot
           count={(totalItems && totalItems) || 0}
           pageSize={pageSize}
@@ -108,8 +96,8 @@ const PaginationDataTable: FC<PaginationProps> = ({
             <Button
               key={i}
               size="sm"
-              bg={currentIndexPage === i + 1 ? "primary.500" : "none"}
-              color={currentIndexPage === i + 1 ? "white" : "gray.700"}
+              bg={currentIndexPage === i + 1 ? 'primary.500' : 'none'}
+              color={currentIndexPage === i + 1 ? 'white' : 'gray.700'}
               onClick={() => handleClick(i + 1)}
             >
               {i + 1}
@@ -119,12 +107,7 @@ const PaginationDataTable: FC<PaginationProps> = ({
         </PaginationRoot>
       </Flex>
       {responsiveMode && (
-        <Flex
-          width={"full"}
-          alignItems={"center"}
-          justifyContent={"flex-end"}
-          gap={4}
-        >
+        <Flex width={'full'} alignItems={'center'} justifyContent={'flex-end'} gap={4}>
           <Text>Go to Page</Text>
           <Input
             type="number"
@@ -133,12 +116,12 @@ const PaginationDataTable: FC<PaginationProps> = ({
             value={inputPageValue}
             onChange={handleInputChange}
             onKeyPress={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 handleGoToPage();
               }
             }}
-            p={"10px"}
-            width={"80px"}
+            p={'10px'}
+            width={'80px'}
           />
         </Flex>
       )}

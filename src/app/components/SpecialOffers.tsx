@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Container,
@@ -10,22 +10,22 @@ import {
   VStack,
   Badge,
   HStack,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 const offers = [
   {
     id: 1,
-    name: "Premium Smartphone",
+    name: 'Premium Smartphone',
     originalPrice: 999.99,
     discountedPrice: 799.99,
-    image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd",
+    image: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd',
     discount: 20,
   },
   {
     id: 2,
-    name: "Wireless Earbuds",
+    name: 'Wireless Earbuds',
     originalPrice: 199.99,
     discountedPrice: 149.99,
-    image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb",
+    image: 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb',
     discount: 25,
   },
 ];
@@ -36,8 +36,8 @@ export const SpecialOffers = () => {
         <Heading mb={8}>Special Offers</Heading>
         <Grid
           templateColumns={{
-            base: "1fr",
-            md: "repeat(2, 1fr)",
+            base: '1fr',
+            md: 'repeat(2, 1fr)',
           }}
           gap={8}
         >
@@ -77,11 +77,7 @@ export const SpecialOffers = () => {
                 <Text fontSize="2xl" color="blue.600">
                   ${offer.discountedPrice}
                 </Text>
-                <Text
-                  fontSize="lg"
-                  textDecoration="line-through"
-                  color="gray.500"
-                >
+                <Text fontSize="lg" textDecoration="line-through" color="gray.500">
                   ${offer.originalPrice}
                 </Text>
               </HStack>

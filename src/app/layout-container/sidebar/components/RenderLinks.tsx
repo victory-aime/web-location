@@ -1,17 +1,13 @@
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
-import { FC, useState } from "react";
-import useIsActive from "../hooks/useIsActive";
-import { ILink, IRenderLinks } from "../types";
-import ActiveMenu from "./ActiveMenu";
-import Menu from "./Menu";
-import SubMenu from "./SubMenu";
-import { useRouter } from "next/navigation";
+import { Flex, useBreakpointValue } from '@chakra-ui/react';
+import { FC, useState } from 'react';
+import useIsActive from '../hooks/useIsActive';
+import { ILink, IRenderLinks } from '../types';
+import ActiveMenu from './ActiveMenu';
+import Menu from './Menu';
+import SubMenu from './SubMenu';
+import { useRouter } from 'next/navigation';
 
-const RenderLinks: FC<IRenderLinks> = ({
-  sideToggled,
-  links,
-  onShowSidebar,
-}) => {
+const RenderLinks: FC<IRenderLinks> = ({ sideToggled, links, onShowSidebar }) => {
   const navigate = useRouter();
   const { isActiveLink } = useIsActive();
   const [openedMenu, setOpenedMenu] = useState<any>(false);
@@ -20,7 +16,7 @@ const RenderLinks: FC<IRenderLinks> = ({
 
   const conditionsSubMenu = (link: any) => {
     if (link?.subItems && openedMenu === link.menuKey) {
-      setOpenedMenu("");
+      setOpenedMenu('');
     } else {
       setOpenedMenu(link.menuKey);
     }
@@ -40,11 +36,11 @@ const RenderLinks: FC<IRenderLinks> = ({
       {links.map((link: ILink, index: number) => (
         <Flex
           direction="column"
-          width={"full"}
-          alignItems={"flex-start"}
-          justifyContent={"flex-start"}
+          width={'full'}
+          alignItems={'flex-start'}
+          justifyContent={'flex-start'}
           key={index}
-          pe={!sideToggled ? { lg: "0" } : { lg: "10px" }}
+          pe={!sideToggled ? { lg: '0' } : { lg: '10px' }}
         >
           {!link.subItems && link?.path && (
             <SubMenu

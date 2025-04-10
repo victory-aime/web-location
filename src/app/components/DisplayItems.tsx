@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, useBreakpointValue, Text } from "@chakra-ui/react";
-import { BaseButton } from "_/components/custom/button";
-import React, { FC, ReactNode, useState } from "react";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { Box, Flex, Heading, useBreakpointValue, Text } from '@chakra-ui/react';
+import { BaseButton } from '_/components/custom/button';
+import React, { FC, ReactNode, useState } from 'react';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
 interface DisplayItemsProps {
   items: { content: ReactNode }[];
@@ -24,9 +24,7 @@ const DisplayItems: FC<DisplayItemsProps> = ({
   pageIndex = 0,
   onClick,
 }) => {
-  const itemsPerPage =
-    useBreakpointValue({ base: itemsMobilePage, sm: 4, lg: 4 }) ||
-    itemsPerPages;
+  const itemsPerPage = useBreakpointValue({ base: itemsMobilePage, sm: 4, lg: 4 }) || itemsPerPages;
   const [startIndex, setStartIndex] = useState(pageIndex);
   const totalItems = items.length;
 
@@ -46,7 +44,7 @@ const DisplayItems: FC<DisplayItemsProps> = ({
   };
 
   return (
-    <Box p={{ base: 4, lg: 10 }} w={"full"}>
+    <Box p={{ base: 4, lg: 10 }} w={'full'}>
       <Flex width="full" alignItems="center" justifyContent="space-between">
         {label && <Heading size="lg">{label}</Heading>}
         {controlled && (
@@ -55,13 +53,13 @@ const DisplayItems: FC<DisplayItemsProps> = ({
               onClick={handlePrev}
               disabled={!canGoBack}
               leftIcon={<BsArrowLeft />}
-              cursor={canGoBack ? "pointer" : "not-allowed"}
+              cursor={canGoBack ? 'pointer' : 'not-allowed'}
             />
             <BaseButton
               onClick={handleNext}
               disabled={!canGoForward}
               leftIcon={<BsArrowRight />}
-              cursor={canGoForward ? "pointer" : "not-allowed"}
+              cursor={canGoForward ? 'pointer' : 'not-allowed'}
             />
           </Flex>
         )}
@@ -70,8 +68,8 @@ const DisplayItems: FC<DisplayItemsProps> = ({
         mt={10}
         alignItems="center"
         justifyContent="center"
-        wrap={"wrap"}
-        width={"full"}
+        wrap={'wrap'}
+        width={'full'}
         gap={8}
       >
         {items

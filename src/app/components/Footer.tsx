@@ -1,14 +1,5 @@
-import React from "react";
-import {
-  Box,
-  Container,
-  Grid,
-  Heading,
-  Link,
-  VStack,
-  Text,
-  HStack,
-} from "@chakra-ui/react";
+import React from 'react';
+import { Box, Container, Grid, Heading, Link, VStack, Text, HStack } from '@chakra-ui/react';
 
 export const Footer = () => {
   return (
@@ -16,8 +7,8 @@ export const Footer = () => {
       <Container maxW="1200px">
         <Grid
           templateColumns={{
-            base: "1fr",
-            md: "repeat(4, 1fr)",
+            base: '1fr',
+            md: 'repeat(4, 1fr)',
           }}
           gap={8}
         >

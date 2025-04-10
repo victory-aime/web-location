@@ -1,11 +1,7 @@
-import {
-  HTMLChakraProps,
-  ListCollection,
-  CheckboxRootProps,
-} from "@chakra-ui/react";
-import { HTMLInputTypeAttribute } from "react";
+import { HTMLChakraProps, ListCollection, CheckboxRootProps } from '@chakra-ui/react';
+import { HTMLInputTypeAttribute } from 'react';
 
-interface TextInputProps extends HTMLChakraProps<"input"> {
+interface TextInputProps extends HTMLChakraProps<'input'> {
   name: string;
   label?: string;
   required?: boolean;
@@ -32,11 +28,7 @@ interface FullSelectProps {
   name: string;
   label?: string;
   listItems: ListCollection<unknown>;
-  setFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean
-  ) => Promise<any>;
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<any>;
   placeholder?: string;
   isDisabled?: boolean;
   isMultiSelect?: boolean;
@@ -52,7 +44,7 @@ interface DefaultProps extends TextInputProps {
   max: number;
 }
 
-interface CheckBoxProps extends HTMLChakraProps<"label"> {
+interface CheckBoxProps extends HTMLChakraProps<'label'> {
   name: string;
   label?: string | React.ReactNode;
   validate?: any;
@@ -63,10 +55,4 @@ interface CheckBoxProps extends HTMLChakraProps<"label"> {
   }[];
 }
 
-export type {
-  TextInputProps,
-  FormTextAreaProps,
-  FullSelectProps,
-  DefaultProps,
-  CheckBoxProps,
-};
+export type { TextInputProps, FormTextAreaProps, FullSelectProps, DefaultProps, CheckBoxProps };

@@ -1,14 +1,13 @@
-import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-import { IStateModule } from "_store/src/main/types";
-import { activeModules } from "./src/modules/constants/global.modules";
-import { ModuleStateMapping } from "./src/modules/constants/keys";
-import storage from "redux-persist/lib/storage";
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import { IStateModule } from '_store/src/main/types';
+import { activeModules } from './src/modules/constants/global.modules';
+import { ModuleStateMapping } from './src/modules/constants/keys';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: "root",
-  storage:
-    typeof window !== "undefined" ? storage : (null as unknown as Storage),
+  key: 'root',
+  storage: typeof window !== 'undefined' ? storage : (null as unknown as Storage),
   whitelist: [],
 };
 
@@ -43,6 +42,4 @@ export const rootReducer = combineReducers<RootState>(reducers);
  * This ensures that parts of the Redux state are saved and restored across sessions.
  */
 export const persistedReducer =
-  typeof window !== "undefined"
-    ? persistReducer(persistConfig, rootReducer)
-    : rootReducer; // On ne persiste pas côté serveur
+  typeof window !== 'undefined' ? persistReducer(persistConfig, rootReducer) : rootReducer; // On ne persiste pas côté serveur

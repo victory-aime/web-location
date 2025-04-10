@@ -1,24 +1,15 @@
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Container, Flex, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import React from 'react';
 
 const Hero = () => {
   return (
     <Box p={{ base: 0, lg: 10 }}>
-      <Box p={{ base: 5, lg: 10 }} bgColor={"gray.900"} mt={50}>
+      <Box p={{ base: 5, lg: 10 }} bgColor={'gray.900'} mt={50}>
         <Flex
-          flexDir={{ base: "column-reverse", lg: "row" }}
-          alignItems={"center"}
+          flexDir={{ base: 'column-reverse', lg: 'row' }}
+          alignItems={'center'}
           gap={5}
-          justifyContent={"space-between"}
+          justifyContent={'space-between'}
         >
           <Container>
             <VStack
@@ -29,20 +20,19 @@ const Hero = () => {
               borderRadius="lg"
               backdropFilter="blur(10px)"
             >
-              <Heading size="2xl" color={"white"}>
+              <Heading size="2xl" color={'white'}>
                 Summer Collection 2024
               </Heading>
-              <Text fontSize="xl" color={"white"}>
-                Discover our latest arrivals with up to 40% off on selected
-                items
+              <Text fontSize="xl" color={'white'}>
+                Discover our latest arrivals with up to 40% off on selected items
               </Text>
-              <Button size="lg" p={"10px"} rounded={"lg"} colorPalette="blue">
+              <Button size="lg" p={'10px'} rounded={'lg'} colorPalette="blue">
                 Shop Now
               </Button>
             </VStack>
           </Container>
-          <Box w={"full"}>
-            <Image src="/assets/images/hero/hero-2.jpg" borderRadius={"12px"} />
+          <Box w={'full'}>
+            <Image src="/assets/images/hero/hero-2.jpg" borderRadius={'12px'} />
           </Box>
         </Flex>
       </Box>
