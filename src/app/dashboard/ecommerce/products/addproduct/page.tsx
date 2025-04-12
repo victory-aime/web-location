@@ -118,14 +118,6 @@ const AddProductPage = () => {
     }
   }, [categories?.length, requestId, existingProductFiles]);
 
-  const categoryList = createListCollection({
-    items:
-      categories?.map((item) => ({
-        label: item.name,
-        value: item.name,
-      })) || [],
-  });
-
   return (
     <Formik enableReinitialize initialValues={initialValues} onSubmit={submitForm}>
       {({ values, setFieldValue, handleSubmit }) => (
@@ -312,7 +304,7 @@ const AddProductPage = () => {
                   <FormSelect
                     name="categoryName"
                     setFieldValue={setFieldValue}
-                    listItems={categoryList}
+                    listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.categoryList(categories ?? [])}
                     placeholder="Choisissez une categorie"
                   />
                 </VStack>
@@ -327,7 +319,7 @@ const AddProductPage = () => {
               >
                 <VStack mt={5} width="full">
                   <FormSelect
-                    listItems={TYPES.CONSTANTS.PRODUCTS.productListStatus}
+                    listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.productStatus()}
                     setFieldValue={setFieldValue}
                     name="status"
                     placeholder="Choisissez un status"

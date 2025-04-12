@@ -47,7 +47,51 @@ export function* createNewOrder(action: ORDERS_ACTION_TYPES.createOrderAction): 
   }
 }
 
+export function* privateOrderListByStore(
+  action: ORDERS_ACTION_TYPES.userOrderListAction
+): Generator {
+  try {
+    const apiConfig = APIS().ORDERS.ORDER_STORE_LIST;
+    const response = yield call(apiCall, apiConfig, {}, action?.payload, false);
+    handleApiSuccess(response);
+    yield put({
+      type: Constants.STORE_ORDERS_LIST_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error, ToastStatus.WARNING);
+    }
+    yield put({
+      type: Constants.STORE_ORDERS_LIST_FAILED,
+      payload: error,
+    });
+  }
+}
+
+export function* updateOrderStore(action: ORDERS_ACTION_TYPES.updateStoreOrder): Generator {
+  try {
+    const apiConfig = APIS().ORDERS.UPDATE_ORDER_BY_VENDOR;
+    const response = yield call(apiCall, apiConfig, {}, action?.payload, false);
+    handleApiSuccess(response);
+    yield put({
+      type: Constants.UPDATE_ORDER_BY_VENDOR_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    if (isApiError(error)) {
+      handleApiError(error, ToastStatus.WARNING);
+    }
+    yield put({
+      type: Constants.UPDATE_ORDER_BY_VENDOR_FAILED,
+      payload: error,
+    });
+  }
+}
+
 export function* ordersSaga(): Generator {
   yield takeLatest(Constants.USERS_ORDERS_LIST, userOrderList);
   yield takeLatest(Constants.CREATE_ORDERS, createNewOrder);
+  yield takeLatest(Constants.STORE_ORDERS_LIST, privateOrderListByStore);
+  yield takeLatest(Constants.UPDATE_ORDER_BY_VENDOR, updateOrderStore);
 }

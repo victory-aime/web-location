@@ -1,4 +1,4 @@
-import { Field, Flex, Text } from '@chakra-ui/react';
+import { Field, Flex } from '@chakra-ui/react';
 import {
   SelectContent,
   SelectItem,
@@ -10,6 +10,7 @@ import {
 import React, { FC } from 'react';
 import { FullSelectProps } from './interface/input';
 import { useField } from 'formik';
+import { BaseText } from '../base-text';
 
 const FormSelect: FC<FullSelectProps> = ({
   listItems,
@@ -20,10 +21,14 @@ const FormSelect: FC<FullSelectProps> = ({
   placeholder = 'Select an option',
   localErrorMsg,
   width = 'full',
+  variant = 'subtle',
   validate,
   isDisabled = false,
+  isClearable = true,
+  showDropdownIcon = true,
   onChangeFunc,
   setFieldValue,
+  customRenderSelected,
 }) => {
   const fieldHookConfig = {
     name,
@@ -32,12 +37,16 @@ const FormSelect: FC<FullSelectProps> = ({
   const [field, { touched, error }] = useField(fieldHookConfig);
   const isError = !!(touched && error);
 
+  const extractSingleValue = (value: any) => {
+    return Array?.isArray(value) ? value[0] : value;
+  };
+
   return (
     <Field.Root id={name} invalid={isError} disabled={isDisabled} width={'full'}>
       <SelectRoot
         name={field.name}
         value={field.value}
-        variant={'subtle'}
+        variant={variant}
         required={required}
         lazyMount
         unmountOnExit
@@ -56,12 +65,23 @@ const FormSelect: FC<FullSelectProps> = ({
         {label && (
           <SelectLabel display={'flex'} gap={'6px'} fontSize={{ base: '14px', md: '16px' }}>
             {label}
-            {required && <Text color={'red'}> * </Text>}
+            {required && <BaseText color={'red'}> * </BaseText>}
           </SelectLabel>
         )}
-        <SelectTrigger clearable>
-          <SelectValueText pl={3} placeholder={placeholder} />
+
+        <SelectTrigger clearable={isClearable} showDropdownIcon={showDropdownIcon}>
+          {customRenderSelected ? (
+            customRenderSelected(
+              listItems?.items.filter((i: any) => {
+                const currentValue = extractSingleValue(field.value);
+                return i.value === currentValue;
+              })
+            )
+          ) : (
+            <SelectValueText pl={3} placeholder={placeholder} />
+          )}
         </SelectTrigger>
+
         <SelectContent borderRadius={7} p={3}>
           {listItems?.items?.map((item: any) => (
             <SelectItem

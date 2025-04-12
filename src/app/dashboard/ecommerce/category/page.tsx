@@ -73,33 +73,31 @@ const Category = () => {
   ];
 
   return (
-    <Layout>
-      <Box width={'full'} mt={'30px'}>
-        <HStack width={'full'} alignItems={'center'} justifyContent={'space-between'}>
-          <Heading>Categorie</Heading>
-          <BaseButton
-            bgColor={'primary.500'}
-            p={'8px'}
-            leftIcon={<FaPlus />}
-            onClick={() => setOpen(true)}
-          >
-            Ajouter une categorie
-          </BaseButton>
-        </HStack>
-        <Box mt={'30px'}>
-          <CommonDataTable
-            data={categoryData}
-            columns={columns}
-            initialPage={1}
-            totalItems={totalPages}
-            pageSize={pageSize}
-            handleRowSelection={() => {}}
-            lazy
-          />
-        </Box>
-        <CategoryModal values={selectedValues} open={open} onChange={() => setOpen(false)} />
+    <Box width={'full'} mt={'30px'}>
+      <HStack width={'full'} alignItems={'center'} justifyContent={'space-between'}>
+        <Heading>Categorie</Heading>
+        <BaseButton
+          bgColor={'primary.500'}
+          p={'8px'}
+          leftIcon={<FaPlus />}
+          onClick={() => setOpen(true)}
+        >
+          Ajouter une categorie
+        </BaseButton>
+      </HStack>
+      <Box mt={'30px'}>
+        <CommonDataTable
+          data={categoryData}
+          columns={columns}
+          initialPage={1}
+          totalItems={totalPages}
+          pageSize={pageSize}
+          handleRowSelection={() => {}}
+          lazy
+        />
       </Box>
-    </Layout>
+      <CategoryModal values={selectedValues} open={open} onChange={() => setOpen(false)} />
+    </Box>
   );
 };
 

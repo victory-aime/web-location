@@ -5,6 +5,7 @@ import { MdEdit } from 'react-icons/md';
 import { BaseButton } from '../button';
 import { ActionButtonsProps } from './interface/data-types';
 import { TbRestore } from 'react-icons/tb';
+import CustomToolTip from '../tooltip/CustomTooltip';
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -20,55 +21,63 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
         switch (label) {
           case 'delete':
             return (
-              <IconButton
-                key={index}
-                aria-label="Supprimer"
-                colorPalette="red"
-                size="sm"
-                onClick={() => action.handleClick(item)}
-                disabled={isDisabled}
-              >
-                <FaTrashAlt />
-              </IconButton>
+              <CustomToolTip message={'Supprimer'}>
+                <IconButton
+                  key={index}
+                  aria-label="Supprimer"
+                  colorPalette="red"
+                  size="sm"
+                  onClick={() => action.handleClick(item)}
+                  disabled={isDisabled}
+                >
+                  <FaTrashAlt />
+                </IconButton>
+              </CustomToolTip>
             );
           case 'edit':
             return (
-              <IconButton
-                key={index}
-                aria-label="Modifier"
-                colorPalette="blue"
-                size="sm"
-                onClick={() => action.handleClick(item)}
-                disabled={isDisabled}
-              >
-                <MdEdit />
-              </IconButton>
+              <CustomToolTip message={'Modifier'}>
+                <IconButton
+                  key={index}
+                  aria-label="Modifier"
+                  colorPalette="blue"
+                  size="sm"
+                  onClick={() => action.handleClick(item)}
+                  disabled={isDisabled}
+                >
+                  <MdEdit />
+                </IconButton>
+              </CustomToolTip>
             );
           case 'view':
             return (
-              <IconButton
-                key={index}
-                aria-label="Voir"
-                colorPalette="green"
-                size="sm"
-                onClick={() => action.handleClick(item)}
-                disabled={isDisabled}
-              >
-                <IoNewspaperOutline />
-              </IconButton>
+              <CustomToolTip message={'Voir Details'}>
+                <IconButton
+                  key={index}
+                  aria-label="Voir"
+                  colorPalette="green"
+                  size="sm"
+                  onClick={() => action.handleClick(item)}
+                  disabled={isDisabled}
+                >
+                  <IoNewspaperOutline />
+                </IconButton>
+              </CustomToolTip>
             );
           case 'restore':
             return (
-              <IconButton
-                key={index}
-                aria-label="restore"
-                colorPalette="blue"
-                size="sm"
-                onClick={() => action.handleClick(item)}
-                disabled={isDisabled}
-              >
-                <TbRestore />
-              </IconButton>
+              <CustomToolTip message={'Restore'}>
+                <IconButton
+                  key={index}
+                  aria-label="restore"
+                  colorPalette="blue"
+                  size="sm"
+                  onClick={() => action.handleClick(item)}
+                  disabled={isDisabled}
+                >
+                  <TbRestore />
+                </IconButton>
+              </CustomToolTip>
             );
           default:
             return (

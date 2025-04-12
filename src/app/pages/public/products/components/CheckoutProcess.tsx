@@ -10,7 +10,6 @@ import { useCart } from '_app/hooks/cart';
 import PaymentInfo from '../cart/process/components/PaymentInfo';
 import RecapOrder from '../cart/process/components/RecapOrder';
 import ShippingAddress from '../cart/process/components/ShippingAddress';
-import { Session } from 'next-auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { UsersModule, OrdersModule } from '_store/src/modules';
 import { useRouter } from 'next/navigation';
@@ -25,7 +24,7 @@ const CheckoutProcess = () => {
   const { user } = useSelector(UsersModule.selectors.userSelector);
   const { orderActions } = useSelector(OrdersModule.selectors.ordersSelector);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const {data: session} = useSession()
+  const { data: session } = useSession();
   const router = useRouter();
 
   const steps = [

@@ -8,6 +8,8 @@ import { GiCancel } from 'react-icons/gi';
 import { BaseButton } from '../base/baseButton';
 import { IoSave } from 'react-icons/io5';
 import { hexToRGB } from '_theme/colors';
+import { IoIosArrowDropleftCircle } from 'react-icons/io';
+import { ActionButtonTypes } from '../interface/button';
 
 export const ActionsButton = ({
   cancelTitle,
@@ -15,26 +17,21 @@ export const ActionsButton = ({
   goBackUrl,
   requestId,
   isLoading = false,
+  cancelColor = 'danger',
   onClick,
-}: {
-  cancelTitle?: string;
-  validateTitle?: string;
-  goBackUrl?: string;
-  requestId?: string;
-  isLoading?: boolean;
-  onClick?: () => void;
-}) => {
+  ...rest
+}: ActionButtonTypes) => {
   if (cancelTitle && !goBackUrl) {
     throw new Error('goBackUrl is missing');
   }
   const router = useRouter();
   return (
-    <Flex gap={3}>
+    <Flex gap={3} {...rest}>
       {cancelTitle && (
         <BaseButton
           px={'15px'}
-          colorType={'danger'}
-          leftIcon={<GiCancel />}
+          colorType={cancelColor}
+          leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />}
           onClick={() => {
             router.push(goBackUrl ?? '');
           }}

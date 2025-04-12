@@ -1,7 +1,6 @@
 'use client';
 
 import { Breadcrumb, For, HStack } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
@@ -30,19 +29,17 @@ export default function BreadcrumbNav() {
       <HStack>
         <For each={breadcrumbItems}>
           {(item, index) => (
-            <NextLink key={index} href={item?.href} passHref>
-              <Breadcrumb.List key={index}>
+            <Breadcrumb.List key={index}>
+              <Breadcrumb.Item>
+                <Breadcrumb.Link>{!item?.isCurrent && item?.label}</Breadcrumb.Link>
+              </Breadcrumb.Item>
+              {item?.isCurrent && (
                 <Breadcrumb.Item>
-                  <Breadcrumb.Link>{!item?.isCurrent && item?.label}</Breadcrumb.Link>
+                  <Breadcrumb.CurrentLink color={'blue.500'}>{item.label}</Breadcrumb.CurrentLink>
                 </Breadcrumb.Item>
-                {item?.isCurrent && (
-                  <Breadcrumb.Item>
-                    <Breadcrumb.CurrentLink color={'blue.500'}>{item.label}</Breadcrumb.CurrentLink>
-                  </Breadcrumb.Item>
-                )}
-                {!item?.isCurrent ? <Breadcrumb.Separator /> : null}
-              </Breadcrumb.List>
-            </NextLink>
+              )}
+              {!item?.isCurrent ? <Breadcrumb.Separator /> : null}
+            </Breadcrumb.List>
           )}
         </For>
       </HStack>

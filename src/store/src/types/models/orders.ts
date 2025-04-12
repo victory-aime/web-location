@@ -37,8 +37,15 @@ export interface IResponseUserListOrders {
   items?: OrderItem[];
 }
 
+export interface IResponseStoreListOrder {
+  content: any[];
+  totalPages?: number;
+  totalDataPerPage?: number;
+}
+
 export interface OrdersState {
   orders: IResponseUserListOrders[];
+  storeOrderList: IResponseStoreListOrder;
   loading: boolean;
   orderActions?: boolean;
   error: string | null;

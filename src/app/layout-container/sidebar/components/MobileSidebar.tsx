@@ -9,22 +9,25 @@ import {
   DrawerRoot,
   DrawerTitle,
 } from '_components/ui/drawer';
-import { HStack, IconButton, VStack } from '@chakra-ui/react';
+import { Box, HStack, IconButton, VStack } from '@chakra-ui/react';
 import { BaseButton } from '_/components/custom/button';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { adminMenu } from '../sideBarRoutes';
 import RenderLinks from './RenderLinks';
 import { IMobileSidebar } from '../types';
-import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
+import SwitchColorMode from '_components/custom/switch-color/SwitchColorMode';
+import { useSelector } from 'react-redux';
+import { UsersModule } from '_/store/src/modules';
 
 const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
+  const { user } = useSelector(UsersModule.selectors.userSelector);
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
       <DrawerContent height={'full'}>
         <DrawerHeader>
           <HStack p={5} justifyContent={'space-between'}>
-            <DrawerTitle>{'store.name'}</DrawerTitle>
+            <DrawerTitle>{user?.store?.name ?? ''}</DrawerTitle>
             <DrawerActionTrigger asChild>
               <IconButton
                 aria-label="close-drawer"
@@ -57,8 +60,9 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
           width={'full'}
           p={5}
         >
-          <SwitchColorMode />
-
+          <Box mb={8}>
+            <SwitchColorMode />
+          </Box>
           <BaseButton
             onClick={() => {
               handleLogout?.();

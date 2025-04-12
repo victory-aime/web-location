@@ -5,6 +5,11 @@ import { CREATE_ORDERS_SUCCESS } from './constants';
 
 const initialState: TYPES.MODELS.ORDERS.OrdersState = {
   orders: [],
+  storeOrderList: {
+    content: [],
+    totalDataPerPage: 0,
+    totalPages: 0,
+  },
   loading: false,
   error: null,
   orderActions: false,
@@ -49,6 +54,45 @@ export const OrdersReducer = (
         loading: false,
         error: action.payload,
       };
+
+    case Constants.STORE_ORDERS_LIST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case Constants.STORE_ORDERS_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        storeOrderList: {
+          content: action.payload.content,
+          totalDataPerPage: action.payload.totalDataPerPage,
+          totalPages: action.payload.totalPages,
+        },
+      };
+
+    case Constants.STORE_ORDERS_LIST_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case Constants.UPDATE_ORDER_BY_VENDOR:
+      return {
+        ...state,
+      };
+    case Constants.UPDATE_ORDER_BY_VENDOR_SUCCESS:
+      return {
+        ...state,
+        orderActions: true,
+      };
+    case Constants.UPDATE_ORDER_BY_VENDOR_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
     case Constants.CLEAR_ORDERS_LIST:
       return {
         ...initialState,

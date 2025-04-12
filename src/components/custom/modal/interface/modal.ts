@@ -5,13 +5,16 @@ import { variantColorType } from '../../button/interface/button';
 export interface ModalProps extends DialogRootProps {
   title?: string | undefined;
   isOpen?: boolean | undefined;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   showCloseButton?: boolean;
   ignoreFooter?: boolean;
   modalType?: 'dialog' | 'alertdialog' | undefined;
   buttonSaveTitle?: string;
+  buttonCancelTitle?: string;
   colorSaveButton?: variantColorType;
   isFull?: boolean | undefined;
+  icon?: ReactNode;
+  iconBackroungColor?: string;
   onClick?: () => void;
   isLoading?: boolean;
   children: ReactNode;

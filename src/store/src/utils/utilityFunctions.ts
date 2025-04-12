@@ -7,17 +7,19 @@ dayjs.extend(customParseFormat); // Extend Dayjs with the custom parse format pl
 dayjs.locale('fr'); // Set the default locale to French
 
 export const APP_DATE_FORMAT = 'DD/MM/YYYY'; // Application date format
-export const APP_DATE_PATTERN = 'YYYY-MM-DD'; // Default date pattern
+export const APP_DATE_PATTERN = 'DD MMM YYYY'; // Default date pattern e.g: 12 Dec 2025
 export const COMMON_FORMAT_DATE = 'dd/MM/yyyy'; // Common date format
-export const AMOUNT_DEFAULT_CURRENCY = 'FCFA'; // Default currency (FCFA)
-
+export const AMOUNT_DEFAULT_CURRENCY = '$'; // Default currency (dollars)
 /**
  * Converts a date in a standard format (e.g., 'YYYY-MM-DD') to the application's specific format.
  * @param date - The date to convert
  * @returns Formatted date according to the application format
  */
-export const convertDateFormat = (date: string | Date): string => {
-  return dayjs(date).isValid() ? dayjs(date).format(APP_DATE_FORMAT) : '';
+export const convertDateFormat = (
+  date: string | Date,
+  inputFormat: string = APP_DATE_FORMAT
+): string => {
+  return dayjs(date).isValid() ? dayjs(date).format(inputFormat) : '';
 };
 
 /**
@@ -122,6 +124,29 @@ export const parseDateString = (
   }
   const parsedDate = dayjs(date, inputFormat, true);
   return parsedDate.isValid() ? parsedDate.toDate() : null;
+};
+
+/**
+ * Parse and format a date string into a readable format like '12 Dec 2025'.
+ * @param date - A date string, Date object, or null
+ * @param inputFormat - Expected input format if not ISO (default 'DD/MM/YYYY')
+ * @returns A formatted string or null if invalid
+ */
+export const formatDisplayDate = (
+  date: Date | string | null | undefined,
+  inputFormat: string = APP_DATE_PATTERN
+): string | null => {
+  if (!date) return null;
+
+  let parsed = null;
+
+  if (date instanceof Date && !isNaN(date.getTime())) {
+    parsed = dayjs(date);
+  } else if (typeof date === 'string') {
+    const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+    parsed = isoRegex.test(date) ? dayjs(date) : dayjs(date, inputFormat, true);
+  }
+  return parsed && parsed.isValid() ? parsed.format(APP_DATE_PATTERN) : null;
 };
 
 /**

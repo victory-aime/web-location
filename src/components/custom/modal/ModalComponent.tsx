@@ -12,6 +12,8 @@ import React from 'react';
 import { BaseButton } from '../button';
 import { variantColorType } from '../button/interface/button';
 import { ModalProps } from './interface/modal';
+import { Flex } from '@chakra-ui/react';
+import { BoxIcon } from '../boxIcon';
 
 const ModalComponent = ({
   isOpen = false,
@@ -20,11 +22,14 @@ const ModalComponent = ({
   title = 'Modal Title',
   colorSaveButton = 'success',
   buttonSaveTitle = 'Save',
+  buttonCancelTitle = 'cancel',
   showCloseButton = true,
   isLoading,
   onClick,
   isFull,
   modalType,
+  icon,
+  iconBackroungColor = 'red',
   children,
   ...rest
 }: ModalProps) => {
@@ -32,28 +37,35 @@ const ModalComponent = ({
     <DialogRoot
       open={isOpen}
       lazyMount
-      onOpenChange={(e) => onChange(e?.open)}
+      onOpenChange={(e) => onChange?.(e?.open)}
       placement={'center'}
       role={modalType}
       size={isFull ? 'full' : 'lg'}
       motionPreset="slide-in-top"
       {...rest}
     >
-      <DialogContent width={'full'} padding={8}>
-        <DialogHeader>
+      <DialogContent width={'full'} padding={4}>
+        <DialogHeader alignItems={'center'} display={'flex'} gap={4}>
+          {true && (
+            <BoxIcon borderRadius={'7px'} color={iconBackroungColor}>
+              {icon}
+            </BoxIcon>
+          )}
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <DialogBody mt={8}>{children}</DialogBody>
         {!ignoreFooter ? (
           <DialogFooter mt={8}>
-            <DialogActionTrigger asChild>
-              <BaseButton onClick={onChange} variant="outline">
-                Cancel
-              </BaseButton>
-            </DialogActionTrigger>
+            {buttonCancelTitle && (
+              <DialogActionTrigger asChild>
+                <BaseButton onClick={onChange} variant="outline">
+                  {buttonCancelTitle}
+                </BaseButton>
+              </DialogActionTrigger>
+            )}
             <BaseButton
               withGradient
-              onClick={() => onClick && onClick()}
+              onClick={() => onClick?.()}
               isLoading={isLoading}
               colorType={
                 modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)

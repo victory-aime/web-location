@@ -1,4 +1,5 @@
-export type ProductStatus = 'PUBLISH' | 'DRAFT' | 'DISABLED';
+export type ProductStatus = 'PUBLISH' | 'DISABLED' | 'DRAFT';
+export type OrderStatus = 'NEW' | 'IN_PROGRESS' | 'CANCELED' | 'PAID' | 'DELIVERED';
 
 export interface ICreateProduct extends IProduct {
   discountPrice?: number;
@@ -43,6 +44,16 @@ export interface IProductsCategories {
   name?: string;
 }
 
+export interface IStatusOrder {
+  label?: string;
+  value?: OrderStatus;
+}
+
+export interface IProductStatus {
+  label?: string;
+  value?: ProductStatus;
+}
+
 export interface IShoppingStore {
   id?: string;
   name?: string;
@@ -52,7 +63,7 @@ export interface IShoppingStore {
   price?: string;
 }
 
-export interface IResponPublicProduct {
+export interface IResponsePublicProduct {
   content: IProduct[];
   totalPages?: number;
   totalDataPerPage?: number;
@@ -62,7 +73,7 @@ export interface IProductState {
   products: IResponseProductList;
   categories?: IProductsCategories[];
   trashList: IResponseProductList;
-  publicProducts: IResponPublicProduct;
+  publicProducts: IResponsePublicProduct;
   isLoading: boolean;
   addProduct: boolean;
   updateProduct: boolean;

@@ -1,4 +1,4 @@
-import { ButtonProps } from '@chakra-ui/react';
+import { ButtonProps, FlexProps } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 export type variantColorType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'none';
@@ -21,4 +21,14 @@ export interface ButtonBaseProps extends ButtonProps {
   isLoading?: boolean;
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
+}
+
+export interface ActionButtonTypes extends FlexProps {
+  cancelTitle?: string;
+  validateTitle?: string;
+  cancelColor?: variantColorType;
+  goBackUrl?: string;
+  requestId?: string;
+  isLoading?: boolean;
+  onClick?: () => void;
 }

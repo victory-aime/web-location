@@ -1,25 +1,39 @@
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 
-// Routes protégées et rôles associés
+/**
+ * Liste des routes protégées et des rôles autorisés pour chacune.
+ */
 const protectedRoutes: Record<string, string[]> = {
-  '/dashboard': ['admin', 'vendor'],
-  '/pages': ['users'],
+  '/pages/:path*': ['users'],
+  '/dashboard/:path*': ['admin', 'vendor'],
 };
 
+/**
+ * Middleware d'authentification et d'autorisation.
+ *
+ * Ce middleware :
+ * - Vérifie si un utilisateur est authentifié via NextAuth.
+ * - Extrait ses rôles depuis le token Keycloak.
+ * - Vérifie s'il a accès aux routes protégées.
+ * - Redirige vers la page de connexion si l'utilisateur n'est pas authentifié.
+ * - Redirige vers "/unauthorized" si l'utilisateur n'a pas les permissions requises.
+ *
+ * @param {import("next/server").NextRequest} req - La requête entrante.
+ * @returns {import("next/server").NextResponse} La réponse ou la redirection.
+ */
 export default withAuth(
   function middleware(req) {
+    // Récupération du token depuis NextAuth
     const token: any = req.nextauth?.token;
 
     // Vérifie si le token est disponible (utilisateur authentifié)
     if (!token) {
-      return NextResponse.redirect(new URL("/api/auth/signin", req.url));
+      return NextResponse.redirect(new URL('/api/auth/signin', req.url));
     }
 
     // Extraction des rôles de l'utilisateur depuis Keycloak
-    const userRoles: string[] = Array.isArray(
-      token.decoded?.realm_access?.roles
-    )
+    const userRoles: string[] = Array.isArray(token.decoded?.realm_access?.roles)
       ? token.decoded.realm_access.roles
       : [];
 
@@ -30,7 +44,7 @@ export default withAuth(
       if (pathname.startsWith(route)) {
         const hasAccess = allowedRoles.some((role) => userRoles.includes(role));
         if (!hasAccess) {
-          return NextResponse.redirect(new URL("/unauthorized", req.url));
+          return NextResponse.redirect(new URL('/unauthorized', req.url));
         }
       }
     }
@@ -48,12 +62,14 @@ export default withAuth(
       authorized: ({ token }: { token: any }): boolean => !!token,
     },
     pages: {
-      signIn: '/', // Redirige vers NextAuth pour la connexion
+      signIn: '/api/auth/signin', // Redirige vers NextAuth pour la connexion
     },
   }
 );
 
-// ✅ On match uniquement les routes sensibles
+/**
+ * Configuration du middleware pour matcher toutes les routes sous `/private/*`.
+ */
 export const config = {
-  matcher: ['/dashboad/:path*', '/pages/private/:path*'], // On n'inclut PAS les pages publiques ici
+  matcher: ['/dashboard/:path*', '/pages/private/:path*'],
 };

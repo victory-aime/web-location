@@ -23,7 +23,7 @@ const BoxContainer = ({
   return (
     <Box {...boxStyle} {...rest}>
       <Flex flexDir={{ base: 'column', md: 'row' }} justifyContent={'space-between'} gap={5}>
-        <Stack gap={2}>
+        <Stack gap={2} maxW={{ base: '100%', lg: '800px' }}>
           <BaseText variant={TextVariant.H3}>{title}</BaseText>
           <BaseText variant={TextVariant.S}>{description}</BaseText>
         </Stack>

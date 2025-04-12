@@ -1,5 +1,5 @@
 import { HTMLChakraProps, ListCollection, CheckboxRootProps } from '@chakra-ui/react';
-import { HTMLInputTypeAttribute } from 'react';
+import { HTMLInputTypeAttribute, ReactNode } from 'react';
 
 interface TextInputProps extends HTMLChakraProps<'input'> {
   name: string;
@@ -34,9 +34,13 @@ interface FullSelectProps {
   isMultiSelect?: boolean;
   onChangeFunc?: (data: any) => void;
   localErrorMsg?: string;
+  variant?: 'outline' | 'subtle';
   validate?: any;
   required?: boolean;
   width?: string;
+  customRenderSelected?: (selectedItems: any[]) => React.ReactNode;
+  isClearable?: boolean;
+  showDropdownIcon?: boolean;
 }
 interface DefaultProps extends TextInputProps {
   isNumber?: boolean;

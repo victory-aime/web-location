@@ -18,7 +18,7 @@ import { APP_ROUTES } from '_/app/config/routes';
 import { keycloakSessionLogOut } from '_/app/hooks/logout';
 import { signIn, signOut } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
-import { AuthModule } from '_/store/src/modules';
+import { AuthModule, LoaderModule } from '_/store/src/modules';
 import { clearPersistedStorage } from '_/utils/clear.store.utils';
 
 const MobileMenu = ({
@@ -94,11 +94,13 @@ const MobileMenu = ({
           <BaseButton
             onClick={() => {
               if (isLoggedIn) {
-                keycloakSessionLogOut().then(() =>
-                  signOut({ callbackUrl: process.env.NEXTAUTH_URL })
-                );
-                onChange(false);
+                keycloakSessionLogOut().then(() => {
+                  signOut({ callbackUrl: process.env.NEXTAUTH_URL });
+                  dispatch(LoaderModule.actions.hideLoaderAction());
+                });
                 dispatch(AuthModule.actions.clearKeys());
+                dispatch(LoaderModule.actions.showLoaderAction());
+                onChange(false);
                 clearPersistedStorage();
               } else {
                 signIn('keycloak', { callbackUrl: process.env.NEXTAUTH_URL });

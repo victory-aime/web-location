@@ -181,6 +181,18 @@ const APIS = (baseUrl?: string) => {
         method: 'GET',
         baseUrl,
       }),
+      ORDER_STORE_LIST: createApiAction({
+        path: '/order/store-order-list',
+        pathBase: 'SECURED_API',
+        method: 'GET',
+        baseUrl,
+      }),
+      UPDATE_ORDER_BY_VENDOR: createApiAction({
+        path: '/order/update-order',
+        pathBase: 'SECURED_API',
+        method: 'PATCH',
+        baseUrl,
+      }),
     },
   };
 };

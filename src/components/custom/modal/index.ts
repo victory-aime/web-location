@@ -1,3 +1,3 @@
 import ModalComponent from './ModalComponent';
-
-export { ModalComponent };
+import SessionErrorModal from './error/ErrorModal';
+export { ModalComponent, SessionErrorModal };

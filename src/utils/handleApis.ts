@@ -34,7 +34,7 @@ export const handleApiError = (
   CustomToast({
     title,
     description,
-    type: toastType || ToastStatus.ERROR,
+    type: toastType ?? ToastStatus.ERROR,
   });
 };
 

@@ -6,7 +6,6 @@ const ordersTableData = Array.from({ length: 30 }, (_, i) => ({
   },
   client: ['victory', 'darnel', 'aime', 'clark', 'chloe'][i % 5],
   status: ['NEW', 'IN_PROGRESS', 'DONE', 'REJECTED'][i % 5],
-  payment: 'aucun',
   totalAmount: (Math.random() * 1000).toFixed(2),
   date: '29 Jun 2025',
 }));

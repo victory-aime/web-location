@@ -12,8 +12,7 @@ import { BaseButton } from '_/components/custom/button';
 import { LogOutIcon } from '_assets/svg';
 import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
 import { keycloakSessionLogOut } from '_/app/hooks/logout';
-import { signOut, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { signOut } from 'next-auth/react';
 
 const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
@@ -21,17 +20,15 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   });
   const isMobile = useBreakpointValue({ base: true, md: false });
   const dispatch = useDispatch();
-  const { status } = useSession();
+
   const handleLogout = () => {
-    keycloakSessionLogOut().then(() => signOut({ callbackUrl: process.env.NEXTAUTH_URL }));
+    keycloakSessionLogOut().then(() =>
+      signOut({ callbackUrl: process.env.NEXTAUTH_URL }).then(() =>
+        dispatch(LoaderModule.actions.hideLoaderAction())
+      )
+    );
     dispatch(LoaderModule.actions.showLoaderAction());
   };
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      dispatch(LoaderModule.actions.hideLoaderAction());
-    }
-  }, [status]);
 
   return (
     <>
@@ -71,13 +68,14 @@ const SideBar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
 
           <Box pe={'10px'} ps={'10px'}>
             <SwitchColorMode />
+
             <BaseButton
               width={'full'}
               withGradient
+              mt={8}
               colorType={'danger'}
               overflow={'hidden'}
               justifyContent={'center'}
-              isLoading={status === 'loading'}
               onClick={handleLogout}
               leftIcon={<LogOutIcon width="18px" height="18px" fill={VariablesColors.white} />}
             >

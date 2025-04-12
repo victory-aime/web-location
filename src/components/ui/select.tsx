@@ -7,17 +7,18 @@ import * as React from 'react';
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean;
+  showDropdownIcon?: boolean;
 }
 
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   function SelectTrigger(props, ref) {
-    const { children, clearable, ...rest } = props;
+    const { children, clearable, showDropdownIcon = true, ...rest } = props;
     return (
       <ChakraSelect.Control {...rest}>
         <ChakraSelect.Trigger ref={ref}>{children}</ChakraSelect.Trigger>
         <ChakraSelect.IndicatorGroup>
           {clearable && <SelectClearTrigger />}
-          <ChakraSelect.Indicator pr={3} />
+          {showDropdownIcon && <ChakraSelect.Indicator pr={3} />}
         </ChakraSelect.IndicatorGroup>
       </ChakraSelect.Control>
     );

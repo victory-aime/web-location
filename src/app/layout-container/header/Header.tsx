@@ -13,7 +13,7 @@ const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { status } = useSession();
 
   useEffect(() => {
-    if (isEmpty(user) && session?.keycloakId && status === 'authenticated') {
+    if (isEmpty(user) && session?.keycloakId && status !== 'loading') {
       dispatch(
         UsersModule.actions.userInfoRequestAction({
           userId: session?.keycloakId ?? '',

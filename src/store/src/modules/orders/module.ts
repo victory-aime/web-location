@@ -18,6 +18,11 @@ export class OrdersModule implements IStateModule {
   getInitialState(): TYPES.MODELS.ORDERS.OrdersState {
     return {
       orders: [],
+      storeOrderList: {
+        content: [],
+        totalDataPerPage: 0,
+        totalPages: 0,
+      },
       orderActions: false,
       loading: false,
       error: null,

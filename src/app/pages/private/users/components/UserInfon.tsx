@@ -3,7 +3,7 @@ import { keycloakSessionLogOut } from '_/app/hooks/logout';
 import { BaseText, TextVariant } from '_/components/custom/base-text';
 import { BaseButton } from '_/components/custom/button';
 import { Avatar } from '_/components/ui/avatar';
-import { AuthModule, UsersModule } from '_/store/src/modules';
+import { AuthModule, LoaderModule, UsersModule } from '_/store/src/modules';
 import { hexToRGB } from '_/theme/colors';
 import { clearPersistedStorage } from '_/utils/clear.store.utils';
 import { signOut, useSession } from 'next-auth/react';
@@ -11,7 +11,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { BsCart, BsHeart } from 'react-icons/bs';
 import { HiOutlineUser } from 'react-icons/hi2';
 import { IoIosCog } from 'react-icons/io';
-import { LuMapPin } from 'react-icons/lu';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -22,7 +21,7 @@ interface Props {
 
 const UserInfo = ({ currentStep, onChangeStep }: Props) => {
   const { status } = useSession();
-  const { user } = useSelector(UsersModule.selectors.userSelector);
+  const { user, isLoading } = useSelector(UsersModule.selectors.userSelector);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const renderStepMap = [
@@ -86,7 +85,7 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
             bgColor={currentStep === index ? hexToRGB('blue', 0.5) : ''}
             p={'10px'}
             _hover={{
-              background: hexToRGB('blue', 0.5),
+              background: hexToRGB('blue', 0.1),
               borderRadius: '7px',
               cursor: 'pointer',
             }}
@@ -104,8 +103,10 @@ const UserInfo = ({ currentStep, onChangeStep }: Props) => {
               keycloakSessionLogOut().then(() => {
                 signOut({ callbackUrl: process.env.NEXTAUTH_URL });
                 setLoading(false);
+                dispatch(LoaderModule.actions.hideLoaderAction());
               });
               dispatch(AuthModule.actions.clearKeys());
+              dispatch(LoaderModule.actions.showLoaderAction());
               setLoading(true);
               clearPersistedStorage();
             }}

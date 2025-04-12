@@ -14,10 +14,10 @@ import { signIn, signOut } from 'next-auth/react';
 import { BsSend } from 'react-icons/bs';
 import { MenuContent, MenuRoot, MenuTrigger } from '_/components/ui/menu';
 import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
-import { clearPersistedStorage } from '_utils/clear.store.utils';
 import { useDispatch } from 'react-redux';
-import { AuthModule } from '_/store/src/modules';
+import { AuthModule, LoaderModule } from '_/store/src/modules';
 import { keycloakSessionLogOut } from '_hooks/logout';
+import { clearPersistedStorage } from '_/utils/clear.store.utils';
 
 const WebDisplay = ({
   cart,
@@ -149,13 +149,15 @@ const WebDisplay = ({
                   isLoading={logoutLoading}
                   onClick={() => {
                     keycloakSessionLogOut().then(() => {
-                      signOut({ callbackUrl: process.env.NEXTAUTH_URL }).then((r) =>
-                        setLogoutLoading(false)
-                      );
+                      signOut({ callbackUrl: process.env.NEXTAUTH_URL });
                       setLogoutLoading(false);
+                      setInfoModal(false);
+                      dispatch(LoaderModule.actions.hideLoaderAction());
                     });
                     dispatch(AuthModule.actions.clearKeys());
+                    dispatch(LoaderModule.actions.showLoaderAction());
                     setLogoutLoading(true);
+                    clearPersistedStorage();
                   }}
                 >
                   Deconnexion

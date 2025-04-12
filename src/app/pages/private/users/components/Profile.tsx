@@ -1,8 +1,9 @@
-import { Box, Flex, VStack, Stack } from '@chakra-ui/react';
+import { Box, Flex, VStack, Stack, Code } from '@chakra-ui/react';
 import { BaseText, TextVariant } from '_/components/custom/base-text';
 import { BaseButton } from '_/components/custom/button';
 import { UploadAvatar } from '_/components/custom/drag-drop';
 import { FormTextInput } from '_/components/custom/form';
+import { TYPES } from '_/store/src';
 import { AuthModule, UsersModule } from '_/store/src/modules';
 import { refreshAccessToken } from '_/utils/auth/refresh-token';
 import { Formik } from 'formik';
@@ -12,6 +13,8 @@ import React, { useEffect, useState } from 'react';
 import { TbEdit } from 'react-icons/tb';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { CiCircleCheck } from 'react-icons/ci';
+import { MdCancel } from 'react-icons/md';
 
 const Profile = ({ session }: any) => {
   const { status, update } = useSession();
@@ -20,7 +23,7 @@ const Profile = ({ session }: any) => {
   const { refresh_token } = useSelector(AuthModule.selectors.authSelector);
   const [enabledEdit, setEnableEdit] = useState(false);
   const [avatar, setAvatar] = useState<string | undefined | null>(null);
-  const [initialUserValues, setInitialUserValues] = useState<any | null>(user);
+  const [initialUserValues, setInitialUserValues] = useState<TYPES.MODELS.USERS.IUser | null>(user);
 
   const handleFileUpload = (file: File | null) => {
     if (file) {
@@ -64,9 +67,8 @@ const Profile = ({ session }: any) => {
 
   return (
     <Formik enableReinitialize initialValues={initialUserValues} onSubmit={handleUpdateUser}>
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit, values, dirty }) => (
         <Box p={{ base: 4, md: 6 }} width={'full'}>
-          <BaseText variant={TextVariant.M}>Informations personnelles</BaseText>
           <Flex
             alignItems={'center'}
             flexDir={{ base: 'column', lg: 'row' }}
@@ -94,7 +96,7 @@ const Profile = ({ session }: any) => {
                 <BaseButton
                   withGradient
                   bg={'gray'}
-                  leftIcon={<TbEdit />}
+                  leftIcon={<MdCancel />}
                   onClick={() => setEnableEdit(false)}
                 >
                   <BaseText>Annuler</BaseText>
@@ -102,10 +104,11 @@ const Profile = ({ session }: any) => {
                 <BaseButton
                   withGradient
                   colorType={'success'}
-                  leftIcon={<TbEdit />}
+                  leftIcon={<CiCircleCheck />}
+                  disabled={!dirty}
                   onClick={() => {
                     handleSubmit();
-                    setEnableEdit(true);
+                    setEnableEdit(false);
                   }}
                 >
                   <BaseText>Valider</BaseText>

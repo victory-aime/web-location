@@ -11,6 +11,16 @@ export const userOrdersList = (userId: { userId: string | null }) => ({
   payload: userId,
 });
 
+export const getStoreOrderListRequestAction = (payload: any) => ({
+  type: Constants.STORE_ORDERS_LIST,
+  payload,
+});
+
+export const updateOrderStore = (payload: any) => ({
+  type: Constants.UPDATE_ORDER_BY_VENDOR,
+  payload,
+});
+
 export const clearOrderStore = () => ({
   type: Constants.CLEAR_ORDERS_LIST,
 });

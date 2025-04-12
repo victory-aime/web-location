@@ -30,6 +30,36 @@ export interface createOrderFailedAction extends Action {
   payload: string;
 }
 
+export interface privateStoreListOrder extends Action {
+  type: typeof Constants.STORE_ORDERS_LIST;
+  payload: string;
+}
+
+export interface privateStoreListOrderSuccess extends Action {
+  type: typeof Constants.STORE_ORDERS_LIST_SUCCESS;
+  payload: TYPES.MODELS.ORDERS.IResponseStoreListOrder;
+}
+
+export interface privateStoreListOrderFailed extends Action {
+  type: typeof Constants.STORE_ORDERS_LIST_FAILED;
+  payload: string;
+}
+
+export interface updateStoreOrder extends Action {
+  type: typeof Constants.UPDATE_ORDER_BY_VENDOR;
+  payload: string;
+}
+
+export interface updateStoreOrderSuccess extends Action {
+  type: typeof Constants.UPDATE_ORDER_BY_VENDOR_SUCCESS;
+  payload: string;
+}
+
+export interface updateStoreOrderFailed extends Action {
+  type: typeof Constants.UPDATE_ORDER_BY_VENDOR_FAILED;
+  payload: string;
+}
+
 export interface clearOrderStoreAction extends Action {
   type: typeof Constants.CLEAR_ORDERS_LIST;
 }
@@ -40,4 +70,10 @@ export type OrdersActionType =
   | createOrderAction
   | createOrderSuccessAction
   | createOrderFailedAction
+  | privateStoreListOrder
+  | privateStoreListOrderSuccess
+  | privateStoreListOrderFailed
+  | updateStoreOrder
+  | updateStoreOrderSuccess
+  | updateStoreOrderFailed
   | clearOrderStoreAction;

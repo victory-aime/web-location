@@ -1,13 +1,12 @@
-import { createListCollection } from '@chakra-ui/react';
+export const productListStatus = [
+  { label: 'En Ligne', value: 'PUBLISH' },
+  { label: 'Brouillon', value: 'DRAFT' },
+  { label: 'Desactive', value: 'DISABLED' },
+];
 
-export const productListStatus = createListCollection({
-  items: [
-    { label: 'En Ligne', value: 'PUBLISH' },
-    { label: 'Brouillon', value: 'DRAFT' },
-    { label: 'Desactive', value: 'DISABLED' },
-  ],
-});
-
-const categoriList = createListCollection({
-  items: [],
-});
+export const statusOrderType = [
+  { label: 'Nouvelle', value: 'NEW' },
+  { label: 'Livré', value: 'DELIVERED' },
+  { label: 'En cours', value: 'IN_PROGRESS' },
+  { label: 'Annulée', value: 'CANCELED' },
+];

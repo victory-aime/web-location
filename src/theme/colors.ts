@@ -7,6 +7,7 @@ export type Colors = {
   secondary: ColorShades;
   blue: ColorShades;
   red: ColorShades;
+  orange: ColorShades;
   overlay: ColorShades;
 };
 
@@ -37,6 +38,9 @@ const colors: Colors = {
   },
   red: {
     500: { value: '#ec2f4e' },
+  },
+  orange: {
+    500: { value: '#f97316' },
   },
   blue: { 500: { value: '#3b82f6' } },
   overlay: {

@@ -1,9 +1,7 @@
 import { BadgeProps } from '@chakra-ui/react/badge';
+import { TYPES } from '_/store/src';
 
-type OrderStatus = 'NEW' | 'DONE' | 'IN_PROGRESS' | 'REJECTED';
-type ProductStatus = 'PUBLISH' | 'DISABLED' | 'DRAFT';
-
-type Status = OrderStatus | ProductStatus;
+type Status = TYPES.MODELS.PRODUCTS.OrderStatus | TYPES.MODELS.PRODUCTS.ProductStatus;
 
 type BadgeType = 'order' | 'product';
 
@@ -14,4 +12,4 @@ interface Props extends BadgeProps {
   children?: React.ReactNode;
 }
 
-export type { Props, OrderStatus, ProductStatus, BadgeType, Status };
+export type { Props, BadgeType, Status };

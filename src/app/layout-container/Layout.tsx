@@ -11,7 +11,7 @@ import { Session } from 'next-auth';
 import { decrypt } from '_utils/encrypt';
 import { useDispatch } from 'react-redux';
 import { AuthModule } from '_store/src/modules';
-import { signOut } from 'next-auth/react';
+import { SessionErrorModal } from '_components/custom/modal';
 
 const Layout: FunctionComponent<{
   children: React.ReactNode;
@@ -42,14 +42,7 @@ const Layout: FunctionComponent<{
     if (session?.access_token && session?.refresh_token) {
       const decodeToken = decrypt(session.access_token);
       const decodeRefreshToken = decrypt(session.refresh_token);
-      dispatch(AuthModule.actions.setTokenKeys(decodeToken,decodeRefreshToken));
-    }
-  }, [session]);
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` }).then((r) => console.log(r));
-      dispatch(AuthModule.actions.clearKeys());
+      dispatch(AuthModule.actions.setTokenKeys(decodeToken, decodeRefreshToken));
     }
   }, [session]);
 
@@ -60,6 +53,7 @@ const Layout: FunctionComponent<{
         <Header sideToggled={false} onShowSidebar={toggleSidebar} session={session} />
         <Container>{children}</Container>
       </Box>
+      <SessionErrorModal session={session} />
     </>
   );
 };

@@ -5,6 +5,7 @@ import { GiCancel } from 'react-icons/gi';
 import { MdOutlineDoneAll } from 'react-icons/md';
 import { TbProgress } from 'react-icons/tb';
 import { Props, Status, BadgeType } from './interface/badge';
+import { BaseText, TextVariant } from '../base-text';
 
 export const CustomBadge: FC<Props> = ({
   children,
@@ -16,7 +17,7 @@ export const CustomBadge: FC<Props> = ({
   const getBadgeAttributes = (status: Status | string, type: BadgeType) => {
     if (type === 'order') {
       switch (status) {
-        case 'DONE':
+        case 'DELIVERED':
           return {
             color: 'primary.500',
             icon: <MdOutlineDoneAll />,
@@ -24,7 +25,7 @@ export const CustomBadge: FC<Props> = ({
           };
         case 'IN_PROGRESS':
           return { color: 'blue.500', icon: <TbProgress />, label: 'En cours' };
-        case 'REJECTED':
+        case 'CANCELED':
           return { color: 'red.500', icon: <GiCancel />, label: 'Annulée' };
         default:
           return { color: 'gray.500', icon: <HiStar />, label: 'Nouvelle' };
@@ -54,13 +55,15 @@ export const CustomBadge: FC<Props> = ({
       variant={variant}
       size="lg"
       borderRadius="7px"
-      p={'4px'}
+      p={'10px'}
       color="white"
       bgColor={color}
     >
       <HStack gap={1}>
         {icon}
-        <Text textTransform="capitalize">{label}</Text>
+        <BaseText variant={TextVariant.S} textTransform="capitalize">
+          {label}
+        </BaseText>
       </HStack>
     </Badge>
   );
