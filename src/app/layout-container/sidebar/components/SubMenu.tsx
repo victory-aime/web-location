@@ -1,9 +1,10 @@
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, Link } from '@chakra-ui/react';
 import { ILink } from '../types';
 import { FC, useCallback } from 'react';
 import useSideBarStyle from '../hooks/useSideBarStyle';
 import { VariablesColors } from '_theme/variables';
 import { hexToRGB } from '_theme/colors';
+import { BaseText } from '_components/custom/base-text';
 
 interface SubMenuProps {
   isActiveLink: (path: string) => boolean | undefined;
@@ -24,7 +25,7 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
             ...textStyle,
             fontWeight: '500',
             fontSize: '15px',
-            color: 'primary.500',
+            color: 'white',
           }
         : textStyle,
     [isActiveLink, textStyle]
@@ -41,7 +42,7 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
       py="0"
       ps={'0'}
       _hover={{
-        bg: hexToRGB('primary', 0.1, 500),
+        bg: hexToRGB('neutral', 0.1, 500),
         borderRadius: '5px',
         textDecoration: 'none',
         pe: { base: '1rem', md: '0' },
@@ -53,7 +54,7 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
       <Box
         height="100%"
         width="8px"
-        bg={isActiveLink(link.path ?? '') ? 'primary.500' : 'transparent'}
+        bg={isActiveLink(link.path ?? '') ? 'white' : 'transparent'}
         borderRadius="12px"
         transition="all 300ms ease"
       />
@@ -66,16 +67,14 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
         px="10px"
         me={{ base: '15px', md: '10px' }}
         borderBottom={isActiveLink(link.path ?? '') ? '2px solid' : '0'}
-        borderColor={isActiveLink(link.path ?? '') ? 'primary.500' : 'transparent'}
-        bg={isActiveLink(link.path ?? '') ? hexToRGB('primary', 0.1) : 'transparent'}
+        borderColor={isActiveLink(link.path ?? '') ? 'white' : 'transparent'}
+        bg={isActiveLink(link.path ?? '') ? hexToRGB('neutral', 0.2) : 'transparent'}
       >
         {link.icon && (
           <link.icon
             width="20px"
             height="20px"
-            fill={
-              isActiveLink(link.path ?? '') ? VariablesColors.primary : VariablesColors.grayScale
-            }
+            fill={isActiveLink(link.path ?? '') ? VariablesColors.white : VariablesColors.grayScale}
           />
         )}
 
@@ -84,7 +83,7 @@ const SubMenu: FC<SubMenuProps> = ({ sideToggled, redirectToPath, isActiveLink, 
           width={'full'}
           ms="1rem"
         >
-          <Text {...setTextStyle(link.path ?? '')}>{link.label}</Text>
+          <BaseText {...setTextStyle(link.path ?? '')}>{link.label}</BaseText>
         </Box>
       </Flex>
     </Link>

@@ -62,7 +62,7 @@ export default withAuth(
       authorized: ({ token }: { token: any }): boolean => !!token,
     },
     pages: {
-      signIn: '/api/auth/signin', // Redirige vers NextAuth pour la connexion
+      signIn: '/pages/public/auth/signin', // Redirige vers NextAuth pour la connexion
     },
   }
 );

@@ -6,11 +6,11 @@ import { adminMenu } from './sideBarRoutes';
 import { SideBarProps } from './types';
 import { VariablesColors } from '_theme/variables';
 import { useDispatch } from 'react-redux';
-import { LoaderModule } from '_/store/src/modules';
+import { LoaderModule } from '_store/src/modules';
 import MobileSidebar from './components/MobileSidebar';
-import { BaseButton } from '_/components/custom/button';
+import { BaseButton } from '_components/custom/button';
 import { LogOutIcon } from '_assets/svg';
-import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
+import SwitchColorMode from '_components/custom/switch-color/SwitchColorMode';
 import { keycloakSessionLogOut } from '_/app/hooks/logout';
 import { signOut } from 'next-auth/react';
 

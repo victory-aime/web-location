@@ -22,5 +22,6 @@ export interface ModalProps extends DialogRootProps {
 
 export interface ModalOpenProps {
   onChange: (value: any) => void;
+  callback?: (value?: any) => void;
   isOpen?: boolean | undefined;
 }

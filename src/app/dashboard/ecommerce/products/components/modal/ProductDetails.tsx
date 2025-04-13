@@ -1,6 +1,5 @@
 import { ModalComponent } from '_components/custom/modal';
 import React, { FC } from 'react';
-import { ModalOpenProps } from '_components/custom/modal/interface/modal';
 import { Box, Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import { CustomBadge } from '_/components/custom/badge';

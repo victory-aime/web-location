@@ -3,6 +3,7 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import { jwtDecode } from 'jwt-decode';
 import { refreshAccessToken } from '_/utils/auth/refresh-token';
 import { encrypt } from '_/utils/encrypt';
+import { pages } from 'next/dist/build/templates/app-page';
 
 export const authOptions = {
   providers: [
@@ -54,8 +55,13 @@ export const authOptions = {
         const parsedUrl = new URL(url);
         if (parsedUrl.origin === baseUrl) return url;
       } catch {
+        // Ensure a string is always returned
         return baseUrl;
       }
+      return baseUrl; // Fallback to baseUrl if no other condition is met
+    },
+    pages: {
+      signIn: '/pages/public/auth/signin', // Redirect to the sign-in page
     },
   },
 };

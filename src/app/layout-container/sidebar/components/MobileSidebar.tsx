@@ -24,7 +24,7 @@ const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
-      <DrawerContent height={'full'}>
+      <DrawerContent height={'full'} bgColor={'#06524c'}>
         <DrawerHeader>
           <HStack p={5} justifyContent={'space-between'}>
             <DrawerTitle>{user?.store?.name ?? ''}</DrawerTitle>

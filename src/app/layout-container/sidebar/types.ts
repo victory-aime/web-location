@@ -42,3 +42,11 @@ export interface ActiveMenuProps {
   sideToggled: boolean;
   onShowSidebar: any;
 }
+
+export interface MenuProps {
+  redirectToPath: (link: ILink) => void;
+  sideToggled: boolean;
+  openedMenu: string;
+  link: ILink;
+  conditionsSubMenu: (link: any) => void;
+}

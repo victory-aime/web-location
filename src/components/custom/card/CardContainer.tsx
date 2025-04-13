@@ -25,6 +25,7 @@ export const CardContainer: FC<TypeProps> = ({ items, label, children, ...rest }
           animationName: 'fade-in, scale-in',
           animationDuration: '300ms',
         }}
+        p={0}
       >
         {children}
       </Card.Body>

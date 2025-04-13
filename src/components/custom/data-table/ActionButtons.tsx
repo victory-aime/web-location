@@ -5,7 +5,7 @@ import { MdEdit } from 'react-icons/md';
 import { BaseButton } from '../button';
 import { ActionButtonsProps } from './interface/data-types';
 import { TbRestore } from 'react-icons/tb';
-import CustomToolTip from '../tooltip/CustomTooltip';
+import {CustomToolTip} from '../tooltip/CustomTooltip';
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (

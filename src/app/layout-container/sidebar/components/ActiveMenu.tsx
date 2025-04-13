@@ -9,8 +9,9 @@ import { hexToRGB } from '_theme/colors';
 
 const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSidebar, isActiveLink }) => {
   const navigate = useRouter();
-  const { toggledTextStyles, linkStyle, setMenuItemTextStyle, setMenuItemPointStyle } =
-    useSideBarStyle({ sideToggled });
+  const { linkStyle, setMenuItemTextStyle, setMenuItemPointStyle } = useSideBarStyle({
+    sideToggled,
+  });
   const sidebarConditionInverse = useBreakpointValue({ base: false, lg: true });
 
   return (
@@ -31,7 +32,7 @@ const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSidebar, 
       <Box display={'flex'} justifyContent={'center'} alignItems={'center'} width="100%">
         <Flex
           width={'full'}
-          bgColor={isActiveLink(subLink?.path) ? hexToRGB('primary', 0.1) : 'none'}
+          bgColor={isActiveLink(subLink?.path) ? hexToRGB('neutral', 0.3) : 'none'}
           gap={4}
           alignItems={'center'}
           borderRadius={'5px'}
@@ -46,9 +47,7 @@ const ActiveMenu: FC<ActiveMenuProps> = ({ subLink, sideToggled, onShowSidebar, 
               width="14px"
               height="14px"
               fill={
-                isActiveLink(subLink.path ?? '')
-                  ? VariablesColors.primary
-                  : VariablesColors.grayScale
+                isActiveLink(subLink.path ?? '') ? VariablesColors.white : VariablesColors.grayScale
               }
             />
           ) : (

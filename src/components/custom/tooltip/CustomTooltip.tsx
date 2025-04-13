@@ -22,7 +22,7 @@ interface Props {
   arrow?: boolean;
 }
 
-const CustomToolTip: FC<Props> = ({
+export const CustomToolTip: FC<Props> = ({
   children,
   message = 'tooltip message',
   placement = 'top',
@@ -37,10 +37,9 @@ const CustomToolTip: FC<Props> = ({
       content={message}
       openDelay={100}
       closeDelay={100}
+      lazyMount
     >
       {children}
     </Tooltip>
   );
 };
-
-export default CustomToolTip;

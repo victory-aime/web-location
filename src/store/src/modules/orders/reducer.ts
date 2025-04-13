@@ -93,6 +93,9 @@ export const OrdersReducer = (
         error: action.payload,
       };
 
+    case Constants.CLEAR_ORDERS_ACTIONS_KEYS:
+      return { ...state, orderActions: false };
+
     case Constants.CLEAR_ORDERS_LIST:
       return {
         ...initialState,

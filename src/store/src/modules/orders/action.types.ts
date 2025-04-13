@@ -63,6 +63,11 @@ export interface updateStoreOrderFailed extends Action {
 export interface clearOrderStoreAction extends Action {
   type: typeof Constants.CLEAR_ORDERS_LIST;
 }
+
+export interface clearOrdersActionsKeys extends Action {
+  type: typeof Constants.CLEAR_ORDERS_ACTIONS_KEYS;
+}
+
 export type OrdersActionType =
   | userOrderListAction
   | userOrderListSuccessAction
@@ -76,4 +81,5 @@ export type OrdersActionType =
   | updateStoreOrder
   | updateStoreOrderSuccess
   | updateStoreOrderFailed
+  | clearOrdersActionsKeys
   | clearOrderStoreAction;

@@ -4,6 +4,7 @@ import LoaderAnimation from './loader.json';
 import DeleteAnimation from './delete-animation.json';
 import TrashAnimation from './trash-animation.json';
 import TrashAnimationV2 from './trash-animation-2.json';
+import ThinkingAnimation from './thinking.json';
 export {
   ConfirmCommand,
   NoDataFoundLottie,
@@ -11,4 +12,5 @@ export {
   DeleteAnimation,
   TrashAnimation,
   TrashAnimationV2,
+  ThinkingAnimation,
 };

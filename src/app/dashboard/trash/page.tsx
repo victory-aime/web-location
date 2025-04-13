@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RenderProductImage } from '../ecommerce/products/components';
 import DeleteProduct from '../ecommerce/products/components/modal/DeleteProduct';
+import BoxContainer from '_/components/custom/container/BoxContainer';
 
 const TrashPage = () => {
   const dispatch = useDispatch();
@@ -99,29 +100,27 @@ const TrashPage = () => {
   ];
 
   return (
-    <>
-      <Box width={'full'} mt={'30px'}>
-        <VStack alignItems={'flex-start'} gap={4}>
-          <Heading>Corbeille</Heading>
-          <Text color={'gray.400'}>
-            Seuls les produits supprimer s'affichent ici. Ils sont supprimes definitivement au bout
-            de 30 jours
-          </Text>
-        </VStack>
-        <Box mt={20}>
-          <CommonDataTable
-            data={trashList?.content}
-            columns={columns}
-            isLoading={isLoading}
-            initialPage={1}
-            totalItems={totalPages}
-            pageSize={pageSize}
-            animationType={'trash'}
-            handleRowSelection={setSelectedRows}
-            hidePagination={totalPages <= 1}
-            lazy
-          />
-        </Box>
+    <BoxContainer
+      title={'Corbeille'}
+      description={
+        "Seuls les produits supprimer s'affichent ici. Ils sont supprimes definitivement au bout de 30 jours"
+      }
+      border={'none'}
+      width={'full'}
+    >
+      <Box>
+        <CommonDataTable
+          data={trashList?.content}
+          columns={columns}
+          isLoading={isLoading}
+          initialPage={1}
+          totalItems={totalPages}
+          pageSize={pageSize}
+          animationType={'trash'}
+          handleRowSelection={setSelectedRows}
+          hidePagination={totalPages <= 1}
+          lazy
+        />
       </Box>
       <DeleteProduct
         selectedValues={selectedProduct}
@@ -129,7 +128,7 @@ const TrashPage = () => {
         onChange={() => setOpenDelete(false)}
         deleteType={'permanently'}
       />
-    </>
+    </BoxContainer>
   );
 };
 

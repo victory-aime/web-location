@@ -1,4 +1,5 @@
 export const APP_ROUTES = {
+  DEFAULT_ROUTE: '/',
   CLIENT_PAGES: {
     PRIVATE: {
       PROFILE: '/pages/private/users/manage-profile',
@@ -32,8 +33,6 @@ export const APP_ROUTES = {
       },
     },
     TRASH: '/dashboard/trash',
-    CLIENT: {
-      MANAGE_PROFILE: '/dashboard/users/manage-profile',
-    },
+    TEST: '/dashboard/users',
   },
 };

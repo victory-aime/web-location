@@ -1,5 +1,6 @@
-import { Box, Flex, For } from '@chakra-ui/react';
-import React from 'react';
+'use client';
+import { Box, Flex, For, VStack } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { statData } from '_app/dashboard/data/data';
 import {
   WeeklyDepenses,
@@ -10,13 +11,57 @@ import {
   TopCategory,
   ListOrders,
 } from '_app/dashboard/components';
+import BoxContainer from '_components/custom/container/BoxContainer';
+import { useSelector } from 'react-redux';
+import { UsersModule } from '_store/src/modules';
+import { BaseButton } from '_components/custom/button';
+import { ThinkingLottieAnimation } from '_lottie/animations/LottieAnimation';
+import { BaseText } from '_components/custom/base-text/BaseText';
+import { TextVariant } from '_components/custom/base-text';
+import ThinkBoxModal from './ThinkBoxModal';
 
 export const Dashboard = () => {
+  const { user } = useSelector(UsersModule.selectors.userSelector);
+  const [openTinhBox, setOpenTinhBox] = useState(false);
+
   return (
-    <Box width={'full'}>
-      <Flex gap={8} width={'full'} mt={50} overflowX={'auto'}>
+    <BoxContainer
+      border={'none'}
+      title={'Dashboard'}
+      description={`Welcome back to your dashboard Admin Mr/Mrs. ${user?.name + '' + user?.firstName}`}
+    >
+      {/* <Flex gap={8} width={'full'} mt={50} overflowX={'auto'}>
         <For each={statData}>{(item, index) => <ReviewStats key={index} {...item} />}</For>
-      </Flex>
+      </Flex> */}
+      <VStack
+        gap={8}
+        width={'full'}
+        mt={'30px'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        overflowX={'auto'}
+      >
+        <Box width={'250px'}>
+          <ThinkingLottieAnimation />
+        </Box>
+        <VStack
+          gap={5}
+          alignItems={'center'}
+          justifyContent={'center'}
+          width={{ base: 'full', lg: '1/2' }}
+        >
+          <BaseText variant={TextVariant.M} textAlign={'center'}>
+            Pour ameliorer votre experience, nous vous invitons à nous faire part de vos suggestions
+            et de vos commentaires. Nous sommes impatients de vous entendre et de travailler
+            ensemble pour rendre notre application encore meilleure !<br />
+            Appuyer sur ce bouton pour nous faire part de vos suggestions.
+          </BaseText>
+          <BaseButton withGradient colorType={'success'} onClick={() => setOpenTinhBox(true)}>
+            J'ai une idee
+          </BaseButton>
+        </VStack>
+      </VStack>
+
       <Flex
         gap={8}
         width={'full'}
@@ -24,10 +69,11 @@ export const Dashboard = () => {
         flexDir={{ base: 'column', md: 'row' }}
         overflowX={'auto'}
       >
-        <WeeklyDepenses />
+        {/* <WeeklyDepenses /> */}
+        <RecentOrders />
         <ListOrders />
       </Flex>
-      <Flex
+      {/* <Flex
         width={'full'}
         h={'100%'}
         gap={8}
@@ -41,8 +87,8 @@ export const Dashboard = () => {
         <Flex width={{ base: '100%', md: '1/3' }}>
           <MonthlyIncomes />
         </Flex>
-      </Flex>
-      <Flex
+      </Flex> */}
+      {/* <Flex
         gap={8}
         width={{ base: '100%', md: 'full' }}
         flexDir={{ base: 'column', md: 'row' }}
@@ -50,7 +96,8 @@ export const Dashboard = () => {
       >
         <TopProducts />
         <TopCategory />
-      </Flex>
-    </Box>
+      </Flex> */}
+      <ThinkBoxModal isOpen={openTinhBox} onChange={() => setOpenTinhBox(false)} />
+    </BoxContainer>
   );
 };

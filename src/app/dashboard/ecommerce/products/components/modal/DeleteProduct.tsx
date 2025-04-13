@@ -1,10 +1,11 @@
-import { Center, Text } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 import { ModalComponent } from '_/components/custom/modal';
 import React, { useEffect, useState } from 'react';
 import { DeleteLottie } from '_lottie/animations/LottieAnimation';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProductModule } from '_/store/src/modules';
 import { IProductMoalProps } from './interface/modal-product';
+import { BaseText, TextVariant } from '_/components/custom/base-text';
 
 const DeleteProduct = ({
   isOpen,
@@ -61,15 +62,15 @@ const DeleteProduct = ({
       ) : (
         <>
           {deleteType === 'soft' ? (
-            <Text>
+            <BaseText variant={TextVariant.M}>
               Êtes-vous sûr de vouloir supprimer cet article ? Il sera placé dans la corbeille, vous
               pouvez toujours le récupérer.
-            </Text>
+            </BaseText>
           ) : (
-            <Text>
+            <BaseText variant={TextVariant.M}>
               Êtes-vous sûr de vouloir supprimer cet article ? Il sera placé supprimer
               definitivement cette action est irreversible.
-            </Text>
+            </BaseText>
           )}
         </>
       )}

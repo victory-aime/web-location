@@ -8,6 +8,8 @@ import { VariablesColors } from '_/theme/variables';
 import { Eye, EyeOff } from '_assets/svg';
 import { TbLockBitcoin } from 'react-icons/tb';
 import { InfoTip } from '_/components/ui/toggle-tip';
+import { HiOutlineInformationCircle } from 'react-icons/hi';
+import {CustomToolTip} from '../tooltip/CustomTooltip';
 
 const FormTextInput = ({
   name,
@@ -87,7 +89,11 @@ const FormTextInput = ({
               )}
             </Flex>
           ) : toolTipInfo ? (
-            <InfoTip lazyMount size={'sm'} content={toolTipInfo} />
+            <>
+              <CustomToolTip message={toolTipInfo}>
+                <HiOutlineInformationCircle size={18} />
+              </CustomToolTip>
+            </>
           ) : (
             rightAccessory && (
               <Flex

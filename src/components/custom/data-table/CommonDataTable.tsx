@@ -10,12 +10,13 @@ import {
 import PaginationDataTable from './components/PaginationDataTable';
 import { TableProps } from './interface/data-types';
 import { ActionButtons } from './ActionButtons';
-import { Skeleton, SkeletonText } from '_/components/ui/skeleton';
 import {
   NoDataFoundLottieAnimation,
   TrashLottieAnimation,
+  TrashLottieAnimationV2,
 } from '_lottie/animations/LottieAnimation';
 import CustomSkeletonLoader from '../custom-skeleton/CustomSkeletonLoader';
+import { BaseText, TextVariant } from '../base-text';
 
 export const CommonDataTable: FC<TableProps> = ({
   data,
@@ -68,17 +69,32 @@ export const CommonDataTable: FC<TableProps> = ({
       case 'trash':
         return (
           <Center flexDir={'column'} gap={4}>
-            <TrashLottieAnimation />
+            <Flex alignItems={'center'} justifyContent={'center'} width={'1/2'} mt={20}>
+              <TrashLottieAnimationV2 />
+            </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
-              <Text color={'gray.700'}>Aucun element</Text>
+              <BaseText variant={TextVariant.M} color={'gray.700'}>
+                Aucun element
+              </BaseText>
             </Flex>
           </Center>
         );
       case 'folder':
         return (
           <Center flexDir={'column'} gap={4}>
-            <NoDataFoundLottieAnimation />
-            <Text color={'gray.400'}>Aucun element</Text>
+            <Flex
+              alignItems={'center'}
+              justifyContent={'center'}
+              width={{ base: 'full', lg: '500px' }}
+              mt={10}
+            >
+              <NoDataFoundLottieAnimation />
+            </Flex>
+            <Flex flexDir={'column'} alignItems={'center'} gap={2}>
+              <BaseText variant={TextVariant.M} color={'gray.700'}>
+                Aucun element
+              </BaseText>
+            </Flex>
           </Center>
         );
       default:

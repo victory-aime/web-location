@@ -1,21 +1,16 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { Flex, Box } from '@chakra-ui/react';
+import { FC } from 'react';
 import useIsActive from '../hooks/useIsActive';
 import useSideBarStyle from '../hooks/useSideBarStyle';
-import { ILink } from '../types';
+import { MenuProps } from '../types';
 import { VariablesColors } from '_theme/variables';
 import { hexToRGB } from '_theme/colors';
 import { ArrowDown } from '_assets/svg';
-interface MenuProps {
-  redirectToPath: (link: ILink) => void;
-  sideToggled: boolean;
-  openedMenu: string;
-  link: ILink;
-  conditionsSubMenu: (link: any) => void;
-}
+import { BaseText } from '_components/custom/base-text';
+
 const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu }) => {
-  const { isActiveLink, itHasActiveChildLink } = useIsActive();
-  const { toggledTextStyles, setMenuTextStyle } = useSideBarStyle({
+  const { itHasActiveChildLink } = useIsActive();
+  const { setMenuTextStyle } = useSideBarStyle({
     sideToggled,
   });
 
@@ -31,7 +26,7 @@ const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu 
       transition="all ease-in-out 350ms"
       onClick={() => conditionsSubMenu(link)}
       _hover={{
-        bg: hexToRGB('primary', 0.1, 500),
+        bg: hexToRGB('neutral', 0.3, 500),
         borderRadius: '5px',
         ps: '0',
         pe: { base: '1rem', md: '0' },
@@ -42,11 +37,7 @@ const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu 
       <Box
         height="100%"
         width="8px"
-        bg={
-          itHasActiveChildLink(link.subItems) || isActiveLink(link?.path ?? '')
-            ? 'primary.500'
-            : 'transparent'
-        }
+        bg={itHasActiveChildLink(link.subItems) ? 'white' : 'transparent'}
         borderRadius="12px"
         transition="all 300ms ease"
       />
@@ -61,20 +52,14 @@ const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu 
         ms={{ base: '7px', md: '10px' }}
         me={sideToggled ? '0' : '10px'}
         pe={{ base: '1rem', md: '0.5rem' }}
-        bg={
-          itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? '')
-            ? hexToRGB('primary', 0.1)
-            : 'transparent'
-        }
+        bg={itHasActiveChildLink(link.subItems) ? hexToRGB('neutral', 0.3) : 'transparent'}
         px={'10px'}
       >
         <link.icon
           width="22px"
           height="22px"
-          fill={
-            itHasActiveChildLink(link.subItems) || isActiveLink(link.path ?? '')
-              ? VariablesColors.primary
-              : VariablesColors.grayScale
+          color={
+            itHasActiveChildLink(link.subItems) ? VariablesColors.white : VariablesColors.grayScale
           }
         />
 
@@ -83,7 +68,7 @@ const Menu: FC<MenuProps> = ({ openedMenu, sideToggled, link, conditionsSubMenu 
           width={'full'}
           ms="1rem"
         >
-          <Text {...setMenuTextStyle(link.subItems)}>{link.label}</Text>
+          <BaseText {...setMenuTextStyle(link.subItems)}>{link.label}</BaseText>
         </Box>
 
         {sideToggled ? (

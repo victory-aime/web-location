@@ -70,8 +70,15 @@ const ManageAddress = () => {
       p={{ base: 5, md: 10 }}
       title={'Gerer mes addresse'}
       description={'Gerer mes addresse description'}
-      buttonTitle={user?.shippingAddress?.length !== 3 ? 'Nouvelle addresse' : ''}
-      onClick={() => setOpen(true)}
+      withActionButtons={user?.shippingAddress?.length !== 3}
+      actionsButtonProps={{
+        cancelTitle: undefined,
+        validateTitle: 'Nouvelle addresse',
+        isLoading: isLoading,
+        onClick: () => {
+          setOpen(true);
+        },
+      }}
     >
       <Box gap={5} mt={5} width={'full'}>
         {user?.shippingAddress?.length === 0 ? (

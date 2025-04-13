@@ -8,6 +8,7 @@ interface TabsProps extends TabsRootProps {
     content: ReactNode | string | any;
   }[];
   title?: string;
+  description?: string;
   addTitle?: string;
   redirectLink?: () => void;
   isMobile?: boolean;

@@ -18,6 +18,7 @@ export const ActionsButton = ({
   requestId,
   isLoading = false,
   cancelColor = 'danger',
+  validateColor = 'success',
   onClick,
   ...rest
 }: ActionButtonTypes) => {
@@ -30,6 +31,7 @@ export const ActionsButton = ({
       {cancelTitle && (
         <BaseButton
           px={'15px'}
+          withGradient
           colorType={cancelColor}
           leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />}
           onClick={() => {
@@ -44,7 +46,7 @@ export const ActionsButton = ({
         <BaseButton
           onClick={onClick}
           px={'15px'}
-          bg={hexToRGB('primary', 0.5)}
+          colorType={validateColor}
           withGradient
           isLoading={isLoading}
           leftIcon={requestId ? <IoSave /> : <FaPlus />}

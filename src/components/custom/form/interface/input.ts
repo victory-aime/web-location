@@ -8,6 +8,7 @@ interface TextInputProps extends HTMLChakraProps<'input'> {
   isReadOnly?: boolean;
   isDisabled?: boolean;
   localErrorMsg?: string;
+  helperMessage?: string;
   useFullAmountMask?: boolean;
   rightAccessory?: React.ReactNode;
   leftAccessory?: React.ReactNode;
@@ -22,6 +23,7 @@ interface TextInputProps extends HTMLChakraProps<'input'> {
 
 interface FormTextAreaProps extends TextInputProps {
   minHeight?: string;
+  autoresize?: boolean;
 }
 
 interface FullSelectProps {

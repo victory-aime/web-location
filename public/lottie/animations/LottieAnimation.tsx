@@ -8,6 +8,7 @@ import {
   DeleteAnimation,
   TrashAnimation,
   TrashAnimationV2,
+  ThinkingAnimation,
 } from '_lottie/json';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
@@ -36,6 +37,10 @@ const TrashLottieAnimationV2 = () => {
   return <Lottie animationData={TrashAnimationV2} />;
 };
 
+const ThinkingLottieAnimation = () => {
+  return <Lottie animationData={ThinkingAnimation} />;
+};
+
 export {
   LottieAnimation,
   NoDataFoundLottieAnimation,
@@ -43,4 +48,5 @@ export {
   DeleteLottie,
   TrashLottieAnimation,
   TrashLottieAnimationV2,
+  ThinkingLottieAnimation,
 };

@@ -3,12 +3,10 @@
 import {
   Box,
   Flex,
-  Heading,
   Separator,
   VStack,
   Text,
   Stack,
-  createListCollection,
   useBreakpointValue,
   Center,
 } from '@chakra-ui/react';
@@ -27,6 +25,7 @@ import { useSelector } from 'react-redux';
 import { TYPES, UTILS } from '_store/src';
 import { GiCancel } from 'react-icons/gi';
 import { ProfitCalculator } from '_/app/hooks/profit-calculator';
+import BoxContainer from '_/components/custom/container/BoxContainer';
 
 const AddProductPage = () => {
   const router = useRouter();
@@ -121,31 +120,26 @@ const AddProductPage = () => {
   return (
     <Formik enableReinitialize initialValues={initialValues} onSubmit={submitForm}>
       {({ values, setFieldValue, handleSubmit }) => (
-        <Box w={'full'} mt={'30px'}>
-          <Flex
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            flexDirection={{ base: 'column', md: 'row' }}
-            gap={4}
-          >
-            <Stack gap={2}>
-              <Heading>{!requestId ? 'Ajouter un produit' : 'Modifier votre produit'}</Heading>
-              <Text color={'gray.400'}>
-                Saisissez toutes les informations relatives a l'ajout de votre produit
-              </Text>
-            </Stack>
-
-            {responsiveMode ? (
-              <ActionsButton
-                cancelTitle={'annuler'}
-                goBackUrl={APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST}
-                validateTitle={requestId ? 'Valider' : 'Ajouter'}
-                requestId={requestId ?? ''}
-                isLoading={isLoading}
-                onClick={handleSubmit}
-              />
-            ) : null}
-          </Flex>
+        <BoxContainer
+          title={!requestId ? 'Ajouter un produit' : 'Modifier votre produit'}
+          description={
+            !requestId
+              ? " Saisissez toutes les informations relatives a l'ajout de votre produit"
+              : 'Saisissez toutes les informations relatives a la modification de votre produit'
+          }
+          w={'full'}
+          mt={'30px'}
+          border={'none'}
+          withActionButtons={responsiveMode}
+          actionsButtonProps={{
+            requestId: requestId ?? '',
+            cancelTitle: 'Annuler',
+            isLoading: isLoading,
+            validateTitle: requestId ? 'Valider' : 'Ajouter',
+            onClick: () => handleSubmit(),
+            goBackUrl: APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.LIST,
+          }}
+        >
           <Flex
             alignItems={'flex-start'}
             justifyContent={'flex-start'}
@@ -342,7 +336,7 @@ const AddProductPage = () => {
             </Center>
           )}
           <ProfitCalculator />
-        </Box>
+        </BoxContainer>
       )}
     </Formik>
   );

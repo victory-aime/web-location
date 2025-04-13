@@ -41,6 +41,7 @@ const OrderPage = () => {
     <CommonTabs
       items={items}
       title={'Commandes'}
+      description={'Gerer vos commandes'}
       addTitle={'Nouvelle commande'}
       redirectLink={() => router?.push(APP_ROUTES.PRIVATE.ECOMMERCE.PRODUCTS.ADD)}
       isMobile={isMobile}

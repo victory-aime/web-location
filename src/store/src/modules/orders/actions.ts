@@ -24,3 +24,7 @@ export const updateOrderStore = (payload: any) => ({
 export const clearOrderStore = () => ({
   type: Constants.CLEAR_ORDERS_LIST,
 });
+
+export const clearOrdersActionsKeys = () => ({
+  type: Constants.CLEAR_ORDERS_ACTIONS_KEYS,
+});

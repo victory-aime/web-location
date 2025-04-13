@@ -1,10 +1,11 @@
 import { Flex, Heading } from '@chakra-ui/react';
+import {CustomToolTip} from '_components/custom/tooltip/CustomTooltip';
 import { CustomBadge } from '_components/custom/badge';
 import { Status } from '_components/custom/badge/interface/badge';
 import { BaseButton } from '_components/custom/button';
 import BoxContainer from '_components/custom/container/BoxContainer';
-import { InfoTip } from '_components/ui/toggle-tip';
 import React from 'react';
+import { HiOutlineInformationCircle } from 'react-icons/hi2';
 
 export const ProductContainer = ({
   children,
@@ -28,7 +29,11 @@ export const ProductContainer = ({
       <Flex alignItems={'center'} justifyContent={'space-between'} width={'full'}>
         <Flex gap={4} alignItems={'center'} justifyContent={'center'}>
           <Heading>{title}</Heading>
-          {tooltip && <InfoTip size={'md'} content={tooltip} />}
+          {tooltip && (
+            <CustomToolTip message={tooltip}>
+              <HiOutlineInformationCircle size={24} />
+            </CustomToolTip>
+          )}
         </Flex>
         {withBadge && type === 'badge' ? (
           <CustomBadge status={badgeValue} type={'product'} />

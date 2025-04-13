@@ -1,6 +1,6 @@
 import { ShoppingCart, HomeV2, TrashIcon, StoreIcon, BagIcon } from '_assets/svg';
 import { ILink } from './types';
-import { APP_ROUTES } from '_/app/config/routes';
+import { APP_ROUTES } from '_app/config/routes';
 
 export const adminMenu: ILink[] = [
   {
@@ -19,9 +19,10 @@ export const adminMenu: ILink[] = [
     icon: BagIcon,
   },
   {
-    label: 'Categories',
-    path: APP_ROUTES.PRIVATE.ECOMMERCE.CATEGORY,
-    icon: ShoppingCart,
+    menuKey: 'test',
+    icon: TrashIcon,
+    label: 'Home 2',
+    subItems: [{ label: 'test', path: APP_ROUTES.PRIVATE.TEST }],
   },
   {
     label: 'Corbeille',

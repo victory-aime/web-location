@@ -22,7 +22,7 @@ const ModalComponent = ({
   title = 'Modal Title',
   colorSaveButton = 'success',
   buttonSaveTitle = 'Save',
-  buttonCancelTitle = 'cancel',
+  buttonCancelTitle = 'Annuler',
   showCloseButton = true,
   isLoading,
   onClick,
@@ -46,7 +46,7 @@ const ModalComponent = ({
     >
       <DialogContent width={'full'} padding={4}>
         <DialogHeader alignItems={'center'} display={'flex'} gap={4}>
-          {true && (
+          {icon && (
             <BoxIcon borderRadius={'7px'} color={iconBackroungColor}>
               {icon}
             </BoxIcon>

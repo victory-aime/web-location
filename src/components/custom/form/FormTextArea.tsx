@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { useField } from 'formik';
-import { Field, Text, Textarea } from '@chakra-ui/react';
+import { Field, FieldRequiredIndicator, Flex, Text, Textarea } from '@chakra-ui/react';
 import { FormTextAreaProps } from './interface/input';
+import { HiOutlineInformationCircle } from 'react-icons/hi';
 
 const FormTextArea: FC<FormTextAreaProps> = ({
   required = false,
@@ -15,6 +16,9 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   isReadOnly,
   isDisabled,
   validate,
+  minHeight,
+  helperMessage,
+  autoresize = true,
 }) => {
   const fieldHookConfig = {
     name,
@@ -35,7 +39,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
       <Textarea
         {...field}
         bg={'bg.muted'}
-        autoresize
+        autoresize={autoresize}
         border={'1px solid'}
         borderColor={isError ? 'red.500' : 'bg.muted'}
         _focus={{ borderColor: 'primary.500' }}
@@ -43,6 +47,7 @@ const FormTextArea: FC<FormTextAreaProps> = ({
         placeholder={placeholder ?? ''}
         fontSize={'16px'}
         width={width}
+        height={minHeight}
         p={3}
         mt={'5px'}
         borderRadius={'7px'}
@@ -56,8 +61,15 @@ const FormTextArea: FC<FormTextAreaProps> = ({
           field.onBlur(e);
         }}
       />
+      {localErrorMsg || helperMessage ? (
+        <Flex p={1} gap={2}>
+          <HiOutlineInformationCircle size={18} color={isError ? 'red' : 'none'} />
+          <Field.HelperText>
+            {localErrorMsg ? localErrorMsg : helperMessage ? null : ''}
+          </Field.HelperText>
+        </Flex>
+      ) : null}
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}
-      {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
   );
 };

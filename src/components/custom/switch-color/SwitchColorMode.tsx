@@ -7,12 +7,7 @@ const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
-    <Switch.Root
-      checked={colorMode === 'dark'}
-      colorPalette={colorMode === 'dark' ? 'green' : 'none'}
-      onCheckedChange={toggleColorMode}
-      display={'flex'}
-    >
+    <Switch.Root checked={colorMode === 'dark'} onCheckedChange={toggleColorMode} display={'flex'}>
       {!hideIcon ? (
         <>
           <LuSun />
