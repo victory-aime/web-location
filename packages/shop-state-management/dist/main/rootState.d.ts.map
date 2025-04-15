@@ -1,1 +1,0 @@
-{"version":3,"file":"rootState.d.ts","sourceRoot":"","sources":["../../src/main/rootState.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,2BAA2B,CAAA;AAE9D,MAAM,MAAM,SAAS,GAAG;KACrB,CAAC,IAAI,MAAM,kBAAkB,GAAG,kBAAkB,CAAC,CAAC,CAAC;CACvD,CAAA"}
