@@ -1,4 +1,4 @@
-import { CustomToast } from './CustomToast'
-import { ToastStatus } from './interface/toats'
+import {CustomToast} from "./CustomToast";
+import {ToastStatus} from './interface/toats'
 
-export { CustomToast, ToastStatus }
+export {CustomToast, ToastStatus}

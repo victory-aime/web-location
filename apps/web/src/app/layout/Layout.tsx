@@ -2,10 +2,10 @@
 
 import { Session } from 'next-auth';
 import { ReactNode } from 'react';
-import { Footer } from '_/app/components/Footer';
-import Header from '_app/components/Header';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
-export default function PagesClientLayout({
+export default function Layout({
                                             children,
                                             session,
                                           }: {

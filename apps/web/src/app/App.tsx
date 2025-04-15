@@ -1,5 +1,5 @@
 'use client'
-import { globalState } from './config/globalState'
+import { globalState } from '_config/globalState'
 import { Provider } from 'react-redux'
 import React from 'react'
 import { configureStore } from '@reduxjs/toolkit'

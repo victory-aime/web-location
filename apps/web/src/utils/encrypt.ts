@@ -3,11 +3,13 @@
  */
 import Cryptr from 'cryptr';
 
-const secretKey = process.env.NEXTAUTH_SECRET;
+const secretKey = process.env.NEXTAUTH_SECRET || 'my-secret-goes-here-abc-123';
 
-if (!secretKey) {
-  throw new Error('NEXTAUTH_SECRET is not set in environment variables.');
-}
+console.log('key', secretKey)
+
+// if (!secretKey) {
+//   throw new Error('NEXTAUTH_SECRET is not set in environment variables.');
+// }
 
 const cryptr = new Cryptr(secretKey);
 

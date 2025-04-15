@@ -1,5 +1,5 @@
 import { CheckboxGroup, Fieldset } from '@chakra-ui/react';
-import { Checkbox } from '_/components/ui/checkbox';
+import { Checkbox } from '_components/ui/checkbox';
 import { useField } from 'formik';
 import React, { FC } from 'react';
 import { CheckBoxProps } from './interface/input';

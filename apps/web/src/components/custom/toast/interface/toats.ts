@@ -1,4 +1,4 @@
-export const DEFAULT_TIME = 5000
+export const DEFAULT_TIME = 5000;
 
 export enum ToastStatus {
   SUCCESS = 'success',
@@ -9,10 +9,10 @@ export enum ToastStatus {
 }
 
 interface ToastProps {
-  title?: string
-  description?: string
-  type?: ToastStatus | undefined
-  duration?: number
+  title?: string;
+  description?: string;
+  type?: ToastStatus | undefined;
+  duration?: number;
 }
 
-export type { ToastProps }
+export type { ToastProps };

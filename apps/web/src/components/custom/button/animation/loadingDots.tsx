@@ -1,6 +1,4 @@
-import { Flex, Box } from '@chakra-ui/react'
-import { keyframes } from '_theme/animations'
-
+import { Flex, Box } from '@chakra-ui/react';
 export const LoadingDots = ({ color = 'white' }: { color?: string }) => {
   return (
     <Flex alignItems={'center'} justifyContent={'center'} gap={'5px'}>
@@ -18,5 +16,5 @@ export const LoadingDots = ({ color = 'white' }: { color?: string }) => {
         />
       ))}
     </Flex>
-  )
-}
+  );
+};

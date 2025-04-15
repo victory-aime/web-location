@@ -90,7 +90,7 @@ class GlobalApplicationContext extends ApplicationContext.ApplicationContext {
   }
 
   setToken(token: string): void {
-    console.log('[Token] Auth token set.')
+    console.log('[Token] Auth token set.',token)
     super.setToken(token)
   }
 }

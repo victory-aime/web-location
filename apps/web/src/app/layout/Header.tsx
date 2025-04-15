@@ -26,7 +26,7 @@ import ModalInfo from '../components/ModalInfo';
 import GlobalApplicationContext from '_config/globalApplicationContext'
 
 
-const Header = ({ session }: {session:Session}) => {
+export const Header = ({ session }: {session:Session}) => {
   const router = useRouter();
   const responsiveMode = useBreakpointValue({
     base: false,
@@ -37,12 +37,17 @@ const Header = ({ session }: {session:Session}) => {
   const [open, setOpen] = useState(false);
   const [infoModal, setInfoModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const { removeFromCart, clearCart } = useCart();
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const isLoggedIn = !!session;
+  const [cart, setCart] = useState<any[]>([]);
 
-  // 1. Stockage des tokens déchiffrés
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedCart = localStorage.getItem('cart');
+      setCart(JSON.parse(storedCart || '[]'));
+    }
+  }, []);
+
   useEffect(() => {
     if (session?.access_token && session?.refresh_token) {
       const decodeToken = decrypt(session.access_token);
@@ -51,10 +56,9 @@ const Header = ({ session }: {session:Session}) => {
     }
   }, [session]);
 
-  // 2. Déconnexion automatique si erreur de refresh
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
-      signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` }).then(()=>{
+      signOut({ callbackUrl: `${APP_ROUTES.DEFAULT_ROUTE}` }).then(()=>{
         GlobalApplicationContext.setToken('')
       });
     }
@@ -161,5 +165,3 @@ const Header = ({ session }: {session:Session}) => {
     </Box>
   );
 };
-
-export default Header;

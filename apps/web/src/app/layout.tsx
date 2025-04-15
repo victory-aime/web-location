@@ -5,6 +5,7 @@ import { GlobalApplication } from './App'
 import {authOptions} from '_authOptions/auth/[...nextauth]/route'
 import React from 'react'
 import { getServerSession } from 'next-auth'
+import Layout from './layout/Layout'
 
 const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',
@@ -27,7 +28,10 @@ export default async function RootLayout({
       <body>
 
           <GlobalApplication session={session}>
-            {children}
+            <Layout session={session}>
+              {children}
+            </Layout>
+
           </GlobalApplication>
 
       </body>

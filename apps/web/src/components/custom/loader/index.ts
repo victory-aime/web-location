@@ -1,4 +1,5 @@
-import { Loader } from './Loader'
-import { LoaderWrapper } from './LoaderWrapper'
+import {Loader} from "./Loader";
+import {LoaderWrapper} from './LoaderWrapper'
 
-export { Loader, LoaderWrapper }
+
+export {Loader, LoaderWrapper}

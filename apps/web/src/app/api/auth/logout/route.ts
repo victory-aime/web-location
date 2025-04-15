@@ -1,4 +1,4 @@
-import { getIdToken } from '_/utils/auth/token-accessor';
+import { getIdToken } from '_utils/auth';
 import { authOptions } from '../[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import axios from 'axios';

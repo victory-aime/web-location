@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useField } from 'formik';
-import { Field, FieldRequiredIndicator, Flex, Text, Textarea } from '@chakra-ui/react';
+import { Field, Flex, Text, Textarea } from '@chakra-ui/react';
 import { FormTextAreaProps } from './interface/input';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
 

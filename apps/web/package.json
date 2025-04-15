@@ -37,6 +37,7 @@
     "@types/react-dom": "^19",
     "@types/cryptr": "^4.0.3",
     "@types/nodemailer": "^6.4.17",
+    "@types/webpack": "^5.28.5",
     "typescript": "^5"
   }
 }

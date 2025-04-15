@@ -3,7 +3,7 @@ import { Switch } from '@chakra-ui/react';
 import { LuMoon, LuSun } from 'react-icons/lu';
 import { useColorMode } from '_components/ui/color-mode';
 
-const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) => {
+export const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
@@ -28,5 +28,3 @@ const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) => {
     </Switch.Root>
   );
 };
-
-export default SwitchColorMode;

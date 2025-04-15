@@ -12,7 +12,7 @@ import {
 import { HStack, IconButton, Flex, For, Link } from '@chakra-ui/react';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { BaseButton } from '_components/custom/button';
-import SwitchColorMode from '_components/custom/switch-color/SwitchColorMode';
+import { SwitchColorMode } from '_components/custom/switch-color/SwitchColorMode';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '_config/routes';
 import { signIn, signOut } from 'next-auth/react';

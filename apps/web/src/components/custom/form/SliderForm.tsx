@@ -1,5 +1,5 @@
 import { Field, Flex, Text } from '@chakra-ui/react';
-import { Slider } from '_/components/ui/slider';
+import { Slider } from '_components/ui/slider';
 import { useField } from 'formik';
 import React, { FC } from 'react';
 import { DefaultProps } from './interface/input';

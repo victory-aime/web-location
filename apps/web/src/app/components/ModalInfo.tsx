@@ -1,10 +1,10 @@
 import { Center, Group } from '@chakra-ui/react';
-import { BaseText, TextVariant } from '_/components/custom/base-text';
-import { BaseButton } from '_/components/custom/button';
-import { ModalComponent } from '_/components/custom/modal';
+import { BaseText, TextVariant } from '_components/custom/base-text';
+import { BaseButton } from '_components/custom/button';
+import { ModalComponent } from '_components/custom/modal';
 import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
-import { APP_ROUTES } from '../config/routes';
+import { APP_ROUTES } from '_config/routes';
 
 interface ModalProps {
   open: boolean;
@@ -37,7 +37,7 @@ const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
             colorType="secondary"
             withGradient
             onClick={() => {
-              router.push(APP_ROUTES.CLIENT_PAGES.PUBLIC.SIGN_UP);
+              router.push(APP_ROUTES.PUBLIC.SIGN_UP);
               onChange(false);
             }}
           >

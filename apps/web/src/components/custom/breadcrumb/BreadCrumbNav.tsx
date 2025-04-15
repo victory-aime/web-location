@@ -1,19 +1,6 @@
-'use client';
-
+'use client'
 import { Breadcrumb, For, HStack } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
-
-interface BreadcrumbItem {
-  label: string;
-  href: string;
-  icon?: ReactNode;
-  isCurrent?: boolean;
-}
-
-interface BreadcrumbNavProps {
-  items: BreadcrumbItem[];
-}
 
 export default function BreadcrumbNav() {
   const searchPath = usePathname();

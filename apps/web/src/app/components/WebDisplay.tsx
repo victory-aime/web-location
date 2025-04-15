@@ -1,7 +1,7 @@
 import { Box, Flex, Stack } from '@chakra-ui/react';
-import { APP_ROUTES } from '_/app/config/routes';
-import { BaseButton } from '_/components/custom/button';
-import { FormTextInput } from '_/components/custom/form';
+import { APP_ROUTES } from '_config/routes';
+import { BaseButton } from '_components/custom/button';
+import { FormTextInput } from '_components/custom/form';
 import { Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -9,15 +9,14 @@ import { IoIosHeartEmpty } from 'react-icons/io';
 import { RiSearch2Line } from 'react-icons/ri';
 import { CartComponents } from './CartComponents';
 import { BaseText, TextVariant } from '_components/custom/base-text';
-import { Avatar } from '_/components/ui/avatar';
+import { Avatar } from '_components/ui/avatar';
 import { signIn, signOut } from 'next-auth/react';
 import { BsSend } from 'react-icons/bs';
-import { MenuContent, MenuRoot, MenuTrigger } from '_/components/ui/menu';
-import SwitchColorMode from '_/components/custom/switch-color/SwitchColorMode';
+import { MenuContent, MenuRoot, MenuTrigger } from '_components/ui/menu';
+import { SwitchColorMode } from '_components/custom';
 import { useDispatch } from 'react-redux';
-import { AuthModule, LoaderModule } from '_/store/src/modules';
+import {  CommonModule } from '@shop/shop-state-management';
 import { keycloakSessionLogOut } from '_hooks/logout';
-import { clearPersistedStorage } from '_/utils/clear.store.utils';
 
 const WebDisplay = ({
   cart,
@@ -50,7 +49,7 @@ const WebDisplay = ({
       <Box
         width={'full'}
         cursor={'pointer'}
-        onClick={() => router.push(APP_ROUTES.CLIENT_PAGES.PUBLIC.HOME)}
+        onClick={() => router.push(APP_ROUTES.PUBLIC.HOME)}
       >
         <BaseText variant={TextVariant.L}>E-Shop</BaseText>
       </Box>
@@ -59,7 +58,7 @@ const WebDisplay = ({
         initialValues={{ search: '' }}
         onSubmit={(values) =>
           router.push(
-            `${APP_ROUTES.CLIENT_PAGES.PUBLIC.PRODUCTS_LIST.LIST}?search=${values?.search}`
+            `${APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST}?search=${values?.search}`
           )
         }
       >
@@ -98,7 +97,7 @@ const WebDisplay = ({
             size={24}
             onClick={() => {
               isLoggedIn
-                ? router?.push(APP_ROUTES.CLIENT_PAGES.PRIVATE.PROFILE)
+                ? router?.push(APP_ROUTES.PRIVATE.PROFILE)
                 : setInfoModal(true);
             }}
             cursor={'pointer'}
@@ -136,7 +135,7 @@ const WebDisplay = ({
                     cursor={'pointer'}
                     onClick={() => {
                       setInfoModal(false);
-                      router.push(APP_ROUTES.CLIENT_PAGES.PRIVATE.PROFILE);
+                      router.push(APP_ROUTES.PRIVATE.PROFILE);
                     }}
                   >
                     Mon profile
@@ -149,15 +148,15 @@ const WebDisplay = ({
                   isLoading={logoutLoading}
                   onClick={() => {
                     keycloakSessionLogOut().then(() => {
-                      signOut({ callbackUrl: process.env.NEXTAUTH_URL });
-                      setLogoutLoading(false);
-                      setInfoModal(false);
-                      dispatch(LoaderModule.actions.hideLoaderAction());
+                      signOut({ callbackUrl: process.env.NEXTAUTH_URL }).then(r => {
+                        setLogoutLoading(false);
+                        setInfoModal(false);
+                        dispatch(CommonModule.actions.hideLoaderAction());
+                      } );
+
                     });
-                    dispatch(AuthModule.actions.clearKeys());
-                    dispatch(LoaderModule.actions.showLoaderAction());
+                    dispatch(CommonModule.actions.showLoaderAction());
                     setLogoutLoading(true);
-                    clearPersistedStorage();
                   }}
                 >
                   Deconnexion

@@ -1,15 +1,12 @@
-'use client';
 import React, { useState } from 'react';
 import { useField } from 'formik';
 import { Input, Text, Field, Flex } from '@chakra-ui/react';
 import { TextInputProps } from './interface/input';
-import { InputGroup } from '_/components/ui/input-group';
-import { VariablesColors } from '_/theme/variables';
-import { Eye, EyeOff } from '_assets/svg';
+import { InputGroup } from '_components/ui/input-group';
 import { TbLockBitcoin } from 'react-icons/tb';
-import { InfoTip } from '_/components/ui/toggle-tip';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
-import {CustomToolTip} from '../tooltip/CustomTooltip';
+import {CustomToolTip} from '_components/custom';
+import { RiEyeOffLine, RiEyeLine } from 'react-icons/ri'
 
 const FormTextInput = ({
   name,
@@ -83,9 +80,9 @@ const FormTextInput = ({
               onClick={() => setSecureTextEntry(!secureTextEntry)}
             >
               {secureTextEntry ? (
-                <EyeOff width={18} height={18} fill={VariablesColors.grayScale} />
+                <RiEyeOffLine size={18}  />
               ) : (
-                <Eye width={18} height={18} fill={VariablesColors.grayScale} />
+                <RiEyeLine  size={18} />
               )}
             </Flex>
           ) : toolTipInfo ? (
