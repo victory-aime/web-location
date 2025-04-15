@@ -1,6 +1,5 @@
 export const APP_ROUTES = {
   DEFAULT_ROUTE: '/',
-  CLIENT_PAGES: {
     PRIVATE: {
       PROFILE: '/pages/private/users/manage-profile',
     },
@@ -17,22 +16,5 @@ export const APP_ROUTES = {
       HOME: '/pages/public',
       SIGN_UP: '/pages/public/auth/register',
     },
-  },
 
-  PRIVATE: {
-    HOME: '/dashboard',
-    ECOMMERCE: {
-      ORDER: {
-        LIST: '/dashboard/ecommerce/order',
-        DETAILS: '/dashboard/ecommerce/order/details',
-      },
-      CATEGORY: '/dashboard/ecommerce/category',
-      PRODUCTS: {
-        LIST: '/dashboard/ecommerce/products',
-        ADD: '/dashboard/ecommerce/products/addproduct',
-      },
-    },
-    TRASH: '/dashboard/trash',
-    TEST: '/dashboard/users',
-  },
 };

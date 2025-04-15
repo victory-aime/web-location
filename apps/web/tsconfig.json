@@ -15,13 +15,18 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
+        "name": "next",
       }
     ],
     "paths": {
       "_lottie/*": ["./public/lottie/*"],
+      "_assets/*": ["./public/assets/*"],
       "_components/*": ["./src/components/*"],
       "_theme/*": ["./src/theme/*"],
+      "_authOptions/*": ["./src/app/api/*"],
+      "_utils/*": ["./src/utils/*"],
+      "_config/*": ["./src/app/config/*"],
+      "_hooks/*": ["./src/app/hooks/*"],
       "@shop/shared": ["../../packages/shared/src"],
       "@shop/state-management": ["../../packages/state-management/src"]
     }
