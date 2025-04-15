@@ -5,7 +5,7 @@ import { MdEdit } from 'react-icons/md';
 import { BaseButton } from '../button';
 import { ActionButtonsProps } from './interface/data-types';
 import { TbRestore } from 'react-icons/tb';
-import {CustomToolTip} from '../tooltip/CustomTooltip';
+import { CustomToolTip } from '../tooltip/CustomTooltip';
 
 export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   return (
@@ -21,9 +21,8 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
         switch (label) {
           case 'delete':
             return (
-              <CustomToolTip message={'Supprimer'}>
+              <CustomToolTip message={'Supprimer'} key={index}>
                 <IconButton
-                  key={index}
                   aria-label="Supprimer"
                   colorPalette="red"
                   size="sm"
@@ -36,9 +35,8 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             );
           case 'edit':
             return (
-              <CustomToolTip message={'Modifier'}>
+              <CustomToolTip message={'Modifier'} key={index}>
                 <IconButton
-                  key={index}
                   aria-label="Modifier"
                   colorPalette="blue"
                   size="sm"
@@ -51,9 +49,8 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             );
           case 'view':
             return (
-              <CustomToolTip message={'Voir Details'}>
+              <CustomToolTip message={'Voir Details'} key={index}>
                 <IconButton
-                  key={index}
                   aria-label="Voir"
                   colorPalette="green"
                   size="sm"
@@ -66,9 +63,8 @@ export const ActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
             );
           case 'restore':
             return (
-              <CustomToolTip message={'Restore'}>
+              <CustomToolTip message={'Restore'} key={index}>
                 <IconButton
-                  key={index}
                   aria-label="restore"
                   colorPalette="blue"
                   size="sm"

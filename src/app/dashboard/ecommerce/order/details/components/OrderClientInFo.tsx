@@ -2,11 +2,11 @@
 
 import { Box, Flex, VStack, HStack, useBreakpointValue } from '@chakra-ui/react';
 import { CustomBadge } from '_/components/custom/badge';
-import { BaseText, TextVariant } from '_/components/custom/base-text';
+import { BaseText, TextVariant, TextWeight } from '_/components/custom/base-text';
 import { BoxIcon } from '_/components/custom/boxIcon';
 import { BaseButton } from '_/components/custom/button';
 import { FormSelect } from '_/components/custom/form';
-import {CustomToolTip} from '_/components/custom/tooltip/CustomTooltip';
+import { CustomToolTip } from '_/components/custom/tooltip/CustomTooltip';
 import { TYPES } from '_/store/src';
 import { OrdersModule } from '_/store/src/modules';
 import { Formik, FormikValues } from 'formik';
@@ -54,31 +54,32 @@ export const OrderClientInfo = ({
             <Flex
               width={'full'}
               alignItems={'center'}
-              justifyContent={'space-between'}
+              gap={3}
               flexDir={{ base: 'column', lg: 'row' }}
             >
-              <BaseText variant={TextVariant.H2}>Commande {'#452130'}</BaseText>
+              <BaseText width={'full'} weight={TextWeight.Bold} variant={TextVariant.H3}>
+                Commande {'#452130'}
+              </BaseText>
+
               {responsive && (
-                <Flex width={'200px'} alignItems={'flex-end'} justifyContent={'flex-end'}>
-                  <FormSelect
-                    name="status"
-                    isClearable={false}
-                    isDisabled={!edit}
-                    listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.statusOrdersList()}
-                    setFieldValue={setFieldValue}
-                    customRenderSelected={(selectedItems) => (
-                      <>
-                        {selectedItems.map((item) => (
-                          <CustomBadge width={'full'} key={item.value} status={item.value} />
-                        ))}
-                      </>
-                    )}
-                  />
-                </Flex>
+                <FormSelect
+                  name="status"
+                  isClearable={false}
+                  isDisabled={!edit}
+                  listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.statusOrdersList()}
+                  setFieldValue={setFieldValue}
+                  customRenderSelected={(selectedItems) => (
+                    <>
+                      {selectedItems.map((item) => (
+                        <CustomBadge width={'full'} key={item.value} status={item.value} />
+                      ))}
+                    </>
+                  )}
+                />
               )}
             </Flex>
             <Flex
-              width={{ base: 'full', lg: '1/2' }}
+              width={{ base: 'full', lg: '1/3' }}
               alignItems={'center'}
               justifyContent={'flex-end'}
             >

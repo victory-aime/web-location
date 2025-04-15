@@ -227,7 +227,10 @@ const DetailsPage = () => {
             data={storeOrderList?.content}
             columns={columns}
             isLoading={loading}
-            hidePagination
+            totalItems={storeOrderList?.totalDataPerPage}
+            pageSize={storeOrderList?.totalPages}
+            initialPage={1}
+            hidePagination={storeOrderList?.totalPages === 1}
             lazy
           />
         </Box>

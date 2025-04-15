@@ -87,8 +87,9 @@ const OrdersTable = () => {
       data={storeOrderList?.content}
       columns={columns}
       isLoading={loading}
-      totalItems={storeOrderList?.totalDataPerPage!}
-      pageSize={storeOrderList?.totalPages!}
+      initialPage={1}
+      totalItems={storeOrderList?.totalPages}
+      pageSize={storeOrderList?.totalDataPerPage}
       hidePagination={storeOrderList?.totalPages === 1}
       lazy
     />

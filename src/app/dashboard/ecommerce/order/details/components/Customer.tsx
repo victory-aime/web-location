@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, VStack, HStack, Flex, useBreakpointValue } from '@chakra-ui/react';
-import { BaseText, TextVariant } from '_/components/custom/base-text';
+import { Box, Flex, HStack, useBreakpointValue, VStack } from '@chakra-ui/react';
+import { BaseText, TextVariant, TextWeight } from '_/components/custom/base-text';
 import { BoxIcon } from '_components/custom/boxIcon';
 import React from 'react';
 import CustomerMobileDisplay from './CustomerMobileDisplay';
@@ -12,7 +12,9 @@ const Customer = ({ customerDetailsList }: { customerDetailsList: any[] }) => {
     <>
       {responsive ? (
         <Box>
-          <BaseText variant={TextVariant.H2}>Client</BaseText>
+          <BaseText weight={TextWeight.Bold} variant={TextVariant.H3}>
+            Client
+          </BaseText>
           <VStack gap={3} mt={10}>
             {customerDetailsList.map((item, index) => (
               <HStack

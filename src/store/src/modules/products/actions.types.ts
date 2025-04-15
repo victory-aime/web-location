@@ -31,17 +31,17 @@ export interface PublicProductsRequestActionFailed extends Action {
   payload: string;
 }
 
-export interface UpdateProducRequestAction extends Action {
+export interface UpdateProductRequestAction extends Action {
   type: typeof Constants.UPDATE_PRODUCT;
   payload: string;
 }
 
-export interface UpdateProducRequestActionSuccess extends Action {
+export interface UpdateProductRequestActionSuccess extends Action {
   type: typeof Constants.UPDATE_PRODUCT_SUCCESS;
   payload: any;
 }
 
-export interface UpdateProducRequestActionFailed extends Action {
+export interface UpdateProductRequestActionFailed extends Action {
   type: typeof Constants.UPDATE_PRODUCT_FAILED;
   payload: string;
 }
@@ -145,9 +145,9 @@ export type ProductActionsTypes =
   | GetAllCategoriesRequestAction
   | GetAllCategoriesRequestActionSuccess
   | GetAllCategoriesRequestActionFailed
-  | UpdateProducRequestAction
-  | UpdateProducRequestActionSuccess
-  | UpdateProducRequestActionFailed
+  | UpdateProductRequestAction
+  | UpdateProductRequestActionSuccess
+  | UpdateProductRequestActionFailed
   | DeleteProductRequest
   | DeleteProductSuccess
   | DeleteProductFailed
