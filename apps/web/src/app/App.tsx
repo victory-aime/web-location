@@ -1,26 +1,23 @@
 'use client'
-import { globalState } from '_config/globalState'
-import { Provider } from 'react-redux'
+import '_config/globalState'
 import React from 'react'
-import { configureStore } from '@reduxjs/toolkit'
-import LoaderWrapper from '../components/custom/loader/LoaderWrapper'
 import { Toaster } from '_components/ui/toaster'
 import { SessionProvider } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { ThemeProvider } from '_components/ui/provider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const createFallbackStore = () => configureStore({ reducer: {} })
+const queryClient = new QueryClient()
 
-export const GlobalApplication = ({ children, session }: { children: React.ReactNode, session:Session }) => {
+export const GlobalApplication = ({ children, session }: { children: React.ReactNode; session: Session }) => {
   return (
     <SessionProvider session={session}>
-      <Provider store={globalState.getStore() ?? createFallbackStore()}>
+      <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <Toaster />
-          <LoaderWrapper>{children}</LoaderWrapper>
+          {children}
         </ThemeProvider>
-      </Provider>
+      </QueryClientProvider>
     </SessionProvider>
-
   )
 }

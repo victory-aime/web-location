@@ -27,8 +27,6 @@
       "_utils/*": ["./src/utils/*"],
       "_config/*": ["./src/app/config/*"],
       "_hooks/*": ["./src/app/hooks/*"],
-      "@shop/shared": ["../../packages/shared/src"],
-      "@shop/state-management": ["../../packages/state-management/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

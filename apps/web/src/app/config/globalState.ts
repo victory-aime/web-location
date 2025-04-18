@@ -1,18 +1,12 @@
 'use client'
 
-import { MainModule, ApplicationContext } from '@shop/shop-state-management'
-import globalApplicationContext from './globalApplicationContext'
-import { activeModules } from './modules'
+import { applicationInstance } from 'bvg-innovation-frontend-business'
+import { GlobalApplicationContext } from './globalApplicationContext'
 
 /**
- *
+ * Instantiate the GlobalApplicationContext
+ * This is where to keep all UI project specific configs and implementation
+ * to be used by the underlying layers (StateManagement, Business and Core)
  */
 
-ApplicationContext.setApplicationContext(globalApplicationContext)
-
-/**
- * Creating the GlobalState (contains Store, Reducers, Sagas)
- */
-const globalState = MainModule?.GlobalState?.getInstance(globalApplicationContext, activeModules)
-
-export { globalState }
+applicationInstance.setContext(new GlobalApplicationContext(process.env.NEXT_PUBLIC_BACKEND_URL + '_api/v1'))

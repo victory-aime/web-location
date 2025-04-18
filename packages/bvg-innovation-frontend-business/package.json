@@ -1,0 +1,40 @@
+{
+  "name": "bvg-innovation-frontend-business",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.esm.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+
+  "devDependencies": {
+    "bvg-innovation-shared": "*",
+    "bvg-innovation-state-management": "*",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "rollup": "^4.0.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rimraf": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "typescript": "^5.3.3",
+    "prettier": "^3.0.3"
+  }
+}

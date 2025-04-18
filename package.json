@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.74.4",
     "prettier": "^3.0.3"
   },
   "devDependencies": {

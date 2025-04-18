@@ -28,9 +28,9 @@ export default async function RootLayout({
       <body>
 
           <GlobalApplication session={session}>
-            <Layout session={session}>
+            {/*<Layout session={session}>*/}
               {children}
-            </Layout>
+            {/*</Layout>*/}
 
           </GlobalApplication>
 

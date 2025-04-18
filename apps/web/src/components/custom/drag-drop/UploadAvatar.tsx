@@ -1,70 +1,64 @@
-'use client';
+'use client'
 
-import { Circle, FileUpload, Float, useFileUploadContext } from '@chakra-ui/react';
-import { Avatar } from '_components/ui/avatar';
-import { HiUpload } from 'react-icons/hi';
-import { LuX } from 'react-icons/lu';
-import { useState, useEffect } from 'react';
-import { MAX_FILE_SIZE, MAX_FILES } from './constant/constants';
-import { UTILS } from '@shop/shop-shared';
+import { Circle, FileUpload, Float, useFileUploadContext } from '@chakra-ui/react'
+import { Avatar } from '_components/ui/avatar'
+import { HiUpload } from 'react-icons/hi'
+import { LuX } from 'react-icons/lu'
+import { useState, useEffect } from 'react'
+import { MAX_FILE_SIZE, MAX_FILES } from './constant/constants'
+import { UTILS } from 'bvg-innovation-shared'
 
 const FileUploadList = ({
   getFilesUploaded,
   base64Images,
 }: {
-  getFilesUploaded: (files: File[]) => void;
-  base64Images?: string[];
+  getFilesUploaded: (files: File[]) => void
+  base64Images?: string[]
 }) => {
-  const fileUpload = useFileUploadContext();
-  const files = fileUpload.acceptedFiles;
-  const [error, setError] = useState<string | null>(null);
-  const [errorType, setErrorType] = useState<'size' | 'type' | null>(null);
+  const fileUpload = useFileUploadContext()
+  const files = fileUpload.acceptedFiles
+  const [error, setError] = useState<string | null>(null)
+  const [errorType, setErrorType] = useState<'size' | 'type' | null>(null)
 
   useEffect(() => {
     if (fileUpload.rejectedFiles.length > 0) {
-      const oversizedFiles = fileUpload.rejectedFiles.filter((file) =>
-        file.errors.includes('FILE_TOO_LARGE')
-      );
+      const oversizedFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('FILE_TOO_LARGE'))
 
-      const invalidTypeFiles = fileUpload.rejectedFiles.filter((file) =>
-        file.errors.includes('FILE_INVALID_TYPE')
-      );
+      const invalidTypeFiles = fileUpload.rejectedFiles.filter((file) => file.errors.includes('FILE_INVALID_TYPE'))
 
       if (oversizedFiles.length > 0) {
-        setErrorType('size');
-        setError(`Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`);
+        setErrorType('size')
+        setError(`Ce fichier dépasse la taille maximale de ${MAX_FILE_SIZE / (1024 * 1024)} MB.`)
       } else if (invalidTypeFiles.length > 0) {
-        setErrorType('type');
-        setError('Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg');
+        setErrorType('type')
+        setError('Ce fichier a un format non supporté. Formats acceptés : .png, .jpg, .jpeg')
       } else {
-        setError(null);
-        setErrorType(null);
+        setError(null)
+        setErrorType(null)
       }
     }
-    getFilesUploaded(fileUpload.acceptedFiles);
-  }, []);
+    getFilesUploaded(fileUpload.acceptedFiles)
+  }, [])
 
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
-        setError(null);
-        setErrorType(null);
-        fileUpload.clearRejectedFiles();
-      }, 5000);
-      return () => clearTimeout(timer);
+        setError(null)
+        setErrorType(null)
+        fileUpload.clearRejectedFiles()
+      }, 5000)
+      return () => clearTimeout(timer)
     }
-  }, [error]);
+  }, [error])
 
   useEffect(() => {
     if (base64Images && base64Images.length > 0 && fileUpload.acceptedFiles.length === 0) {
-      const convertedFiles = base64Images?.map((base64, index) =>
-        UTILS.base64ToFile(base64, `image-${index}.jpg`)
-      );
-      fileUpload.setFiles([...convertedFiles, ...fileUpload.acceptedFiles]);
+      const convertedFiles = base64Images?.map((base64, index) => UTILS.base64ToFile(base64, `image-${index}.jpg`))
+      fileUpload.setFiles([...convertedFiles, ...fileUpload.acceptedFiles])
     }
-  }, [base64Images]);
+  }, [base64Images])
 
-  if (files.length === 0) return null;
+  if (files.length === 0) return null
 
   return (
     <FileUpload.ItemGroup>
@@ -79,11 +73,11 @@ const FileUploadList = ({
         </FileUpload.Item>
       ))}
     </FileUpload.ItemGroup>
-  );
-};
+  )
+}
 
 export const UploadAvatar = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   return (
     <FileUpload.Root accept="image/*">
@@ -110,5 +104,5 @@ export const UploadAvatar = () => {
         </Float>
       </Avatar>
     </FileUpload.Root>
-  );
-};
+  )
+}

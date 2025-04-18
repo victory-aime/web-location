@@ -1,3 +1,0 @@
-export const LOADER_KEY_IN_STORE = 'loader'
-export const SHOW_LOADER = `${LOADER_KEY_IN_STORE}/SHOW_LOADER`
-export const HIDE_LOADER = `${LOADER_KEY_IN_STORE}/HIDE_LOADER`
