@@ -1,26 +1,22 @@
-import { Box } from '@chakra-ui/react';
-import { CheckBoxFom } from '_components/custom/form';
-import { ProductModule } from '@shop/shop-state-management';
+import { Box } from '@chakra-ui/react'
+import { CheckBoxFom } from '_components/custom/form'
+import { ProductModule } from 'bvg-innovation-state-management'
+import React from 'react'
+import { TYPES } from 'bvg-innovation-shared'
 
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-
-const Categories = ({ name }: { name: string }) => {
-  const { categories } = useSelector(ProductModule.selectors.productSelector);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (categories?.length === 0) {
-      dispatch(ProductModule.actions.getCategoriesList());
-    }
-  }, []);
+const Categories = ({ name, enabled }: { name: string; enabled: boolean }) => {
+  const { data: categories } = ProductModule.getCategories({
+    queryOptions: {
+      enabled: enabled,
+      retry: false,
+    },
+  })
 
   return (
-    <Box mb={8} width={'full'}>
-      <CheckBoxFom name={name} items={categories} />
+    <Box mb={8} width="full">
+      <CheckBoxFom name={name} items={(categories ?? []) as TYPES.MODELS.PRODUCTS.IProductsCategories[]} />
     </Box>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories

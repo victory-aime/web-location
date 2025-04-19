@@ -1,29 +1,14 @@
-import { IApplicationContext, ApiService } from '../../context'
 import { TYPES } from 'bvg-innovation-shared'
+import { BaseApi } from '../../context/base.api'
 
-export class UsersService {
-  /**
-   * private apiService property
-   * @property {ApiService} apiService - private api service instance
-   */
-  private apiService: ApiService
-
-  /**
-   * constructor
-   * @constructs ProductsService
-   * @param {IApplicationContext} applicationContext - private application context
-   */
-  constructor(private applicationContext: IApplicationContext) {
-    this.apiService = new ApiService(this.applicationContext)
-  }
-
+export class UsersService extends BaseApi {
   /**
    * getUserInfo
    * @method whoAmI
    * @param {userId} userId
    * @returns {Promise}
    */
-  whoAmI(userId?: string) {
+  whoAmI(userId?: { userId: string }): Promise<any> {
     return this.apiService.invoke(this.applicationContext.getApiConfig().USERS.PRIVATE.ME, userId)
   }
 

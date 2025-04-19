@@ -1,4 +1,5 @@
-import {IAspectRatioProps} from './interface/aspect-ratio'
+import { IAspectRatioProps } from './interface/aspect-ratio'
 import ImageRatio from './ImageRatio'
 
-export {ImageRatio, IAspectRatioProps}
+export { ImageRatio }
+export type { IAspectRatioProps }

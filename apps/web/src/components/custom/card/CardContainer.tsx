@@ -1,8 +1,6 @@
-import {  Card } from '@chakra-ui/react';
-import  { FC,  } from 'react';
-import {TypeProps} from "./interface/card";
-
-
+import { Card } from '@chakra-ui/react'
+import { FC } from 'react'
+import { TypeProps } from './interface/card'
 
 export const CardContainer: FC<TypeProps> = ({ items, label, children, ...rest }) => {
   return (
@@ -24,5 +22,5 @@ export const CardContainer: FC<TypeProps> = ({ items, label, children, ...rest }
         {children}
       </Card.Body>
     </Card.Root>
-  );
-};
+  )
+}

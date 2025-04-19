@@ -5,8 +5,8 @@ node_modules/
 **/node_modules/
 
 # Builds
-dist/
-**/dist/
+lib/
+**/lib/
 
 # Logs
 npm-debug.log*

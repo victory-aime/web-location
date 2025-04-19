@@ -1,5 +1,5 @@
 export type ProductStatus = 'PUBLISH' | 'DISABLED' | 'DRAFT'
-export type OrderStatus = 'NEW' | 'IN_PROGRESS' | 'CANCELED' | 'PAID' | 'DELIVERED'
+export type OrderStatus = 'PENDING' | 'IN_PROGRESS' | 'CANCELED' | 'PAID' | 'DELIVERED'
 
 export interface ICreateProduct extends IProduct {
   discountPrice?: number
@@ -74,11 +74,11 @@ export interface IGetAllPublicProductsPayload {
   page?: number
   pageSize?: number
   userId?: string
-  productId?: string
+  productId?: string | null
   categories?: string[]
   minPrice?: number
   maxPrice?: number
-  productTitle?: string
+  productTitle?: string | null
 }
 
 export interface IGetAllPublicProductsResponse {

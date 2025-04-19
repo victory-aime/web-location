@@ -1,6 +1,6 @@
 {
   "name": "bvg-innovation-frontend-business",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -15,7 +15,14 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "prepare": "npm run clean && npm run build",
+    "prepublishOnly": "npm run prepare",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major",
+    "login": "npm adduser",
+    "release": "npm run prepare && npm login && npm publish"
   },
   "publishConfig": {
     "access": "public"

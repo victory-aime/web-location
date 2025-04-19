@@ -1,69 +1,54 @@
 import { HandleAppVersionBody, IApplicationContext } from './types'
 
 /**
- * Implémentation par défaut du contexte de l'application.
- * Doit être étendue ou redéfinie dans le projet UI selon les besoins.
+ * Default implementation of the application context.
+ * Can be extended or overridden in the UI project as needed.
  */
 export class ApplicationContext implements IApplicationContext {
   protected apiConfigs?: any
   protected loaderService?: any
 
   /**
-   * Indique si la version de l'app a été traitée.
+   * Whether the application version has been handled.
    */
   handledAppVersion = false
 
   /**
-   * Indique si les erreurs doivent être gérées globalement.
+   * Whether global error handling is enabled.
    */
   private shouldHandleError = true
 
   /**
-   * Clé utilisée pour le handover token dans les requêtes API.
+   * Key used to transmit the handover token in API requests.
    */
   handoverTokenKey = ''
 
   constructor() {}
 
-  /**
-   * @inheritdoc
-   */
   getApiConfig(): any {
     return this.apiConfigs
   }
 
-  /**
-   * @inheritdoc
-   */
   handleError(response: { status: number; message: string }): void {
-    console.error('Global error:', response)
+    console.log(response)
   }
 
   /**
-   * Méthode générique pour gérer des informations à afficher.
-   * @param response - Informations à afficher.
+   * Handles information messages from API responses.
+   * @param response - The info data to handle.
    */
   handleInfo(response: { data: any; status: number }): void {
-    console.info('Global info:', response)
+    console.log(response)
   }
 
-  /**
-   * @inheritdoc
-   */
   handleAppVersion(response: HandleAppVersionBody): void {
-    console.log('App version info:', response)
+    console.log(response)
   }
 
-  /**
-   * @inheritdoc
-   */
   handleDeviceInfo(response: any): void {
-    console.log('Device info:', response)
+    console.log(response)
   }
 
-  /**
-   * @inheritdoc
-   */
   getLoaderService(): any {
     return this.loaderService
   }
@@ -78,86 +63,62 @@ export class ApplicationContext implements IApplicationContext {
     })
   }
 
-  /**
-   * @inheritdoc
-   */
   getCurrentLanguage(): string {
     return 'en'
   }
 
-  /**
-   * @inheritdoc
-   */
   getAttributeLanguage(value: any): string {
     const lang = this.getCurrentLanguage()
     return value?.[lang] ?? ''
   }
 
-  /**
-   * @inheritdoc
-   */
   getAppVersion(): string {
-    return '1.0.0'
+    return ''
   }
 
-  /**
-   * @inheritdoc
-   */
   setHandledAppVersion(value: boolean): void {
     this.handledAppVersion = value
   }
 
-  /**
-   * @inheritdoc
-   */
   getShouldHandleError(): boolean {
     return this.shouldHandleError
   }
 
-  /**
-   * @inheritdoc
-   */
   setShouldHandleError(value: boolean): void {
     this.shouldHandleError = value
   }
 
   /**
-   * Récupère le mapping des challenge handlers personnalisés.
-   */
-  getChallengeHandlersMapping(): any {
-    return {}
-  }
-
-  /**
-   * Récupère le nom du canal courant (mobile, web, etc.).
+   * Returns the current access channel (e.g., mobile, web).
    */
   getChannel(): string {
-    return 'default'
+    return ''
   }
 
-  /**
-   * Token d'authentification à utiliser dans les appels API.
-   */
   private authToken?: string
 
-  /**
-   * Définit le token d'authentification.
-   * @param token - Le token à utiliser.
-   */
   setToken(token: string): void {
-    console.log('[Token] Auth token set.', token)
     this.authToken = token
   }
 
+  private refreshToken?: string
+
   /**
-   * Récupère le token d'authentification courant.
+   * Sets the refresh token.
+   * @param refreshToken - The token string.
    */
+  setRefreshToken(refreshToken: string): void {
+    this.refreshToken = refreshToken
+  }
+
   getToken(): string | undefined {
     return this.authToken
   }
-}
 
-/**
- * Instance par défaut du contexte de l'application.
- */
-export const defaultApplicationContext = new ApplicationContext()
+  /**
+   * Retrieves the current refresh token.
+   */
+  getRefreshToken(): string | undefined {
+    return this.refreshToken
+  }
+}

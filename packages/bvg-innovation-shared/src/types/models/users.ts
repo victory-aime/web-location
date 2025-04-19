@@ -31,10 +31,3 @@ export interface IUser {
 }
 
 export interface IUpdateUserInfoPayload extends IUser {}
-
-export interface UserState {
-  user: IUser | null
-  isLoading: boolean
-  addressAction?: boolean
-  error: string | null
-}

@@ -1,9 +1,9 @@
 /**
- * Structure des informations de version de l'application.
+ * Represents the structure of application version information.
  */
 export type HandleAppVersionBody = {
   /**
-   * Description de la version dans plusieurs langues.
+   * Version description in multiple languages.
    */
   description?: {
     ar: string
@@ -11,110 +11,112 @@ export type HandleAppVersionBody = {
     en: string
   }
   /**
-   * Clé unique de la version.
+   * Unique key identifying the version.
    */
   versionKey?: string
   /**
-   * Indique si une action est bloquée dans cette version.
+   * Indicates whether an action is blocked in this version.
    */
   blockedAction?: boolean
 }
 
 /**
- * Interface pour la gestion du contexte de l'application.
+ * Interface for managing application-wide context.
  */
 export interface IApplicationContext {
   /**
-   * Récupère la configuration de l'API.
+   * Retrieves the API configuration.
    */
   getApiConfig(): any
 
   /**
-   * Gère les erreurs globales.
-   * @param response - La réponse de l'API ou l'objet d'erreur.
+   * Handles global errors.
+   * @param response - The API response or error object.
    */
   handleError(response: any): void
 
   /**
-   * Gère les informations à afficher.
-   * @param response - La réponse de l'API ou l'objet d'information.
+   * Handles information messages to display.
+   * @param response - The API response or info object.
    */
   handleInfo(response: any): void
 
   /**
-   * Gère les informations de version de l'application.
-   * @param response - Les données liées à la version.
+   * Handles application version-related data.
+   * @param response - The version information.
    */
   handleAppVersion(response: HandleAppVersionBody): void
 
   /**
-   * Gère les informations liées à l'appareil.
-   * @param response - Données de l'appareil.
+   * Handles device-related information.
+   * @param response - Device data.
    */
   handleDeviceInfo(response: any): void
 
   /**
-   * Récupère le service de chargement (loader).
+   * Returns the loader (loading indicator) service.
    */
   getLoaderService(): any
 
   /**
-   * Récupère les données de l'appareil sous forme de chaîne.
+   * Retrieves device data as a string.
    */
   getDeviceDataAsString(): string
 
   /**
-   * Récupère la langue actuelle de l'application.
+   * Returns the current language used by the application.
    */
   getCurrentLanguage(): string
 
   /**
-   * Récupère la chaîne de texte correspondant à la langue sélectionnée.
-   * @param value - Objet contenant les traductions.
+   * Extracts the appropriate string from a multilingual value.
+   * @param value - An object containing language-based values.
    */
   getAttributeLanguage(value: any): string
 
   /**
-   * Récupère la version de l'application.
+   * Returns the current version of the application.
    */
   getAppVersion(): string
 
   /**
-   * Détermine si la version de l'application a déjà été traitée.
+   * Indicates whether the app version has been handled already.
    */
   handledAppVersion: boolean
 
   /**
-   * Définit si la version a été traitée.
-   * @param value - Booléen indiquant l'état de traitement.
+   * Sets whether the app version has been handled.
+   * @param value - Boolean flag.
    */
   setHandledAppVersion(value: boolean): void
 
   /**
-   * Récupère l'état d'autorisation du gestionnaire d'erreurs.
+   * Returns whether global error handling is enabled.
    */
   getShouldHandleError(): boolean
 
   /**
-   * Définit l'autorisation du gestionnaire d'erreurs.
-   * @param value - Booléen d'autorisation.
+   * Sets whether global error handling should be enabled.
+   * @param value - Boolean flag.
    */
   setShouldHandleError(value: boolean): void
 
   /**
-   * Définit le token d'authentification.
-   * @param token - Le token à utiliser.
+   * Sets the authentication token.
+   * @param token - The token string.
    */
   setToken(token: string): void
 
   /**
-   * Récupère le token d'authentification courant.
+   * Retrieves the current authentication token.
    */
   getToken(): string | undefined
 }
 
-
+/**
+ * Optional configuration for API invocation.
+ */
 export interface InvokeOptions {
-  showError?: boolean;
-  headers?: Record<string, string>;
+  showError?: boolean
+  headers?: Record<string, string>
 }

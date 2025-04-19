@@ -1,0 +1,2 @@
+export const USERS_ORDERS_LIST = `USERS_ORDERS_LIST`
+export const CREATE_ORDER = `CREATE_ORDER`

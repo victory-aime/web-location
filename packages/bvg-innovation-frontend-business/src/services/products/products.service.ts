@@ -1,27 +1,13 @@
-import { ApiService, IApplicationContext } from '../../context'
 import { TYPES } from 'bvg-innovation-shared'
+import { BaseApi } from '../../context/base.api'
 
-export class ProductsService {
+/**
+ * ProductsService handles API operations related to products.
+ */
+export class ProductsService extends BaseApi {
   /**
-   * private apiService property
-   * @property {ApiService} apiService - private api service instance
-   */
-  private apiService: ApiService
-
-  /**
-   * constructor
-   * @constructs ProductsService
-   * @param {IApplicationContext} applicationContext - private application context
-   */
-  constructor(private applicationContext: IApplicationContext) {
-    this.apiService = new ApiService(this.applicationContext)
-  }
-
-  /**
-   * getAllProducts
-   * @method getAllProducts
-   * @param {any} requestData
-   * @returns {Promise}
+   * Retrieves all public products.
+   * @param requestData - Optional request parameters.
    */
   getAllProducts(requestData?: TYPES.MODELS.PRODUCTS.IGetAllPublicProductsPayload) {
     return this.apiService.invoke(
@@ -31,11 +17,8 @@ export class ProductsService {
   }
 
   /**
-   * getAllPrivateProductsByStore
-   * @method getAllPrivateProductsByStore
-   * @param {storeId} storeId
-   * @returns {Promise}
-   * @description get all private products by store
+   * Retrieves private products by store.
+   * @param storeId - Store identifier.
    */
   getAllPrivateProductsByStore(
     storeId: string
@@ -47,12 +30,22 @@ export class ProductsService {
   }
 
   /**
-   * createProduct
+   * Creates a new product.
+   * @param payload - Product creation payload.
    */
   createProduct(payload: TYPES.MODELS.PRODUCTS.ICreateProductPayload) {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.CREATE_PRODUCT,
       payload
+    )
+  }
+
+  /**
+   * Retrieves all product categories.
+   */
+  getAllCategories(): Promise<TYPES.MODELS.PRODUCTS.IProductsCategories[]> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.GET_CATEGORIES
     )
   }
 }

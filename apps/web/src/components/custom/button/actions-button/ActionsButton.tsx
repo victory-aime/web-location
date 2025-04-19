@@ -1,15 +1,14 @@
-'use client';
+'use client'
 
-import { Flex } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { GiCancel } from 'react-icons/gi';
-import { BaseButton } from '../base/baseButton';
-import { IoSave } from 'react-icons/io5';
-import { hexToRGB } from '_theme/colors';
-import { IoIosArrowDropleftCircle } from 'react-icons/io';
-import { ActionButtonTypes } from '_components/custom';
+import { Flex } from '@chakra-ui/react'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import { FaPlus } from 'react-icons/fa'
+import { GiCancel } from 'react-icons/gi'
+import { BaseButton } from '../base/baseButton'
+import { IoSave } from 'react-icons/io5'
+import { IoIosArrowDropleftCircle } from 'react-icons/io'
+import { ActionButtonTypes } from '_components/custom'
 
 export const ActionsButton = ({
   cancelTitle,
@@ -23,9 +22,9 @@ export const ActionsButton = ({
   ...rest
 }: ActionButtonTypes) => {
   if (cancelTitle && !goBackUrl) {
-    throw new Error('goBackUrl is missing');
+    throw new Error('goBackUrl is missing')
   }
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Flex gap={3} {...rest}>
       {cancelTitle && (
@@ -35,7 +34,7 @@ export const ActionsButton = ({
           colorType={cancelColor}
           leftIcon={cancelColor === 'danger' ? <GiCancel /> : <IoIosArrowDropleftCircle />}
           onClick={() => {
-            router.push(goBackUrl ?? '');
+            router.push(goBackUrl ?? '')
           }}
         >
           {cancelTitle}
@@ -55,5 +54,5 @@ export const ActionsButton = ({
         </BaseButton>
       )}
     </Flex>
-  );
-};
+  )
+}

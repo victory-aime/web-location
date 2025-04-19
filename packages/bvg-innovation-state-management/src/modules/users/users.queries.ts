@@ -3,11 +3,13 @@ import { usersServiceInstance } from './users.service-instance'
 import { TYPES } from 'bvg-innovation-shared'
 import { AxiosError } from 'axios'
 
-export const userInfoQueries = (args: TYPES.QUERY_PAYLOAD.QueryPayload<string, any>) => {
+export const userInfoQueries = (
+  args: TYPES.QUERY_PAYLOAD.QueryPayload<{ userId: string }, any>
+) => {
   const { payload, queryOptions } = args
-  return TYPES.FUNCTIONS.useCustomQuery<string, AxiosError>({
-    queryKey: [Constants.WOHAMI, args.payload],
-    queryFn: () => usersServiceInstance().whoAmI(payload),
+  return TYPES.FUNCTIONS.useCustomQuery<TYPES.MODELS.USERS.IUser, AxiosError>({
+    queryKey: [Constants.WOHAMI],
+    queryFn: () => usersServiceInstance().whoAmI({ userId: payload.userId }),
     options: queryOptions,
   })
 }
@@ -17,8 +19,7 @@ export const updateUserInfoQueries = (
 ) => {
   return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.USERS.IUpdateUserInfoPayload, AxiosError>({
     mutationKey: [Constants.UPDATE_USER_INFO],
-    mutationFn: (payload: TYPES.MODELS.USERS.IUpdateUserInfoPayload) =>
-      usersServiceInstance().updateUserInfo(payload),
-    ...args,
+    mutationFn: (payload) => usersServiceInstance().updateUserInfo(payload),
+    options: args,
   })
 }

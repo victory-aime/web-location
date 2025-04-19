@@ -1,4 +1,5 @@
-import {CustomSkeletonLoaderProps,LoaderType} from "./interface/skeleton";
-import {CustomSkeletonLoader} from "./CustomSkeletonLoader";
+import { CustomSkeletonLoaderProps, LoaderType } from './interface/skeleton'
+import { CustomSkeletonLoader } from './CustomSkeletonLoader'
 
-export {CustomSkeletonLoader, CustomSkeletonLoaderProps, LoaderType};
+export { CustomSkeletonLoader }
+export type { CustomSkeletonLoaderProps, LoaderType }

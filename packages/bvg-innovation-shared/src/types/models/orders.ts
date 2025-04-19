@@ -34,19 +34,13 @@ export interface IResponseUserListOrders {
   orderId?: string
   total?: string
   status?: string
+  createdAt?: string
   items?: OrderItem[]
 }
 
-export interface IResponseStoreListOrder {
-  content: any[]
+export interface IResponseListOrder {
+  content: IResponseUserListOrders[]
   totalPages?: number
+  currentPage?: number
   totalDataPerPage?: number
-}
-
-export interface OrdersState {
-  orders: IResponseUserListOrders[]
-  storeOrderList: IResponseStoreListOrder
-  loading: boolean
-  orderActions?: boolean
-  error: string | null
 }

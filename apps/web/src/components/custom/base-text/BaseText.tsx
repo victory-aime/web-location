@@ -1,10 +1,10 @@
-import { Text, TextProps } from '@chakra-ui/react';
-import React from 'react';
-import { TextVariant, TextWeight } from './interface/base-text';
+import { Text, TextProps } from '@chakra-ui/react'
+import React from 'react'
+import { TextVariant, TextWeight } from './'
 
 interface BaseTextProps extends TextProps {
-  variant?: TextVariant;
-  weight?: TextWeight;
+  variant?: TextVariant
+  weight?: TextWeight
 }
 
 export const BaseText: React.FC<BaseTextProps> = ({
@@ -22,7 +22,7 @@ export const BaseText: React.FC<BaseTextProps> = ({
     [TextVariant.M]: '16px',
     [TextVariant.S]: '14px',
     [TextVariant.XS]: '12px',
-  };
+  }
 
   const weightMap: Record<TextWeight, string> = {
     [TextWeight.THIN]: 'thin',
@@ -34,16 +34,11 @@ export const BaseText: React.FC<BaseTextProps> = ({
     [TextWeight.Bold]: 'bold',
     [TextWeight.ExtraBold]: 'extrabold',
     [TextWeight.Black]: 'black',
-  };
+  }
 
   return (
-    <Text
-      fontSize={sizeMap[variant]}
-      fontWeight={weightMap[weight]}
-      lineHeight={props.lineHeight ?? '1.8'}
-      {...props}
-    >
+    <Text fontSize={sizeMap[variant]} fontWeight={weightMap[weight]} lineHeight={props.lineHeight ?? '1.8'} {...props}>
       {children}
     </Text>
-  );
-};
+  )
+}

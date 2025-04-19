@@ -1,17 +1,17 @@
-import { CheckboxGroup, Fieldset } from '@chakra-ui/react';
-import { Checkbox } from '_components/ui/checkbox';
-import { useField } from 'formik';
-import React, { FC } from 'react';
-import { CheckBoxProps } from './interface/input';
+import { CheckboxGroup, Fieldset } from '@chakra-ui/react'
+import { Checkbox } from '_components/ui/checkbox'
+import { useField } from 'formik'
+import React, { FC } from 'react'
+import { CheckBoxProps } from './interface/input'
 
 const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
   const fieldHookConfig = {
     name,
     validate,
-  };
-  const [field, { touched, error }, helpers] = useField(fieldHookConfig);
-  const isError = !!(touched && error);
-  const { setValue } = helpers;
+  }
+  const [field, { touched, error }, helpers] = useField(fieldHookConfig)
+  const isError = !!(touched && error)
+  const { setValue } = helpers
 
   return (
     <Fieldset.Root id={name} invalid={isError}>
@@ -20,7 +20,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
           invalid={isError}
           value={field.value}
           onValueChange={(val) => {
-            setValue(val);
+            setValue(val).then((r) => console.log(r))
           }}
           name={field.name}
         >
@@ -41,7 +41,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
           size={'lg'}
           colorPalette={field?.value ? 'green' : isError ? 'red' : 'none'}
           onCheckedChange={({ checked }) => {
-            setValue(checked);
+            setValue(checked).then((r) => console.log('checked', r))
           }}
           mb={4}
         >
@@ -51,7 +51,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
 
       {isError && <Fieldset.ErrorText>{error}</Fieldset.ErrorText>}
     </Fieldset.Root>
-  );
-};
+  )
+}
 
-export default CheckboxForm;
+export default CheckboxForm

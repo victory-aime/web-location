@@ -12,11 +12,10 @@ export const getPublicProductQueries = (
   const { payload, queryOptions } = props
 
   return TYPES.FUNCTIONS.useCustomQuery<
-    string,
     TYPES.MODELS.PRODUCTS.IGetAllPublicProductsResponse,
     AxiosError
   >({
-    queryKey: [Constants.ALL_PUBLIC_PRODUCTS, payload],
+    queryKey: [Constants.ALL_PUBLIC_PRODUCTS],
     queryFn: () => productServiceInstance().getAllProducts(payload),
     options: queryOptions,
   })
@@ -26,21 +25,27 @@ export const getPrivateProductQueries = (
   props: TYPES.QUERY_PAYLOAD.QueryPayload<string, TYPES.MODELS.PRODUCTS.IPrivateProductResponse>
 ) => {
   const { payload, queryOptions } = props
-  return TYPES.FUNCTIONS.useCustomQuery<
-    string,
-    TYPES.MODELS.PRODUCTS.IPrivateProductResponse,
-    AxiosError
-  >({
-    queryKey: [Constants.PRIVATE_PRODUCTS, payload],
+  return TYPES.FUNCTIONS.useCustomQuery<TYPES.MODELS.PRODUCTS.IPrivateProductResponse, AxiosError>({
+    queryKey: [Constants.PRIVATE_PRODUCTS],
     queryFn: () => productServiceInstance().getAllPrivateProductsByStore(payload),
     options: queryOptions,
   })
 }
 
-export const createProductMutation = (options?: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
+export const getCategories = (
+  args: TYPES.QUERY_PAYLOAD.QueryPayload<undefined, TYPES.MODELS.PRODUCTS.IProductsCategories[]>
+) => {
+  return TYPES.FUNCTIONS.useCustomQuery({
+    queryKey: [Constants.GET_CATEGORIES],
+    queryFn: () => productServiceInstance().getAllCategories(),
+    options: args.queryOptions,
+  })
+}
+
+export const createProductMutation = (args?: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
   return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.ICreateProductPayload, string>({
     mutationKey: [Constants.CREATE_PRODUCT],
     mutationFn: (payload) => productServiceInstance().createProduct(payload),
-    options,
+    options: args,
   })
 }

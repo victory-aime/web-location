@@ -1,12 +1,12 @@
-import { withAuth } from 'next-auth/middleware';
-import { NextResponse } from 'next/server';
+import { withAuth } from 'next-auth/middleware'
+import { NextResponse } from 'next/server'
 
 /**
  * Liste des routes protégées et des rôles autorisés pour chacune.
  */
 const protectedRoutes: Record<string, string[]> = {
   '/pages/:path*': ['users'],
-};
+}
 
 /**
  * Middleware d'authentification et d'autorisation.
@@ -24,30 +24,30 @@ const protectedRoutes: Record<string, string[]> = {
 export default withAuth(
   function middleware(req) {
     // Récupération du token depuis NextAuth
-    const token: any = req.nextauth?.token;
+    const token: any = req.nextauth?.token
 
     // Vérifie si le token est disponible (utilisateur authentifié)
     if (!token) {
-      return NextResponse.redirect(new URL('/api/auth/signin', req.url));
+      return NextResponse.redirect(new URL('/api/auth/signin', req.url))
     }
 
     // Extraction des rôles de l'utilisateur depuis Keycloak
     const userRoles: string[] = Array.isArray(token.decoded?.realm_access?.roles)
       ? token.decoded.realm_access.roles
-      : [];
+      : []
 
-    const pathname = req.nextUrl.pathname;
+    const pathname = req.nextUrl.pathname
 
     for (const [route, allowedRoles] of Object.entries(protectedRoutes)) {
       if (pathname.startsWith(route)) {
-        const hasAccess = allowedRoles.some((role) => userRoles.includes(role));
+        const hasAccess = allowedRoles.some((role) => userRoles.includes(role))
         if (!hasAccess) {
-          return NextResponse.redirect(new URL('/unauthorized', req.url));
+          return NextResponse.redirect(new URL('/unauthorized', req.url))
         }
       }
     }
 
-    return NextResponse.next();
+    return NextResponse.next()
   },
   {
     callbacks: {
@@ -62,11 +62,11 @@ export default withAuth(
       signIn: '/pages/public/auth/signin', // Redirige vers NextAuth pour la connexion
     },
   }
-);
+)
 
 /**
  * Configuration du middleware pour matcher toutes les routes sous `/private/*`.
  */
 export const config = {
-  matcher: ['/pages/private/:path*'],
-};
+  matcher: ['/pages/private/:path*', '/pages/public/products/cart/process'],
+}

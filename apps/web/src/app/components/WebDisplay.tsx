@@ -14,7 +14,6 @@ import { signIn, signOut } from 'next-auth/react'
 import { BsSend } from 'react-icons/bs'
 import { MenuContent, MenuRoot, MenuTrigger } from '_components/ui/menu'
 import { SwitchColorMode } from '_components/custom'
-import { useDispatch } from 'react-redux'
 import { keycloakSessionLogOut } from '_hooks/logout'
 
 const WebDisplay = ({
@@ -33,7 +32,6 @@ const WebDisplay = ({
   setInfoModal: (value: boolean) => void
 }) => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const [logoutLoading, setLogoutLoading] = useState<boolean>(false)
 
   return (
@@ -94,14 +92,7 @@ const WebDisplay = ({
           <CartComponents cart={cart} removeItem={removeItem} clearAllCartItems={clearAllCartItems} loading={loading} />
         </Flex>
         {!isLoggedIn ? (
-          <BaseButton
-            onClick={() =>
-              signIn('keycloak', {
-                callbackUrl: `${process.env.NEXTAUTH_URL}`,
-              })
-            }
-            colorType={'primary'}
-          >
+          <BaseButton onClick={() => signIn('keycloak')} colorType={'primary'}>
             <BaseText variant={TextVariant.XS}>Se connecter </BaseText>
           </BaseButton>
         ) : (

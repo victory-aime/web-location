@@ -9,4 +9,6 @@ import { GlobalApplicationContext } from './globalApplicationContext'
  * to be used by the underlying layers (StateManagement, Business and Core)
  */
 
-applicationInstance.setContext(new GlobalApplicationContext(process.env.NEXT_PUBLIC_BACKEND_URL + '_api/v1'))
+export const globalApplicationContext = new GlobalApplicationContext(process.env.NEXT_PUBLIC_BACKEND_URL + '_api/v1')
+
+applicationInstance.setContext(globalApplicationContext)

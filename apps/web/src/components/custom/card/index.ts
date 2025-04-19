@@ -1,4 +1,5 @@
-import {CardContainer} from "./CardContainer";
-import {TypeProps} from "./interface/card";
+import { CardContainer } from './CardContainer'
+import { TypeProps } from './interface/card'
 
-export {CardContainer, TypeProps};
+export { CardContainer }
+export type { TypeProps }

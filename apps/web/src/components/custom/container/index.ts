@@ -1,4 +1,5 @@
-import {BoxContainer} from './BoxContainer';
-import  {IBoxProps} from './interface/container';
+import { BoxContainer } from './BoxContainer'
+import { IBoxProps } from './interface/container'
 
-export {BoxContainer, IBoxProps}
+export { BoxContainer }
+export type { IBoxProps }

@@ -5,18 +5,11 @@ export interface wishlistItem {
   userId: string
   product: TYPES.MODELS.PRODUCTS.IProduct
 }
-export interface wishlist {
+export interface IGetWishlistResponse {
   content: wishlistItem[]
 }
 
-export interface WishlistState {
-  wishlist: wishlist
-  loading: boolean
-  error: string | null
-  success: boolean
-}
-
 export interface wishlistPayload {
-  productId: string
-  userId: string
+  productId?: string | null
+  userId?: string | null
 }
