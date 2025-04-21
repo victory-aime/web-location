@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "_lottie/*": ["./public/lottie/*"],
+      "_assets/*": ["./public/assets/*"],
+      "_components/*": ["./src/components/*"],
+      "_theme/*": ["./src/theme/*"],
+      "_authOptions/*": ["./src/app/api/*"],
+      "_utils/*": ["./src/utils/*"],
+      "_config/*": ["./src/app/config/*"],
+      "_hooks/*": ["./src/app/hooks/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/middleware.ts"],
+  "exclude": ["node_modules"]
+}

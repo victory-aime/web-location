@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.esm.js",
@@ -16,13 +17,12 @@
     "clean": "rimraf lib",
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "prepare": "npm run clean && npm run build",
-    "prepublishOnly": "npm run prepare",
-    "version:patch": "npm version patch",
-    "version:minor": "npm version minor",
-    "version:major": "npm version major",
-    "login": "npm adduser",
-    "release": "npm run prepare && npm login && npm publish"
+    "prepare": "yarn run clean && yarn run build",
+    "version:patch": "yarn version patch",
+    "version:minor": "yarn version minor",
+    "version:major": "yarn version major",
+    "prepublishOnly": "yarn clean && yarn build",
+    "publish:lib": "yarn publish --access public"
   },
   "publishConfig": {
     "access": "public"
@@ -30,7 +30,6 @@
 
   "devDependencies": {
     "bvg-innovation-shared": "*",
-    "bvg-innovation-state-management": "*",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",

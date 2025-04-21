@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Bricolage_Grotesque } from 'next/font/google'
-import './globals.css'
 import { GlobalApplication } from './App'
 import { authOptions } from '_authOptions/auth/[...nextauth]/route'
 import React from 'react'

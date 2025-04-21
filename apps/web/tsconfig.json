@@ -15,7 +15,7 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
+        "name": "next"
       }
     ],
     "paths": {
@@ -26,9 +26,9 @@
       "_authOptions/*": ["./src/app/api/*"],
       "_utils/*": ["./src/utils/*"],
       "_config/*": ["./src/app/config/*"],
-      "_hooks/*": ["./src/app/hooks/*"],
+      "_hooks/*": ["./src/app/hooks/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "middleware.ts"],
   "exclude": ["node_modules"]
 }

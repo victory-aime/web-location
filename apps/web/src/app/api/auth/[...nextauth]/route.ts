@@ -12,6 +12,10 @@ export const authOptions = {
       issuer: `${process.env.KEYCLOAK_ISSUER}`,
     }),
   ],
+  jwt: {
+    encryption: true,
+    secret: process.env.NEXTAUTH_SECRET,
+  },
   callbacks: {
     async jwt({ token, account }: { token: any; account?: any }) {
       const nowTimeStamp = Math.floor(Date.now() / 1000)
