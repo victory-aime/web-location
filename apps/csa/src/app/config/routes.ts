@@ -1,15 +1,13 @@
 export const APP_ROUTES = {
   HOME: '/dashboard',
-  ECOMMERCE: {
-    ORDER: {
-      LIST: '/dashboard/ecommerce/order',
-      DETAILS: '/dashboard/ecommerce/order/details',
-    },
-    CATEGORY: '/dashboard/ecommerce/category',
-    PRODUCTS: {
-      LIST: '/dashboard/ecommerce/products',
-      ADD: '/dashboard/ecommerce/products/addproduct',
-    },
+  ORDER: {
+    LIST: '/dashboard/order',
+    DETAILS: '/dashboard/order/details',
+  },
+  CATEGORY: '/dashboard/category',
+  PRODUCTS: {
+    LIST: '/dashboard/products',
+    ADD: '/dashboard/products/addproduct',
   },
   TRASH: '/dashboard/trash',
   TEST: '/dashboard/users',

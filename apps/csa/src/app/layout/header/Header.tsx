@@ -12,10 +12,11 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { status } = useSession()
   const cachedUser = queryClient.getQueryData<TYPES.MODELS.USERS.IUser>([UsersModule.constants.WOHAMI])
   const token = globalApplicationContext.getToken()
+
   const { data: user } = UsersModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
-      enabled: !cachedUser && !!session?.keycloakId && status !== 'loading' && !token,
+      enabled: !token && !cachedUser && !!session?.keycloakId && status !== 'loading',
     },
   })
 

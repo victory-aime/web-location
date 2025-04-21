@@ -20,9 +20,9 @@ export class ProductsService extends BaseApi {
    * Retrieves private products by store.
    * @param storeId - Store identifier.
    */
-  getAllPrivateProductsByStore(
-    storeId: string
-  ): Promise<TYPES.MODELS.PRODUCTS.IPrivateProductResponse> {
+  getAllPrivateProductsByStore(storeId: {
+    stroreId: string
+  }): Promise<TYPES.MODELS.PRODUCTS.IPrivateProductResponse> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.GET_PRODUCTS,
       storeId
@@ -46,6 +46,18 @@ export class ProductsService extends BaseApi {
   getAllCategories(): Promise<TYPES.MODELS.PRODUCTS.IProductsCategories[]> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.GET_CATEGORIES
+    )
+  }
+
+  /**
+   * Delete product.
+   * Push product in trashlist
+   * @param productId - Product delete id.
+   */
+  softDeleteProduct(productId: { productId: string }) {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.SOFT_DELETE_PRODUCT,
+      productId
     )
   }
 }

@@ -22,12 +22,16 @@ export const getPublicProductQueries = (
 }
 
 export const getPrivateProductQueries = (
-  props: TYPES.QUERY_PAYLOAD.QueryPayload<string, TYPES.MODELS.PRODUCTS.IPrivateProductResponse>
+  props: TYPES.QUERY_PAYLOAD.QueryPayload<
+    { storeId: string },
+    TYPES.MODELS.PRODUCTS.IPrivateProductResponse
+  >
 ) => {
   const { payload, queryOptions } = props
   return TYPES.FUNCTIONS.useCustomQuery<TYPES.MODELS.PRODUCTS.IPrivateProductResponse, AxiosError>({
     queryKey: [Constants.PRIVATE_PRODUCTS],
-    queryFn: () => productServiceInstance().getAllPrivateProductsByStore(payload),
+    queryFn: () =>
+      productServiceInstance().getAllPrivateProductsByStore({ stroreId: payload.storeId }),
     options: queryOptions,
   })
 }
@@ -46,6 +50,14 @@ export const createProductMutation = (args?: TYPES.QUERY_PAYLOAD.MutationPayload
   return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.ICreateProductPayload, string>({
     mutationKey: [Constants.CREATE_PRODUCT],
     mutationFn: (payload) => productServiceInstance().createProduct(payload),
+    options: args,
+  })
+}
+
+export const softDeleteProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
+  return TYPES.FUNCTIONS.useCustomMutation<{ productId: string }, any, AxiosError>({
+    mutationKey: [Constants.SOFT_DELETE_PRODUCT],
+    mutationFn: (payload) => productServiceInstance().softDeleteProduct(payload),
     options: args,
   })
 }

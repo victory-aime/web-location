@@ -10,20 +10,20 @@ export const adminMenu: ILink[] = [
   },
   {
     label: 'Produits',
-    path: APP_ROUTES.ECOMMERCE.PRODUCTS.LIST,
+    path: APP_ROUTES.PRODUCTS.LIST,
     icon: StoreIcon,
   },
   {
     label: 'Commandes',
-    path: APP_ROUTES.ECOMMERCE.ORDER.LIST,
+    path: APP_ROUTES.ORDER.LIST,
     icon: BagIcon,
   },
-  {
-    menuKey: 'test',
-    icon: TrashIcon,
-    label: 'Home 2',
-    subItems: [{ label: 'test', path: APP_ROUTES.TEST }],
-  },
+  // {
+  //   menuKey: 'test',
+  //   icon: TrashIcon,
+  //   label: 'Home 2',
+  //   subItems: [{ label: 'test', path: APP_ROUTES.TEST }],
+  // },
   {
     label: 'Corbeille',
     path: APP_ROUTES.TRASH,
