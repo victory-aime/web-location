@@ -7,7 +7,7 @@ export const APP_ROUTES = {
   CATEGORY: '/dashboard/category',
   PRODUCTS: {
     LIST: '/dashboard/products',
-    ADD: '/dashboard/products/addproduct',
+    ADD_EDIT: '/dashboard/products/manage-product',
   },
   TRASH: '/dashboard/trash',
   TEST: '/dashboard/users',

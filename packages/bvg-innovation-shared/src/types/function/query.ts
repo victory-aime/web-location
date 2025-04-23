@@ -24,8 +24,6 @@ export const useCustomQuery = <TData, TError = AxiosError>({
   return useQuery<TData, TError>({
     queryKey,
     queryFn,
-    staleTime: Infinity,
-    refetchOnMount: 'always',
     refetchOnWindowFocus: false,
     ...options,
   })

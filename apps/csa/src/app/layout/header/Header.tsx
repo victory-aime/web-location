@@ -1,22 +1,16 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react'
 import { ListMenu } from '_assets/svg'
 import { UsersModule } from 'bvg-innovation-state-management'
-import { useSession } from 'next-auth/react'
 import { SideBarProps } from '../sidebar/types'
-import { useQueryClient } from '@tanstack/react-query'
-import { TYPES } from 'bvg-innovation-shared'
 import { globalApplicationContext } from '_config/globalState'
 
 export const Header = ({ onShowSidebar, session }: SideBarProps) => {
-  const queryClient = useQueryClient()
-  const { status } = useSession()
-  const cachedUser = queryClient.getQueryData<TYPES.MODELS.USERS.IUser>([UsersModule.constants.WOHAMI])
+  const cachedUser = UsersModule.cache.UserCache.getPrivate()
   const token = globalApplicationContext.getToken()
-
   const { data: user } = UsersModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
-      enabled: !token && !cachedUser && !!session?.keycloakId && status !== 'loading',
+      enabled: !cachedUser && !token,
     },
   })
 

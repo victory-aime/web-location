@@ -21,7 +21,7 @@ export class ProductsService extends BaseApi {
    * @param storeId - Store identifier.
    */
   getAllPrivateProductsByStore(storeId: {
-    stroreId: string
+    storeId: string
   }): Promise<TYPES.MODELS.PRODUCTS.IPrivateProductResponse> {
     return this.apiService.invoke(
       this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.GET_PRODUCTS,
@@ -38,6 +38,14 @@ export class ProductsService extends BaseApi {
       this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.CREATE_PRODUCT,
       payload
     )
+  }
+
+  /**
+   * Update product
+   * @param payload
+   */
+  updateProduct(payload:TYPES.MODELS.PRODUCTS.IUpdateProductPayload) {
+    return this.apiService.invoke(this.applicationContext.getApiConfig().PRODUCTS.PRIVATE.UPDATE_PRODUCT, payload)
   }
 
   /**

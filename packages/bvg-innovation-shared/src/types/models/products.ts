@@ -64,11 +64,12 @@ export interface IShoppingStore {
 }
 
 export interface IProductState {
-  categories?: IProductsCategories[]
   trashList: IResponseProductList
 }
 
 export interface ICreateProductPayload extends IProduct {}
+
+export interface IUpdateProductPayload extends IProduct {}
 
 export interface IGetAllPublicProductsPayload {
   page?: number

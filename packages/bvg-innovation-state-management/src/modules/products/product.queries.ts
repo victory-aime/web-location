@@ -31,7 +31,7 @@ export const getPrivateProductQueries = (
   return TYPES.FUNCTIONS.useCustomQuery<TYPES.MODELS.PRODUCTS.IPrivateProductResponse, AxiosError>({
     queryKey: [Constants.PRIVATE_PRODUCTS],
     queryFn: () =>
-      productServiceInstance().getAllPrivateProductsByStore({ stroreId: payload.storeId }),
+      productServiceInstance().getAllPrivateProductsByStore({ storeId: payload.storeId }),
     options: queryOptions,
   })
 }
@@ -50,6 +50,14 @@ export const createProductMutation = (args?: TYPES.QUERY_PAYLOAD.MutationPayload
   return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.ICreateProductPayload, string>({
     mutationKey: [Constants.CREATE_PRODUCT],
     mutationFn: (payload) => productServiceInstance().createProduct(payload),
+    options: args,
+  })
+}
+
+export const updateProductMutation =(args: TYPES.QUERY_PAYLOAD.MutationPayload<any>) => {
+  return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.IUpdateProductPayload, any, AxiosError>({
+    mutationKey: [Constants.UPDATE_PRODUCT],
+    mutationFn: (payload) => productServiceInstance().updateProduct(payload),
     options: args,
   })
 }

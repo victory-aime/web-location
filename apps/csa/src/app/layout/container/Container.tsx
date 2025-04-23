@@ -16,7 +16,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
     <Box h="100%" width="100%" ps={{ base: 5, md: '20px' }} pe={{ base: 5, md: '33px' }} pb={{ base: '1rem', xl: '4rem' }}>
       <Suspense
         fallback={
-          <Center height="100%">
+          <Center height="100vh">
             <Spinner color="primary.500" />
           </Center>
         }

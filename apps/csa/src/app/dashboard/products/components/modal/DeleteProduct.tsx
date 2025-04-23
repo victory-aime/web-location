@@ -4,11 +4,9 @@ import React, { useState } from 'react'
 import { DeleteLottie } from '_lottie/animations/LottieAnimation'
 import { ProductModule } from 'bvg-innovation-state-management'
 import { IProductMoalProps } from './interface/modal-product'
-import { useQueryClient } from '@tanstack/react-query'
-import { TYPES } from 'bvg-innovation-shared'
+import { TrashIcon } from '_assets/svg'
 
 export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = 'soft' }: IProductMoalProps) => {
-  const queryClient = useQueryClient()
   const { mutateAsync, isPending } = ProductModule.softDeleteProductMutation({
     onSuccess: () => {
       setShowAnimation(true)
@@ -16,14 +14,14 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
         setShowAnimation(false)
         onChange(false)
       }, 2200)
-      queryClient.invalidateQueries({ queryKey: [ProductModule.constants.PRIVATE_PRODUCTS] })
+      ProductModule.cache.ProductCache.invalidatePrivate()
     },
   })
   const [showAnimation, setShowAnimation] = useState(false)
 
   const handleDelete = async () => {
     if (deleteType === 'soft') {
-      await mutateAsync(selectedValues?.id)
+      await mutateAsync({ productId: selectedValues })
     } else {
       // dispatch(
       //   ProductModule.actions.deleteProductRequest({
@@ -34,7 +32,17 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
   }
 
   return (
-    <ModalComponent title={'Suppression'} open={isOpen} onChange={onChange} modalType={'alertdialog'} ignoreFooter={false} buttonSaveTitle={'Supprimer'} isLoading={isPending} onClick={handleDelete}>
+    <ModalComponent
+      icon={<TrashIcon />}
+      title={'Suppression'}
+      open={isOpen}
+      onChange={onChange}
+      modalType={'alertdialog'}
+      ignoreFooter={false}
+      buttonSaveTitle={'Supprimer'}
+      isLoading={isPending}
+      onClick={handleDelete}
+    >
       {showAnimation ? (
         <Center>
           <DeleteLottie />

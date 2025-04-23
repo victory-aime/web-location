@@ -1,48 +1,30 @@
 'use client'
 
-import { CustomBadge } from '_components/custom'
+import { BoxContainer, CustomBadge, CustomFormatNumber } from '_components/custom'
 import { ColumnsDataTable } from '_components/custom/data-table/interface/data-types'
 import React, { useState } from 'react'
 import { RenderProductImage } from './RenderProductImage'
 import { CommonDataTable } from '_components/custom/data-table'
 import { ProductModule, UsersModule } from 'bvg-innovation-state-management'
-import { TYPES, UTILS } from 'bvg-innovation-shared'
-import { Box, FormatNumber } from '@chakra-ui/react'
+import { UTILS } from 'bvg-innovation-shared'
+import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { APP_ROUTES } from '_config/routes'
-import { useQueryClient } from '@tanstack/react-query'
 import { ProductDetails } from './modal/ProductDetails'
 import { DeleteProduct } from './modal/DeleteProduct'
 
 export const ProductList = () => {
-  const queryClient = useQueryClient()
-  const cachedUser = queryClient.getQueryData<TYPES.MODELS.USERS.IUser>([UsersModule.constants.WOHAMI])
-  const cacheProduct = queryClient.getQueryData<TYPES.MODELS.PRODUCTS.IPrivateProductResponse>([ProductModule.constants.PRIVATE_PRODUCTS])
+  const cachedUser = UsersModule.cache.UserCache.getPrivate()
   const { data: products, isLoading } = ProductModule.getPrivateProductQueries({
     payload: {
       storeId: cachedUser?.store?.id ?? '',
     },
-    queryOptions: {
-      enabled: !!cachedUser && cacheProduct?.content?.length === 0,
-    },
   })
   const router = useRouter()
-
   const [, setSelectedRows] = useState<any>([])
   const [selectedProduct, setSelectedProduct] = useState<any>()
   const [openDetail, setOpenDetail] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-
-  // useEffect(() => {
-  //   dispatch(
-  //     ProductModule.actions.getAllProductsRequestAction({
-  //       storeId: user?.store?.id ?? '',
-  //     })
-  //   );
-  //   if (deleteProduct) {
-  //     dispatch(ProductModule.actions.clearStateKeysAction());
-  //   }
-  // }, [deleteProduct]);
 
   const columns: ColumnsDataTable[] = [
     { header: '', accessor: 'select' },
@@ -65,7 +47,7 @@ export const ProductList = () => {
       header: 'Prix',
       accessor: 'price',
       cell: (price) => {
-        return <FormatNumber value={price} style={'currency'} currency={'USD'} />
+        return <CustomFormatNumber value={price} />
       },
     },
     {
@@ -90,7 +72,7 @@ export const ProductList = () => {
           name: 'edit',
           title: 'edit les value',
           handleClick: (value) => {
-            router.push(`${APP_ROUTES.PRODUCTS.ADD}?requestId=${value?.id}`)
+            router.push(`${APP_ROUTES.PRODUCTS.ADD_EDIT}?requestId=${value?.id}`)
           },
         },
         {
@@ -103,7 +85,7 @@ export const ProductList = () => {
         {
           name: 'delete',
           handleClick: (value) => {
-            setSelectedProduct(value)
+            setSelectedProduct(value?.id)
             setOpenDelete(true)
           },
         },
@@ -111,20 +93,35 @@ export const ProductList = () => {
     },
   ]
   return (
-    <Box>
-      <CommonDataTable
-        data={products?.content ?? []}
-        isLoading={isLoading}
-        columns={columns}
-        initialPage={1}
-        totalItems={products?.totalPage}
-        pageSize={products?.totalDataPerPage}
-        handleRowSelection={setSelectedRows}
-        hidePagination={products?.totalPage! <= 1}
-        lazy={false}
-      />
+    <BoxContainer
+      border={'none'}
+      title={'Produits'}
+      description={'Gerer vos produits'}
+      withActionButtons
+      actionsButtonProps={{
+        cancelTitle: undefined,
+        validateTitle: 'Ajouter un produit',
+        onClick: () => {
+          router.push(APP_ROUTES.PRODUCTS.ADD_EDIT)
+        },
+      }}
+    >
+      <Box mt={'30px'}>
+        <CommonDataTable
+          data={products?.content ?? []}
+          isLoading={isLoading}
+          columns={columns}
+          initialPage={1}
+          totalItems={products?.totalPage}
+          pageSize={products?.totalDataPerPage}
+          handleRowSelection={setSelectedRows}
+          hidePagination={products?.totalPage! <= 1}
+          lazy={false}
+        />
+      </Box>
+
       <ProductDetails isOpen={openDetail} onChange={() => setOpenDetail(false)} selectedValues={selectedProduct} />
       <DeleteProduct isOpen={openDelete} onChange={() => setOpenDelete(false)} selectedValues={selectedProduct} />
-    </Box>
+    </BoxContainer>
   )
 }

@@ -14,7 +14,7 @@ export const SessionErrorModal = () => {
     globalApplicationContext.setSessionErrorHandler(() => {
       setShowSessionError(true)
     })
-  }, [])
+  }, [globalApplicationContext])
   const [loading, setLoading] = useState(false)
 
   const handleReconnect = () => {

@@ -1,18 +1,9 @@
-import {
-  DialogActionTrigger,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-} from '_components/ui/dialog';
-import React from 'react';
-import { BaseButton } from '../button';
-import { variantColorType } from '_components/custom/button';
-import { ModalProps } from './interface/modal';
-import { BoxIcon } from '../boxIcon';
+import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle } from '_components/ui/dialog'
+import React from 'react'
+import { BaseButton } from '../button'
+import { variantColorType } from '_components/custom/button'
+import { ModalProps } from './interface/modal'
+import { BoxIcon } from '../boxIcon'
 
 const ModalComponent = ({
   isOpen = false,
@@ -33,16 +24,7 @@ const ModalComponent = ({
   ...rest
 }: ModalProps) => {
   return (
-    <DialogRoot
-      open={isOpen}
-      lazyMount
-      onOpenChange={(e) => onChange?.(e?.open)}
-      placement={'center'}
-      role={modalType}
-      size={isFull ? 'full' : 'lg'}
-      motionPreset="slide-in-top"
-      {...rest}
-    >
+    <DialogRoot open={isOpen} lazyMount onOpenChange={(e) => onChange?.(e?.open)} placement={'center'} role={modalType} size={isFull ? 'full' : 'lg'} motionPreset="slide-in-top" {...rest}>
       <DialogContent width={'full'} padding={4}>
         <DialogHeader alignItems={'center'} display={'flex'} gap={4}>
           {icon && (
@@ -62,14 +44,7 @@ const ModalComponent = ({
                 </BaseButton>
               </DialogActionTrigger>
             )}
-            <BaseButton
-              withGradient
-              onClick={() => onClick?.()}
-              isLoading={isLoading}
-              colorType={
-                modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)
-              }
-            >
+            <BaseButton withGradient onClick={() => onClick?.()} isLoading={isLoading} colorType={modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)}>
               {buttonSaveTitle}
             </BaseButton>
           </DialogFooter>
@@ -77,7 +52,7 @@ const ModalComponent = ({
         {showCloseButton && <DialogCloseTrigger />}
       </DialogContent>
     </DialogRoot>
-  );
-};
+  )
+}
 
-export default ModalComponent;
+export default ModalComponent
