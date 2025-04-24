@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import RegisterComponent from '../components/RegisterComponent';
-import { Box, Text, Image, useBreakpointValue } from '@chakra-ui/react';
-import AuthBox from '../components/AuthBox';
+import React, { useState } from 'react'
+import RegisterComponent from '../components/RegisterComponent'
+import { Box, Text, Image, useBreakpointValue } from '@chakra-ui/react'
+import AuthBox from '../components/AuthBox'
 import { CustomRadioCard } from '_components/custom/radio-card/CustomRadioCard'
-import { RiPaypalFill, RiAppleFill } from 'react-icons/ri';
+import { RiPaypalFill, RiAppleFill } from 'react-icons/ri'
 
 const Register = () => {
-  const [selectedRole, setSelectedRole] = useState('Utilisateur');
+  const [selectedRole, setSelectedRole] = useState('Utilisateur')
   const responsiveMode = useBreakpointValue({
     base: false,
     sm: false,
     lg: true,
-  });
+  })
   const items = [
     {
       label: 'Utilisateur',
@@ -25,7 +25,7 @@ const Register = () => {
       icon: <RiAppleFill />,
       desc: 'Inscrivez-vous en tant que marchand pour créer et gérer votre boutique en ligne, ajouter des produits et suivre vos ventes en temps réel.',
     },
-  ];
+  ]
 
   return (
     <AuthBox isResponsive={responsiveMode ?? false}>
@@ -43,18 +43,11 @@ const Register = () => {
       )}
 
       <Box width={'full'} p={{ base: 6, md: 6 }}>
-        <CustomRadioCard
-          items={items}
-          onValueChange={({ value }: { value: string }) => setSelectedRole(value)}
-        />
-        {selectedRole === 'Marchand' ? (
-          <Text>Marchand</Text>
-        ) : (
-          <RegisterComponent selectedRole={selectedRole} />
-        )}
+        <CustomRadioCard items={items} onValueChange={({ value }: { value: string }) => setSelectedRole(value)} />
+        {selectedRole === 'Marchand' ? <Text>Marchand</Text> : <RegisterComponent selectedRole={selectedRole} />}
       </Box>
     </AuthBox>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

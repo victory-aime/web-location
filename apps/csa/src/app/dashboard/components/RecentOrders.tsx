@@ -1,66 +1,98 @@
 'use client'
 
-import { Badge, Box, Flex, Text } from '@chakra-ui/react'
-import { BoxIcon, BoxContainer, CustomBadge, CommonDataTable } from '_components/custom'
+import { Badge, Box, Flex } from '@chakra-ui/react'
+import { BoxIcon, BoxContainer, CustomBadge, CommonDataTable, BaseText, CustomFormatNumber, CustomSkeletonLoader } from '_components/custom'
 import { ColumnsDataTable } from '_components/custom/data-table/interface/data-types'
 import React from 'react'
 import { IoIosPaper } from 'react-icons/io'
-import { totalRecentOrders } from './data/data'
+import { OrdersModule, UsersModule } from 'bvg-innovation-state-management'
+import { UTILS } from 'bvg-innovation-shared'
 
 export const RecentOrders = () => {
-  const columsData: ColumnsDataTable[] = [
-    { header: '', accessor: 'select' },
-    { header: 'Nom', accessor: 'name' },
+  const cacheUser = UsersModule.UserCache.getUser()
+  const { data: recentOrder, isLoading } = OrdersModule.getStoreOrderQueries({
+    payload: {
+      filters: {
+        storeId: cacheUser?.store?.id ?? null,
+      },
+    },
+    queryOptions: {
+      enabled: !!cacheUser?.store?.id,
+    },
+  })
+
+  const columns: ColumnsDataTable[] = [
     {
-      header: 'Catégorie',
-      accessor: 'category',
+      header: 'Nom',
+      accessor: 'order',
+      cell: (value) => {
+        return <BaseText>{value?.user?.name + ' ' + value?.user?.firstName}</BaseText>
+      },
     },
     {
-      header: 'status',
+      header: 'Quantity',
+      accessor: 'quantity',
+    },
+    {
+      header: 'Total',
+      accessor: 'price',
+      cell: (value) => {
+        return <CustomFormatNumber value={value} />
+      },
+    },
+    {
+      header: 'Date',
+      accessor: 'createdAt',
+      cell: (value) => {
+        return UTILS.formatCreatedAt(value)
+      },
+    },
+    {
+      header: 'Status',
       accessor: 'status',
       cell: (value) => {
         return <CustomBadge status={value} />
       },
     },
-    {
-      header: 'Prix',
-      accessor: 'price',
-    },
-    {
-      header: 'Actions',
-      accessor: 'actions',
-      actions: [
-        {
-          name: 'edit',
-          title: 'edit les value',
-          handleClick: (value) => console.log('value clicked', value),
-        },
-        {
-          name: 'view',
-          handleClick: (value) => console.log('value clicked', value),
-        },
-        {
-          name: 'delete',
-          handleClick: (value) => console.log('value clicked', value),
-        },
-      ],
-    },
   ]
+
   return (
     <BoxContainer>
-      <Flex alignItems={'center'} justifyContent={'space-between'}>
-        <Flex alignItems={'center'} gap={4}>
-          <Text>Recent Orders</Text>
-          <Badge rounded={'full'} p={2} bgColor={totalRecentOrders.orders > 0 ? 'primary.500' : 'gray.400'}>
-            <Text color={'white'}>+{totalRecentOrders.orders} orders</Text>
-          </Badge>
+      {isLoading ? (
+        <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex gap={2} alignItems={'center'}>
+            <CustomSkeletonLoader type={'TEXT'} numberOfLines={1} width={'105px'} />
+            <CustomSkeletonLoader type={'BUTTON'} width={'100px'} colorButton={'success'} />
+          </Flex>
+          <CustomSkeletonLoader type={'IMAGE'} height={'45px'} />
         </Flex>
-        <BoxIcon color={'secondary.500'}>
-          <IoIosPaper />
-        </BoxIcon>
-      </Flex>
+      ) : (
+        <Flex alignItems={'center'} justifyContent={'space-between'}>
+          {recentOrder?.content && (
+            <Flex alignItems={'center'} gap={4}>
+              <BaseText>Commandes récente (s)</BaseText>
+              <Badge rounded={'full'} p={2} bgColor={'primary.500'} color={'white'}>
+                {recentOrder?.content && recentOrder?.content?.length > 1 ? `+${recentOrder?.content?.length}  commandes` : `${recentOrder?.content?.length} commande`}
+              </Badge>
+            </Flex>
+          )}
+
+          <BoxIcon color={'secondary.500'}>
+            <IoIosPaper />
+          </BoxIcon>
+        </Flex>
+      )}
+
       <Box p={2} w={'full'} mt={8}>
-        <CommonDataTable data={totalRecentOrders.ordersTable} columns={columsData} hidePagination />
+        <CommonDataTable
+          data={recentOrder?.content ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          initialPage={1}
+          totalItems={recentOrder?.totalPages}
+          pageSize={recentOrder?.totalDataPerPage}
+          hidePagination={recentOrder?.totalPages === 1}
+        />
       </Box>
     </BoxContainer>
   )

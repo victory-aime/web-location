@@ -7,12 +7,7 @@ interface BaseTextProps extends TextProps {
   weight?: TextWeight
 }
 
-export const BaseText: React.FC<BaseTextProps> = ({
-  variant = TextVariant.M,
-  weight = TextWeight.Regular,
-  children,
-  ...props
-}) => {
+export const BaseText: React.FC<BaseTextProps> = ({ variant = TextVariant.M, weight = TextWeight.Regular, children, ...props }) => {
   const sizeMap: Record<TextVariant, string> = {
     [TextVariant.H1]: '32px',
     [TextVariant.H2]: '28px',

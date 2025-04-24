@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import { Box } from '@chakra-ui/react'
+import React, { ReactNode } from 'react'
 
 const AuthBox = ({ children, isResponsive }: { children: ReactNode; isResponsive: boolean }) => {
   return (
@@ -15,7 +15,7 @@ const AuthBox = ({ children, isResponsive }: { children: ReactNode; isResponsive
     >
       {children}
     </Box>
-  );
-};
+  )
+}
 
-export default AuthBox;
+export default AuthBox

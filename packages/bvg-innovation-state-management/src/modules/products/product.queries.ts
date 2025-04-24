@@ -46,15 +46,19 @@ export const getCategories = (
   })
 }
 
-export const getTrashListQueries= (props: TYPES.QUERY_PAYLOAD.QueryPayload<{storeId: string}, TYPES.MODELS.PRODUCTS.IPrivateProductResponse>) => {
-  const {payload, queryOptions} = props
+export const getTrashListQueries = (
+  props: TYPES.QUERY_PAYLOAD.QueryPayload<
+    { storeId: string },
+    TYPES.MODELS.PRODUCTS.IPrivateProductResponse
+  >
+) => {
+  const { payload, queryOptions } = props
   return TYPES.FUNCTIONS.useCustomQuery<TYPES.MODELS.PRODUCTS.IPrivateProductResponse, AxiosError>({
     queryKey: [Constants.TRASH_LIST_PRODUCT],
-    queryFn: ()=> productServiceInstance().trashList({storeId: payload.storeId }),
-    options: queryOptions
+    queryFn: () => productServiceInstance().trashList({ storeId: payload.storeId }),
+    options: queryOptions,
   })
 }
-
 
 export const createProductMutation = (args?: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
   return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.ICreateProductPayload, string>({
@@ -64,8 +68,12 @@ export const createProductMutation = (args?: TYPES.QUERY_PAYLOAD.MutationPayload
   })
 }
 
-export const updateProductMutation =(args: TYPES.QUERY_PAYLOAD.MutationPayload<any>) => {
-  return TYPES.FUNCTIONS.useCustomMutation<TYPES.MODELS.PRODUCTS.IUpdateProductPayload, any, AxiosError>({
+export const updateProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayload<any>) => {
+  return TYPES.FUNCTIONS.useCustomMutation<
+    TYPES.MODELS.PRODUCTS.IUpdateProductPayload,
+    any,
+    AxiosError
+  >({
     mutationKey: [Constants.UPDATE_PRODUCT],
     mutationFn: (payload) => productServiceInstance().updateProduct(payload),
     options: args,
@@ -80,21 +88,20 @@ export const softDeleteProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayl
   })
 }
 
-export const permanentlyDeleteProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
-  return TYPES.FUNCTIONS.useCustomMutation<{productId: string}, any, AxiosError>(
-    {
-      mutationKey: [Constants.PERMANENTLY_DELETE_PRODUCT],
-      mutationFn: (payload)=> productServiceInstance().deleteProduct(payload),
-      options: args
-    }
-  )
-}
-
-export const restoreProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
-  return TYPES.FUNCTIONS.useCustomMutation<{productId: string}, any, AxiosError>({
-    mutationKey: [Constants.RESTORE_PRODUCT],
-    mutationFn : (payload) => productServiceInstance().restoreProduct(payload),
-    options: args
+export const permanentlyDeleteProductMutation = (
+  args: TYPES.QUERY_PAYLOAD.MutationPayload<string>
+) => {
+  return TYPES.FUNCTIONS.useCustomMutation<{ productId: string }, any, AxiosError>({
+    mutationKey: [Constants.PERMANENTLY_DELETE_PRODUCT],
+    mutationFn: (payload) => productServiceInstance().deleteProduct(payload),
+    options: args,
   })
 }
 
+export const restoreProductMutation = (args: TYPES.QUERY_PAYLOAD.MutationPayload<string>) => {
+  return TYPES.FUNCTIONS.useCustomMutation<{ productId: string }, any, AxiosError>({
+    mutationKey: [Constants.RESTORE_PRODUCT],
+    mutationFn: (payload) => productServiceInstance().restoreProduct(payload),
+    options: args,
+  })
+}

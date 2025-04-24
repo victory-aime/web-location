@@ -1,4 +1,4 @@
-import { defineRecipe } from '@chakra-ui/react';
+import { defineRecipe } from '@chakra-ui/react'
 
 export const TableRecipe = defineRecipe({
   base: {
@@ -8,4 +8,4 @@ export const TableRecipe = defineRecipe({
       position: 'relative',
     },
   },
-});
+})

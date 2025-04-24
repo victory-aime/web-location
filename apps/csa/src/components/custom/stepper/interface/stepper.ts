@@ -1,17 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 
 interface StepperProps {
-  stepTitle?: string;
+  stepTitle?: string
   steps: {
-    icon: ReactNode;
-    content: (props: {
-      NextTrigger: React.FC<{ children: ReactNode }>;
-      PrevTrigger: React.FC<{ children: ReactNode }>;
-    }) => ReactNode;
-    label: string;
-    stepNumber: number;
-  }[];
-  goNextSteps: (step: number) => void;
+    icon: ReactNode
+    content: (props: { NextTrigger: React.FC<{ children: ReactNode }>; PrevTrigger: React.FC<{ children: ReactNode }> }) => ReactNode
+    label: string
+    stepNumber: number
+  }[]
+  goNextSteps: (step: number) => void
 }
 
-export type { StepperProps };
+export type { StepperProps }

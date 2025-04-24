@@ -1,3 +1,3 @@
-import {CustomStepper} from "./CustomStepper";
+import { CustomStepper } from './CustomStepper'
 
-export {CustomStepper}
+export { CustomStepper }

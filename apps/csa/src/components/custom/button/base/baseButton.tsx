@@ -55,17 +55,7 @@ const getVariantFromStatus = (status?: string): variantColorType | undefined => 
   }
 }
 
-export const BaseButton: FC<ButtonBaseProps> = ({
-  children,
-  withGradient = false,
-  rightIcon,
-  colorType,
-  status,
-  animation,
-  isLoading = false,
-  leftIcon,
-  ...rest
-}) => {
+export const BaseButton: FC<ButtonBaseProps> = ({ children, withGradient = false, rightIcon, colorType, status, animation, isLoading = false, leftIcon, ...rest }) => {
   const resolvedVariant: variantColorType = status ? getVariantFromStatus(status) || 'none' : colorType || 'none'
 
   const { bg, gradient, hover, textColor } = getVariantStyles(resolvedVariant || 'none')

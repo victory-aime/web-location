@@ -1,7 +1,7 @@
-import { Box, SimpleGrid, Stack, Table } from '@chakra-ui/react';
-import { FunctionComponent } from 'react';
-import { Skeleton, SkeletonCircle, SkeletonText } from '_components/ui/skeleton';
-import { CustomSkeletonLoaderProps, LoaderType } from '_components/custom';
+import { Box, SimpleGrid, Stack, Table } from '@chakra-ui/react'
+import { FunctionComponent } from 'react'
+import { Skeleton, SkeletonCircle, SkeletonText } from '_components/ui/skeleton'
+import { CustomSkeletonLoaderProps, LoaderType } from '_components/custom'
 
 export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> = ({
   tableColumns,
@@ -10,7 +10,7 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
   width,
   height = '300px',
 }) => {
-  const DefaultBlockLoader = <Skeleton height={height} />;
+  const DefaultBlockLoader = <Skeleton height={height} />
 
   const TableLoader = (
     <Table.Root minH={height}>
@@ -35,7 +35,7 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
         ))}
       </Table.Body>
     </Table.Root>
-  );
+  )
 
   const PublicProductCard = (
     <SimpleGrid columns={{ base: 2, md: 4 }} width={'full'}>
@@ -50,7 +50,7 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
         </Box>
       ))}
     </SimpleGrid>
-  );
+  )
 
   const DonutChartLoader = (
     <Box height={height || '250px'} width={width || '250px'} position="relative" p={3}>
@@ -67,22 +67,22 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
         borderRadius="50%"
       />
     </Box>
-  );
+  )
 
   function renderSkeletonSwitch(param: LoaderType) {
     switch (param) {
       case 'DATA_TABLE':
-        return TableLoader;
+        return TableLoader
       case 'DONUT_CHART':
-        return DonutChartLoader;
+        return DonutChartLoader
       case 'PRODUCT_LIST_CARD':
-        return PublicProductCard;
+        return PublicProductCard
       case 'DEFAULT':
-        return DefaultBlockLoader;
+        return DefaultBlockLoader
       default:
-        return null;
+        return null
     }
   }
 
-  return renderSkeletonSwitch(type ?? 'DEFAULT');
-};
+  return renderSkeletonSwitch(type ?? 'DEFAULT')
+}

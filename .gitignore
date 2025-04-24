@@ -7,6 +7,8 @@ node_modules/
 # Builds
 lib/
 **/lib/
+**/.next/
+.next/
 
 # Logs
 npm-debug.log*

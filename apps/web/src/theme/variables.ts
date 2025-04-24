@@ -11,4 +11,4 @@ export const VariablesColors = {
   blue: '#1a3c8a',
   white: '#ffffff',
   transparent: 'transparent',
-};
+}

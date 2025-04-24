@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { ColumnsDataTable } from '_components/custom/data-table/interface/data-types'
-import { CustomBadge, CustomFormatNumber, BaseText, CommonDataTable } from '_components/custom'
+import { CustomBadge, CustomFormatNumber, BaseText, CommonDataTable, BoxContainer } from '_components/custom'
 import { useRouter } from 'next/navigation'
 import { APP_ROUTES } from '_config/routes'
 import { UsersModule, OrdersModule } from 'bvg-innovation-state-management'
 import { UTILS } from 'bvg-innovation-shared'
 import { RenderProductImage } from '../products/components/RenderProductImage'
+import { Box } from '@chakra-ui/react'
 
 const OrderListPage = () => {
   const router = useRouter()
-  const user = UsersModule.cache.UserCache.getPrivate()
+  const user = UsersModule.UserCache.getUser()
   const { data: storeOrderList, isLoading } = OrdersModule.getStoreOrderQueries({
     payload: {
       filters: { storeId: user?.store?.id ?? null },
@@ -77,16 +78,20 @@ const OrderListPage = () => {
   ]
 
   return (
-    <CommonDataTable
-      data={storeOrderList?.content}
-      columns={columns}
-      isLoading={isLoading}
-      initialPage={1}
-      totalItems={storeOrderList?.totalPages}
-      pageSize={storeOrderList?.totalDataPerPage}
-      hidePagination={storeOrderList?.totalPages === 1}
-      lazy={false}
-    />
+    <BoxContainer border={'none'} title="Liste des commandes" description="consultez vos commandes" loader={isLoading} numberOfLines={2}>
+      <Box mt={'30px'}>
+        <CommonDataTable
+          data={storeOrderList?.content}
+          columns={columns}
+          isLoading={isLoading}
+          initialPage={1}
+          totalItems={storeOrderList?.totalPages}
+          pageSize={storeOrderList?.totalDataPerPage}
+          hidePagination={storeOrderList?.totalPages === 1}
+          lazy={false}
+        />
+      </Box>
+    </BoxContainer>
   )
 }
 

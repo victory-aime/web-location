@@ -1,5 +1,5 @@
 import { applicationInstance } from '../../context'
-import {WishlistModule} from 'bvg-innovation-frontend-business'
+import { WishlistModule } from 'bvg-innovation-frontend-business'
 
 export const wishlistServiceInstance = () => {
   const context = applicationInstance.getContext()

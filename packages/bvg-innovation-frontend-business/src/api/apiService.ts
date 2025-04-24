@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { APIObjectType } from 'bvg-innovation-shared'
 import { IApplicationContext } from 'bvg-innovation-state-management'
-import {InvokeOptions} from './types'
+import { InvokeOptions } from './types'
 
 /**
  * Generic API service for handling HTTP requests.
@@ -53,8 +53,7 @@ export class ApiService {
         if (endpoint.showResponse !== false) {
           this.applicationContext.handleInfo(res)
         }
-          return res.data as RS
-        
+        return res.data as RS
       })
       .catch((error) => {
         if (endpoint.handleErrorManually !== false) {

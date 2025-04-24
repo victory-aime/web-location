@@ -1,21 +1,18 @@
-import { Box, Button, Center, Flex, Table } from '@chakra-ui/react';
-import React, { useEffect, useState, FC } from 'react';
-import { Checkbox } from '_components/ui/checkbox';
+import { Box, Button, Center, Flex, Table } from '@chakra-ui/react'
+import React, { useEffect, useState, FC } from 'react'
+import { Checkbox } from '_components/ui/checkbox'
 import {
   ActionBarRoot,
   ActionBarContent,
   ActionBarSelectionTrigger,
   ActionBarSeparator,
-} from '_components/ui/action-bar';
-import PaginationDataTable from './components/PaginationDataTable';
-import { TableProps } from './interface/data-types';
-import { ActionButtons } from './ActionButtons';
-import {
-  NoDataFoundLottieAnimation,
-  TrashLottieAnimationV2,
-} from '_lottie/animations/LottieAnimation';
-import { CustomSkeletonLoader } from '_components/custom';
-import { BaseText, TextVariant } from '../base-text';
+} from '_components/ui/action-bar'
+import PaginationDataTable from './components/PaginationDataTable'
+import { TableProps } from './interface/data-types'
+import { ActionButtons } from './ActionButtons'
+import { NoDataFoundLottieAnimation, TrashLottieAnimationV2 } from '_lottie/animations/LottieAnimation'
+import { CustomSkeletonLoader } from '_components/custom'
+import { BaseText, TextVariant } from '../base-text'
 
 export const CommonDataTable: FC<TableProps> = ({
   data,
@@ -30,37 +27,37 @@ export const CommonDataTable: FC<TableProps> = ({
   lazy = false,
   animationType = 'folder',
 }) => {
-  const [selection, setSelection] = useState<number[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+  const [selection, setSelection] = useState<number[]>([])
+  const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [sortConfig, setSortConfig] = useState<{
-    key: string;
-    direction: 'asc' | 'desc';
-  } | null>(null);
+    key: string
+    direction: 'asc' | 'desc'
+  } | null>(null)
 
-  const hasSelection = selection.length > 0;
-  const indeterminate = hasSelection && selection.length < data.length;
+  const hasSelection = selection.length > 0
+  const indeterminate = hasSelection && selection.length < data.length
 
   const sortedData =
     Array.isArray(data) && data.length > 0
       ? [...data].sort((a, b) => {
-          if (!sortConfig) return 0;
-          const { key, direction } = sortConfig;
-          return direction === 'asc' ? (a[key] > b[key] ? 1 : -1) : a[key] < b[key] ? 1 : -1;
+          if (!sortConfig) return 0
+          const { key, direction } = sortConfig
+          return direction === 'asc' ? (a[key] > b[key] ? 1 : -1) : a[key] < b[key] ? 1 : -1
         })
-      : [];
+      : []
 
-  const paginatedItems = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedItems = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
 
   const handleSelectAll = (checked: boolean) => {
-    setSelection(checked ? data.map((item) => item.id) : []);
-  };
+    setSelection(checked ? data.map((item) => item.id) : [])
+  }
 
   useEffect(() => {
-    handleRowSelection?.(data.filter((item) => selection.includes(item.id)));
-  }, [selection]);
+    handleRowSelection?.(data.filter((item) => selection.includes(item.id)))
+  }, [selection])
 
   if (isLoading) {
-    return <CustomSkeletonLoader type={'DATA_TABLE'} />;
+    return <CustomSkeletonLoader type={'DATA_TABLE'} />
   }
 
   const renderNodataAnimation = () => {
@@ -77,16 +74,11 @@ export const CommonDataTable: FC<TableProps> = ({
               </BaseText>
             </Flex>
           </Center>
-        );
+        )
       case 'folder':
         return (
           <Center flexDir={'column'} gap={4}>
-            <Flex
-              alignItems={'center'}
-              justifyContent={'center'}
-              width={{ base: 'full', lg: '500px' }}
-              mt={10}
-            >
+            <Flex alignItems={'center'} justifyContent={'center'} width={{ base: 'full', lg: '500px' }} mt={10}>
               <NoDataFoundLottieAnimation />
             </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
@@ -95,14 +87,14 @@ export const CommonDataTable: FC<TableProps> = ({
               </BaseText>
             </Flex>
           </Center>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   if (data?.length === 0) {
-    return renderNodataAnimation();
+    return renderNodataAnimation()
   }
 
   return (
@@ -131,9 +123,7 @@ export const CommonDataTable: FC<TableProps> = ({
                   />
                 ) : (
                   <>
-                    {col.header}{' '}
-                    {sortConfig?.key === col.accessor &&
-                      (sortConfig.direction === 'asc' ? '⬆' : '⬇')}
+                    {col.header} {sortConfig?.key === col.accessor && (sortConfig.direction === 'asc' ? '⬆' : '⬇')}
                   </>
                 )}
               </Table.ColumnHeader>
@@ -157,7 +147,7 @@ export const CommonDataTable: FC<TableProps> = ({
                       onCheckedChange={(changes) => {
                         setSelection((prev) =>
                           changes.checked ? [...prev, item.id] : prev.filter((id) => id !== item.id)
-                        );
+                        )
                       }}
                     />
                   ) : col.accessor === 'actions' && col.actions ? (
@@ -200,5 +190,5 @@ export const CommonDataTable: FC<TableProps> = ({
         />
       )}
     </Box>
-  );
-};
+  )
+}

@@ -18,7 +18,9 @@ export const resetPrivatePassword = Yup.object().shape({
 export const registerUserValidation = Yup.object().shape({
   name: Yup.string().required('Le nom est requis'),
   firstName: Yup.string().required('Le prénom est requis'),
-  email: Yup.string().email('Veuillez saisir une adresse email valide').required("L'email est requis"),
+  email: Yup.string()
+    .email('Veuillez saisir une adresse email valide')
+    .required("L'email est requis"),
   phone: Yup.string()
     .matches(/^[0-9]{8}$/, 'Veuillez saisir un numéro de téléphone valide')
     .required('Le numéro de téléphone est requis'),

@@ -14,7 +14,7 @@ import { ProductDetails } from './modal/ProductDetails'
 import { DeleteProduct } from './modal/DeleteProduct'
 
 export const ProductList = () => {
-  const cachedUser = UsersModule.cache.UserCache.getPrivate()
+  const cachedUser = UsersModule.UserCache.getUser()
   const { data: products, isLoading } = ProductModule.getPrivateProductQueries({
     payload: {
       storeId: cachedUser?.store?.id ?? '',
@@ -97,6 +97,8 @@ export const ProductList = () => {
       border={'none'}
       title={'Produits'}
       description={'Gerer vos produits'}
+      loader={isLoading}
+      numberOfLines={2}
       withActionButtons
       actionsButtonProps={{
         cancelTitle: undefined,

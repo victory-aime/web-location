@@ -28,7 +28,7 @@ export const keyframes = {
     '0%': { transform: 'translateX(100%)' },
     '100%': { transform: 'translateX(0)' },
   },
-};
+}
 
 export const animations = {
   fade: { value: 'fade 1s ease-in-out forwards' },
@@ -36,4 +36,4 @@ export const animations = {
   barPulse: { value: 'barPulse 0.6s ease-in-out infinite' },
   slideLeft: { value: 'slideLeft 0.6s ease-in-out forwards' },
   slideRight: { value: 'slideRight 0.6s ease-in forwards' },
-};
+}

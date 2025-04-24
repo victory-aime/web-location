@@ -10,7 +10,7 @@ import { DeleteProduct } from '../products/components/modal/DeleteProduct'
 import { RenderProductImage } from '../products/components/RenderProductImage'
 
 const TrashPage = () => {
-  const user = UsersModule.cache.UserCache.getPrivate()
+  const user = UsersModule.UserCache.getUser()
   const { data: trashList, isLoading } = ProductModule.getTrashListQueries({
     payload: {
       storeId: user?.store?.id ?? '',
@@ -22,15 +22,14 @@ const TrashPage = () => {
   })
   const { mutateAsync, isPending } = ProductModule.restoreProductMutation({
     onSuccess: () => {
-      ProductModule.cache.ProductCache.invalidatePrivate()
-      ProductModule.cache.ProductCache.invalidateTrashList()
+      ProductModule.ProductCache.invalidatePrivateProduct()
+      ProductModule.ProductCache.invalidateTrashList()
     },
   })
   const [selectedProduct, setSelectedProduct] = useState<any>()
   const [openDelete, setOpenDelete] = useState(false)
 
   const columns: ColumnsDataTable[] = [
-    { header: '', accessor: 'select' },
     {
       header: 'Produits',
       accessor: 'product',

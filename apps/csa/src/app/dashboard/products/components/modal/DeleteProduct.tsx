@@ -14,7 +14,7 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
         setShowAnimation(false)
         onChange(false)
       }, 2200)
-      ProductModule.cache.ProductCache.invalidatePrivate()
+      ProductModule.ProductCache.invalidatePrivateProduct()
     },
   })
   const { mutateAsync: deleteProduct, isPending: deletePermanentlyPending } = ProductModule.permanentlyDeleteProductMutation({
@@ -24,8 +24,8 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
         setShowAnimation(false)
         onChange(false)
       }, 2200)
-      ProductModule.cache.ProductCache.invalidatePrivate()
-      ProductModule.cache.ProductCache.invalidateTrashList()
+      ProductModule.ProductCache.invalidatePrivateProduct()
+      ProductModule.ProductCache.invalidateTrashList()
     },
   })
   const [showAnimation, setShowAnimation] = useState(false)
@@ -37,8 +37,6 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
       await deleteProduct({ productId: selectedValues })
     }
   }
-
-  console.log('selectedValues', selectedValues)
 
   return (
     <ModalComponent

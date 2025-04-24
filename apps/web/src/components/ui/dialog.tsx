@@ -23,15 +23,17 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
   )
 })
 
-export const DialogCloseTrigger = React.forwardRef<HTMLButtonElement, ChakraDialog.CloseTriggerProps>(function DialogCloseTrigger(props, ref) {
-  return (
-    <ChakraDialog.CloseTrigger position="absolute" top="2" insetEnd="2" {...props} asChild>
-      <CloseButton size="sm" ref={ref}>
-        {props.children}
-      </CloseButton>
-    </ChakraDialog.CloseTrigger>
-  )
-})
+export const DialogCloseTrigger = React.forwardRef<HTMLButtonElement, ChakraDialog.CloseTriggerProps>(
+  function DialogCloseTrigger(props, ref) {
+    return (
+      <ChakraDialog.CloseTrigger position="absolute" top="2" insetEnd="2" {...props} asChild>
+        <CloseButton size="sm" ref={ref}>
+          {props.children}
+        </CloseButton>
+      </ChakraDialog.CloseTrigger>
+    )
+  }
+)
 
 export const DialogRoot = ChakraDialog.Root
 export const DialogFooter = ChakraDialog.Footer

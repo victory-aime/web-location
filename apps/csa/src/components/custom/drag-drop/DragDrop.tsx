@@ -23,13 +23,7 @@ import { ACCEPTED_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB, MAX_FILES } from './co
 import { UTILS } from 'bvg-innovation-shared'
 import { Avatar } from '_components/ui/avatar'
 
-const FileImageList = ({
-  getFilesUploaded,
-  base64Images,
-}: {
-  getFilesUploaded: (files: File[]) => void
-  base64Images?: string[]
-}) => {
+const FileImageList = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (files: File[]) => void; base64Images?: string[] }) => {
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
   const [errorType, setErrorType] = useState<'size' | 'max_file' | 'type' | null>(null)
@@ -99,13 +93,7 @@ const FileImageList = ({
         <Alert.Root status="error" mt={5} p={4} width={'fit-content'}>
           <Alert.Indicator />
           <Alert.Content>
-            <Alert.Title>
-              {errorType === 'max_file'
-                ? 'Nombre de fichiers atteint'
-                : errorType === 'size'
-                  ? 'Taille limite dépassée'
-                  : 'Format non accepté'}
-            </Alert.Title>
+            <Alert.Title>{errorType === 'max_file' ? 'Nombre de fichiers atteint' : errorType === 'size' ? 'Taille limite dépassée' : 'Format non accepté'}</Alert.Title>
             <Alert.Description>{error}</Alert.Description>
           </Alert.Content>
         </Alert.Root>
@@ -114,24 +102,11 @@ const FileImageList = ({
   )
 }
 
-export const CustomDragDropZone = ({
-  getFilesUploaded,
-  base64Images,
-}: {
-  getFilesUploaded: (files: File[]) => void
-  base64Images?: string[]
-}) => {
+export const CustomDragDropZone = ({ getFilesUploaded, base64Images }: { getFilesUploaded: (files: File[]) => void; base64Images?: string[] }) => {
   const { getRootProps } = useFileUpload()
 
   return (
-    <FileUpload.Root
-      {...getRootProps()}
-      maxFiles={MAX_FILES}
-      maxFileSize={MAX_FILE_SIZE}
-      alignItems="stretch"
-      accept={ACCEPTED_TYPES}
-      _dragging={{ borderColor: 'primary.500' }}
-    >
+    <FileUpload.Root {...getRootProps()} maxFiles={MAX_FILES} maxFileSize={MAX_FILE_SIZE} alignItems="stretch" accept={ACCEPTED_TYPES} _dragging={{ borderColor: 'primary.500' }}>
       <FileUpload.HiddenInput />
       <FileImageList getFilesUploaded={getFilesUploaded} base64Images={base64Images} />
       <FileUploadDropzone>
@@ -147,15 +122,7 @@ export const CustomDragDropZone = ({
   )
 }
 
-const SimpleFileUpload = ({
-  getFileUploaded,
-  avatarImage,
-  name,
-}: {
-  getFileUploaded: (file: File | null) => void
-  avatarImage?: string
-  name?: string
-}) => {
+const SimpleFileUpload = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string; name?: string }) => {
   const fileUpload = useFileUploadContext()
   const [error, setError] = useState<string | null>(null)
   const [errorType, setErrorType] = useState<'size' | 'type' | null>(null)
@@ -220,17 +187,7 @@ const SimpleFileUpload = ({
             ) : (
               <>
                 {fileUpload.acceptedFiles.map((file: any) => (
-                  <FileUpload.Item
-                    p="2"
-                    width="auto"
-                    key={file.name}
-                    file={file}
-                    pos="relative"
-                    rounded={'full'}
-                    bg={'red.500'}
-                    outline="0.2em solid"
-                    outlineColor="bg"
-                  >
+                  <FileUpload.Item p="2" width="auto" key={file.name} file={file} pos="relative" rounded={'full'} bg={'red.500'} outline="0.2em solid" outlineColor="bg">
                     <FileUpload.ItemDeleteTrigger>
                       <HiX color={'white'} />
                     </FileUpload.ItemDeleteTrigger>
@@ -254,25 +211,10 @@ const SimpleFileUpload = ({
   )
 }
 
-export const UploadAvatar = ({
-  getFileUploaded,
-  avatarImage,
-  name,
-}: {
-  getFileUploaded: (file: File | null) => void
-  avatarImage?: string | any
-  name?: string
-}) => {
+export const UploadAvatar = ({ getFileUploaded, avatarImage, name }: { getFileUploaded: (file: File | null) => void; avatarImage?: string | any; name?: string }) => {
   const { getRootProps } = useFileUpload()
   return (
-    <FileUpload.Root
-      {...getRootProps()}
-      maxFiles={1}
-      maxFileSize={MAX_FILE_SIZE}
-      accept={ACCEPTED_TYPES}
-      alignItems={'center'}
-      justifyContent={'center'}
-    >
+    <FileUpload.Root {...getRootProps()} maxFiles={1} maxFileSize={MAX_FILE_SIZE} accept={ACCEPTED_TYPES} alignItems={'center'} justifyContent={'center'}>
       <FileUpload.HiddenInput />
       <SimpleFileUpload getFileUploaded={getFileUploaded} avatarImage={avatarImage} name={name} />
     </FileUpload.Root>

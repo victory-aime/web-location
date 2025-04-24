@@ -37,8 +37,11 @@ export class OrdersService extends BaseApi {
    * @param {string | null} [filters.id] - Optional order ID filter.
    * @returns {Promise<any>} - A promise resolving to the list of store orders.
    */
-  fetchStoreOrderList(filters: {storeId: string | null, id?: string | null}): Promise<any> {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().ORDERS.ORDER_STORE_LIST, filters)
+  fetchStoreOrderList(filters: { storeId: string | null; id?: string | null }): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().ORDERS.ORDER_STORE_LIST,
+      filters
+    )
   }
 
   /**
@@ -49,8 +52,14 @@ export class OrdersService extends BaseApi {
    * @param {string | null} params.orderId - The ID of the order.
    * @returns {Promise<TYPES.MODELS.ORDERS.IResponseOrderDetail>} - A promise resolving to the order details.
    */
-  fetchOrderDetailsStore(params: {storeId: string | null, orderId: string | null}): Promise<TYPES.MODELS.ORDERS.IResponseOrderDetail> {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().ORDERS.ORDER_DETAILS_BY_STORE, params)
+  fetchOrderDetailsStore(params: {
+    storeId: string | null
+    orderId: string | null
+  }): Promise<TYPES.MODELS.ORDERS.IResponseOrderDetail> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().ORDERS.ORDER_DETAILS_BY_STORE,
+      params
+    )
   }
 
   /**
@@ -63,7 +72,14 @@ export class OrdersService extends BaseApi {
    * @param {string | null} data.storeId - The ID of the store.
    * @returns {Promise<any>} - A promise resolving to the response from the API.
    */
-  updateOrderItem(data: {id: string | null, status: TYPES.MODELS.PRODUCTS.OrderItemStatus, storeId: string | null}): Promise<any> {
-    return this.apiService.invoke(this.applicationContext.getApiConfig().ORDERS.UPDATE_ORDER_BY_VENDOR, data)
+  updateOrderItem(data: {
+    id: string | null
+    status: TYPES.MODELS.PRODUCTS.OrderItemStatus
+    storeId: string | null
+  }): Promise<any> {
+    return this.apiService.invoke(
+      this.applicationContext.getApiConfig().ORDERS.UPDATE_ORDER_BY_VENDOR,
+      data
+    )
   }
 }

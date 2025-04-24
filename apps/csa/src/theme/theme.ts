@@ -1,7 +1,7 @@
-import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';
-import { keyframes, animations } from './animations';
-import { breakpoints } from './breakpoints';
-import { colors } from './colors';
+import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react'
+import { keyframes, animations } from './animations'
+import { breakpoints } from './breakpoints'
+import { colors } from './colors'
 
 const config = defineConfig({
   theme: {
@@ -17,6 +17,6 @@ const config = defineConfig({
       },
     },
   },
-});
+})
 
-export const customTheme = createSystem(defaultConfig, config);
+export const customTheme = createSystem(defaultConfig, config)

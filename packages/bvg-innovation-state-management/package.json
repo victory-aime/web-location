@@ -22,7 +22,9 @@
     "version:minor": "yarn version minor",
     "version:major": "yarn version major",
     "prepublishOnly": "yarn clean && yarn build",
-    "publish:lib": "yarn publish --access public"
+    "publish:lib": "yarn publish --access public",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "publishConfig": {
     "access": "public"

@@ -63,11 +63,11 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
 
   return (
     <Formik initialValues={{ subject: '', message: '' }} onSubmit={handleSubmitForm}>
-      {({ handleSubmit, setFieldValue, resetForm }) => (
+      {({ handleSubmit, setFieldValue }) => (
         <ModalComponent
           open={isOpen}
           onChange={() => onChange(!isOpen)}
-          title="Think Box"
+          title="Boite a suggestions"
           icon={<FcIdea size={18} />}
           iconBackroungColor={hexToRGB('orange', 0.3)}
           ignoreFooter={false}

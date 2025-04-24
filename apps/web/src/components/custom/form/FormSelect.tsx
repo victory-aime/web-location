@@ -1,4 +1,4 @@
-import { Field, Flex } from '@chakra-ui/react';
+import { Field, Flex } from '@chakra-ui/react'
 import {
   SelectContent,
   SelectItem,
@@ -6,11 +6,11 @@ import {
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from '_components/ui/select';
-import React, { FC } from 'react';
-import { FullSelectProps } from './interface/input';
-import { useField } from 'formik';
-import { BaseText } from '../base-text';
+} from '_components/ui/select'
+import React, { FC } from 'react'
+import { FullSelectProps } from './interface/input'
+import { useField } from 'formik'
+import { BaseText } from '../base-text'
 
 const FormSelect: FC<FullSelectProps> = ({
   listItems,
@@ -33,13 +33,13 @@ const FormSelect: FC<FullSelectProps> = ({
   const fieldHookConfig = {
     name,
     validate,
-  };
-  const [field, { touched, error }] = useField(fieldHookConfig);
-  const isError = !!(touched && error);
+  }
+  const [field, { touched, error }] = useField(fieldHookConfig)
+  const isError = !!(touched && error)
 
   const extractSingleValue = (value: any) => {
-    return Array?.isArray(value) ? value[0] : value;
-  };
+    return Array?.isArray(value) ? value[0] : value
+  }
 
   return (
     <Field.Root id={name} invalid={isError} disabled={isDisabled} width={'full'}>
@@ -51,12 +51,12 @@ const FormSelect: FC<FullSelectProps> = ({
         lazyMount
         unmountOnExit
         onValueChange={(item: any) => {
-          setFieldValue(name, item?.value);
-          onChangeFunc?.(item?.value);
+          setFieldValue(name, item?.value)
+          onChangeFunc?.(item?.value)
         }}
         multiple={isMultiSelect}
         onBlur={(e) => {
-          field?.onBlur(e);
+          field?.onBlur(e)
         }}
         collection={listItems}
         size={'lg'}
@@ -73,8 +73,8 @@ const FormSelect: FC<FullSelectProps> = ({
           {customRenderSelected ? (
             customRenderSelected(
               listItems?.items.filter((i: any) => {
-                const currentValue = extractSingleValue(field.value);
-                return i.value === currentValue;
+                const currentValue = extractSingleValue(field.value)
+                return i.value === currentValue
               })
             )
           ) : (
@@ -84,12 +84,7 @@ const FormSelect: FC<FullSelectProps> = ({
 
         <SelectContent borderRadius={7} p={3}>
           {listItems?.items?.map((item: any) => (
-            <SelectItem
-              _highlighted={{ color: 'primary.500' }}
-              py={1}
-              item={item.value}
-              key={item.value}
-            >
+            <SelectItem _highlighted={{ color: 'primary.500' }} py={1} item={item.value} key={item.value}>
               {item.label}
             </SelectItem>
           ))}
@@ -103,7 +98,7 @@ const FormSelect: FC<FullSelectProps> = ({
       )}
       {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
-  );
-};
+  )
+}
 
-export default FormSelect;
+export default FormSelect

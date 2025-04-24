@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from '_components/ui/dialog';
-import React from 'react';
-import { BaseButton } from '../button';
-import { variantColorType } from '_components/custom/button';
-import { ModalProps } from './interface/modal';
-import { BoxIcon } from '../boxIcon';
+} from '_components/ui/dialog'
+import React from 'react'
+import { BaseButton } from '../button'
+import { variantColorType } from '_components/custom/button'
+import { ModalProps } from './interface/modal'
+import { BoxIcon } from '../boxIcon'
 
 const ModalComponent = ({
   isOpen = false,
@@ -66,9 +66,7 @@ const ModalComponent = ({
               withGradient
               onClick={() => onClick?.()}
               isLoading={isLoading}
-              colorType={
-                modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)
-              }
+              colorType={modalType === 'alertdialog' ? 'danger' : (colorSaveButton as variantColorType)}
             >
               {buttonSaveTitle}
             </BaseButton>
@@ -77,7 +75,7 @@ const ModalComponent = ({
         {showCloseButton && <DialogCloseTrigger />}
       </DialogContent>
     </DialogRoot>
-  );
-};
+  )
+}
 
-export default ModalComponent;
+export default ModalComponent

@@ -1,6 +1,6 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { CheckBoxFom } from '_components/custom/form';
-import React from 'react';
+import { Box, Flex, Text } from '@chakra-ui/react'
+import { CheckBoxFom } from '_components/custom/form'
+import React from 'react'
 
 const FilterBySize = ({ name }: { name: string }) => {
   return (
@@ -12,7 +12,7 @@ const FilterBySize = ({ name }: { name: string }) => {
         </Flex>
       ))}
     </Box>
-  );
-};
+  )
+}
 
-export default FilterBySize;
+export default FilterBySize

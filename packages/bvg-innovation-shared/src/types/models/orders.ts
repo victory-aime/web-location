@@ -1,4 +1,4 @@
-import { TYPES } from "../.."
+import { TYPES } from '../..'
 
 export interface OrderItemDto {
   productId?: string
@@ -47,65 +47,63 @@ export interface IResponseListOrder {
   totalDataPerPage?: number
 }
 
-
 export interface IVendorOrderItemDetailDto {
-  orderItemId: string;
-  quantity: number;
-  price: number;
-  subTotal: number;
-
+  orderItemId: string
+  quantity: number
+  price: number
+  subTotal: number
 
   product: {
-    name: string;
-    images: string[];
-  };
+    name: string
+    images: string[]
+  }
 
   variant?: {
-    id: string;
-    name: string;
-  };
+    id: string
+    name: string
+  }
 
   user: {
-    id: string;
-    email: string;
-    firstName: string;
-    name: string;
+    id: string
+    email: string
+    firstName: string
+    name: string
     address: string
     phone: string
-  };
+  }
 
-  status: TYPES.MODELS.PRODUCTS.OrderItemStatus;
-  createdAt: string;
+  status: TYPES.MODELS.PRODUCTS.OrderItemStatus
+  createdAt: string
 }
 
 export interface OrderItemVendorDto {
-  orderItemId: string;
-  quantity: number;
-  price: number;
-  subTotal: number;
+  orderItemId: string
+  quantity: number
+  price: number
+  subTotal: number
   product: {
-    name: string;
-    images: string[];
-  };
-  variant?: any;
+    name: string
+    images: string[]
+  }
+  variant?: any
 }
 export interface IResponseOrderDetail {
   user: {
-    id: string;
-    name: string;
-    firstName: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
-  status: TYPES.MODELS.PRODUCTS.OrderItemStatus;
-  createdAt: string;
-  orderItemId?:string
-  content: OrderItemVendorDto[];
+    id: string
+    name: string
+    firstName: string
+    phone: string
+    email: string
+    address: string
+  }
+  status: TYPES.MODELS.PRODUCTS.OrderItemStatus
+  createdAt: string
+  orderItemId?: string
+  content: OrderItemVendorDto[]
 }
 
 export interface IUpdateOrderDto {
-  id: string | null,
-  status: TYPES.MODELS.PRODUCTS.OrderItemStatus,
+  id: string | null
+  status: TYPES.MODELS.PRODUCTS.OrderItemStatus
   storeId: string | null
 }

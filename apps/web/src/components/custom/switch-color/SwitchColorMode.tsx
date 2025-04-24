@@ -1,10 +1,10 @@
-import React from 'react';
-import { Switch } from '@chakra-ui/react';
-import { LuMoon, LuSun } from 'react-icons/lu';
-import { useColorMode } from '_components/ui/color-mode';
+import React from 'react'
+import { Switch } from '@chakra-ui/react'
+import { LuMoon, LuSun } from 'react-icons/lu'
+import { useColorMode } from '_components/ui/color-mode'
 
 export const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) => {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { toggleColorMode, colorMode } = useColorMode()
 
   return (
     <Switch.Root checked={colorMode === 'dark'} onCheckedChange={toggleColorMode} display={'flex'}>
@@ -26,5 +26,5 @@ export const SwitchColorMode = ({ hideIcon = false }: { hideIcon?: boolean }) =>
         </>
       )}
     </Switch.Root>
-  );
-};
+  )
+}

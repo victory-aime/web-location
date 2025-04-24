@@ -18,18 +18,18 @@ const AddProductPage = () => {
   const requestId = useSearchParams()?.get('requestId')
   const responsiveMode = useBreakpointValue({ base: false, md: true })
   const [initialValues, setInitialValues] = useState(TYPES.VALIDATION_SCHEMA.PRODUCTS_SCHEMA.initialProductValues)
-  const currentUser = UsersModule.cache.UserCache.getPrivate()
-  const privateProducts = ProductModule.cache.ProductCache.getPrivate()
+  const currentUser = UsersModule.UserCache.getUser()
+  const privateProducts = ProductModule.ProductCache.getPrivateProduct()
 
   const { mutateAsync: createProduct, isPending: createPending } = ProductModule.createProductMutation({
     onSuccess: () => {
-      ProductModule.cache.ProductCache.invalidatePrivate()
+      ProductModule.ProductCache.invalidatePrivateProduct()
       router.back()
     },
   })
   const { mutateAsync: updateProduct, isPending } = ProductModule.updateProductMutation({
     onSuccess: () => {
-      ProductModule.cache.ProductCache.invalidatePrivate()
+      ProductModule.ProductCache.invalidatePrivateProduct()
       router.back()
     },
   })

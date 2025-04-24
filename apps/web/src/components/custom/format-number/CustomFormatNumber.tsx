@@ -1,5 +1,5 @@
 import { FormatNumber, LocaleProvider } from '@chakra-ui/react'
-import { FC } from 'react';
+import { FC } from 'react'
 import { CustomFormatNumberProps } from './interface/format-number'
 
 const CustomFormatNumber: FC<CustomFormatNumberProps> = ({
@@ -28,7 +28,7 @@ const CustomFormatNumber: FC<CustomFormatNumberProps> = ({
         </LocaleProvider>
       )}
     </>
-  );
-};
+  )
+}
 
-export default CustomFormatNumber;
+export default CustomFormatNumber

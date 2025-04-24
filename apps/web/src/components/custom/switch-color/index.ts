@@ -1,3 +1,3 @@
-import {SwitchColorMode} from "./SwitchColorMode";
+import { SwitchColorMode } from './SwitchColorMode'
 
-export {SwitchColorMode}
+export { SwitchColorMode }

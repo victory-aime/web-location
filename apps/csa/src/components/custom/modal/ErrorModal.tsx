@@ -16,7 +16,7 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
     if (session?.error === 'RefreshAccessTokenError') {
       setShowSessionError(true)
     }
-  }, [session?.error])
+  }, [session])
 
   const handleReconnect = () => {
     signIn('keycloak').then(() => {

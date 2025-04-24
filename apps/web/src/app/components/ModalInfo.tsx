@@ -1,19 +1,19 @@
-import { Center, Group } from '@chakra-ui/react';
-import { BaseText, TextVariant } from '_components/custom/base-text';
-import { BaseButton } from '_components/custom/button';
-import { ModalComponent } from '_components/custom/modal';
-import { useRouter } from 'next/navigation';
-import React, { FC } from 'react';
-import { APP_ROUTES } from '_config/routes';
+import { Center, Group } from '@chakra-ui/react'
+import { BaseText, TextVariant } from '_components/custom/base-text'
+import { BaseButton } from '_components/custom/button'
+import { ModalComponent } from '_components/custom/modal'
+import { useRouter } from 'next/navigation'
+import React, { FC } from 'react'
+import { APP_ROUTES } from '_config/routes'
 
 interface ModalProps {
-  open: boolean;
-  onChange: (value: boolean) => void;
-  onClick: () => void;
+  open: boolean
+  onChange: (value: boolean) => void
+  onClick: () => void
 }
 
 const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <ModalComponent title="Information" open={open} onChange={() => onChange(false)}>
       <Center flexDir="column" gap={5}>
@@ -26,8 +26,8 @@ const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
             colorType="primary"
             withGradient
             onClick={() => {
-              onClick();
-              onChange(false);
+              onClick()
+              onChange(false)
             }}
           >
             <BaseText>Se connecter</BaseText>
@@ -37,8 +37,8 @@ const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
             colorType="secondary"
             withGradient
             onClick={() => {
-              router.push(APP_ROUTES.PUBLIC.SIGN_UP);
-              onChange(false);
+              router.push(APP_ROUTES.PUBLIC.SIGN_UP)
+              onChange(false)
             }}
           >
             <BaseText>Créer un compte</BaseText>
@@ -46,7 +46,7 @@ const ModalInfo: FC<ModalProps> = ({ open, onChange, onClick }) => {
         </Group>
       </Center>
     </ModalComponent>
-  );
-};
+  )
+}
 
-export default ModalInfo;
+export default ModalInfo

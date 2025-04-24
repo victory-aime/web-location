@@ -1,37 +1,29 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { useCart } from '_hooks/cart';
-import { Box, Center, Flex, For, Image, Separator, VStack } from '@chakra-ui/react';
-
-import { TrashIcon } from '_assets/svg';
-import { BaseButton } from '_components/custom/button';
-import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text';
-import { StepperInput } from '_components/ui/stepper-input';
-import CustomFormatNumber from '_components/custom/format-number/CustomFormatNumber';
-import { APP_ROUTES } from '_config/routes';
-import { useRouter } from 'next/navigation';
-import { ImageRatio } from '_components/custom/aspect-ratio';
-import { signIn, useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react'
+import { useCart } from '_hooks/cart'
+import { Box, Center, Flex, For, Image, Separator, VStack } from '@chakra-ui/react'
+import { TrashIcon } from '_assets/svg'
+import { BaseButton } from '_components/custom/button'
+import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text'
+import { StepperInput } from '_components/ui/stepper-input'
+import CustomFormatNumber from '_components/custom/format-number/CustomFormatNumber'
+import { APP_ROUTES } from '_config/routes'
+import { useRouter } from 'next/navigation'
+import { ImageRatio } from '_components/custom/aspect-ratio'
+import { signIn, useSession } from 'next-auth/react'
 
 const Cart = () => {
-  const router = useRouter();
-  const { status } = useSession();
-  const [loading, setLoading] = useState<boolean>(false);
-  const {
-    cart,
-    fetchCartFromStorage,
-    setCart,
-    triggerRefresh,
-    removeFromCart,
-    calculateTotalPrice,
-  } = useCart();
+  const router = useRouter()
+  const { status } = useSession()
+  const [loading, setLoading] = useState<boolean>(false)
+  const { cart, fetchCartFromStorage, setCart, triggerRefresh, removeFromCart, calculateTotalPrice } = useCart()
   useEffect(() => {
     fetchCartFromStorage().then((data) => {
-      setCart(data);
-    });
-    setLoading(false);
-  }, [triggerRefresh]);
+      setCart(data)
+    })
+    setLoading(false)
+  }, [triggerRefresh])
 
   if (cart?.length === 0) {
     return (
@@ -39,25 +31,17 @@ const Cart = () => {
         <Box mt={50} padding={{ base: 5, lg: 10 }}>
           <Box width={'full'} boxShadow={'lg'} borderRadius={'7px'} p={4}>
             <Center flexDir={'column'} gap={4}>
-              <Image
-                src={'/assets/images/cart/cart.jpg'}
-                alt={'cart-empty'}
-                width={'200px'}
-                height={'200px'}
-              />
+              <Image src={'/assets/images/cart/cart.jpg'} alt={'cart-empty'} width={'200px'} height={'200px'} />
               <BaseText>Votre panier est vide!</BaseText>
               <BaseText>Parcourez nos catégories et découvrez nos meilleures offres!</BaseText>
-              <BaseButton
-                colorType={'secondary'}
-                onClick={() => router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST)}
-              >
+              <BaseButton colorType={'secondary'} onClick={() => router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.LIST)}>
                 <BaseText variant={TextVariant.S}>Commencez vos achats</BaseText>
               </BaseButton>
             </Center>
           </Box>
         </Box>
       </>
-    );
+    )
   }
 
   return (
@@ -70,12 +54,7 @@ const Cart = () => {
             <For each={cart}>
               {(item, index) => (
                 <Box key={index} width={'full'} mt={6}>
-                  <Flex
-                    gap={5}
-                    alignItems={'flex-start'}
-                    justifyContent={'space-between'}
-                    width={'full'}
-                  >
+                  <Flex gap={5} alignItems={'flex-start'} justifyContent={'space-between'} width={'full'}>
                     <Flex alignItems={'flex-start'} gap={3} width={'full'}>
                       <Box mb={4} width={'full'}>
                         <ImageRatio image={item?.images[0]} />
@@ -86,9 +65,7 @@ const Cart = () => {
                         </BaseText>
                         <BaseText variant={TextVariant.S}>Vendeur : Test</BaseText>
                         <BaseText variant={TextVariant.S} weight={TextWeight.Regular}>
-                          {item.stock <= 5
-                            ? 'Quelques aticles restant'
-                            : 'Ne manquez pas cet article'}
+                          {item.stock <= 5 ? 'Quelques aticles restant' : 'Ne manquez pas cet article'}
                         </BaseText>
                       </VStack>
                     </Flex>
@@ -104,8 +81,8 @@ const Cart = () => {
                       withGradient
                       leftIcon={<TrashIcon fill={'#fff'} />}
                       onClick={() => {
-                        removeFromCart(item);
-                        setLoading(true);
+                        removeFromCart(item)
+                        setLoading(true)
                       }}
                       isLoading={loading}
                     >
@@ -125,12 +102,7 @@ const Cart = () => {
             </For>
           </Box>
 
-          <Box
-            width={{ base: 'full', lg: '1/2' }}
-            height={'fit-content'}
-            boxShadow={'lg'}
-            borderRadius={'7px'}
-          >
+          <Box width={{ base: 'full', lg: '1/2' }} height={'fit-content'} boxShadow={'lg'} borderRadius={'7px'}>
             <Box>
               <BaseText p={2} textTransform={'uppercase'}>
                 Cart resume
@@ -157,9 +129,9 @@ const Cart = () => {
                     if (status === 'unauthenticated') {
                       signIn('keycloak', {
                         callbackUrl: APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS,
-                      }).then((r) => console.log('response', r));
+                      }).then((r) => console.log('response', r))
                     } else {
-                      router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS);
+                      router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS)
                     }
                   }}
                 >
@@ -172,7 +144,7 @@ const Cart = () => {
         </Flex>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

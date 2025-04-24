@@ -1,16 +1,8 @@
 import { FormatNumber, LocaleProvider } from '@chakra-ui/react'
-import { FC } from 'react';
+import { FC } from 'react'
 import { CustomFormatNumberProps } from './interface/format-number'
 
-const CustomFormatNumber: FC<CustomFormatNumberProps> = ({
-  value,
-  notation = 'compact',
-  style = 'currency',
-  currencyCode = 'USD',
-  maximumDigits,
-  minimumDigits,
-  isLocale = true,
-}) => {
+const CustomFormatNumber: FC<CustomFormatNumberProps> = ({ value, notation = 'compact', style = 'currency', currencyCode = 'USD', maximumDigits, minimumDigits, isLocale = true }) => {
   return (
     <>
       {isLocale ? (
@@ -28,7 +20,7 @@ const CustomFormatNumber: FC<CustomFormatNumberProps> = ({
         </LocaleProvider>
       )}
     </>
-  );
-};
+  )
+}
 
-export default CustomFormatNumber;
+export default CustomFormatNumber

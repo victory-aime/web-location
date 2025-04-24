@@ -1,7 +1,6 @@
-import { Box, Text,  Image } from '@chakra-ui/react';
-import React, { FC } from 'react';
-import {NoDataFoundProps} from "./interface/type";
-
+import { Box, Text, Image } from '@chakra-ui/react'
+import React, { FC } from 'react'
+import { NoDataFoundProps } from './interface/type'
 
 export const NoDataFound: FC<NoDataFoundProps> = ({
   title = "Oooup's aucune donnees",
@@ -20,9 +19,7 @@ export const NoDataFound: FC<NoDataFoundProps> = ({
     >
       <Image
         width={{ base: '100%', md: '25%' }}
-        src={
-          imageType === 'v1' ? '/assets/svg/no-data-found.svg' : '/assets/svg/no-data-found-V2.svg'
-        }
+        src={imageType === 'v1' ? '/assets/svg/no-data-found.svg' : '/assets/svg/no-data-found-V2.svg'}
         alt="no-data-found"
         transition={'filter 0.5s ease, opacity 0.5s ease'}
         draggable={false}
@@ -32,7 +29,7 @@ export const NoDataFound: FC<NoDataFoundProps> = ({
         {title}
       </Text>
     </Box>
-  );
-};
+  )
+}
 
-export default NoDataFound;
+export default NoDataFound

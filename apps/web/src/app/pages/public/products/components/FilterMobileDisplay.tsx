@@ -1,6 +1,6 @@
-import { HStack, IconButton } from '@chakra-ui/react';
-import { ModalOpenProps } from '_components/custom';
-import { BaseButton } from '_components/custom';
+import { HStack, IconButton } from '@chakra-ui/react'
+import { ModalOpenProps } from '_components/custom'
+import { BaseButton } from '_components/custom'
 import {
   DrawerActionTrigger,
   DrawerBackdrop,
@@ -10,24 +10,18 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,
-} from '_components/ui/drawer';
-import React, { FC, ReactNode } from 'react';
-import { IoIosCloseCircle } from 'react-icons/io';
+} from '_components/ui/drawer'
+import React, { FC, ReactNode } from 'react'
+import { IoIosCloseCircle } from 'react-icons/io'
 
 interface CustomProps extends ModalOpenProps {
-  children: ReactNode;
-  handleSubmit: () => void;
+  children: ReactNode
+  handleSubmit: () => void
 }
 
 const FilterMobileDisplay: FC<CustomProps> = ({ isOpen, onChange, children, handleSubmit }) => {
   return (
-    <DrawerRoot
-      open={isOpen}
-      onOpenChange={(e) => onChange(e.open)}
-      size={'xs'}
-      placement={'end'}
-      closeOnEscape
-    >
+    <DrawerRoot open={isOpen} onOpenChange={(e) => onChange(e.open)} size={'xs'} placement={'end'} closeOnEscape>
       <DrawerBackdrop />
       <DrawerContent height={'full'} pos={'absolute'}>
         <DrawerHeader>
@@ -60,7 +54,7 @@ const FilterMobileDisplay: FC<CustomProps> = ({ isOpen, onChange, children, hand
         </DrawerFooter>
       </DrawerContent>
     </DrawerRoot>
-  );
-};
+  )
+}
 
-export default FilterMobileDisplay;
+export default FilterMobileDisplay

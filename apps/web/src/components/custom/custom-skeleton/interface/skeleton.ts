@@ -1,13 +1,13 @@
-type LoaderType = 'BAR_CHART' | 'DATA_TABLE' | 'DONUT_CHART' | 'PRODUCT_LIST_CARD' | 'DEFAULT';
+type LoaderType = 'BAR_CHART' | 'DATA_TABLE' | 'DONUT_CHART' | 'PRODUCT_LIST_CARD' | 'DEFAULT'
 
 interface CustomSkeletonLoaderProps {
-  type?: LoaderType;
-  tableColumns?: number;
-  tableRows?: number;
-  width?: string | number;
-  height?: string | number;
-  statisticBars?: number;
-  count?: number;
+  type?: LoaderType
+  tableColumns?: number
+  tableRows?: number
+  width?: string | number
+  height?: string | number
+  statisticBars?: number
+  count?: number
 }
 
-export type { LoaderType, CustomSkeletonLoaderProps };
+export type { LoaderType, CustomSkeletonLoaderProps }

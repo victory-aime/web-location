@@ -1,3 +1,3 @@
-import BreadcrumbNav from "./BreadCrumbNav";
+import BreadcrumbNav from './BreadCrumbNav'
 
-export { BreadcrumbNav };
+export { BreadcrumbNav }

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useField } from 'formik';
-import { Input, Text, Field, Flex } from '@chakra-ui/react';
-import { TextInputProps } from './interface/input';
-import { InputGroup } from '_components/ui/input-group';
-import { TbLockBitcoin } from 'react-icons/tb';
-import { HiOutlineInformationCircle } from 'react-icons/hi';
-import {CustomToolTip} from '_components/custom';
+import React, { useState } from 'react'
+import { useField } from 'formik'
+import { Input, Text, Field, Flex } from '@chakra-ui/react'
+import { TextInputProps } from './interface/input'
+import { InputGroup } from '_components/ui/input-group'
+import { TbLockBitcoin } from 'react-icons/tb'
+import { HiOutlineInformationCircle } from 'react-icons/hi'
+import { CustomToolTip } from '_components/custom'
 import { RiEyeOffLine, RiEyeLine } from 'react-icons/ri'
 
 const FormTextInput = ({
@@ -33,11 +33,11 @@ const FormTextInput = ({
   const fieldHookConfig = {
     name,
     validate,
-  };
-  const [field, { touched, error }] = useField(fieldHookConfig);
-  const isError = isReadOnly ? !!error : !!(touched && error);
-  const isPassword = type === 'password';
-  const [secureTextEntry, setSecureTextEntry] = useState(isPassword);
+  }
+  const [field, { touched, error }] = useField(fieldHookConfig)
+  const isError = isReadOnly ? !!error : !!(touched && error)
+  const isPassword = type === 'password'
+  const [secureTextEntry, setSecureTextEntry] = useState(isPassword)
 
   return (
     <Field.Root id={name} invalid={isError}>
@@ -58,13 +58,7 @@ const FormTextInput = ({
             </Flex>
           ) : (
             leftAccessory && (
-              <Flex
-                mt={'5px'}
-                pr={'10px'}
-                boxSize={'30px'}
-                alignItems={'center'}
-                justifyContent={'center'}
-              >
+              <Flex mt={'5px'} pr={'10px'} boxSize={'30px'} alignItems={'center'} justifyContent={'center'}>
                 {leftAccessory}
               </Flex>
             )
@@ -79,11 +73,7 @@ const FormTextInput = ({
               justifyContent={'center'}
               onClick={() => setSecureTextEntry(!secureTextEntry)}
             >
-              {secureTextEntry ? (
-                <RiEyeOffLine size={18}  />
-              ) : (
-                <RiEyeLine  size={18} />
-              )}
+              {secureTextEntry ? <RiEyeOffLine size={18} /> : <RiEyeLine size={18} />}
             </Flex>
           ) : toolTipInfo ? (
             <>
@@ -93,13 +83,7 @@ const FormTextInput = ({
             </>
           ) : (
             rightAccessory && (
-              <Flex
-                mt={'5px'}
-                pr={'10px'}
-                boxSize={'30px'}
-                alignItems={'center'}
-                justifyContent={'center'}
-              >
+              <Flex mt={'5px'} pr={'10px'} boxSize={'30px'} alignItems={'center'} justifyContent={'center'}>
                 {rightAccessory}
               </Flex>
             )
@@ -111,8 +95,8 @@ const FormTextInput = ({
           {...field}
           type={isPassword ? (secureTextEntry ? 'password' : 'text') : type}
           onBlur={(e) => {
-            field?.onBlur(e);
-            onBlur?.(e);
+            field?.onBlur(e)
+            onBlur?.(e)
           }}
           value={value ?? field?.value}
           placeholder={placeholder ?? ''}
@@ -138,7 +122,7 @@ const FormTextInput = ({
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}
       {localErrorMsg && <Field.HelperText p={1}>{localErrorMsg}</Field.HelperText>}
     </Field.Root>
-  );
-};
+  )
+}
 
-export default FormTextInput;
+export default FormTextInput

@@ -2,12 +2,12 @@ import { TYPES } from 'bvg-innovation-shared'
 import * as Constants from './constants'
 
 export const ProductCache = {
-  getPrivate: () =>
+  getPrivateProduct: () =>
     TYPES.HELPERS.CacheHelper.get<TYPES.MODELS.PRODUCTS.IPrivateProductResponse>([
       Constants.PRIVATE_PRODUCTS,
     ]),
 
-  getPublic: () =>
+  getPublicProduct: () =>
     TYPES.HELPERS.CacheHelper.get<TYPES.MODELS.PRODUCTS.IGetAllPublicProductsResponse>([
       Constants.ALL_PUBLIC_PRODUCTS,
     ]),
@@ -18,12 +18,12 @@ export const ProductCache = {
     ]),
 
   setPrivate: (data: TYPES.MODELS.PRODUCTS.IPrivateProductResponse) =>
-     TYPES.HELPERS.CacheHelper.set([Constants.PRIVATE_PRODUCTS], data),
+    TYPES.HELPERS.CacheHelper.set([Constants.PRIVATE_PRODUCTS], data),
 
-  invalidatePrivate: () =>
-     TYPES.HELPERS.CacheHelper.invalidate([Constants.PRIVATE_PRODUCTS]),
+  invalidatePrivateProduct: () =>
+    TYPES.HELPERS.CacheHelper.invalidate([Constants.PRIVATE_PRODUCTS]),
 
   invalidateTrashList: () => TYPES.HELPERS.CacheHelper.invalidate([Constants.TRASH_LIST_PRODUCT]),
 
-  removeQueries: ()=> TYPES.HELPERS.CacheHelper.remove([Constants.PRIVATE_PRODUCTS])
+  removeQueries: () => TYPES.HELPERS.CacheHelper.remove([Constants.PRIVATE_PRODUCTS]),
 }

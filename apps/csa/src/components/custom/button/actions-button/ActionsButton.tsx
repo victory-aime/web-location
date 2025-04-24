@@ -10,17 +10,7 @@ import { IoSave } from 'react-icons/io5'
 import { IoIosArrowDropleftCircle } from 'react-icons/io'
 import { ActionButtonTypes } from '_components/custom'
 
-export const ActionsButton = ({
-  cancelTitle,
-  validateTitle,
-  goBackUrl,
-  requestId,
-  isLoading = false,
-  cancelColor = 'danger',
-  validateColor = 'success',
-  onClick,
-  ...rest
-}: ActionButtonTypes) => {
+export const ActionsButton = ({ cancelTitle, validateTitle, goBackUrl, requestId, isLoading = false, cancelColor = 'danger', validateColor = 'success', onClick, ...rest }: ActionButtonTypes) => {
   if (cancelTitle && !goBackUrl) {
     throw new Error('goBackUrl is missing')
   }
@@ -42,14 +32,7 @@ export const ActionsButton = ({
       )}
 
       {validateTitle && (
-        <BaseButton
-          onClick={onClick}
-          px={'15px'}
-          colorType={validateColor}
-          withGradient
-          isLoading={isLoading}
-          leftIcon={requestId ? <IoSave /> : <FaPlus />}
-        >
+        <BaseButton onClick={onClick} px={'15px'} colorType={validateColor} withGradient isLoading={isLoading} leftIcon={requestId ? <IoSave /> : <FaPlus />}>
           {validateTitle}
         </BaseButton>
       )}

@@ -1,27 +1,19 @@
-import { Box, Flex, For, Separator, VStack } from '@chakra-ui/react';
-import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text';
-import { useCart } from '_hooks/cart';
-import React, { useEffect } from 'react';
-import CustomFormatNumber from '_components/custom/format-number/CustomFormatNumber';
-import { BaseButton } from '_components/custom/button';
-import { ImageRatio } from '_components/custom/aspect-ratio';
+import { Box, Flex, For, Separator, VStack } from '@chakra-ui/react'
+import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text'
+import { useCart } from '_hooks/cart'
+import React, { useEffect } from 'react'
+import CustomFormatNumber from '_components/custom/format-number/CustomFormatNumber'
+import { BaseButton } from '_components/custom/button'
+import { ImageRatio } from '_components/custom/aspect-ratio'
 
-const RecapOrder = ({
-  cart,
-  Previous,
-  sendOrder,
-}: {
-  Previous: any;
-  cart: any[];
-  sendOrder: () => void;
-}) => {
-  const { setCart, fetchCartFromStorage, triggerRefresh } = useCart();
+const RecapOrder = ({ cart, Previous, sendOrder }: { Previous: any; cart: any[]; sendOrder: () => void }) => {
+  const { setCart, fetchCartFromStorage, triggerRefresh } = useCart()
 
   useEffect(() => {
     if (cart?.length === 0) {
-      fetchCartFromStorage().then((data) => setCart(data));
+      fetchCartFromStorage().then((data) => setCart(data))
     }
-  }, [triggerRefresh]);
+  }, [triggerRefresh])
 
   return (
     <Box>
@@ -64,7 +56,7 @@ const RecapOrder = ({
         </BaseButton>
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
-export default RecapOrder;
+export default RecapOrder

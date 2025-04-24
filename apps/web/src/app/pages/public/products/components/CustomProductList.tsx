@@ -1,21 +1,21 @@
-import { Box, Stack, For, SimpleGrid, useBreakpointValue, Float, Circle } from '@chakra-ui/react';
-import { APP_ROUTES } from '_config/routes';
-import { ImageRatio } from '_components/custom/aspect-ratio';
-import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text';
-import PaginationDataTable from '_components/custom/data-table/components/PaginationDataTable';
-import { PaginationProps } from '_components/custom/data-table/interface/data-types';
-import NoDataFound from '_components/custom/no-data-found/NoDataFound';
-import { useRouter } from 'next/navigation';
-import React, { FC, useState } from 'react';
-import { GoTrash } from 'react-icons/go';
+import { Box, Stack, For, SimpleGrid, useBreakpointValue, Float, Circle } from '@chakra-ui/react'
+import { APP_ROUTES } from '_config/routes'
+import { ImageRatio } from '_components/custom/aspect-ratio'
+import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text'
+import PaginationDataTable from '_components/custom/data-table/components/PaginationDataTable'
+import { PaginationProps } from '_components/custom/data-table/interface/data-types'
+import NoDataFound from '_components/custom/no-data-found/NoDataFound'
+import { useRouter } from 'next/navigation'
+import React, { FC, useState } from 'react'
+import { GoTrash } from 'react-icons/go'
 
 interface ProductListProps extends PaginationProps {
-  products: any[];
-  initialPage?: number;
-  hidePagination?: boolean;
-  table?: any;
-  showDeleteButton?: boolean;
-  onDeleteButton?: (value: any) => void;
+  products: any[]
+  initialPage?: number
+  hidePagination?: boolean
+  table?: any
+  showDeleteButton?: boolean
+  onDeleteButton?: (value: any) => void
 }
 
 const CustomProductList: FC<ProductListProps> = ({
@@ -28,25 +28,25 @@ const CustomProductList: FC<ProductListProps> = ({
   showDeleteButton = false,
   onDeleteButton,
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(initialPage);
-  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const router = useRouter()
   const [sortConfig, setSortConfig] = useState<{
-    key: string;
-    direction: 'asc' | 'desc';
-  } | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const isMobile = useBreakpointValue({ base: true, sm: false, lg: false });
+    key: string
+    direction: 'asc' | 'desc'
+  } | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const isMobile = useBreakpointValue({ base: true, sm: false, lg: false })
 
   const sortedData =
     Array.isArray(products) && products.length > 0
       ? [...products].sort((a, b) => {
-          if (!sortConfig) return 0;
-          const { key, direction } = sortConfig;
-          return direction === 'asc' ? (a[key] > b[key] ? 1 : -1) : a[key] < b[key] ? 1 : -1;
+          if (!sortConfig) return 0
+          const { key, direction } = sortConfig
+          return direction === 'asc' ? (a[key] > b[key] ? 1 : -1) : a[key] < b[key] ? 1 : -1
         })
-      : [];
+      : []
 
-  const paginatedItems = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedItems = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
 
   return (
     <Box width={'full'}>
@@ -58,11 +58,7 @@ const CustomProductList: FC<ProductListProps> = ({
                 key={index}
                 width={'full'}
                 cursor={'pointer'}
-                onClick={() =>
-                  router.push?.(
-                    `${APP_ROUTES.PUBLIC.PRODUCTS_LIST.DETAILS}?requestId=${item.id}`
-                  )
-                }
+                onClick={() => router.push?.(`${APP_ROUTES.PUBLIC.PRODUCTS_LIST.DETAILS}?requestId=${item.id}`)}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -71,9 +67,7 @@ const CustomProductList: FC<ProductListProps> = ({
                     image={item?.images[0]}
                     style={{
                       borderRadius: '7px',
-                      transform: `${
-                        isMobile || hoveredIndex === index ? 'scale(1.05)' : 'scale(1)'
-                      }`,
+                      transform: `${isMobile || hoveredIndex === index ? 'scale(1.05)' : 'scale(1)'}`,
                       transition: 'transform 0.3s',
                     }}
                   />
@@ -82,8 +76,8 @@ const CustomProductList: FC<ProductListProps> = ({
                       placement={{ base: 'top-center', md: 'top-end' }}
                       cursor={'pointer'}
                       onClick={(e) => {
-                        e.stopPropagation();
-                        onDeleteButton?.(item?.id);
+                        e.stopPropagation()
+                        onDeleteButton?.(item?.id)
                       }}
                     >
                       <Circle size="40px" bg="white" color="red">
@@ -122,7 +116,7 @@ const CustomProductList: FC<ProductListProps> = ({
         />
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default CustomProductList;
+export default CustomProductList

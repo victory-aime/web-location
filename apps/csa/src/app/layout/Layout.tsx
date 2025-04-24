@@ -41,7 +41,7 @@ export const Layout: FunctionComponent<{
       globalApplicationContext.setToken(decodeToken)
       globalApplicationContext.setRefreshToken(decodeRefreshToken)
     }
-  }, [session?.access_token, session?.refresh_token])
+  }, [session])
 
   useEffect(() => {
     if (!session) {

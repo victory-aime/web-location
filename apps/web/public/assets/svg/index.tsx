@@ -11,4 +11,17 @@ import TrashIcon from './trash-icon.svg'
 import StoreIcon from './store.svg'
 import BagIcon from './Bag.svg'
 
-export { ListMenu, HomeIcon, Dot, LogOutIcon, ArrowDown, HomeV2, ShoppingCart, Eye, EyeOff, TrashIcon, StoreIcon, BagIcon }
+export {
+  ListMenu,
+  HomeIcon,
+  Dot,
+  LogOutIcon,
+  ArrowDown,
+  HomeV2,
+  ShoppingCart,
+  Eye,
+  EyeOff,
+  TrashIcon,
+  StoreIcon,
+  BagIcon,
+}

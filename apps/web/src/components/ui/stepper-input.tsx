@@ -1,26 +1,24 @@
-import { HStack, IconButton, NumberInput } from '@chakra-ui/react';
-import * as React from 'react';
-import { LuMinus, LuPlus } from 'react-icons/lu';
+import { HStack, IconButton, NumberInput } from '@chakra-ui/react'
+import * as React from 'react'
+import { LuMinus, LuPlus } from 'react-icons/lu'
 
 export interface StepperInputProps extends NumberInput.RootProps {
-  label?: React.ReactNode;
+  label?: React.ReactNode
 }
 
-export const StepperInput = React.forwardRef<HTMLDivElement, StepperInputProps>(
-  function StepperInput(props, ref) {
-    const { label, ...rest } = props;
-    return (
-      <NumberInput.Root {...rest} unstyled ref={ref}>
-        {label && <NumberInput.Label>{label}</NumberInput.Label>}
-        <HStack gap="2">
-          <DecrementTrigger />
-          <NumberInput.ValueText textAlign="center" fontSize="lg" minW="3ch" />
-          <IncrementTrigger />
-        </HStack>
-      </NumberInput.Root>
-    );
-  }
-);
+export const StepperInput = React.forwardRef<HTMLDivElement, StepperInputProps>(function StepperInput(props, ref) {
+  const { label, ...rest } = props
+  return (
+    <NumberInput.Root {...rest} unstyled ref={ref}>
+      {label && <NumberInput.Label>{label}</NumberInput.Label>}
+      <HStack gap="2">
+        <DecrementTrigger />
+        <NumberInput.ValueText textAlign="center" fontSize="lg" minW="3ch" />
+        <IncrementTrigger />
+      </HStack>
+    </NumberInput.Root>
+  )
+})
 
 const DecrementTrigger = React.forwardRef<HTMLButtonElement, NumberInput.DecrementTriggerProps>(
   function DecrementTrigger(props, ref) {
@@ -30,9 +28,9 @@ const DecrementTrigger = React.forwardRef<HTMLButtonElement, NumberInput.Decreme
           <LuMinus />
         </IconButton>
       </NumberInput.DecrementTrigger>
-    );
+    )
   }
-);
+)
 
 const IncrementTrigger = React.forwardRef<HTMLButtonElement, NumberInput.IncrementTriggerProps>(
   function IncrementTrigger(props, ref) {
@@ -42,6 +40,6 @@ const IncrementTrigger = React.forwardRef<HTMLButtonElement, NumberInput.Increme
           <LuPlus />
         </IconButton>
       </NumberInput.IncrementTrigger>
-    );
+    )
   }
-);
+)

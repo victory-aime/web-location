@@ -16,11 +16,11 @@ export class CacheHelper {
   }
 
   static invalidate(key: QueryKey): void {
-    this.queryClient.invalidateQueries({ queryKey: key, exact: false,refetchType:'active' })
+    this.queryClient.invalidateQueries({ queryKey: key, exact: false, refetchType: 'active' })
   }
 
   static refecthQueries(key: QueryKey): void {
-    this.queryClient.refetchQueries({queryKey: key})
+    this.queryClient.refetchQueries({ queryKey: key })
   }
 
   static remove(key: QueryKey): void {

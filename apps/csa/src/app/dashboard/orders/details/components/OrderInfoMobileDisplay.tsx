@@ -16,4 +16,3 @@ export const OrderInfoMobileDisplay = ({ orderDetailsList }: { orderDetailsList:
     </VStack>
   )
 }
-

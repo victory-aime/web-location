@@ -1,5 +1,5 @@
-import { Tooltip } from '_components/ui/tooltip';
-import { FC, ReactNode, useId } from 'react';
+import { Tooltip } from '_components/ui/tooltip'
+import { FC, ReactNode, useId } from 'react'
 
 type Placement =
   | 'top'
@@ -13,22 +13,17 @@ type Placement =
   | 'bottom-start'
   | 'bottom-end'
   | 'left-start'
-  | 'left-end';
+  | 'left-end'
 
 interface Props {
-  children: ReactNode;
-  message: string;
-  placement?: Placement;
-  arrow?: boolean;
+  children: ReactNode
+  message: string
+  placement?: Placement
+  arrow?: boolean
 }
 
-export const CustomToolTip: FC<Props> = ({
-  children,
-  message = 'tooltip message',
-  placement = 'top',
-  arrow,
-}) => {
-  const id = useId();
+export const CustomToolTip: FC<Props> = ({ children, message = 'tooltip message', placement = 'top', arrow }) => {
+  const id = useId()
   return (
     <Tooltip
       ids={{ trigger: id }}
@@ -41,5 +36,5 @@ export const CustomToolTip: FC<Props> = ({
     >
       {children}
     </Tooltip>
-  );
-};
+  )
+}

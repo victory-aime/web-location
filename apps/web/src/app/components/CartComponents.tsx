@@ -1,18 +1,18 @@
-import { Box, Float, Circle } from '@chakra-ui/react';
-import React from 'react';
-import { FaCartShopping } from 'react-icons/fa6';
-import { useRouter } from 'next/navigation';
-import { APP_ROUTES } from '_config/routes';
+import { Box, Float, Circle } from '@chakra-ui/react'
+import React from 'react'
+import { FaCartShopping } from 'react-icons/fa6'
+import { useRouter } from 'next/navigation'
+import { APP_ROUTES } from '_config/routes'
 
 export const CartComponents = ({
   cart,
 }: {
-  cart: any[];
-  removeItem: (item: { id: string; name: string }) => void;
-  clearAllCartItems: () => void;
-  loading: boolean;
+  cart: any[]
+  removeItem: (item: { id: string; name: string }) => void
+  clearAllCartItems: () => void
+  loading: boolean
 }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <>
       {/*{!responsiveMode ? (*/}
@@ -79,5 +79,5 @@ export const CartComponents = ({
         <FaCartShopping size={22} />
       </Box>
     </>
-  );
-};
+  )
+}

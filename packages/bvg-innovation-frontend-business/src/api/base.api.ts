@@ -1,5 +1,5 @@
-import { ApiService,  } from '.'
-import {IApplicationContext} from 'bvg-innovation-state-management'
+import { ApiService } from '.'
+import { IApplicationContext } from 'bvg-innovation-state-management'
 
 /**
  * Base API class to be extended by all service classes.

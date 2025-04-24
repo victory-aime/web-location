@@ -1,30 +1,26 @@
-import React from 'react';
-import { Center, VStack, Flex } from '@chakra-ui/react';
-import { APP_ROUTES } from '_config/routes';
-import { BaseButton } from '_components/custom/button';
-import { VariablesColors } from '_theme/variables';
-import { CheckBoxFom, FormTextInput } from '_components/custom/form';
-import { Formik } from 'formik';
-import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text';
-import { useRouter } from 'next/navigation';
-import { TYPES } from '@shop/shop-shared';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'next-auth/react';
-import {} from '@shop/shop-state-management';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { Center, VStack, Flex } from '@chakra-ui/react'
+import { APP_ROUTES } from '_config/routes'
+import { BaseButton } from '_components/custom/button'
+import { VariablesColors } from '_theme/variables'
+import { CheckBoxFom, FormTextInput } from '_components/custom/form'
+import { Formik } from 'formik'
+import { BaseText, TextVariant, TextWeight } from '_components/custom/base-text'
+import { useRouter } from 'next/navigation'
+import { TYPES } from 'bvg-innovation-shared'
+import { signIn } from 'next-auth/react'
 
 const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
-  const router = useRouter();
+  const router = useRouter()
   //const { success, loading } = useSelector(AuthModule.selectors.authSelector);
-  const dispatch = useDispatch();
 
   const submitValues = async (values: any) => {
     const request = {
       type: selectedRole,
       ...values,
-    };
+    }
     //dispatch(AuthModule.actions.signUpResquestAction(request));
-  };
+  }
 
   // useEffect(() => {
   //   if (success) {
@@ -33,13 +29,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
   // }, [success]);
 
   return (
-    <Center
-      alignItems={'flex-start'}
-      justifyContent={'flex-start'}
-      flexDir={'column'}
-      width={'100%'}
-      gap={6}
-    >
+    <Center alignItems={'flex-start'} justifyContent={'flex-start'} flexDir={'column'} width={'100%'} gap={6}>
       <BaseText variant={TextVariant.H3}>Creer un nouveau compte</BaseText>
       <BaseText color={'gray.500'}>Veuillez remplir vos informations ci dessous</BaseText>
 
@@ -123,7 +113,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
               padding={'25px'}
               w={'100%'}
               onClick={() => {
-                handleSubmit();
+                handleSubmit()
               }}
               isLoading={false}
             >
@@ -146,7 +136,7 @@ const RegisterComponent = ({ selectedRole }: { selectedRole: string }) => {
         </BaseText>
       </Flex>
     </Center>
-  );
-};
+  )
+}
 
-export default RegisterComponent;
+export default RegisterComponent

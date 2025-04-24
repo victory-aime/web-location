@@ -1,2 +1,2 @@
-import { BoxIcon } from './BoxIcon';
-export { BoxIcon };
+import { BoxIcon } from './BoxIcon'
+export { BoxIcon }

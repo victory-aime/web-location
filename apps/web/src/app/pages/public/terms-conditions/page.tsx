@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, Stack } from '@chakra-ui/react';
+import React from 'react'
+import { Box, Heading, Text, Stack } from '@chakra-ui/react'
 
 const TermsAndConditions = () => {
   return (
@@ -8,8 +8,8 @@ const TermsAndConditions = () => {
         Termes et Conditions
       </Heading>
       <Text mb={2}>
-        Bienvenue sur notre plateforme de vente en ligne. En utilisant notre application, vous
-        acceptez les termes et conditions suivants.
+        Bienvenue sur notre plateforme de vente en ligne. En utilisant notre application, vous acceptez les termes et
+        conditions suivants.
       </Text>
 
       <Stack gap={4}>
@@ -18,8 +18,8 @@ const TermsAndConditions = () => {
             1. Objet
           </Heading>
           <Text>
-            Ces conditions générales régissent l'utilisation de notre application et la relation
-            entre les vendeurs et les acheteurs.
+            Ces conditions générales régissent l'utilisation de notre application et la relation entre les vendeurs et
+            les acheteurs.
           </Text>
         </Box>
 
@@ -28,8 +28,8 @@ const TermsAndConditions = () => {
             2. Inscription et Compte
           </Heading>
           <Text>
-            Vous devez créer un compte pour accéder à certains services. Vous êtes responsable de la
-            confidentialité de vos identifiants.
+            Vous devez créer un compte pour accéder à certains services. Vous êtes responsable de la confidentialité de
+            vos identifiants.
           </Text>
         </Box>
 
@@ -38,8 +38,8 @@ const TermsAndConditions = () => {
             3. Produits et Commandes
           </Heading>
           <Text>
-            Les vendeurs sont responsables des produits qu'ils proposent. Toute commande est
-            définitive après confirmation du paiement.
+            Les vendeurs sont responsables des produits qu'ils proposent. Toute commande est définitive après
+            confirmation du paiement.
           </Text>
         </Box>
 
@@ -48,8 +48,8 @@ const TermsAndConditions = () => {
             4. Paiements et Sécurité
           </Heading>
           <Text>
-            Nous utilisons des solutions de paiement sécurisées. Vos informations bancaires ne sont
-            pas stockées sur notre plateforme.
+            Nous utilisons des solutions de paiement sécurisées. Vos informations bancaires ne sont pas stockées sur
+            notre plateforme.
           </Text>
         </Box>
 
@@ -58,8 +58,8 @@ const TermsAndConditions = () => {
             5. Retours et Remboursements
           </Heading>
           <Text>
-            Les retours sont possibles sous certaines conditions. Consultez notre politique de
-            remboursement pour plus de détails.
+            Les retours sont possibles sous certaines conditions. Consultez notre politique de remboursement pour plus
+            de détails.
           </Text>
         </Box>
 
@@ -68,8 +68,8 @@ const TermsAndConditions = () => {
             6. Responsabilités
           </Heading>
           <Text>
-            Nous ne sommes pas responsables des dommages directs ou indirects résultant de
-            l'utilisation de notre application.
+            Nous ne sommes pas responsables des dommages directs ou indirects résultant de l'utilisation de notre
+            application.
           </Text>
         </Box>
       </Stack>
@@ -106,8 +106,8 @@ const TermsAndConditions = () => {
             3. Propriété intellectuelle
           </Heading>
           <Text>
-            Tous les contenus présents sur notre application sont protégés par le droit d'auteur.
-            Toute reproduction est interdite sans autorisation préalable.
+            Tous les contenus présents sur notre application sont protégés par le droit d'auteur. Toute reproduction est
+            interdite sans autorisation préalable.
           </Text>
         </Box>
 
@@ -116,13 +116,13 @@ const TermsAndConditions = () => {
             4. Données personnelles
           </Heading>
           <Text>
-            Nous respectons votre vie privée et vos données personnelles. Consultez notre politique
-            de confidentialité pour en savoir plus.
+            Nous respectons votre vie privée et vos données personnelles. Consultez notre politique de confidentialité
+            pour en savoir plus.
           </Text>
         </Box>
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default TermsAndConditions;
+export default TermsAndConditions

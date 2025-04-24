@@ -1,20 +1,20 @@
-import { useFormikContext } from "formik";
-import { useEffect } from "react";
+import { useFormikContext } from 'formik'
+import { useEffect } from 'react'
 
 export const ProfitCalculator = () => {
-  const { values, setFieldValue } = useFormikContext<any>();
+  const { values, setFieldValue } = useFormikContext<any>()
 
   useEffect(() => {
-    const { price, articlePrice } = values;
+    const { price, articlePrice } = values
 
     if (price && articlePrice) {
-      const profit = price - articlePrice;
-      const profitMargin = price > 0 ? (profit / price) * 100 : 0;
+      const profit = price - articlePrice
+      const profitMargin = price > 0 ? (profit / price) * 100 : 0
 
-      setFieldValue("profit", profit.toFixed(2));
-      setFieldValue("profitMargin", `${profitMargin.toFixed(2)}`);
+      setFieldValue('profit', profit.toFixed(2))
+      setFieldValue('profitMargin', `${profitMargin.toFixed(2)}`)
     }
-  }, [values.price, values.articlePrice, setFieldValue]);
+  }, [values.price, values.articlePrice, setFieldValue])
 
-  return null;
-};
+  return null
+}

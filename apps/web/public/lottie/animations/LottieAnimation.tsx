@@ -1,7 +1,15 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { ConfirmCommand, NoDataFoundLottie, LoaderAnimation, DeleteAnimation, TrashAnimation, TrashAnimationV2, ThinkingAnimation } from '_lottie/json'
+import {
+  ConfirmCommand,
+  NoDataFoundLottie,
+  LoaderAnimation,
+  DeleteAnimation,
+  TrashAnimation,
+  TrashAnimationV2,
+  ThinkingAnimation,
+} from '_lottie/json'
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
@@ -33,4 +41,12 @@ const ThinkingLottieAnimation = () => {
   return <Lottie animationData={ThinkingAnimation} />
 }
 
-export { LottieAnimation, NoDataFoundLottieAnimation, LoaderLottie, DeleteLottie, TrashLottieAnimation, TrashLottieAnimationV2, ThinkingLottieAnimation }
+export {
+  LottieAnimation,
+  NoDataFoundLottieAnimation,
+  LoaderLottie,
+  DeleteLottie,
+  TrashLottieAnimation,
+  TrashLottieAnimationV2,
+  ThinkingLottieAnimation,
+}

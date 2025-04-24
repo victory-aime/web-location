@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { useField } from 'formik';
-import { Field, Flex, Text, Textarea } from '@chakra-ui/react';
-import { FormTextAreaProps } from './interface/input';
-import { HiOutlineInformationCircle } from 'react-icons/hi';
+import React, { FC } from 'react'
+import { useField } from 'formik'
+import { Field, Flex, Text, Textarea } from '@chakra-ui/react'
+import { FormTextAreaProps } from './interface/input'
+import { HiOutlineInformationCircle } from 'react-icons/hi'
 
 const FormTextArea: FC<FormTextAreaProps> = ({
   required = false,
@@ -23,10 +23,10 @@ const FormTextArea: FC<FormTextAreaProps> = ({
   const fieldHookConfig = {
     name,
     validate,
-  };
+  }
 
-  const [field, { touched, error }] = useField(fieldHookConfig);
-  const isError = isReadOnly ? !!error : !!(touched && error);
+  const [field, { touched, error }] = useField(fieldHookConfig)
+  const isError = isReadOnly ? !!error : !!(touched && error)
 
   return (
     <Field.Root id={name} invalid={isError}>
@@ -53,25 +53,23 @@ const FormTextArea: FC<FormTextAreaProps> = ({
         borderRadius={'7px'}
         value={value ?? field.value}
         onChange={(event: never) => {
-          onChangeFunction(event);
+          onChangeFunction(event)
         }}
         readOnly={isReadOnly}
         disabled={isDisabled}
         onBlur={(e) => {
-          field.onBlur(e);
+          field.onBlur(e)
         }}
       />
       {localErrorMsg || helperMessage ? (
         <Flex p={1} gap={2}>
           <HiOutlineInformationCircle size={18} color={isError ? 'red' : 'none'} />
-          <Field.HelperText>
-            {localErrorMsg ? localErrorMsg : helperMessage ? null : ''}
-          </Field.HelperText>
+          <Field.HelperText>{localErrorMsg ? localErrorMsg : helperMessage ? null : ''}</Field.HelperText>
         </Flex>
       ) : null}
       {isError && <Field.ErrorText>{error}</Field.ErrorText>}
     </Field.Root>
-  );
-};
+  )
+}
 
-export default FormTextArea;
+export default FormTextArea

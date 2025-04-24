@@ -22,15 +22,16 @@
     "version:minor": "yarn version minor",
     "version:major": "yarn version major",
     "prepublishOnly": "yarn clean && yarn build",
-    "publish:lib": "yarn publish --access public"
+    "publish:lib": "yarn publish --access public",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "publishConfig": {
     "access": "public"
   },
-
   "devDependencies": {
     "bvg-innovation-shared": "*",
-    "bvg-innovation-state-management":"*",
+    "bvg-innovation-state-management": "*",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",

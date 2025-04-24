@@ -1,16 +1,16 @@
 type ColorShades = {
-  [key: number]: { value: string };
-};
+  [key: number]: { value: string }
+}
 
 export type Colors = {
-  primary: ColorShades;
-  secondary: ColorShades;
-  blue: ColorShades;
-  red: ColorShades;
-  orange: ColorShades;
-  overlay: ColorShades;
-  neutral: ColorShades;
-};
+  primary: ColorShades
+  secondary: ColorShades
+  blue: ColorShades
+  red: ColorShades
+  orange: ColorShades
+  overlay: ColorShades
+  neutral: ColorShades
+}
 
 const colors: Colors = {
   primary: {
@@ -50,10 +50,9 @@ const colors: Colors = {
   overlay: {
     500: { value: '#000000' },
   },
-};
+}
 
-const getColor = (color: keyof Colors = 'primary', opacity: number = 500) =>
-  colors[color]?.[opacity]?.value;
+const getColor = (color: keyof Colors = 'primary', opacity: number = 500) => colors[color]?.[opacity]?.value
 
 /**
  * Get the color with the specified opacity.
@@ -62,12 +61,12 @@ const getColor = (color: keyof Colors = 'primary', opacity: number = 500) =>
  * @returns The RGBA color string with the specified opacity.
  */
 const hexToRGB = (color: keyof Colors, alpha?: number, op?: number) => {
-  const hex = getColor(color, op);
-  const r = parseInt(hex?.slice(1, 3), 16);
-  const g = parseInt(hex?.slice(3, 5), 16);
-  const b = parseInt(hex?.slice(5, 7), 16);
+  const hex = getColor(color, op)
+  const r = parseInt(hex?.slice(1, 3), 16)
+  const g = parseInt(hex?.slice(3, 5), 16)
+  const b = parseInt(hex?.slice(5, 7), 16)
 
-  return `rgba(${r},${g},${b}${alpha ? `, ${alpha}` : ''})`;
-};
+  return `rgba(${r},${g},${b}${alpha ? `, ${alpha}` : ''})`
+}
 
-export { colors, hexToRGB, getColor };
+export { colors, hexToRGB, getColor }

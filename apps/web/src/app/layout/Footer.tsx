@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Container, Grid, Heading, Link, VStack, Text, HStack } from '@chakra-ui/react';
+import React from 'react'
+import { Box, Container, Grid, Heading, Link, VStack, Text, HStack } from '@chakra-ui/react'
 
 export const Footer = () => {
   return (
@@ -55,5 +55,5 @@ export const Footer = () => {
         </Grid>
       </Container>
     </Box>
-  );
-};
+  )
+}

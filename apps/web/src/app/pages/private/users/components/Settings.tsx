@@ -1,6 +1,6 @@
-import { Flex, Stack, Box, For, VStack, Separator } from '@chakra-ui/react';
-import { BoxContainer,SwitchColorMode,BaseText,TextVariant } from '_components/custom';
-import React from 'react';
+import { Flex, Stack, Box, For, VStack, Separator } from '@chakra-ui/react'
+import { BoxContainer, SwitchColorMode, BaseText, TextVariant } from '_components/custom'
+import React from 'react'
 
 const Settings = () => {
   const settingsItem = [
@@ -43,7 +43,7 @@ const Settings = () => {
         </Flex>
       ),
     },
-  ];
+  ]
   return (
     <BoxContainer border={'none'} p={{ base: 5, md: 10 }} title={'Paramètres'}>
       <Box gap={5} mt={5} width={'full'}>
@@ -59,7 +59,7 @@ const Settings = () => {
         </For>
       </Box>
     </BoxContainer>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

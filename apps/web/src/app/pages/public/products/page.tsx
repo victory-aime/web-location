@@ -1,5 +1,5 @@
-import ProductViewList from './components/ProductViewList';
+import ProductViewList from './components/ProductViewList'
 
 export default function ProductViewListHome() {
-  return <ProductViewList />;
+  return <ProductViewList />
 }

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
 
 export async function refreshAccessToken(refresh_token: any) {
-  try{
+  try {
     const resp = await axios.post(
       process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_TOKEN_URL!,
       new URLSearchParams({
@@ -16,10 +16,10 @@ export async function refreshAccessToken(refresh_token: any) {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       }
-    );
-    const refreshToken = resp.data;
+    )
+    const refreshToken = resp.data
 
-    console.log('====>refresh token====> ',);
+    console.log('====>refresh token====> ')
 
     return {
       ...refresh_token,
@@ -29,10 +29,8 @@ export async function refreshAccessToken(refresh_token: any) {
       keycloakId: refreshToken?.decode?.sub,
       expires_at: Math.floor(Date.now() / 1000) + refreshToken.expires_in,
       refresh_token: refreshToken?.refresh_token,
-    };
-  }catch (e) {
-    console.error('Error refreshing access token', e);
-
+    }
+  } catch (e) {
+    console.error('Error refreshing access token', e)
   }
-
 }

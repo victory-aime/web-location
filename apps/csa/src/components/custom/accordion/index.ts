@@ -1,5 +1,5 @@
-import  {CustomAccordion}from './CustomAccordion'
-import {AccordionProps} from './interface/accordion'
+import { CustomAccordion } from './CustomAccordion'
+import { AccordionProps } from './interface/accordion'
 
-export {CustomAccordion}
-export type {AccordionProps}
+export { CustomAccordion }
+export type { AccordionProps }

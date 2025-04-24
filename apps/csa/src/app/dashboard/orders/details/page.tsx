@@ -33,7 +33,7 @@ interface Props {
 }
 
 const DetailsPage = () => {
-  const user = UsersModule.cache.UserCache.getPrivate()
+  const user = UsersModule.UserCache.getUser()
   const orderId = useSearchParams()?.get('orderId') ?? null
   let formikReset: (() => void) | null = null
   const { data: orderDetails, isLoading } = OrdersModule.fetchOrderDetailsByStore({

@@ -1,19 +1,11 @@
-import { For, HStack, Icon, RadioCardItemDescription, Flex } from '@chakra-ui/react';
-import { RadioCardItem, RadioCardLabel, RadioCardRoot } from '_components/ui/radio-card';
-import { FC, useState } from 'react';
-import { Checkbox } from '_components/ui/checkbox';
-import { IRadioCardProps } from '_components/custom';
+import { For, HStack, Icon, RadioCardItemDescription, Flex } from '@chakra-ui/react'
+import { RadioCardItem, RadioCardLabel, RadioCardRoot } from '_components/ui/radio-card'
+import { FC, useState } from 'react'
+import { Checkbox } from '_components/ui/checkbox'
+import { IRadioCardProps } from '_components/custom'
 
-export const CustomRadioCard: FC<IRadioCardProps> = ({
-  items,
-  labelTitle,
-  orientation = 'horizontal',
-  colorPalette = 'black',
-  stepButton,
-  onValueChange,
-  ...rest
-}) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+export const CustomRadioCard: FC<IRadioCardProps> = ({ items, labelTitle, orientation = 'horizontal', colorPalette = 'black', stepButton, onValueChange, ...rest }) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   return (
     <RadioCardRoot
@@ -28,10 +20,10 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
       variant={'solid'}
       value={items[currentIndex]?.label}
       onValueChange={(details: { value: string | null }) => {
-        const { value } = details;
-        const index = items?.findIndex((item) => item?.label === value);
-        setCurrentIndex(index);
-        if (onValueChange && value !== null) onValueChange({ value });
+        const { value } = details
+        const index = items?.findIndex((item) => item?.label === value)
+        setCurrentIndex(index)
+        if (onValueChange && value !== null) onValueChange({ value })
       }}
       {...rest}
     >
@@ -64,9 +56,7 @@ export const CustomRadioCard: FC<IRadioCardProps> = ({
         </For>
       </HStack>
 
-      {items[currentIndex]?.desc && (
-        <RadioCardItemDescription mt={5}>{items[currentIndex]?.desc}</RadioCardItemDescription>
-      )}
+      {items[currentIndex]?.desc && <RadioCardItemDescription mt={5}>{items[currentIndex]?.desc}</RadioCardItemDescription>}
     </RadioCardRoot>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
 export type ProductStatus = 'PUBLISH' | 'DISABLED' | 'DRAFT'
-export type OrderItemStatus ="PENDING" | "SHIPPED" | "DELIVERED" | "CANCELED"
+export type OrderItemStatus = 'PENDING' | 'SHIPPED' | 'DELIVERED' | 'CANCELED'
 
 export interface ICreateProduct extends IProduct {
   discountPrice?: number

@@ -1,3 +1,3 @@
 export * as constants from './constants'
-export * as cache from './cache'
+export * from './user.cache'
 export * from './users.queries'

@@ -1,5 +1,5 @@
-import { Flex, FlexProps } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import { Flex, FlexProps } from '@chakra-ui/react'
+import React, { FC } from 'react'
 
 export const BoxIcon: FC<FlexProps> = ({ children, color, ...rest }) => {
   return (
@@ -14,5 +14,5 @@ export const BoxIcon: FC<FlexProps> = ({ children, color, ...rest }) => {
     >
       {children}
     </Flex>
-  );
-};
+  )
+}
