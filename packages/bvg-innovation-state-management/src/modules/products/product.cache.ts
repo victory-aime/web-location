@@ -23,5 +23,7 @@ export const ProductCache = {
   invalidatePrivate: () =>
      TYPES.HELPERS.CacheHelper.invalidate([Constants.PRIVATE_PRODUCTS]),
 
+  invalidateTrashList: () => TYPES.HELPERS.CacheHelper.invalidate([Constants.TRASH_LIST_PRODUCT]),
+
   removeQueries: ()=> TYPES.HELPERS.CacheHelper.remove([Constants.PRIVATE_PRODUCTS])
 }

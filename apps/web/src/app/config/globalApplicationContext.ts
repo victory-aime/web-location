@@ -1,5 +1,5 @@
 import { APIS } from 'bvg-innovation-shared'
-import { ApplicationContext } from 'bvg-innovation-frontend-business'
+import { ApplicationContext } from 'bvg-innovation-state-management'
 import { handleApiError } from '_utils/handleApiError'
 import { handleApiSuccess } from '_utils/handleApiSuccess'
 

@@ -5,8 +5,8 @@ export const productListStatus = [
 ]
 
 export const statusOrderType = [
-  { label: 'Nouvelle', value: 'NEW' },
+  { label: 'En Attente', value: 'PENDING' },
   { label: 'Livré', value: 'DELIVERED' },
-  { label: 'En cours', value: 'IN_PROGRESS' },
+  { label: 'Expedié', value: 'SHIPPED' },
   { label: 'Annulée', value: 'CANCELED' },
 ]

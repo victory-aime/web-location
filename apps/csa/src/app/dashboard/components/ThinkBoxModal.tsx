@@ -63,7 +63,7 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
 
   return (
     <Formik initialValues={{ subject: '', message: '' }} onSubmit={handleSubmitForm}>
-      {({ values, handleSubmit, setFieldValue, resetForm }) => (
+      {({ handleSubmit, setFieldValue, resetForm }) => (
         <ModalComponent
           open={isOpen}
           onChange={() => onChange(!isOpen)}

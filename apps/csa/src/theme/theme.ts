@@ -12,8 +12,8 @@ const config = defineConfig({
       animations,
       colors,
       fonts: {
-        heading: { value: 'var(--font-bricolage)' },
-        body: { value: 'var(--font-bricolage)' },
+        heading: { value: 'var(--font-lato)' },
+        body: { value: 'var(--font-lato)' },
       },
     },
   },

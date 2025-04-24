@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
  * Liste des routes protégées et des rôles autorisés pour chacune.
  */
 const protectedRoutes: Record<string, string[]> = {
-  '/pages/:path*': ['users'],
+  '/pages/:path*': ['users', 'vendor', 'admin'],
 }
 
 /**

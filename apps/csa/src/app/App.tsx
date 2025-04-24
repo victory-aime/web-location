@@ -16,7 +16,7 @@ export const GlobalApplication = ({ children, session }: { children: React.React
     <SessionProvider session={session}>
       <QueryClientProvider client={TYPES.queryClient}>
         <ThemeProvider>
-          <SessionErrorModal />
+          <SessionErrorModal session={session} />
           <Toaster />
           {children}
         </ThemeProvider>

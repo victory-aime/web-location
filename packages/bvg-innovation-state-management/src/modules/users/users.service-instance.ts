@@ -1,4 +1,5 @@
-import { UsersModule, applicationInstance } from 'bvg-innovation-frontend-business'
+import { applicationInstance } from '../../context'
+import {UsersModule} from 'bvg-innovation-frontend-business'
 
 export const usersServiceInstance = () => {
   const context = applicationInstance.getContext()

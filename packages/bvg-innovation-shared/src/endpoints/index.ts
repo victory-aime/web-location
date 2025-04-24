@@ -1,204 +1,113 @@
 type MethodType = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+
 export type APIObjectType = {
   url: string
   method: MethodType
   responseType?: string
   headers?: any
-  showLoader?: boolean
+  showResponse?: boolean
   handleErrorManually?: boolean
 }
+
 export const API_BASIC_URL = {
   SECURED_API: '/secure',
   UNSECURED_API: '/unsecured',
 }
 type PathBaseKeys = keyof typeof API_BASIC_URL
+
 export enum PlatformType {
   WEB = 'WEB',
 }
+
 const API_BASIC_URL_MAP: Record<PlatformType, typeof API_BASIC_URL> = {
   [PlatformType.WEB]: API_BASIC_URL,
 }
+
 type ApiActionProps = {
-  pathBase?: PathBaseKeys
   path: string
   method: MethodType
+  pathBase?: PathBaseKeys
   platformType?: PlatformType
   baseUrl?: string
   responseType?: string
+  showResponse?: boolean
+  handleErrorManually?: boolean
 }
 
 const createApiAction = ({
-  pathBase = 'SECURED_API',
-  method,
   path,
+  method,
+  pathBase = 'SECURED_API',
   platformType = PlatformType.WEB,
   baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL + '_api/v1',
   responseType,
+  showResponse = true,
+  handleErrorManually = true,
 }: ApiActionProps): APIObjectType => {
-  const url = baseUrl?.concat(...[API_BASIC_URL_MAP[platformType][pathBase], path])
+  const base = API_BASIC_URL_MAP[platformType][pathBase]
   return {
-    url,
+    url: `${baseUrl}${base}${path}`,
     method,
     responseType,
+    showResponse,
+    handleErrorManually,
   }
 }
 
 export const APIS = (baseUrl?: string) => {
+  const api = (args: Omit<ApiActionProps, 'baseUrl'>): APIObjectType =>
+    createApiAction({ ...args, baseUrl })
+
   return {
     SEND_EMAIL: {
-      CONTACT_US: createApiAction({
-        pathBase: 'UNSECURED_API',
-        path: '/send-email',
-        method: 'POST',
-        baseUrl,
-      }),
+      CONTACT_US: api({ pathBase: 'UNSECURED_API', path: '/send-email', method: 'POST' }),
     },
     AUTH: {
-      SIGN_UP: createApiAction({
-        path: '/user/register',
-        pathBase: 'UNSECURED_API',
-        method: 'POST',
-        baseUrl,
-      }),
+      SIGN_UP: api({ path: '/user/register', pathBase: 'UNSECURED_API', method: 'POST' }),
     },
     USERS: {
       PRIVATE: {
-        ME: createApiAction({
+        ME: api({
           path: '/user/me',
-          pathBase: 'SECURED_API',
           method: 'GET',
-          baseUrl,
+          showResponse: false,
+          handleErrorManually: false,
         }),
-        UPDATE_USER: createApiAction({
-          path: '/user/update-info',
-          pathBase: 'SECURED_API',
-          method: 'PATCH',
-          baseUrl,
-        }),
+        UPDATE_USER: api({ path: '/user/update-info', method: 'PATCH' }),
       },
-
-      NEW_ADDRESS: createApiAction({
-        path: '/user/add-shipping-address',
-        pathBase: 'SECURED_API',
-        method: 'POST',
-        baseUrl,
-      }),
-      EDIT_ADDRESS: createApiAction({
-        path: '/user/update-shipping-address',
-        pathBase: 'SECURED_API',
-        method: 'POST',
-        baseUrl,
-      }),
-      DELETE_ADDRESS: createApiAction({
-        path: '/user/delete-shipping-address',
-        pathBase: 'SECURED_API',
-        method: 'DELETE',
-        baseUrl,
-      }),
+      NEW_ADDRESS: api({ path: '/user/add-shipping-address', method: 'POST' }),
+      EDIT_ADDRESS: api({ path: '/user/update-shipping-address', method: 'POST' }),
+      DELETE_ADDRESS: api({ path: '/user/delete-shipping-address', method: 'DELETE' }),
     },
     PRODUCTS: {
       PRIVATE: {
-        GET_PRODUCTS: createApiAction({
-          path: '/products/get-products',
-          pathBase: 'SECURED_API',
-          method: 'GET',
-          baseUrl,
-        }),
-        CREATE_PRODUCT: createApiAction({
-          path: '/products/add-product',
-          pathBase: 'SECURED_API',
-          method: 'POST',
-          baseUrl,
-        }),
-        UPDATE_PRODUCT: createApiAction({
-          path: '/products/update-product',
-          pathBase: 'SECURED_API',
-          method: 'PATCH',
-          baseUrl,
-        }),
-        GET_CATEGORIES: createApiAction({
-          path: '/categories',
-          pathBase: 'SECURED_API',
-          method: 'GET',
-          baseUrl,
-        }),
-        DELETE_PRODUCT: createApiAction({
-          path: '/products/delete-product',
-          pathBase: 'SECURED_API',
-          method: 'DELETE',
-          baseUrl,
-        }),
-        SOFT_DELETE_PRODUCT: createApiAction({
-          path: '/products/soft-delete-product',
-          pathBase: 'SECURED_API',
-          method: 'PUT',
-          baseUrl,
-        }),
-        TRASH_LIST_PRODUCT: createApiAction({
-          path: '/products/trash-list',
-          pathBase: 'SECURED_API',
-          method: 'GET',
-          baseUrl,
-        }),
-        RESTORE_PRODUCT: createApiAction({
-          path: '/products/restore-product',
-          pathBase: 'SECURED_API',
-          method: 'POST',
-          baseUrl,
-        }),
+        GET_PRODUCTS: api({ path: '/products/get-products', method: 'GET', showResponse: false }),
+        CREATE_PRODUCT: api({ path: '/products/add-product', method: 'POST' }),
+        UPDATE_PRODUCT: api({ path: '/products/update-product', method: 'PATCH' }),
+        GET_CATEGORIES: api({ path: '/categories', method: 'GET', showResponse:false }),
+        DELETE_PRODUCT: api({ path: '/products/delete-product', method: 'DELETE',  }),
+        SOFT_DELETE_PRODUCT: api({ path: '/products/soft-delete-product', method: 'PUT',showResponse:false }),
+        TRASH_LIST_PRODUCT: api({ path: '/products/trash-list', method: 'GET', showResponse:false }),
+        RESTORE_PRODUCT: api({ path: '/products/restore-product', method: 'POST', showResponse:false }),
       },
-      PUBLIC_PRODUCTS: createApiAction({
+      PUBLIC_PRODUCTS: api({
         path: '/products/all-public-products',
-        pathBase: 'UNSECURED_API',
         method: 'GET',
-        baseUrl,
+        pathBase: 'UNSECURED_API',
+        showResponse: false
       }),
     },
     WISHLIST: {
-      GET_WISHLIST: createApiAction({
-        path: '/wishlist/get-wishlist',
-        pathBase: 'SECURED_API',
-        method: 'GET',
-        baseUrl,
-      }),
-      ADD_WISHLIST_ITEM: createApiAction({
-        path: '/wishlist/add-to-wishlist',
-        pathBase: 'SECURED_API',
-        method: 'POST',
-        baseUrl,
-      }),
-      REMOVE_WISHLIST_ITEM: createApiAction({
-        path: '/wishlist/remove-from-wishlist',
-        pathBase: 'SECURED_API',
-        method: 'DELETE',
-        baseUrl,
-      }),
+      GET_WISHLIST: api({ path: '/wishlist/get-wishlist', method: 'GET', showResponse:false }),
+      ADD_WISHLIST_ITEM: api({ path: '/wishlist/add-to-wishlist', method: 'POST' }),
+      REMOVE_WISHLIST_ITEM: api({ path: '/wishlist/remove-from-wishlist', method: 'DELETE' }),
     },
     ORDERS: {
-      NEW_ORDER: createApiAction({
-        path: '/order/new-order',
-        pathBase: 'SECURED_API',
-        method: 'POST',
-        baseUrl,
-      }),
-      ORDER_LIST: createApiAction({
-        path: '/order/user-order-list',
-        pathBase: 'SECURED_API',
-        method: 'GET',
-        baseUrl,
-      }),
-      ORDER_STORE_LIST: createApiAction({
-        path: '/order/store-order-list',
-        pathBase: 'SECURED_API',
-        method: 'GET',
-        baseUrl,
-      }),
-      UPDATE_ORDER_BY_VENDOR: createApiAction({
-        path: '/order/update-order',
-        pathBase: 'SECURED_API',
-        method: 'PATCH',
-        baseUrl,
-      }),
+      NEW_ORDER: api({ path: '/order/new-order', method: 'POST' }),
+      ORDER_LIST: api({ path: '/order/user-order-list', method: 'GET', showResponse:false }),
+      ORDER_STORE_LIST: api({ path: '/order/store-order-list', method: 'GET', showResponse:false }),
+      ORDER_DETAILS_BY_STORE: api({ path: '/order/get-order-details-store', method: 'GET', showResponse:false }),
+      UPDATE_ORDER_BY_VENDOR: api({ path: '/order/update-order', method: 'PATCH' }),
     },
   }
 }

@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "bvg-innovation-frontend-business": "*",
     "bvg-innovation-shared": "*",
     "bvg-innovation-state-management": "*",
     "crypto-js": "^4.2.0",

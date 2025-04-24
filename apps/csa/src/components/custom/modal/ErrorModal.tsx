@@ -6,19 +6,23 @@ import { PiWarningBold } from 'react-icons/pi'
 import { BaseText, ModalComponent } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
 import { keycloakSessionLogOut } from '_hooks/logout'
-import { globalApplicationContext } from '_config/globalState'
+import { Session } from 'next-auth'
 
-export const SessionErrorModal = () => {
+export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   const [showSessionError, setShowSessionError] = useState(false)
-  useEffect(() => {
-    globalApplicationContext.setSessionErrorHandler(() => {
-      setShowSessionError(true)
-    })
-  }, [globalApplicationContext])
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      setShowSessionError(true)
+    }
+  }, [session?.error])
+
   const handleReconnect = () => {
-    signIn('keycloak').then(() => {})
+    signIn('keycloak').then(() => {
+      setLoading(false)
+    })
+    setLoading(true)
   }
 
   return (

@@ -7,13 +7,7 @@ import { TbProgress } from 'react-icons/tb'
 import { Props, Status, BadgeType } from './interface/badge'
 import { BaseText, TextVariant } from '../base-text'
 
-export const CustomBadge: FC<Props> = ({
-  children,
-  status = 'PENDING',
-  variant = 'solid',
-  type = 'order',
-  ...props
-}) => {
+export const CustomBadge: FC<Props> = ({ children, status = 'PENDING', variant = 'solid', type = 'order', ...props }) => {
   const getBadgeAttributes = (status: Status | string, type: BadgeType) => {
     if (type === 'order') {
       switch (status) {
@@ -23,8 +17,8 @@ export const CustomBadge: FC<Props> = ({
             icon: <MdOutlineDoneAll />,
             label: 'Livré',
           }
-        case 'IN_PROGRESS':
-          return { color: 'blue.500', icon: <TbProgress />, label: 'En cours' }
+        case 'SHIPPED':
+          return { color: 'blue.500', icon: <TbProgress />, label: 'Expedié' }
         case 'CANCELED':
           return { color: 'red.500', icon: <GiCancel />, label: 'Annulée' }
         default:

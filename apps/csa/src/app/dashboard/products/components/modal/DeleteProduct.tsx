@@ -7,7 +7,7 @@ import { IProductMoalProps } from './interface/modal-product'
 import { TrashIcon } from '_assets/svg'
 
 export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = 'soft' }: IProductMoalProps) => {
-  const { mutateAsync, isPending } = ProductModule.softDeleteProductMutation({
+  const { mutateAsync, isPending: softDeletePending } = ProductModule.softDeleteProductMutation({
     onSuccess: () => {
       setShowAnimation(true)
       setTimeout(() => {
@@ -17,19 +17,28 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
       ProductModule.cache.ProductCache.invalidatePrivate()
     },
   })
+  const { mutateAsync: deleteProduct, isPending: deletePermanentlyPending } = ProductModule.permanentlyDeleteProductMutation({
+    onSuccess: () => {
+      setShowAnimation(true)
+      setTimeout(() => {
+        setShowAnimation(false)
+        onChange(false)
+      }, 2200)
+      ProductModule.cache.ProductCache.invalidatePrivate()
+      ProductModule.cache.ProductCache.invalidateTrashList()
+    },
+  })
   const [showAnimation, setShowAnimation] = useState(false)
 
   const handleDelete = async () => {
     if (deleteType === 'soft') {
       await mutateAsync({ productId: selectedValues })
     } else {
-      // dispatch(
-      //   ProductModule.actions.deleteProductRequest({
-      //     productId: selectedValues?.id,
-      //   })
-      // );
+      await deleteProduct({ productId: selectedValues })
     }
   }
+
+  console.log('selectedValues', selectedValues)
 
   return (
     <ModalComponent
@@ -40,7 +49,7 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
       modalType={'alertdialog'}
       ignoreFooter={false}
       buttonSaveTitle={'Supprimer'}
-      isLoading={isPending}
+      isLoading={softDeletePending ?? deletePermanentlyPending}
       onClick={handleDelete}
     >
       {showAnimation ? (

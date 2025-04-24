@@ -15,14 +15,14 @@ export const Toaster = () => {
     <Portal>
       <ChakraToaster toaster={toaster} insetInline={{ mdDown: '4' }}>
         {(toast) => (
-          <Toast.Root bgColor={toast.type === 'info' ? 'blue.500' : toast.type === 'success' ? 'primary.500' : ''} color={'white'} width={{ md: 'sm' }} p={4}>
+          <Toast.Root bgColor={toast.type === 'info' ? 'blue.500' : toast.type === 'success' ? 'primary.500' : ''} width={{ md: 'sm' }} p={4}>
             {toast.type === 'loading' ? <Spinner size="sm" color="blue.solid" /> : <Toast.Indicator colorPalette={'gray'} />}
-            <Stack gap="1" flex="1" maxWidth="100%" color={'white'}>
+            <Stack gap="1" flex="1" maxWidth="100%">
               {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
               {toast.description && <Toast.Description>{toast.description}</Toast.Description>}
             </Stack>
             {toast.action && <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>}
-            {toast.meta?.closable && <Toast.CloseTrigger p={2} color="'white" />}
+            {toast.meta?.closable && <Toast.CloseTrigger p={2} />}
           </Toast.Root>
         )}
       </ChakraToaster>

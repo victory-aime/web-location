@@ -1,8 +1,8 @@
 export const APP_ROUTES = {
   HOME: '/dashboard',
   ORDER: {
-    LIST: '/dashboard/order',
-    DETAILS: '/dashboard/order/details',
+    LIST: '/dashboard/orders',
+    DETAILS: '/dashboard/orders/details',
   },
   CATEGORY: '/dashboard/category',
   PRODUCTS: {

@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { APIObjectType } from 'bvg-innovation-shared'
-import { InvokeOptions, IApplicationContext } from './'
+import { IApplicationContext } from 'bvg-innovation-state-management'
+import {InvokeOptions} from './types'
 
 /**
  * Generic API service for handling HTTP requests.
@@ -49,16 +50,15 @@ export class ApiService {
 
     return axios(config)
       .then((res) => {
-        this.applicationContext.handleInfo(res.data)
-        return res.data as RS
+        if (endpoint.showResponse !== false) {
+          this.applicationContext.handleInfo(res)
+        }
+          return res.data as RS
+        
       })
       .catch((error) => {
-        console.error('error', error)
-        if (!endpoint.handleErrorManually) {
-          this.applicationContext.handleError({
-            status: error?.response?.status,
-            message: error?.message || 'An unexpected error occurred',
-          })
+        if (endpoint.handleErrorManually !== false) {
+          this.applicationContext.handleError(error)
         }
         throw error
       })

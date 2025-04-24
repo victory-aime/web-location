@@ -8,18 +8,15 @@ import { ThinkingLottieAnimation } from '_lottie/animations/LottieAnimation'
 import { BaseText } from '_components/custom/base-text/BaseText'
 import { TextVariant } from '_components/custom/base-text'
 import ThinkBoxModal from './ThinkBoxModal'
-import { useQueryClient } from '@tanstack/react-query'
-import { TYPES } from 'bvg-innovation-shared'
 import { ListOrders } from './ListOrder'
 import { RecentOrders } from './RecentOrders'
 
 export const Dashboard = () => {
-  const queryClient = useQueryClient()
-  const cachedUser = queryClient.getQueryData<TYPES.MODELS.USERS.IUser>([UsersModule.constants.WOHAMI])
+  const cachedUser = UsersModule.cache.UserCache.getPrivate()
   const [openTinhBox, setOpenTinhBox] = useState(false)
 
   return (
-    <BoxContainer border={'none'} title={'Dashboard'} description={`Welcome back to your dashboard Admin Mr/Mrs. ${cachedUser?.name + '' + cachedUser?.firstName}`}>
+    <BoxContainer border={'none'} title={'Dashboard'} description={`Welcome back to your dashboard Admin Mr/Mrs. ${cachedUser?.name + ' ' + cachedUser?.firstName}`}>
       {/* <Flex gap={8} width={'full'} mt={50} overflowX={'auto'}>
         <For each={statData}>{(item, index) => <ReviewStats key={index} {...item} />}</For>
       </Flex> */}

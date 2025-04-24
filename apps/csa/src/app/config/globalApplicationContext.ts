@@ -1,5 +1,5 @@
 import { APIS } from 'bvg-innovation-shared'
-import { ApplicationContext } from 'bvg-innovation-frontend-business'
+import { ApplicationContext } from 'bvg-innovation-state-management'
 import { handleApiError } from '_utils/handleApiError'
 import { handleApiSuccess } from '_utils/handleApiSuccess'
 
@@ -43,7 +43,7 @@ export class GlobalApplicationContext extends ApplicationContext {
   }
 
   handleInfo(response: { data: any; status: number }) {
-    const message = response?.data?.message || ''
+    const message = response?.data?.message
     const status = response?.status
     handleApiSuccess({
       message,

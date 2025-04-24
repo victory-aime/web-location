@@ -1,7 +1,7 @@
 import { BadgeProps } from '@chakra-ui/react/badge'
 import { TYPES } from 'bvg-innovation-shared'
 
-type Status = TYPES.MODELS.PRODUCTS.OrderStatus | TYPES.MODELS.PRODUCTS.ProductStatus
+type Status = TYPES.MODELS.PRODUCTS.OrderItemStatus | TYPES.MODELS.PRODUCTS.ProductStatus
 
 type BadgeType = 'order' | 'product'
 

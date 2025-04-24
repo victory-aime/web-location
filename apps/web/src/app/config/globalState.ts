@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationInstance } from 'bvg-innovation-frontend-business'
+import { applicationInstance } from 'bvg-innovation-state-management'
 import { GlobalApplicationContext } from './globalApplicationContext'
 
 /**

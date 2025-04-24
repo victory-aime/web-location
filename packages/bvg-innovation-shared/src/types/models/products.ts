@@ -1,5 +1,5 @@
 export type ProductStatus = 'PUBLISH' | 'DISABLED' | 'DRAFT'
-export type OrderStatus = 'PENDING' | 'IN_PROGRESS' | 'CANCELED' | 'PAID' | 'DELIVERED'
+export type OrderItemStatus ="PENDING" | "SHIPPED" | "DELIVERED" | "CANCELED"
 
 export interface ICreateProduct extends IProduct {
   discountPrice?: number
@@ -46,7 +46,7 @@ export interface IProductsCategories {
 
 export interface IStatusOrder {
   label?: string
-  value?: OrderStatus
+  value?: OrderItemStatus
 }
 
 export interface IProductStatus {
