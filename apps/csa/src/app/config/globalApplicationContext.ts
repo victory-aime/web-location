@@ -11,7 +11,6 @@ import { handleApiSuccess } from '_utils/handleApiSuccess'
  */
 export class GlobalApplicationContext extends ApplicationContext {
   private readonly baseUrl: string
-  private triggerSessionError: (() => void) | null = null
 
   constructor(baseUrl: string) {
     super()
@@ -24,20 +23,11 @@ export class GlobalApplicationContext extends ApplicationContext {
   getApiConfig(): any {
     return APIS(this.baseUrl)
   }
-  /**
-   * Trigger display of alert on error occurred.
-   * It will be called mainly from the Core, but it can be called also from any other layer
-   * @param fn
-   */
-  setSessionErrorHandler(fn: () => void) {
-    this.triggerSessionError = fn
-  }
 
   handleError(response: { status: number; message: string }) {
     if (response?.status === 401) {
       super.setRefreshToken('')
       super.setToken('')
-      this.triggerSessionError?.()
       return
     } else handleApiError(response)
   }

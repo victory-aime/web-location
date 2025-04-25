@@ -15,6 +15,7 @@ export const DeleteProduct = ({ isOpen, onChange, selectedValues, deleteType = '
         onChange(false)
       }, 2200)
       ProductModule.ProductCache.invalidatePrivateProduct()
+      ProductModule.ProductCache.invalidateTrashList()
     },
   })
   const { mutateAsync: deleteProduct, isPending: deletePermanentlyPending } = ProductModule.permanentlyDeleteProductMutation({

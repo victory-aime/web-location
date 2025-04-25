@@ -54,6 +54,7 @@ interface TableProps {
   enabledSort?: boolean
   hidePagination?: boolean
   isLoading?: boolean
+  noDataFoundTitle?: string
   isShow?: {
     edit?: boolean
     delete?: boolean

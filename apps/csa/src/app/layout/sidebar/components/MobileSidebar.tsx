@@ -6,27 +6,24 @@ import { SwitchColorMode, BaseButton } from '_components/custom'
 import { UsersModule } from 'bvg-innovation-state-management'
 import { adminMenu } from '../route/routes'
 import { IMobileSidebar } from '../types'
-import { TYPES } from 'bvg-innovation-shared'
-import { useQueryClient } from '@tanstack/react-query'
 import { RenderLinks } from './RenderLinks'
 
 export const MobileSidebar = ({ isOpen, onClose, handleLogout }: IMobileSidebar) => {
-  const queryClient = useQueryClient()
-  const cachedUser = queryClient.getQueryData<TYPES.MODELS.USERS.IUser>([UsersModule.constants.WOHAMI])
+  const cachedUser = UsersModule.UserCache.getUser()
 
   return (
     <DrawerRoot open={isOpen} onOpenChange={onClose} placement={'start'} size={'xs'} closeOnEscape>
       <DrawerBackdrop />
       <DrawerContent height={'full'} bgColor={'#06524c'}>
-        <DrawerHeader>
-          <HStack p={5} justifyContent={'space-between'}>
-            <DrawerTitle>{cachedUser?.store?.name ?? ''}</DrawerTitle>
-            <DrawerActionTrigger asChild>
-              <IconButton aria-label="close-drawer" boxSize={'35px'} bgColor={'primary.500'} color={'white'} onClick={onClose}>
-                <IoIosCloseCircle />
-              </IconButton>
-            </DrawerActionTrigger>
-          </HStack>
+        <DrawerHeader display={'flex'} alignItems={'center'} justifyContent={'space-between'} p={5}>
+          <DrawerTitle color={'white'} fontSize={'2xl'}>
+            {cachedUser?.store?.name ?? ''}
+          </DrawerTitle>
+          <DrawerActionTrigger asChild>
+            <IconButton aria-label="close-drawer" boxSize={'35px'} bgColor={'primary.500'} color={'white'} onClick={onClose}>
+              <IoIosCloseCircle />
+            </IconButton>
+          </DrawerActionTrigger>
         </DrawerHeader>
         <DrawerBody width={'full'} height={'full'}>
           <VStack alignItems={'flex-start'} width={'full'} align="stretch" height="80%" overflow="auto">

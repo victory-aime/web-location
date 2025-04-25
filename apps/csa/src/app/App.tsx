@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import '_config/globalState'
 import React from 'react'
 import { Toaster } from '_components/ui/toaster'
 import { SessionProvider } from 'next-auth/react'

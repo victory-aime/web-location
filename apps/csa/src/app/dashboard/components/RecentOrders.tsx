@@ -68,15 +68,12 @@ export const RecentOrders = () => {
         </Flex>
       ) : (
         <Flex alignItems={'center'} justifyContent={'space-between'}>
-          {recentOrder?.content && (
-            <Flex alignItems={'center'} gap={4}>
-              <BaseText>Commandes récente (s)</BaseText>
-              <Badge rounded={'full'} p={2} bgColor={'primary.500'} color={'white'}>
-                {recentOrder?.content && recentOrder?.content?.length > 1 ? `+${recentOrder?.content?.length}  commandes` : `${recentOrder?.content?.length} commande`}
-              </Badge>
-            </Flex>
-          )}
-
+          <Flex alignItems={'center'} gap={4}>
+            <BaseText>Commandes récente (s)</BaseText>
+            <Badge rounded={'full'} p={2} bgColor={'primary.500'} color={'white'}>
+              {recentOrder?.content && recentOrder?.content?.length > 1 ? `+${recentOrder?.content?.length ?? 0}  commandes` : `${recentOrder?.content?.length ?? 0} commande`}
+            </Badge>
+          </Flex>
           <BoxIcon color={'secondary.500'}>
             <IoIosPaper />
           </BoxIcon>
@@ -92,6 +89,7 @@ export const RecentOrders = () => {
           totalItems={recentOrder?.totalPages}
           pageSize={recentOrder?.totalDataPerPage}
           hidePagination={recentOrder?.totalPages === 1}
+          noDataFoundTitle={'Aucune recente commande'}
         />
       </Box>
     </BoxContainer>

@@ -11,7 +11,7 @@ export const Header = ({ onShowSidebar, session }: SideBarProps) => {
   const { data: user, isLoading } = UsersModule.userInfoQueries({
     payload: { userId: session?.keycloakId ?? '' },
     queryOptions: {
-      enabled: !cachedUser && !!token,
+      enabled: !cachedUser,
     },
   })
 

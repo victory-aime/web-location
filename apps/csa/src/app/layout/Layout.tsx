@@ -1,14 +1,15 @@
 'use client'
 
 import { Box } from '@chakra-ui/react'
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import React, { FunctionComponent, useMemo, useState } from 'react'
 import { Session } from 'next-auth'
-import { decrypted } from '_utils/crypt'
 import { Header } from './header'
 import { Sidebar } from './sidebar'
 import { layoutStyle } from './styles'
 import { globalApplicationContext } from '_config/globalState'
 import { Container } from './container/Container'
+import { AppContext } from '_config/app-context'
+import { AppAuthProvider } from '_config/authProdiver'
 
 export const Layout: FunctionComponent<{
   children: React.ReactNode
@@ -34,29 +35,15 @@ export const Layout: FunctionComponent<{
     [isSidebarOpen]
   )
 
-  useEffect(() => {
-    if (session?.access_token && session?.refresh_token) {
-      const decodeToken = decrypted(session.access_token)
-      const decodeRefreshToken = decrypted(session.refresh_token)
-      globalApplicationContext.setToken(decodeToken)
-      globalApplicationContext.setRefreshToken(decodeRefreshToken)
-    }
-  }, [session])
-
-  useEffect(() => {
-    if (!session) {
-      globalApplicationContext.setToken('')
-      globalApplicationContext.setRefreshToken('')
-    }
-  }, [session])
-
   return (
-    <>
-      <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} session={session} />
-      <Box {...toggledLayoutStyle}>
-        <Header sideToggled={false} onShowSidebar={toggleSidebar} session={session} />
-        <Container>{children}</Container>
-      </Box>
-    </>
+    <AppAuthProvider>
+      <AppContext.Provider value={globalApplicationContext}>
+        <Sidebar sideToggled={isSidebarOpen} onShowSidebar={toggleSidebar} session={session} />
+        <Box {...toggledLayoutStyle}>
+          <Header sideToggled={false} onShowSidebar={toggleSidebar} session={session} />
+          <Container>{children}</Container>
+        </Box>
+      </AppContext.Provider>
+    </AppAuthProvider>
   )
 }

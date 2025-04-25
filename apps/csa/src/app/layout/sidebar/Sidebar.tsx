@@ -1,6 +1,5 @@
 'use client'
 import { Box, Flex, useBreakpointValue, VStack } from '@chakra-ui/react'
-import Image from 'next/image'
 import { VariablesColors } from '_theme/variables'
 import { LogOutIcon } from '_assets/svg'
 import { BaseButton, SwitchColorMode } from '_components/custom'
@@ -12,6 +11,7 @@ import useSideBarStyle from './hooks/useSidebarStyle'
 import { adminMenu } from './route/routes'
 import { SideBarProps } from './types'
 import { useState } from 'react'
+import { CiShop } from 'react-icons/ci'
 
 export const Sidebar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
   const { toggledSideBarStyle } = useSideBarStyle({
@@ -34,10 +34,10 @@ export const Sidebar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
           <Box display="flex" alignItems="center" justifyContent="center" onClick={onShowSidebar} mt={sideToggled ? 0 : 30} cursor="pointer">
             {sideToggled ? (
               <Flex width={'full'} minH={'100px'} alignItems={'center'} justifyContent={'center'}>
-                <Image src={'/assets/images/mouse.png'} draggable={false} alt={'logo-company'} width={120} height={120} />
+                <CiShop color={'white'} size={80} />
               </Flex>
             ) : (
-              <Image src={'/assets/images/mouse.png'} alt={'logo-company'} width={50} height={50} />
+              <CiShop color={'white'} size={40} />
             )}
           </Box>
           <VStack align="stretch" height="65%" overflow="auto">
@@ -46,7 +46,6 @@ export const Sidebar = ({ sideToggled, onShowSidebar }: SideBarProps) => {
 
           <Box pe={'10px'} ps={'10px'}>
             <SwitchColorMode />
-
             <BaseButton
               width={'full'}
               withGradient

@@ -23,6 +23,7 @@ export const CommonDataTable: FC<TableProps> = ({
   pageSize = 5,
   lazy = false,
   animationType = 'folder',
+  noDataFoundTitle = 'Aucun element trouve',
 }) => {
   const [selection, setSelection] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
@@ -67,7 +68,7 @@ export const CommonDataTable: FC<TableProps> = ({
             </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
               <BaseText variant={TextVariant.M} color={'gray.700'}>
-                Aucun element
+                {noDataFoundTitle}
               </BaseText>
             </Flex>
           </Center>
@@ -80,7 +81,7 @@ export const CommonDataTable: FC<TableProps> = ({
             </Flex>
             <Flex flexDir={'column'} alignItems={'center'} gap={2}>
               <BaseText variant={TextVariant.M} color={'gray.700'}>
-                Aucun element
+                {noDataFoundTitle}
               </BaseText>
             </Flex>
           </Center>
