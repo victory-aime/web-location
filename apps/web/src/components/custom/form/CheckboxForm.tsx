@@ -20,7 +20,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
           invalid={isError}
           value={field.value}
           onValueChange={(val) => {
-            setValue(val).then((r) => console.log(r))
+            setValue(val)
           }}
           name={field.name}
         >
@@ -41,7 +41,7 @@ const CheckboxForm: FC<CheckBoxProps> = ({ name, validate, label, items }) => {
           size={'lg'}
           colorPalette={field?.value ? 'green' : isError ? 'red' : 'none'}
           onCheckedChange={({ checked }) => {
-            setValue(checked).then((r) => console.log('checked', r))
+            setValue(checked)
           }}
           mb={4}
         >

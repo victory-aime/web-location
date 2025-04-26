@@ -31,10 +31,8 @@ export const authOptions = {
       } else if (nowTimeStamp < token.expires_at - 180) {
         return token
       } else {
-        console.log('Token has expired. Will refresh...')
         try {
           const refreshedToken = await refreshAccessToken(token?.refresh_token)
-          console.log('....Token is refreshed.')
           return {
             ...token,
             access_token: refreshedToken.access_token,
@@ -71,7 +69,8 @@ export const authOptions = {
       return baseUrl // Fallback to baseUrl if no other condition is met
     },
     pages: {
-      signIn: '/auth/signin', // Redirect to the sign-in page
+      signIn: '/auth/signin',
+      error: '/auth/error',
     },
   },
 }

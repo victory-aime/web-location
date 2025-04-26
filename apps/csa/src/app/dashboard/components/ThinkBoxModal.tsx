@@ -61,7 +61,6 @@ const ThinkBoxModal: FC<ModalOpenProps> = ({ isOpen, onChange, callback = () => 
         },
       })
     } catch (error) {
-      console.error('Error sending email:', error)
       onChange(false)
     } finally {
       setIsLoading(false)

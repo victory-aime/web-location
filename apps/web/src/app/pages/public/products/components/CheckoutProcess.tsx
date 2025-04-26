@@ -34,7 +34,6 @@ const CheckoutProcess = () => {
   })
   const { mutateAsync } = OrdersModule.useCreateNewUserOrderMutation({
     onSuccess: () => {
-      console.log('Mutation success: ouverture du modal')
       setOpenModal(true)
       clearCart()
     },
@@ -75,10 +74,6 @@ const CheckoutProcess = () => {
       setCurrentStep(index)
     }
   }
-
-  console.log('user?.id', !!cachedUser)
-  console.info('new user', newUser)
-  console.log('open modal', openModal)
 
   const sendOrder = async () => {
     const values: TYPES.MODELS.ORDERS.CreateOrderDto = {

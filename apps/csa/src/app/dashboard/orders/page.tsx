@@ -13,7 +13,11 @@ import { Box } from '@chakra-ui/react'
 const OrderListPage = () => {
   const router = useRouter()
   const user = UsersModule.UserCache.getUser()
-  const { data: storeOrderList, isLoading } = OrdersModule.getStoreOrderQueries({
+  const {
+    data: storeOrderList,
+    isLoading,
+    refetch,
+  } = OrdersModule.getStoreOrderQueries({
     payload: {
       filters: { storeId: user?.store?.id ?? null },
     },
@@ -78,7 +82,20 @@ const OrderListPage = () => {
   ]
 
   return (
-    <BoxContainer border={'none'} title="Liste des commandes" description="consultez vos commandes" loader={isLoading} numberOfLines={2}>
+    <BoxContainer
+      border={'none'}
+      title="Liste des commandes"
+      description="consultez vos commandes"
+      loader={isLoading}
+      numberOfLines={2}
+      withActionButtons
+      actionsButtonProps={{
+        isLoading,
+        onReload: () => {
+          refetch()
+        },
+      }}
+    >
       <Box mt={'30px'}>
         <CommonDataTable
           data={storeOrderList?.content}

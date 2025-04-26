@@ -18,9 +18,6 @@ export async function refreshAccessToken(refresh_token: any) {
       }
     )
     const refreshToken = resp.data
-
-    console.log('====>refresh token====> ')
-
     return {
       ...refresh_token,
       access_token: refreshToken?.access_token,
@@ -30,7 +27,5 @@ export async function refreshAccessToken(refresh_token: any) {
       expires_at: Math.floor(Date.now() / 1000) + refreshToken.expires_in,
       refresh_token: refreshToken?.refresh_token,
     }
-  } catch (e) {
-    console.error('Error refreshing access token', e)
-  }
+  } catch {}
 }

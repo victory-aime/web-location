@@ -13,9 +13,7 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (!session?.access_token) {
-      signIn('keycloak', { callbackUrl })
-        .then(() => setLoader(false))
-        .catch((error) => console.error('error', error))
+      signIn('keycloak', { callbackUrl }).then(() => setLoader(false))
     } else {
       router.push(APP_ROUTES.HOME)
     }

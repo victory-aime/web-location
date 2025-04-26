@@ -26,10 +26,12 @@ export interface ButtonBaseProps extends ButtonProps {
 export interface ActionButtonTypes extends FlexProps {
   cancelTitle?: string
   validateTitle?: string
+  refreshTitle?: string
   cancelColor?: variantColorType
   validateColor?: variantColorType
   goBackUrl?: string
   requestId?: string
   isLoading?: boolean
   onClick?: () => void
+  onReload?: () => void
 }

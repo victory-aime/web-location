@@ -1,5 +1,6 @@
 export const APP_ROUTES = {
   HOME: '/dashboard',
+  SIGN_OUT: '/auth/signout',
   ORDER: {
     LIST: '/dashboard/orders',
     DETAILS: '/dashboard/orders/details',

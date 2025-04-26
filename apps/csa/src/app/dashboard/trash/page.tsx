@@ -11,7 +11,11 @@ import { RenderProductImage } from '../products/components/RenderProductImage'
 
 const TrashPage = () => {
   const user = UsersModule.UserCache.getUser()
-  const { data: trashList, isLoading } = ProductModule.getTrashListQueries({
+  const {
+    data: trashList,
+    isLoading,
+    refetch,
+  } = ProductModule.getTrashListQueries({
     payload: {
       storeId: user?.store?.id ?? '',
     },
@@ -73,7 +77,6 @@ const TrashPage = () => {
         {
           name: 'restore',
           handleClick: async (value) => {
-            console.log('value restore', value?.id)
             await mutateAsync({ productId: value?.id })
           },
         },
@@ -89,7 +92,19 @@ const TrashPage = () => {
   ]
 
   return (
-    <BoxContainer title={'Corbeille'} description={"Seuls les produits supprimer s'affichent ici. Ils sont supprimes definitivement au bout de 30 jours"} border={'none'} width={'full'}>
+    <BoxContainer
+      title={'Corbeille'}
+      description={"Seuls les produits supprimer s'affichent ici. Ils sont supprimes definitivement au bout de 30 jours"}
+      border={'none'}
+      width={'full'}
+      withActionButtons
+      actionsButtonProps={{
+        isLoading,
+        onReload: () => {
+          refetch()
+        },
+      }}
+    >
       <Box mt={'30px'}>
         <CommonDataTable
           data={trashList?.content ?? []}

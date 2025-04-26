@@ -93,7 +93,6 @@ const Cart = () => {
                       min={1}
                       max={item?.stock}
                       disabled={false}
-                      onValueChange={(e) => console.log(e.value as unknown as number)}
                     />
                   </Flex>
                   {cart?.length > 2 && <Separator mt={3} mb={3} />}
@@ -129,7 +128,7 @@ const Cart = () => {
                     if (status === 'unauthenticated') {
                       signIn('keycloak', {
                         callbackUrl: APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS,
-                      }).then((r) => console.log('response', r))
+                      })
                     } else {
                       router.push(APP_ROUTES.PUBLIC.PRODUCTS_LIST.CART.PROCESS)
                     }

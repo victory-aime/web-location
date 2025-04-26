@@ -74,9 +74,9 @@ const DetailsProducts = () => {
       productId: findItem.id,
     }
     if (findItem.isInWishlist) {
-      removeFromWishlist(payload).then((r) => console.log('response', r))
+      removeFromWishlist(payload)
     } else {
-      addToWishlist(payload).then((r) => console.log('response', r))
+      addToWishlist(payload)
     }
   }, [session, findItem])
 

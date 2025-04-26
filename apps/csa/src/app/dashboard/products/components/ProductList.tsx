@@ -15,7 +15,11 @@ import { DeleteProduct } from './modal/DeleteProduct'
 
 export const ProductList = () => {
   const cachedUser = UsersModule.UserCache.getUser()
-  const { data: products, isLoading } = ProductModule.getPrivateProductQueries({
+  const {
+    data: products,
+    isLoading,
+    refetch,
+  } = ProductModule.getPrivateProductQueries({
     payload: {
       storeId: cachedUser?.store?.id ?? '',
     },
@@ -105,6 +109,9 @@ export const ProductList = () => {
         validateTitle: 'Ajouter un produit',
         onClick: () => {
           router.push(APP_ROUTES.PRODUCTS.ADD_EDIT)
+        },
+        onReload: () => {
+          refetch()
         },
       }}
     >

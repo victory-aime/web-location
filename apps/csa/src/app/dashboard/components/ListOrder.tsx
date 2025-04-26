@@ -31,15 +31,15 @@ export const ListOrders = () => {
         {
           name: 'edit',
           title: 'edit les value',
-          handleClick: (value) => console.log('value clicked', value),
+          handleClick: () => {},
         },
         {
           name: 'view',
-          handleClick: (value) => console.log('value clicked', value),
+          handleClick: () => {},
         },
         {
           name: 'delete',
-          handleClick: (value) => console.log('value clicked', value),
+          handleClick: () => {},
         },
       ],
     },

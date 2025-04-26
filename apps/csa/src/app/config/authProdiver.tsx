@@ -18,7 +18,6 @@ export const AppAuthProvider = ({ children }: { children: React.ReactNode }) => 
       try {
         setIsInitialized(true)
       } catch (error) {
-        console.error('Error decoding tokens:', error)
         setIsInitialized(false)
       }
     } else {

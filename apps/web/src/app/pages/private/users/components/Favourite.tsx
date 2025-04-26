@@ -15,9 +15,7 @@ const Favourite = ({ session }: { session: Session | null }) => {
   })
   const { mutateAsync } = WishlistModule.removeWishlistItemMutation({
     onSuccess: () => {
-      queryClient
-        .invalidateQueries({ queryKey: [WishlistModule.constants.USERS_WISHLIST] })
-        .catch((log) => console.log(log))
+      queryClient.invalidateQueries({ queryKey: [WishlistModule.constants.USERS_WISHLIST] })
     },
   })
 

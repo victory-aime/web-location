@@ -7,7 +7,7 @@ export const useSessionRefresh = (interval = 25 * 60 * 1000) => {
   useEffect(() => {
     const id = setInterval(() => {
       update().catch((e) => {
-        console.error('Failed to refresh session', e)
+       
         signIn('keycloak')
       })
     }, interval)

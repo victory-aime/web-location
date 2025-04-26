@@ -39,7 +39,7 @@ const ModalComponent = ({
           <DialogFooter mt={8}>
             {buttonCancelTitle && (
               <DialogActionTrigger asChild>
-                <BaseButton onClick={onChange} variant="outline">
+                <BaseButton disabled={isLoading} onClick={onChange} variant="outline">
                   {buttonCancelTitle}
                 </BaseButton>
               </DialogActionTrigger>

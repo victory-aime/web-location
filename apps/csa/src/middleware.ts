@@ -28,7 +28,7 @@ export default withAuth(
 
     // Vérifie si le token est disponible (utilisateur authentifié)
     if (!token) {
-      return NextResponse.redirect(new URL('/auth/signin', req.url))
+      return NextResponse.redirect(new URL('/auth/signout', req.url))
     }
 
     // Extraction des rôles de l'utilisateur depuis Keycloak
@@ -40,7 +40,7 @@ export default withAuth(
       if (pathname.startsWith(route)) {
         const hasAccess = allowedRoles.some((role) => userRoles.includes(role))
         if (!hasAccess) {
-          return NextResponse.redirect(new URL('/unauthorized', req.url))
+          return NextResponse.redirect(new URL('/auth/signin', req.url))
         }
       }
     }
@@ -57,13 +57,14 @@ export default withAuth(
       authorized: ({ token }: { token: any }): boolean => !!token,
     },
     pages: {
-      signIn: '/auth/signin', // Redirige vers NextAuth pour la connexion
+      signIn: '/auth/signin',
+      error: '/auth/error',
     },
   }
 )
 
 /**
- * Configuration du middleware pour matcher toutes les routes sous `/*`.
+ * Configuration du middleware pour matcher toutes les routes sous `/dashboard*`.
  */
 export const config = {
   matcher: ['/dashboard/:path*'],

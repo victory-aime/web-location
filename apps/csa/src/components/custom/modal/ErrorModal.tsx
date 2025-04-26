@@ -5,11 +5,12 @@ import { signIn } from 'next-auth/react'
 import { PiWarningBold } from 'react-icons/pi'
 import { BaseText, ModalComponent } from '_components/custom'
 import { hexToRGB } from '_theme/colors'
-import { keycloakSessionLogOut } from '_hooks/logout'
 import { Session } from 'next-auth'
+import { useRouter } from 'next/navigation'
 
 export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   const [showSessionError, setShowSessionError] = useState(false)
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -28,12 +29,6 @@ export const SessionErrorModal = ({ session }: { session: Session | null }) => {
   return (
     <ModalComponent
       open={showSessionError}
-      buttonCancelTitle="Se Deconnecter"
-      onChange={() =>
-        keycloakSessionLogOut().then(() => {
-          setLoading(true)
-        })
-      }
       icon={<PiWarningBold size={22} color="#f97316" />}
       iconBackroungColor={hexToRGB('orange', 0.4)}
       title={'Session Expire'}

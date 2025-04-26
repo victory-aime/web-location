@@ -17,7 +17,6 @@ export const extractArrays = (data: ObjectItem[]): { labels: string[]; values: {
 
   // Vérifier que data est un tableau avant d'utiliser forEach
   if (!Array.isArray(data)) {
-    console.error('Data is not an array:', data)
     return result // Retourner un objet vide par défaut
   }
 

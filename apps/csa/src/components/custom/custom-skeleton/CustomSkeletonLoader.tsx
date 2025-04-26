@@ -18,22 +18,11 @@ export const CustomSkeletonLoader: FunctionComponent<CustomSkeletonLoaderProps> 
 
   const TableLoader = (
     <Table.Root minH={height}>
-      <Table.Header>
-        <Table.Row>
-          {Array.from({ length: Math.max(1, tableColumns) }, (_, i) => (
-            <Table.Header key={`Thead-${i}`}>
-              <Skeleton variant={variant} h="5px" />
-            </Table.Header>
-          ))}
-        </Table.Row>
-      </Table.Header>
       <Table.Body minH="190px">
         {Array.from({ length: Math.max(1, tableRows) }, (_, j) => (
           <Table.Row key={`StyledTr-${j}`}>
             {Array.from({ length: Math.max(1, tableColumns) }, (_, k) => (
-              <Table.Cell key={`StyledTd-${j}-${k}`}>
-                <Skeleton height="25px" variant={variant} />
-              </Table.Cell>
+              <Skeleton key={`StyledTd-${j}-${k}`} height="25px" variant={variant} />
             ))}
           </Table.Row>
         ))}

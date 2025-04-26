@@ -39,7 +39,7 @@ const Profile = ({ session }: { session: Session | null }) => {
           email: formikRef.current.values?.email,
         },
       })
-      queryClient.invalidateQueries({ queryKey: [UsersModule.constants.WOHAMI] }).catch((r) => console.log(r))
+      queryClient.invalidateQueries({ queryKey: [UsersModule.constants.WOHAMI] })
       setEnableEdit(false)
     },
   })

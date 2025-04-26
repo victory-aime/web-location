@@ -11,16 +11,7 @@ import ThinkBoxModal from './ThinkBoxModal'
 import { RecentOrders } from './RecentOrders'
 
 export const Dashboard = () => {
-  const cachedUser = UsersModule.UserCache.getUser()
   const [openTinhBox, setOpenTinhBox] = useState(false)
-  const [pendingUser, setPendingUser] = useState(false)
-  const responsiveMode = useBreakpointValue({ base: false, lg: true })
-
-  useEffect(() => {
-    if (!cachedUser) {
-      setPendingUser(true)
-    }
-  }, [cachedUser])
 
   return (
     <BoxContainer border={'none'} title={'Tableau de bord'} description={`Bienvenu sur votre tableau de bord`}>

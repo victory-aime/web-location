@@ -1,16 +1,21 @@
 'use client'
 
 import { Badge, Box, Flex } from '@chakra-ui/react'
-import { BoxIcon, BoxContainer, CustomBadge, CommonDataTable, BaseText, CustomFormatNumber, CustomSkeletonLoader } from '_components/custom'
+import { BoxIcon, BoxContainer, CustomBadge, CommonDataTable, BaseText, CustomFormatNumber, CustomSkeletonLoader, BaseButton } from '_components/custom'
 import { ColumnsDataTable } from '_components/custom/data-table/interface/data-types'
 import React from 'react'
 import { IoIosPaper } from 'react-icons/io'
 import { OrdersModule, UsersModule } from 'bvg-innovation-state-management'
 import { UTILS } from 'bvg-innovation-shared'
+import { GoSync } from 'react-icons/go'
 
 export const RecentOrders = () => {
   const cacheUser = UsersModule.UserCache.getUser()
-  const { data: recentOrder, isLoading } = OrdersModule.getStoreOrderQueries({
+  const {
+    data: recentOrder,
+    isLoading,
+    refetch,
+  } = OrdersModule.getStoreOrderQueries({
     payload: {
       filters: {
         storeId: cacheUser?.store?.id ?? null,
@@ -74,9 +79,14 @@ export const RecentOrders = () => {
               {recentOrder?.content && recentOrder?.content?.length > 1 ? `+${recentOrder?.content?.length ?? 0}  commandes` : `${recentOrder?.content?.length ?? 0} commande`}
             </Badge>
           </Flex>
-          <BoxIcon color={'secondary.500'}>
-            <IoIosPaper />
-          </BoxIcon>
+          <Flex alignItems={'center'} gap={4}>
+            <BaseButton onClick={() => refetch()} px={'15px'} colorType={'primary'} withGradient isLoading={isLoading} leftIcon={<GoSync />}>
+              Rafraichir les donnees
+            </BaseButton>
+            <BoxIcon color={'secondary.500'}>
+              <IoIosPaper />
+            </BoxIcon>
+          </Flex>
         </Flex>
       )}
 
