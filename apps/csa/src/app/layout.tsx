@@ -23,16 +23,6 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(authOptions)
 
-  if (!session) {
-    return (
-      <html className={`${lato.variable}`} suppressHydrationWarning>
-        <body>
-          <GlobalApplication session={session}>{children}</GlobalApplication>
-        </body>
-      </html>
-    )
-  }
-
   return (
     <html className={`${lato.variable}`} suppressHydrationWarning>
       <body>
