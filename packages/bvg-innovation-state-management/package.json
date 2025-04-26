@@ -1,6 +1,6 @@
 {
   "name": "bvg-innovation-state-management",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
