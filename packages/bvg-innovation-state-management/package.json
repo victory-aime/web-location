@@ -1,6 +1,6 @@
 {
   "name": "bvg-innovation-state-management",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -13,6 +13,9 @@
       "types": "./lib/index.d.ts"
     }
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "clean": "rimraf lib",
     "build": "rollup -c",
@@ -45,6 +48,6 @@
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": "^18"
   }
 }
