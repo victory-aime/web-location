@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, VStack, HStack, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Flex, VStack, HStack, useBreakpointValue, createListCollection } from '@chakra-ui/react'
 import { BaseText, TextVariant, TextWeight, BoxIcon, FormSelect, CustomBadge, CustomToolTip, BaseButton } from '_components/custom'
 import { Formik, FormikValues } from 'formik'
 import React, { useState } from 'react'
@@ -22,6 +22,15 @@ export const OrderInfo = ({
 }) => {
   const [edit, setEdit] = useState<boolean>(false)
   const responsive = useBreakpointValue({ base: false, lg: true })
+  const statusOrdersList = () => {
+    return createListCollection({
+      items:
+        TYPES.CONSTANTS.PRODUCTS.statusOrderType?.map((item) => ({
+          label: item.label,
+          value: item.value as TYPES.MODELS.PRODUCTS.IStatusOrder,
+        })) || [],
+    })
+  }
 
   return (
     <Box width={'full'}>
@@ -40,7 +49,7 @@ export const OrderInfo = ({
                     name="status"
                     isClearable={false}
                     isDisabled={!edit}
-                    listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.statusOrdersList()}
+                    listItems={statusOrdersList() as unknown as any}
                     setFieldValue={setFieldValue}
                     customRenderSelected={(selectedItems) => (
                       <>
@@ -59,7 +68,7 @@ export const OrderInfo = ({
                       name="status"
                       isClearable={false}
                       isDisabled={!edit}
-                      listItems={TYPES.FUNCTIONS.SELECT_COLLECTION.statusOrdersList()}
+                      listItems={statusOrdersList() as unknown as any}
                       setFieldValue={setFieldValue}
                       customRenderSelected={(selectedItems) => (
                         <>
