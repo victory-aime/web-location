@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/victory-aime/web-location/compare/v1.0.0...v1.0.1) (2025-05-08)
+
+
+### Bug Fixes
+
+* 🐛 correct packages ([2078f09](https://github.com/victory-aime/web-location/commit/2078f094e107cea0e0d05030be6b31cabd29f644))
+
 # 1.0.0 (2025-05-08)
 
 
