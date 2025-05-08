@@ -47,5 +47,6 @@
     "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.13",
     "yup": "^1.6.1"
-  }
+  },
+  "gitHead": "ff4c929b1ee13f207010e526cba68d10fd9a3190"
 }

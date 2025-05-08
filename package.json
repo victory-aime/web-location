@@ -46,7 +46,7 @@
     "watch:libs": "lerna run watch --stream",
     "clean:libs": "lerna run clean --stream",
     "prepare:libs": "lerna run prepare --stream",
-    "publish:libs": "lerna publish --no-private",
+    "publish:libs": "lerna publish --no-private --yes",
     "prettier:libs": "lerna run prettier --stream",
     "prettier:fix:libs": "lerna run prettier:fix --stream",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
