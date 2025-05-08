@@ -14,7 +14,8 @@
     }
   },
   "files": [
-    "lib"
+    "lib",
+    "package.json"
   ],
   "scripts": {
     "clean": "rimraf lib",
@@ -50,5 +51,5 @@
   "peerDependencies": {
     "react": "^18"
   },
-  "gitHead": "ff4c929b1ee13f207010e526cba68d10fd9a3190"
+  "gitHead": "4ac59ef8f20cb0706ec63d63ecc5273a3af23423"
 }
