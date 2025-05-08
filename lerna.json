@@ -1,5 +1,23 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "1.0.0",
-  "npmClient": "yarn"
+  "version": "2.0.0-alpha.0",
+  "npmClient": "yarn",
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ],
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "apps/web/**",
+        "apps/csa/**"
+      ]
+    },
+    "version": {
+      "ignoreChanges": [
+        "apps/web/**",
+        "apps/csa/**"
+      ]
+    }
+  }
 }

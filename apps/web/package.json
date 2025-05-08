@@ -11,9 +11,9 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
-    "next": "15.3.0",
-    "bvg-innovation-shared": "*",
-    "bvg-innovation-state-management": "*",
-    "bvg-innovation-frontend-business": "*"
+    "bvg-innovation-frontend-business": "^2.0.0-alpha.0",
+    "bvg-innovation-shared": "^2.0.0-alpha.0",
+    "bvg-innovation-state-management": "^2.0.0-alpha.0",
+    "next": "15.3.0"
   }
 }
