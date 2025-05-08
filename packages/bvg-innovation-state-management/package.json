@@ -1,6 +1,6 @@
 {
   "name": "bvg-innovation-state-management",
-  "version": "0.0.6",
+  "version": "1.0.0-alpha.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -39,8 +39,8 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.2",
-    "bvg-innovation-frontend-business": "*",
-    "bvg-innovation-shared": "*",
+    "bvg-innovation-frontend-business": "^1.0.0-alpha.0",
+    "bvg-innovation-shared": "^1.0.0-alpha.0",
     "rimraf": "^5.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.1.0",
